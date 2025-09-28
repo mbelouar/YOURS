@@ -1,148 +1,148 @@
-# YOURS - Système intelligent de gestion de location de matériel
+# YOURS - Intelligent Equipment Rental Management System
 
-**YOURS** est un système intelligent de gestion de location de matériel (caméras, outils, équipements) qui combine une application Java JEE avec des services d'intelligence artificielle Python pour optimiser la gestion des locations.
+**YOURS** is an intelligent equipment rental management system (cameras, tools, equipment) that combines a Java JEE application with Python artificial intelligence services to optimize rental management.
 
 ## 🏗️ Architecture
 
-Le système est composé de trois services principaux orchestrés avec Docker :
+The system consists of three main services orchestrated with Docker:
 
-- **🌐 Application Java JEE** (Tomcat) - Interface web et API REST
-- **🤖 Service IA Python** (Flask) - Prédictions et analyses intelligentes
-- **🗄️ Base de données MySQL** - Stockage persistant des données
+- **🌐 Java JEE Application** (Tomcat) - Web interface and REST API
+- **🤖 Python AI Service** (Flask) - Intelligent predictions and analytics
+- **🗄️ MySQL Database** - Persistent data storage
 
-## 🚀 Démarrage rapide
+## 🚀 Quick Start
 
-### Prérequis
+### Prerequisites
 
-- Docker et Docker Compose installés
-- Git (pour cloner le projet)
+- Docker and Docker Compose installed
+- Git (for cloning the project)
 
-### Installation et lancement
+### Installation and Launch
 
-1. **Cloner le projet**
+1. **Clone the project**
 
    ```bash
    git clone <repository-url>
    cd YOURS
    ```
 
-2. **Configurer l'environnement**
+2. **Configure environment**
 
    ```bash
    cp env.template .env
-   # Éditer .env avec vos paramètres (mots de passe, ports, etc.)
+   # Edit .env with your parameters (passwords, ports, etc.)
    ```
 
-3. **Lancer tous les services**
+3. **Launch all services**
 
    ```bash
    docker-compose up -d
    ```
 
-4. **Vérifier que tout fonctionne**
+4. **Verify everything is working**
    ```bash
    docker-compose ps
    ```
 
-## 📋 Services et Accès
+## 📋 Services and Access
 
-Une fois lancé, les services sont accessibles aux adresses suivantes :
+Once launched, the services are accessible at the following addresses:
 
-| Service                   | URL                   | Port | Description                     |
-| ------------------------- | --------------------- | ---- | ------------------------------- |
-| **Application Java**      | http://localhost:8080 | 8080 | Interface web principale        |
-| **Service IA Python**     | http://localhost:5000 | 5000 | API d'intelligence artificielle |
-| **Base de données MySQL** | http://localhost:3306 | 3306 | Base de données (accès direct)  |
+| Service                | URL                   | Port | Description                     |
+| ---------------------- | --------------------- | ---- | ------------------------------- |
+| **Java Application**   | http://localhost:8080 | 8080 | Main web interface              |
+| **Python AI Service**  | http://localhost:5001 | 5001 | Artificial intelligence API     |
+| **MySQL Database**     | localhost:3306        | 3306 | Database (direct access)        |
 
-## 🛠️ Commandes Docker utiles
+## 🛠️ Useful Docker Commands
 
-### Gestion des services
+### Service Management
 
 ```bash
-# Lancer tous les services
+# Launch all services
 docker-compose up -d
 
-# Arrêter tous les services
+# Stop all services
 docker-compose down
 
-# Voir les logs en temps réel
+# View logs in real-time
 docker-compose logs -f
 
-# Redémarrer un service spécifique
-docker-compose restart tomcat
+# Restart a specific service
+docker-compose restart java-app
 docker-compose restart ai-service
-docker-compose restart mysql
+docker-compose restart mysql-db
 
-# Reconstruire et relancer
+# Rebuild and relaunch
 docker-compose up --build -d
 ```
 
 ### Maintenance
 
 ```bash
-# Voir l'état des conteneurs
+# View container status
 docker-compose ps
 
-# Accéder au conteneur MySQL
-docker-compose exec mysql mysql -u yours_user -p yours_db
+# Access MySQL container
+docker-compose exec mysql-db mysql -u yours_user -p yours_db
 
-# Accéder aux logs d'un service
-docker-compose logs tomcat
+# Access service logs
+docker-compose logs java-app
 docker-compose logs ai-service
-docker-compose logs mysql
+docker-compose logs mysql-db
 
-# Nettoyer les volumes (⚠️ supprime les données)
+# Clean volumes (⚠️ deletes data)
 docker-compose down -v
 ```
 
 ## 🔧 Configuration
 
-### Variables d'environnement
+### Environment Variables
 
-Le fichier `.env` contient toutes les configurations :
+The `.env` file contains all configurations:
 
 ```bash
-# Base de données
-MYSQL_ROOT_PASSWORD=votre_mot_de_passe_root
+# Database
+MYSQL_ROOT_PASSWORD=your_root_password
 MYSQL_DATABASE=yours_db
 MYSQL_USER=yours_user
-MYSQL_PASSWORD=votre_mot_de_passe
+MYSQL_PASSWORD=your_password
 
-# Ports des services
+# Service Ports
 TOMCAT_PORT=8080
-AI_SERVICE_PORT=5000
+AI_SERVICE_PORT=5001
 MYSQL_PORT=3306
 
-# Configuration de l'application
+# Application Configuration
 APP_NAME=YOURS
 APP_VERSION=1.0.0
 ```
 
-### Persistance des données
+### Data Persistence
 
-Les données sont stockées dans des volumes Docker nommés :
+Data is stored in named Docker volumes:
 
-- `mysql_data` - Base de données MySQL
-- `ai_models` - Modèles d'IA entraînés
-- `ai_data` - Données d'entraînement
-- `tomcat_logs` - Logs de l'application Java
+- `mysql_data` - MySQL database
+- `ai_models` - Trained AI models
+- `ai_data` - Training data
+- `tomcat_logs` - Java application logs
 
-## 🤖 Service d'Intelligence Artificielle
+## 🤖 Artificial Intelligence Service
 
-### Endpoints disponibles
+### Available Endpoints
 
-Le service IA expose plusieurs endpoints pour l'analyse et la prédiction :
+The AI service exposes several endpoints for analysis and prediction:
 
-#### Santé du service
+#### Service Health
 
 ```bash
-GET http://localhost:5000/health
+GET http://localhost:5001/health
 ```
 
-#### Prédiction de demande
+#### Demand Prediction
 
 ```bash
-POST http://localhost:5000/api/predict/demand
+POST http://localhost:5001/api/predict/demand
 Content-Type: application/json
 
 {
@@ -151,10 +151,10 @@ Content-Type: application/json
 }
 ```
 
-#### Analyse d'équipement
+#### Equipment Analysis
 
 ```bash
-POST http://localhost:5000/api/analyze/equipment
+POST http://localhost:5001/api/analyze/equipment
 Content-Type: application/json
 
 {
@@ -162,19 +162,19 @@ Content-Type: application/json
 }
 ```
 
-#### Classification d'image
+#### Image Classification
 
 ```bash
-POST http://localhost:5000/api/classify/image
+POST http://localhost:5001/api/classify/image
 Content-Type: multipart/form-data
 
-image: [fichier_image]
+image: [image_file]
 ```
 
-#### Optimisation de prix
+#### Price Optimization
 
 ```bash
-POST http://localhost:5000/api/optimize/pricing
+POST http://localhost:5001/api/optimize/pricing
 Content-Type: application/json
 
 {
@@ -183,179 +183,211 @@ Content-Type: application/json
 }
 ```
 
-### Modèles d'IA inclus
+### Included AI Models
 
-- **Régression linéaire** - Prédiction de demande et optimisation de prix
-- **CNN (Réseau de neurones convolutifs)** - Classification d'équipements par image
-- **Analyse de patterns** - Analyse des tendances d'utilisation
-- **Prédicteur de demande** - Prévisions basées sur les séries temporelles
+- **Linear Regression** - Demand prediction and price optimization
+- **CNN (Convolutional Neural Network)** - Equipment classification by image
+- **Pattern Analysis** - Usage trend analysis
+- **Demand Predictor** - Forecasts based on time series
 
-## 🌐 Application Java
+## 🌐 Java Application
 
-### Structure MVC
+### MVC Structure
 
 ```
 java-app/
 ├── src/main/java/com/yours/
-│   ├── controller/     # Contrôleurs MVC
-│   ├── service/        # Logique métier
-│   ├── model/          # Modèles de données
-│   ├── dao/            # Accès aux données
+│   ├── controller/     # MVC Controllers
+│   ├── service/        # Business Logic
+│   ├── model/          # Data Models
+│   ├── dao/            # Data Access Objects
 │   └── config/         # Configuration
 ├── src/main/webapp/
-│   ├── WEB-INF/        # Configuration web
-│   └── static/         # Ressources statiques
-└── pom.xml             # Configuration Maven
+│   ├── WEB-INF/        # Web Configuration
+│   └── static/         # Static Resources
+└── pom.xml             # Maven Configuration
 ```
 
-### API REST
+### REST API
 
-L'application expose une API REST pour :
+The application exposes a REST API for:
 
-- Gestion des équipements (CRUD)
-- Gestion des locations
-- Intégration avec le service IA
-- Rapports et analyses
+- Equipment management (CRUD)
+- Rental management
+- Integration with AI service
+- Reports and analytics
 
-## 🗄️ Base de données
+## 🗄️ Database
 
-### Structure MySQL
+### MySQL Structure
 
-La base de données contient les tables suivantes :
+The database contains the following tables:
 
-- `equipment` - Équipements disponibles
-- `rentals` - Historique des locations
-- `customers` - Clients
-- `ai_predictions` - Prédictions IA
-- `ai_models` - Métadonnées des modèles
+- `equipment` - Available equipment
+- `rentals` - Rental history
+- `customers` - Customers
+- `ai_predictions` - AI predictions
+- `ai_models` - Model metadata
 
-### Initialisation
+### Initialization
 
-Les scripts d'initialisation sont dans `database/init/` et s'exécutent automatiquement au premier démarrage.
+Initialization scripts are in `database/init/` and run automatically on first startup.
 
-## 🔍 Développement
+## 🔍 Development
 
-### Ajouter de nouvelles fonctionnalités
+### Adding New Features
 
-1. **Pour l'application Java** :
+1. **For Java Application**:
 
-   - Ajouter les contrôleurs dans `java-app/src/main/java/com/yours/controller/`
-   - Implémenter la logique dans `service/`
-   - Mettre à jour les modèles dans `model/`
+   - Add controllers in `java-app/src/main/java/com/yours/controller/`
+   - Implement logic in `service/`
+   - Update models in `model/`
 
-2. **Pour le service IA** :
-   - Ajouter de nouveaux modèles dans `ai-service/models/`
-   - Implémenter les services dans `ai-service/services/`
-   - Exposer les endpoints dans `ai-service/app.py`
+2. **For AI Service**:
+   - Add new models in `ai-service/models/`
+   - Implement services in `ai-service/services/`
+   - Expose endpoints in `ai-service/app.py`
 
-### Tests
+### Testing
 
 ```bash
-# Tests du service IA
+# AI service tests
 cd ai-service
 python -m pytest
 
-# Tests de l'application Java
+# Java application tests
 cd java-app
 mvn test
 ```
 
 ### Logs
 
-Les logs sont disponibles via Docker Compose :
+Logs are available via Docker Compose:
 
 ```bash
-# Logs en temps réel
+# Real-time logs
 docker-compose logs -f
 
-# Logs d'un service spécifique
-docker-compose logs -f tomcat
+# Specific service logs
+docker-compose logs -f java-app
 docker-compose logs -f ai-service
 ```
 
-## 🚨 Dépannage
+## 🚨 Troubleshooting
 
-### Problèmes courants
+### Common Issues
 
-**Les services ne démarrent pas :**
+**Services won't start:**
 
 ```bash
-# Vérifier les logs
+# Check logs
 docker-compose logs
 
-# Vérifier la configuration
+# Verify configuration
 docker-compose config
 
-# Redémarrer avec reconstruction
+# Restart with rebuild
 docker-compose down
 docker-compose up --build -d
 ```
 
-**Problème de connexion à la base de données :**
+**Database connection issues:**
 
 ```bash
-# Vérifier que MySQL est démarré
-docker-compose ps mysql
+# Verify MySQL is running
+docker-compose ps mysql-db
 
-# Tester la connexion
-docker-compose exec mysql mysql -u yours_user -p yours_db
+# Test connection
+docker-compose exec mysql-db mysql -u yours_user -p yours_db
 ```
 
-**Service IA non accessible :**
+**AI service not accessible:**
 
 ```bash
-# Vérifier les logs
+# Check logs
 docker-compose logs ai-service
 
-# Tester l'endpoint de santé
-curl http://localhost:5000/health
+# Test health endpoint
+curl http://localhost:5001/health
 ```
 
-### Nettoyage complet
+### Complete Cleanup
 
 ```bash
-# Arrêter et supprimer tout
+# Stop and remove everything
 docker-compose down -v --rmi all
 
-# Nettoyer les images Docker inutilisées
+# Clean unused Docker images
 docker system prune -a
 
-# Relancer
+# Relaunch
 docker-compose up --build -d
 ```
 
-## 📚 Documentation API
+## 📚 API Documentation
 
-### Application Java
+### Java Application
 
-- Interface web : http://localhost:8080
-- API REST : http://localhost:8080/yours/api/
+- Web interface: http://localhost:8080
+- REST API: http://localhost:8080/yours/api/
 
-### Service IA
+### AI Service
 
-- Documentation : http://localhost:5000/health
-- Endpoints : http://localhost:5000/api/
+- Documentation: http://localhost:5001/health
+- Endpoints: http://localhost:5001/api/
 
-## 🤝 Contribution
+## 👥 Team Development
 
-1. Fork le projet
-2. Créer une branche feature (`git checkout -b feature/nouvelle-fonctionnalite`)
-3. Commit vos changements (`git commit -am 'Ajouter nouvelle fonctionnalité'`)
-4. Push vers la branche (`git push origin feature/nouvelle-fonctionnalite`)
-5. Créer une Pull Request
+This project uses a **3-developer team structure** with specialized branches:
 
-## 📄 Licence
+### 🌿 Branch Structure
 
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+| Branch | Developer | Focus Area | Technology |
+|--------|-----------|------------|------------|
+| `backend-database` | **Developer 1** | Backend & Database | Java JEE, MySQL |
+| `ai-analytics` | **Developer 2** | AI & Analytics | Python, TensorFlow |
+| `frontend-ui` | **Developer 3** | Frontend & UI/UX | JSP, HTML/CSS/JS |
+
+### 📋 Team Documentation
+
+- **`TEAM_ROLES.md`** - Detailed responsibilities and tasks for each developer
+- **`BRANCH_MANAGEMENT.md`** - Git workflow and branch management guide
+
+### 🔄 Development Workflow
+
+```bash
+# Switch to your assigned branch
+git checkout backend-database  # or ai-analytics or frontend-ui
+
+# Daily workflow
+git pull origin main
+git merge main  # if needed
+# ... work on features ...
+git add .
+git commit -m "Add: feature description"
+git push origin your-branch-name
+```
+
+## 🤝 Contributing
+
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/new-feature`)
+3. Commit your changes (`git commit -am 'Add new feature'`)
+4. Push to the branch (`git push origin feature/new-feature`)
+5. Create a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
 
 ## 🆘 Support
 
-Pour toute question ou problème :
+For any questions or issues:
 
-- Créer une issue sur GitHub
-- Consulter les logs avec `docker-compose logs`
-- Vérifier la configuration dans `.env`
+- Create an issue on GitHub
+- Check logs with `docker-compose logs`
+- Verify configuration in `.env`
 
 ---
 
-**YOURS** - Système intelligent de gestion de location de matériel 🎥📹🔧
+**YOURS** - Intelligent Equipment Rental Management System 🎥📹🔧
