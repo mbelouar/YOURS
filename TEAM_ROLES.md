@@ -1,7 +1,9 @@
 # 👥 **YOURS Project - Team Roles & Responsibilities**
 
 ## 🎯 **Project Overview**
+
 **YOURS – Système intelligent de gestion de location de matériel**
+
 - **Technology Stack:** Java JEE, Python Flask, MySQL, Docker
 - **Architecture:** Microservices with AI integration
 - **Team Size:** 3 Developers
@@ -10,18 +12,20 @@
 
 ## 🌿 **Branch Structure**
 
-| Branch | Developer | Focus Area | Primary Technology |
-|--------|-----------|------------|-------------------|
-| `backend-database` | **Developer 1** | Backend & Database | Java JEE, MySQL |
-| `ai-analytics` | **Developer 2** | AI & Analytics | Python, TensorFlow |
-| `frontend-ui` | **Developer 3** | Frontend & UI/UX | JSP, HTML/CSS/JS |
+| Branch             | Developer       | Focus Area         | Primary Technology |
+| ------------------ | --------------- | ------------------ | ------------------ |
+| `backend-database` | **Developer 1** | Backend & Database | Java JEE, MySQL    |
+| `ai-analytics`     | **Developer 2** | AI & Analytics     | Python, TensorFlow |
+| `frontend-ui`      | **Developer 3** | Frontend & UI/UX   | JSP, HTML/CSS/JS   |
 
 ---
 
 ## 👨‍💻 **Developer 1: Backend & Database**
+
 **Branch: `backend-database`**
 
 ### **🎯 Primary Responsibilities**
+
 - **Java JEE Application Development**
 - **Database Management & Optimization**
 - **REST API Development**
@@ -29,6 +33,7 @@
 - **System Integration**
 
 ### **📁 Files to Work On**
+
 ```
 java-app/src/main/java/com/yours/
 ├── controller/          ← REST API endpoints
@@ -59,19 +64,23 @@ database/init/
 ```
 
 ### **🚀 Key Tasks**
+
 1. **Implement REST API Endpoints**
+
    - Equipment CRUD operations
    - Rental management
    - Customer management
    - Authentication endpoints
 
 2. **Database Layer**
+
    - Optimize SQL queries
    - Implement connection pooling
    - Add data validation
    - Handle transactions
 
 3. **Business Logic**
+
    - Rental validation rules
    - Equipment availability checks
    - Pricing calculations
@@ -84,6 +93,7 @@ database/init/
    - Add logging and monitoring
 
 ### **🔧 Development Commands**
+
 ```bash
 # Switch to your branch
 git checkout backend-database
@@ -102,9 +112,11 @@ docker exec -it yours-mysql mysql -u yours_user -p yours_db
 ---
 
 ## 🤖 **Developer 2: AI & Analytics**
+
 **Branch: `ai-analytics`**
 
 ### **🎯 Primary Responsibilities**
+
 - **Machine Learning Model Development**
 - **AI Prediction Services**
 - **Data Analytics & Processing**
@@ -112,6 +124,7 @@ docker exec -it yours-mysql mysql -u yours_user -p yours_db
 - **AI API Development**
 
 ### **📁 Files to Work On**
+
 ```
 ai-service/
 ├── app.py              ← Flask API endpoints
@@ -138,19 +151,23 @@ ai-service/
 ```
 
 ### **🚀 Key Tasks**
+
 1. **AI Model Development**
+
    - Implement demand prediction algorithms
    - Fix OpenCV issues for CNN classifier
    - Build pricing optimization models
    - Create equipment recommendation engine
 
 2. **Prediction Services**
+
    - Equipment demand forecasting
    - Optimal pricing suggestions
    - Equipment utilization analysis
    - Maintenance prediction
 
 3. **Data Processing**
+
    - Historical rental data analysis
    - Equipment performance metrics
    - Customer behavior patterns
@@ -163,6 +180,7 @@ ai-service/
    - Analytics dashboards
 
 ### **🔧 Development Commands**
+
 ```bash
 # Switch to your branch
 git checkout ai-analytics
@@ -183,9 +201,11 @@ python ai-service/models/regression_model.py
 ---
 
 ## 🎨 **Developer 3: Frontend & UI/UX**
+
 **Branch: `frontend-ui`**
 
 ### **🎯 Primary Responsibilities**
+
 - **User Interface Development**
 - **User Experience Design**
 - **Frontend Integration**
@@ -193,6 +213,7 @@ python ai-service/models/regression_model.py
 - **Interactive Features**
 
 ### **📁 Files to Work On**
+
 ```
 java-app/src/main/webapp/
 ├── *.jsp              ← JSP pages
@@ -219,19 +240,23 @@ java-app/src/main/webapp/
 ```
 
 ### **🚀 Key Tasks**
+
 1. **User Interface Design**
+
    - Equipment browsing interface
    - Rental booking system
    - Customer dashboard
    - Admin management panel
 
 2. **User Experience**
+
    - Intuitive navigation
    - Search and filtering
    - Form validations
    - Error handling
 
 3. **Responsive Design**
+
    - Mobile-friendly interface
    - Tablet optimization
    - Cross-browser compatibility
@@ -244,6 +269,7 @@ java-app/src/main/webapp/
    - AJAX form submissions
 
 ### **🔧 Development Commands**
+
 ```bash
 # Switch to your branch
 git checkout frontend-ui
@@ -263,7 +289,9 @@ open http://localhost:8080
 ## 🔄 **Collaborative Workflow**
 
 ### **📅 Daily Workflow**
+
 1. **Morning (9:00 AM)**
+
    - Pull latest changes from main branch
    - Update your branch with main
    - Start development work
@@ -274,6 +302,7 @@ open http://localhost:8080
    - Create pull request if feature is complete
 
 ### **📅 Weekly Integration**
+
 1. **Monday:** Create pull requests for completed features
 2. **Tuesday:** Code review and testing
 3. **Wednesday:** Merge approved features to main
@@ -281,6 +310,7 @@ open http://localhost:8080
 5. **Friday:** Plan next week's features
 
 ### **🔄 Git Workflow Commands**
+
 ```bash
 # Daily workflow
 git checkout your-branch-name
@@ -305,18 +335,21 @@ git merge main
 ## 🎯 **Integration Points**
 
 ### **🔄 Backend ↔ AI Integration**
+
 - **API Contracts:** Define clear API specifications
 - **Data Formats:** Agree on JSON data structures
 - **Error Handling:** Standardize error responses
 - **Authentication:** Share authentication tokens
 
 ### **🔄 Backend ↔ Frontend Integration**
+
 - **REST Endpoints:** Document all API endpoints
 - **Data Validation:** Implement consistent validation
 - **Session Management:** Handle user sessions
 - **File Uploads:** Handle image uploads for equipment
 
 ### **🔄 AI ↔ Frontend Integration**
+
 - **Real-time Updates:** Display AI predictions in UI
 - **Data Visualization:** Show analytics charts
 - **Recommendations:** Display equipment suggestions
@@ -327,11 +360,13 @@ git merge main
 ## 📊 **Success Metrics**
 
 ### **🎯 Individual Goals**
+
 - **Backend Developer:** API response time < 200ms, 100% test coverage
 - **AI Developer:** Prediction accuracy > 85%, model training time < 5min
 - **Frontend Developer:** Page load time < 2s, mobile responsive design
 
 ### **🎯 Team Goals**
+
 - All services integrated and working
 - Complete user workflows functional
 - System handles 100+ concurrent users
@@ -342,12 +377,14 @@ git merge main
 ## 🛠️ **Development Environment Setup**
 
 ### **📋 Prerequisites**
+
 - Docker Desktop
 - Git
 - Code Editor (VS Code, IntelliJ, Eclipse)
 - Postman (for API testing)
 
 ### **🚀 Initial Setup (All Developers)**
+
 ```bash
 # 1. Clone repository
 git clone <repository-url>
@@ -367,6 +404,7 @@ docker-compose ps
 ```
 
 ### **🔍 Service Access**
+
 - **Java Application:** http://localhost:8080
 - **AI Service:** http://localhost:5001
 - **MySQL Database:** localhost:3306
@@ -376,16 +414,19 @@ docker-compose ps
 ## 📞 **Communication Guidelines**
 
 ### **💬 Daily Communication**
+
 - **Morning Standup (15 min):** Progress update, daily goals
 - **Slack/Teams:** Quick questions and updates
 - **Code Reviews:** Detailed feedback on pull requests
 
 ### **📅 Weekly Meetings**
+
 - **Sprint Planning (1 hour):** Plan weekly features
 - **Code Review Session (30 min):** Review completed work
 - **Retrospective (30 min):** Discuss improvements
 
 ### **🚨 Escalation Process**
+
 1. **Technical Issues:** Post in team chat
 2. **Blockers:** Escalate to team lead
 3. **Integration Problems:** Schedule pair programming session
@@ -395,12 +436,14 @@ docker-compose ps
 ## 📚 **Resources & Documentation**
 
 ### **📖 Technical Documentation**
+
 - **API Documentation:** `/docs/api/`
 - **Database Schema:** `/database/init/01_create_tables.sql`
 - **Docker Configuration:** `/docker-compose.yml`
 - **Project README:** `/README.md`
 
 ### **🔗 Useful Links**
+
 - **Java JEE Documentation:** https://jakarta.ee/
 - **Flask Documentation:** https://flask.palletsprojects.com/
 - **TensorFlow Documentation:** https://www.tensorflow.org/
@@ -411,6 +454,7 @@ docker-compose ps
 ## 🎊 **Getting Started Checklist**
 
 ### **✅ For Each Developer**
+
 - [ ] Clone repository
 - [ ] Switch to assigned branch
 - [ ] Set up development environment
@@ -421,6 +465,7 @@ docker-compose ps
 - [ ] Join team communication channels
 
 ### **✅ Team Setup**
+
 - [ ] All branches created
 - [ ] Development environment working
 - [ ] Communication channels established
