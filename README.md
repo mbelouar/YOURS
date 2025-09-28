@@ -48,11 +48,11 @@ The system consists of three main services orchestrated with Docker:
 
 Once launched, the services are accessible at the following addresses:
 
-| Service                | URL                   | Port | Description                     |
-| ---------------------- | --------------------- | ---- | ------------------------------- |
-| **Java Application**   | http://localhost:8080 | 8080 | Main web interface              |
-| **Python AI Service**  | http://localhost:5001 | 5001 | Artificial intelligence API     |
-| **MySQL Database**     | localhost:3306        | 3306 | Database (direct access)        |
+| Service               | URL                   | Port | Description                 |
+| --------------------- | --------------------- | ---- | --------------------------- |
+| **Java Application**  | http://localhost:8080 | 8080 | Main web interface          |
+| **Python AI Service** | http://localhost:5001 | 5001 | Artificial intelligence API |
+| **MySQL Database**    | localhost:3306        | 3306 | Database (direct access)    |
 
 ## 🛠️ Useful Docker Commands
 
@@ -342,11 +342,11 @@ This project uses a **3-developer team structure** with specialized branches:
 
 ### 🌿 Branch Structure
 
-| Branch | Developer | Focus Area | Technology |
-|--------|-----------|------------|------------|
-| `backend-database` | **Developer 1** | Backend & Database | Java JEE, MySQL |
-| `ai-analytics` | **Developer 2** | AI & Analytics | Python, TensorFlow |
-| `frontend-ui` | **Developer 3** | Frontend & UI/UX | JSP, HTML/CSS/JS |
+| Branch             | Developer       | Focus Area         | Technology         |
+| ------------------ | --------------- | ------------------ | ------------------ |
+| `backend-database` | **Developer 1** | Backend & Database | Java JEE, MySQL    |
+| `ai-analytics`     | **Developer 2** | AI & Analytics     | Python, TensorFlow |
+| `frontend-ui`      | **Developer 3** | Frontend & UI/UX   | JSP, HTML/CSS/JS   |
 
 ### 📋 Team Documentation
 
