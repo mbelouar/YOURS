@@ -43,17 +43,23 @@
 
 ## 📋 Services
 
-| Service              | URL                   | Description              |
-| -------------------- | --------------------- | ------------------------ |
-| **Java Application** | http://localhost:8080 | Main web interface       |
-| **phpMyAdmin**       | http://localhost:8081 | Database management      |
-| **AI Service**       | http://localhost:5001 | Intelligent predictions  |
-| **MySQL**            | localhost:3306        | Database (direct access) |
+| Service              | URL                   | Description                        |
+| -------------------- | --------------------- | ---------------------------------- |
+| **Java Application** | http://localhost:8080 | Main web interface                 |
+| **phpMyAdmin**       | http://localhost:8081 | Database management                |
+| **AI Service**       | http://localhost:5001 | Intelligent predictions (external) |
+| **MySQL**            | localhost:3306        | Database (direct access)           |
 
 **Login Credentials:**
 
 - Username: `yours_user`
 - Password: `yours_pass`
+
+**Internal Service Communication:**
+
+- Services communicate internally using container names and internal ports
+- AI Service: `ai-service:5000` (internal), `localhost:5001` (external)
+- MySQL: `mysql:3306` (internal), `localhost:3306` (external)
 
 ## 🗄️ Database
 
