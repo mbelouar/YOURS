@@ -4,6 +4,9 @@ FROM tomcat:10.1-jdk17-openjdk-slim
 # Set working directory
 WORKDIR /usr/local/tomcat
 
+# Install curl and netcat for health checks
+RUN apt-get update && apt-get install -y curl netcat-openbsd && rm -rf /var/lib/apt/lists/*
+
 # Remove default Tomcat webapps
 RUN rm -rf /usr/local/tomcat/webapps/*
 
