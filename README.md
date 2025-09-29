@@ -4,6 +4,18 @@
 
 ## 🚀 Quick Start
 
+### Prerequisites
+
+- **Docker & Docker Compose** installed
+- **Maven** installed (for building Java application)
+- **Git** for cloning the repository
+
+**Quick Check:**
+
+```bash
+./check-prerequisites.sh
+```
+
 1. **Setup Environment**
 
    ```bash
@@ -13,9 +25,14 @@
    # Edit .env with your credentials
    ```
 
-2. **Launch Services**
+2. **Build and Launch Services**
 
    ```bash
+   # Option 1: Build everything (recommended for first time)
+   make build
+
+   # Option 2: Manual build
+   make build-war
    docker-compose up -d
    ```
 

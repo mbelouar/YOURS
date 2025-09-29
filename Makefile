@@ -14,6 +14,7 @@ help:
 	@echo "  make status    - Show service status"
 	@echo "  make logs      - Show service logs"
 	@echo "  make build     - Build and start services"
+	@echo "  make build-war - Build Java WAR file only"
 	@echo "  make clean     - Stop and remove containers"
 	@echo "  make reset     - Complete reset (removes volumes)"
 	@echo "  make test      - Test AI service endpoints"
@@ -52,8 +53,21 @@ logs:
 # Build and start services
 build:
 	@echo "🔨 Building and starting YOURS services..."
+	@echo "📦 Building Java WAR file..."
+	cd java-app && mvn clean package -DskipTests
+	@echo "📋 Copying WAR file to target directory..."
+	cp java-app/target/yours.war target/yours.war
+	@echo "🐳 Building and starting Docker services..."
 	docker-compose up --build -d
 	@echo "✅ Services built and started!"
+
+# Build WAR file only
+build-war:
+	@echo "📦 Building Java WAR file..."
+	cd java-app && mvn clean package -DskipTests
+	@echo "📋 Copying WAR file to target directory..."
+	cp java-app/target/yours.war target/yours.war
+	@echo "✅ WAR file built successfully!"
 
 # Clean up containers
 clean:
