@@ -2,13 +2,28 @@
 
 **YOURS** is an intelligent equipment rental management system (cameras, tools, equipment) that combines a Java JEE application with Python artificial intelligence services to optimize rental management.
 
+## 🚀 Quick Access (After Setup)
+
+Once your containers are running, access these services:
+
+- **🌐 Main Application:** [http://localhost:8080](http://localhost:8080)
+- **📊 Database Interface:** [http://localhost:8081](http://localhost:8081) (phpMyAdmin)
+- **🤖 AI Service:** [http://localhost:5001](http://localhost:5001)
+- **🗄️ Direct MySQL:** `localhost:3306`
+
+**Default Login for phpMyAdmin:**
+
+- Username: `yours_user`
+- Password: `your_secure_password_here`
+
 ## 🏗️ Architecture
 
-The system consists of three main services orchestrated with Docker:
+The system consists of four main services orchestrated with Docker:
 
 - **🌐 Java JEE Application** (Tomcat) - Web interface and REST API
 - **🤖 Python AI Service** (Flask) - Intelligent predictions and analytics
 - **🗄️ MySQL Database** - Persistent data storage
+- **📊 phpMyAdmin** - Web-based MySQL database management interface
 
 ## 🚀 Quick Start
 
@@ -52,6 +67,7 @@ Once launched, the services are accessible at the following addresses:
 | --------------------- | --------------------- | ---- | --------------------------- |
 | **Java Application**  | http://localhost:8080 | 8080 | Main web interface          |
 | **Python AI Service** | http://localhost:5001 | 5001 | Artificial intelligence API |
+| **phpMyAdmin**        | http://localhost:8081 | 8081 | MySQL web interface         |
 | **MySQL Database**    | localhost:3306        | 3306 | Database (direct access)    |
 
 ## 🛠️ Useful Docker Commands
@@ -69,9 +85,10 @@ docker-compose down
 docker-compose logs -f
 
 # Restart a specific service
-docker-compose restart java-app
+docker-compose restart tomcat
 docker-compose restart ai-service
-docker-compose restart mysql-db
+docker-compose restart mysql
+docker-compose restart phpmyadmin
 
 # Rebuild and relaunch
 docker-compose up --build -d
@@ -84,12 +101,13 @@ docker-compose up --build -d
 docker-compose ps
 
 # Access MySQL container
-docker-compose exec mysql-db mysql -u yours_user -p yours_db
+docker-compose exec mysql mysql -u yours_user -p yours_db
 
 # Access service logs
-docker-compose logs java-app
+docker-compose logs tomcat
 docker-compose logs ai-service
-docker-compose logs mysql-db
+docker-compose logs mysql
+docker-compose logs phpmyadmin
 
 # Clean volumes (⚠️ deletes data)
 docker-compose down -v
@@ -111,6 +129,7 @@ MYSQL_PASSWORD=your_password
 # Service Ports
 TOMCAT_PORT=8080
 AI_SERVICE_PORT=5001
+PHPMYADMIN_PORT=8081
 MYSQL_PORT=3306
 
 # Application Configuration
@@ -125,6 +144,7 @@ Data is stored in named Docker volumes:
 - `mysql_data` - MySQL database
 - `ai_models` - Trained AI models
 - `ai_data` - Training data
+- `ai_logs` - AI service logs
 - `tomcat_logs` - Java application logs
 
 ## 🤖 Artificial Intelligence Service
@@ -219,15 +239,38 @@ The application exposes a REST API for:
 
 ## 🗄️ Database
 
+### 📊 phpMyAdmin Web Interface
+
+Access your MySQL database through a user-friendly web interface:
+
+**URL:** `http://localhost:8081`
+
+**Login Credentials:**
+
+- **Username:** `yours_user`
+- **Password:** `your_secure_password_here` (from your `.env` file)
+- **Server:** `mysql` (automatically configured)
+
+**Features:**
+
+- ✅ Browse and edit database tables
+- ✅ Run SQL queries
+- ✅ Export/import data
+- ✅ Database administration
+- ✅ User management
+- ✅ Performance monitoring
+
 ### MySQL Structure
 
 The database contains the following tables:
 
-- `equipment` - Available equipment
-- `rentals` - Rental history
-- `customers` - Customers
-- `ai_predictions` - AI predictions
-- `ai_models` - Model metadata
+- `customers` - Customer information
+- `equipment` - Available equipment catalog
+- `equipment_categories` - Equipment categories
+- `rentals` - Rental transactions
+- `maintenance` - Equipment maintenance records
+- `ai_models` - AI model metadata
+- `ai_predictions` - AI prediction results
 
 ### Initialization
 
@@ -269,8 +312,10 @@ Logs are available via Docker Compose:
 docker-compose logs -f
 
 # Specific service logs
-docker-compose logs -f java-app
+docker-compose logs -f tomcat
 docker-compose logs -f ai-service
+docker-compose logs -f mysql
+docker-compose logs -f phpmyadmin
 ```
 
 ## 🚨 Troubleshooting
@@ -295,10 +340,13 @@ docker-compose up --build -d
 
 ```bash
 # Verify MySQL is running
-docker-compose ps mysql-db
+docker-compose ps mysql
 
 # Test connection
-docker-compose exec mysql-db mysql -u yours_user -p yours_db
+docker-compose exec mysql mysql -u yours_user -p yours_db
+
+# Access phpMyAdmin web interface
+# Open http://localhost:8081 in your browser
 ```
 
 **AI service not accessible:**
@@ -335,6 +383,13 @@ docker-compose up --build -d
 
 - Documentation: http://localhost:5001/health
 - Endpoints: http://localhost:5001/api/
+
+### Database Management
+
+- **phpMyAdmin Web Interface:** http://localhost:8081
+- **Direct MySQL Access:** localhost:3306
+- **Database:** `yours_db`
+- **Username:** `yours_user`
 
 ## 👥 Team Development
 
