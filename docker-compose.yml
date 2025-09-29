@@ -50,6 +50,25 @@ services:
       timeout: 10s
       retries: 3
 
+  # phpMyAdmin - MySQL Web Interface
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: yours-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "${PHPMYADMIN_PORT:-8081}:80"
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+      - PMA_USER=${MYSQL_USER}
+      - PMA_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - yours-network
+
   # Python AI Service (Flask API)
   ai-service:
     build:
