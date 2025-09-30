@@ -70,7 +70,6 @@ ai-service/data/*.json
 ai-service/logs/*.log
 
 # Database
-*.sql
 *.db
 *.sqlite
 
