@@ -1,97 +1,46 @@
-# Environment variables
-.env
-.env.local
-.env.production
-
-# Docker
-docker-compose.override.yml
-
-# Java
+# Maven build output
 target/
-*.class
-*.jar
 *.war
-*.ear
-*.nar
-hs_err_pid*
-replay_pid*
 
-# Maven
-.mvn/
-mvnw
-mvnw.cmd
-
-# IDE
-.vscode/
+# IDE files
 .idea/
+.vscode/
 *.iml
 *.ipr
 *.iws
-.classpath
 .project
+.classpath
 .settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.local
 
 # Python
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
+*.pyc
+*.pyo
+*.pyd
 .Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Virtual environments
-venv/
 env/
-ENV/
-env.bak/
-venv.bak/
+venv/
+.venv/
 
-# AI Models and Data
-ai-service/models/*.pkl
-ai-service/models/*.h5
-ai-service/models/*.joblib
-ai-service/data/*.csv
-ai-service/data/*.json
-ai-service/logs/*.log
-
-# Database
-*.db
-*.sqlite
-
-# Logs
-logs/
-*.log
-
-# OS
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+# Docker volumes
+mysql_data/
+tomcat_logs/
+ai_models/
+ai_data/
+ai_logs/
 
 # Temporary files
 *.tmp
 *.temp
-*.swp
-*.swo
-*~
-
-# Documentation build
-docs/_build/

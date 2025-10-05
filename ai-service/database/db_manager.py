@@ -15,7 +15,7 @@ class DatabaseManager:
     def __init__(self):
         self.host = os.getenv('MYSQL_HOST', 'localhost')
         self.port = int(os.getenv('MYSQL_PORT', 3306))
-        self.database = os.getenv('MYSQL_DATABASE', 'yours_db')
+        self.database = os.getenv('MYSQL_DATABASE', 'yours')
         self.user = os.getenv('MYSQL_USER', 'yours_user')
         self.password = os.getenv('MYSQL_PASSWORD', 'password')
         
@@ -64,10 +64,10 @@ class DatabaseManager:
             with self.get_connection() as conn:
                 with conn.cursor(pymysql.cursors.DictCursor) as cursor:
                     if equipment_id:
-                        query = "SELECT * FROM equipment WHERE id = %s"
+                        query = "SELECT * FROM materiel WHERE idMateriel = %s"
                         cursor.execute(query, (equipment_id,))
                     else:
-                        query = "SELECT * FROM equipment"
+                        query = "SELECT * FROM materiel"
                         cursor.execute(query)
                     
                     return cursor.fetchall()
@@ -82,17 +82,17 @@ class DatabaseManager:
                 with conn.cursor(pymysql.cursors.DictCursor) as cursor:
                     if equipment_id:
                         query = """
-                        SELECT * FROM rentals 
-                        WHERE equipment_id = %s 
-                        AND rental_date >= DATE_SUB(NOW(), INTERVAL %s DAY)
-                        ORDER BY rental_date DESC
+                        SELECT * FROM reservation 
+                        WHERE idMateriel = %s 
+                        AND dateDebut >= DATE_SUB(NOW(), INTERVAL %s DAY)
+                        ORDER BY dateDebut DESC
                         """
                         cursor.execute(query, (equipment_id, days_back))
                     else:
                         query = """
-                        SELECT * FROM rentals 
-                        WHERE rental_date >= DATE_SUB(NOW(), INTERVAL %s DAY)
-                        ORDER BY rental_date DESC
+                        SELECT * FROM reservation 
+                        WHERE dateDebut >= DATE_SUB(NOW(), INTERVAL %s DAY)
+                        ORDER BY dateDebut DESC
                         """
                         cursor.execute(query, (days_back,))
                     
@@ -109,12 +109,11 @@ class DatabaseManager:
                     query = """
                     SELECT 
                         COUNT(*) as total_rentals,
-                        AVG(DATEDIFF(end_date, start_date)) as avg_duration,
-                        SUM(total_cost) as total_revenue,
-                        COUNT(CASE WHEN status = 'completed' THEN 1 END) as completed_rentals,
-                        COUNT(CASE WHEN status = 'cancelled' THEN 1 END) as cancelled_rentals
-                    FROM rentals 
-                    WHERE equipment_id = %s
+                        AVG(DATEDIFF(dateFin, dateDebut)) as avg_duration,
+                        COUNT(CASE WHEN reserve = 1 THEN 1 END) as completed_rentals,
+                        COUNT(CASE WHEN reserve = 0 THEN 1 END) as cancelled_rentals
+                    FROM reservation 
+                    WHERE idMateriel = %s
                     """
                     cursor.execute(query, (equipment_id,))
                     return cursor.fetchone()
@@ -127,18 +126,17 @@ class DatabaseManager:
         try:
             with self.get_connection() as conn:
                 with conn.cursor() as cursor:
+                    # Store AI analysis in the ia table
                     query = """
-                    UPDATE equipment 
-                    SET 
-                        utilization_rate = %s,
-                        last_analysis_date = NOW(),
-                        ai_recommendations = %s
-                    WHERE id = %s
+                    INSERT INTO ia (modeleIA, seuilDetection) 
+                    VALUES (%s, %s)
+                    ON DUPLICATE KEY UPDATE 
+                    modeleIA = VALUES(modeleIA), 
+                    seuilDetection = VALUES(seuilDetection)
                     """
                     cursor.execute(query, (
-                        analysis_data.get('utilization_rate'),
-                        str(analysis_data.get('recommendations', [])),
-                        equipment_id
+                        str(analysis_data.get('model_name', 'default_model')),
+                        analysis_data.get('threshold', 0.5)
                     ))
                     
                     return cursor.rowcount > 0
@@ -151,16 +149,14 @@ class DatabaseManager:
         try:
             with self.get_connection() as conn:
                 with conn.cursor() as cursor:
+                    # Store AI predictions in the ia table since ai_predictions doesn't exist in new schema
                     query = """
-                    INSERT INTO ai_predictions 
-                    (equipment_id, prediction_type, prediction_data, accuracy, created_at)
-                    VALUES (%s, %s, %s, %s, NOW())
+                    INSERT INTO ia (modeleIA, seuilDetection) 
+                    VALUES (%s, %s)
                     """
                     cursor.execute(query, (
-                        equipment_id,
-                        prediction_type,
-                        str(prediction_data),
-                        accuracy
+                        f"{prediction_type}: {str(prediction_data)}",
+                        accuracy or 0.5
                     ))
                     
                     return cursor.rowcount > 0
@@ -173,18 +169,18 @@ class DatabaseManager:
         try:
             with self.get_connection() as conn:
                 with conn.cursor(pymysql.cursors.DictCursor) as cursor:
+                    # Since we don't have ai_predictions table, get basic metrics from ia table
                     query = """
                     SELECT 
-                        prediction_type,
+                        modeleIA as prediction_type,
                         COUNT(*) as total_predictions,
-                        AVG(accuracy) as avg_accuracy,
-                        MAX(accuracy) as max_accuracy,
-                        MIN(accuracy) as min_accuracy
-                    FROM ai_predictions 
-                    WHERE created_at >= DATE_SUB(NOW(), INTERVAL %s DAY)
-                    GROUP BY prediction_type
+                        AVG(seuilDetection) as avg_accuracy,
+                        MAX(seuilDetection) as max_accuracy,
+                        MIN(seuilDetection) as min_accuracy
+                    FROM ia 
+                    GROUP BY modeleIA
                     """
-                    cursor.execute(query, (days_back,))
+                    cursor.execute(query)
                     return cursor.fetchall()
         except Exception as e:
             logger.error(f"Error fetching AI performance metrics: {e}")
@@ -195,39 +191,10 @@ class DatabaseManager:
         try:
             with self.get_connection() as conn:
                 with conn.cursor() as cursor:
-                    # Create AI predictions table
-                    ai_predictions_table = """
-                    CREATE TABLE IF NOT EXISTS ai_predictions (
-                        id INT AUTO_INCREMENT PRIMARY KEY,
-                        equipment_id INT,
-                        prediction_type VARCHAR(50),
-                        prediction_data TEXT,
-                        accuracy DECIMAL(5,4),
-                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        INDEX idx_equipment_id (equipment_id),
-                        INDEX idx_prediction_type (prediction_type),
-                        INDEX idx_created_at (created_at)
-                    )
-                    """
-                    cursor.execute(ai_predictions_table)
-                    
-                    # Create AI models table
-                    ai_models_table = """
-                    CREATE TABLE IF NOT EXISTS ai_models (
-                        id INT AUTO_INCREMENT PRIMARY KEY,
-                        model_name VARCHAR(100),
-                        model_version VARCHAR(20),
-                        model_path VARCHAR(255),
-                        accuracy DECIMAL(5,4),
-                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                        is_active BOOLEAN DEFAULT TRUE
-                    )
-                    """
-                    cursor.execute(ai_models_table)
-                    
-                    logger.info("AI tables created successfully")
+                    # The ia table already exists in the new schema, so we just verify it
+                    cursor.execute("SELECT 1 FROM ia LIMIT 1")
+                    logger.info("AI tables verified successfully")
                     return True
         except Exception as e:
-            logger.error(f"Error creating AI tables: {e}")
+            logger.error(f"Error verifying AI tables: {e}")
             return False

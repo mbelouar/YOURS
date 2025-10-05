@@ -12,7 +12,7 @@ RUN rm -rf /usr/local/tomcat/webapps/*
 
 # Copy the WAR file to Tomcat webapps directory
 # This will be mounted as a volume in docker-compose
-COPY target/yours.war /usr/local/tomcat/webapps/ROOT.war
+COPY ../target/yours.war /usr/local/tomcat/webapps/ROOT.war
 
 # Create logs directory
 RUN mkdir -p /usr/local/tomcat/logs

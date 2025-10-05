@@ -1,14 +1,14 @@
 """
-CNN Classifier for equipment image classification
+Lightweight Equipment Classifier (without TensorFlow)
 """
 
 import numpy as np
 from PIL import Image
-import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras import layers
 import logging
 import os
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import StandardScaler
+import joblib
 
 # Try to import OpenCV, but make it optional
 try:
@@ -22,13 +22,15 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 class CNNClassifier:
-    """Convolutional Neural Network for equipment classification"""
+    """Lightweight equipment classifier using traditional ML"""
     
     def __init__(self):
         self.model = None
+        self.scaler = StandardScaler()
         self.class_names = ['camera', 'tripod', 'lighting', 'audio', 'other']
-        self.input_size = (224, 224)
-        self.model_path = os.path.join(os.path.dirname(__file__), '..', 'models', 'cnn_model.h5')
+        self.input_size = (64, 64)  # Smaller for faster processing
+        self.model_path = os.path.join(os.path.dirname(__file__), '..', 'models', 'equipment_classifier.pkl')
+        self.scaler_path = os.path.join(os.path.dirname(__file__), '..', 'models', 'equipment_scaler.pkl')
         
         # Try to load existing model
         self.load_model()
@@ -38,45 +40,21 @@ class CNNClassifier:
             self.create_model()
     
     def create_model(self):
-        """Create a simple CNN model for equipment classification"""
+        """Create a lightweight classifier for equipment classification"""
         try:
-            model = keras.Sequential([
-                # Data augmentation
-                layers.Rescaling(1./255, input_shape=(*self.input_size, 3)),
-                
-                # Convolutional layers
-                layers.Conv2D(32, 3, activation='relu'),
-                layers.MaxPooling2D(),
-                
-                layers.Conv2D(64, 3, activation='relu'),
-                layers.MaxPooling2D(),
-                
-                layers.Conv2D(128, 3, activation='relu'),
-                layers.MaxPooling2D(),
-                
-                # Dense layers
-                layers.Flatten(),
-                layers.Dropout(0.5),
-                layers.Dense(128, activation='relu'),
-                layers.Dropout(0.3),
-                layers.Dense(len(self.class_names), activation='softmax')
-            ])
-            
-            model.compile(
-                optimizer='adam',
-                loss='categorical_crossentropy',
-                metrics=['accuracy']
+            self.model = RandomForestClassifier(
+                n_estimators=100,
+                random_state=42,
+                max_depth=10
             )
-            
-            self.model = model
-            logger.info("CNN model created successfully")
+            logger.info("Lightweight classifier model created successfully")
             
         except Exception as e:
-            logger.error(f"Error creating CNN model: {e}")
+            logger.error(f"Error creating classifier model: {e}")
             self.model = None
     
-    def preprocess_image(self, image_file):
-        """Preprocess image for classification"""
+    def extract_features(self, image_file):
+        """Extract simple features from image for classification"""
         try:
             # Read image
             if hasattr(image_file, 'read'):
@@ -88,20 +66,35 @@ class CNNClassifier:
             if image.mode != 'RGB':
                 image = image.convert('RGB')
             
-            # Resize to model input size
+            # Resize to smaller size for faster processing
             image = image.resize(self.input_size)
             
             # Convert to numpy array
             image_array = np.array(image)
             
-            # Normalize and add batch dimension
-            image_array = image_array.astype('float32') / 255.0
-            image_array = np.expand_dims(image_array, axis=0)
+            # Extract simple features
+            features = []
             
-            return image_array
+            # Color features (mean RGB values)
+            features.extend(np.mean(image_array, axis=(0, 1)))
+            
+            # Texture features (standard deviation)
+            features.extend(np.std(image_array, axis=(0, 1)))
+            
+            # Shape features (aspect ratio, area)
+            height, width = image_array.shape[:2]
+            features.append(width / height)  # Aspect ratio
+            features.append(width * height)  # Area
+            
+            # Edge features (simplified)
+            gray = np.mean(image_array, axis=2)
+            edges = np.abs(np.diff(gray, axis=1)).mean()
+            features.append(edges)
+            
+            return np.array(features).reshape(1, -1)
             
         except Exception as e:
-            logger.error(f"Error preprocessing image: {e}")
+            logger.error(f"Error extracting features: {e}")
             return None
     
     def classify_image(self, image_file):
@@ -114,30 +107,31 @@ class CNNClassifier:
                     'error': 'Model not available'
                 }
             
-            # Preprocess image
-            processed_image = self.preprocess_image(image_file)
+            # Extract features
+            features = self.extract_features(image_file)
             
-            if processed_image is None:
+            if features is None:
                 return {
                     'class': 'unknown',
                     'confidence': 0.0,
-                    'error': 'Image preprocessing failed'
+                    'error': 'Feature extraction failed'
                 }
             
             # Make prediction
-            predictions = self.model.predict(processed_image, verbose=0)
+            prediction = self.model.predict(features)[0]
+            probabilities = self.model.predict_proba(features)[0]
             
             # Get class with highest confidence
-            class_idx = np.argmax(predictions[0])
-            confidence = float(predictions[0][class_idx])
+            class_idx = np.argmax(probabilities)
+            confidence = float(probabilities[class_idx])
             predicted_class = self.class_names[class_idx]
             
             # Get top 3 predictions
-            top_indices = np.argsort(predictions[0])[-3:][::-1]
+            top_indices = np.argsort(probabilities)[-3:][::-1]
             top_predictions = [
                 {
                     'class': self.class_names[i],
-                    'confidence': float(predictions[0][i])
+                    'confidence': float(probabilities[i])
                 }
                 for i in top_indices
             ]
@@ -170,60 +164,59 @@ class CNNClassifier:
         return equipment_mapping.get(class_name, 'Unknown Equipment')
     
     def train_model(self, training_data_path):
-        """Train the CNN model with training data"""
+        """Train the classifier model with training data"""
         try:
-            # This would typically load training images and labels
-            # For now, we'll create a simple training setup
-            
-            logger.info("Training CNN model...")
+            logger.info("Training lightweight classifier model...")
             
             # Create mock training data
             num_samples = 100
-            X_train = np.random.rand(num_samples, *self.input_size, 3).astype('float32')
-            y_train = tf.keras.utils.to_categorical(
-                np.random.randint(0, len(self.class_names), num_samples),
-                len(self.class_names)
-            )
+            num_features = 9  # Number of features we extract
+            
+            X_train = np.random.rand(num_samples, num_features)
+            y_train = np.random.randint(0, len(self.class_names), num_samples)
+            
+            # Scale features
+            X_train_scaled = self.scaler.fit_transform(X_train)
             
             # Train model
-            history = self.model.fit(
-                X_train, y_train,
-                epochs=5,
-                batch_size=16,
-                validation_split=0.2,
-                verbose=1
-            )
+            self.model.fit(X_train_scaled, y_train)
             
             # Save model
             self.save_model()
             
-            logger.info("CNN model training completed")
+            logger.info("Classifier model training completed")
+            
+            # Calculate accuracy
+            predictions = self.model.predict(X_train_scaled)
+            accuracy = np.mean(predictions == y_train)
             
             return {
-                'training_accuracy': float(history.history['accuracy'][-1]),
-                'validation_accuracy': float(history.history['val_accuracy'][-1]),
-                'epochs': len(history.history['accuracy'])
+                'training_accuracy': accuracy,
+                'training_samples': num_samples,
+                'model_type': 'RandomForest'
             }
             
         except Exception as e:
-            logger.error(f"Error training CNN model: {e}")
+            logger.error(f"Error training classifier model: {e}")
             raise
     
     def save_model(self):
-        """Save the trained model"""
+        """Save the trained model and scaler"""
         try:
             os.makedirs(os.path.dirname(self.model_path), exist_ok=True)
-            self.model.save(self.model_path)
-            logger.info("CNN model saved successfully")
+            joblib.dump(self.model, self.model_path)
+            joblib.dump(self.scaler, self.scaler_path)
+            logger.info("Classifier model and scaler saved successfully")
         except Exception as e:
-            logger.error(f"Error saving CNN model: {e}")
+            logger.error(f"Error saving classifier model: {e}")
     
     def load_model(self):
-        """Load pre-trained model"""
+        """Load pre-trained model and scaler"""
         try:
-            if os.path.exists(self.model_path):
-                self.model = keras.models.load_model(self.model_path)
-                logger.info("CNN model loaded successfully")
+            if os.path.exists(self.model_path) and os.path.exists(self.scaler_path):
+                self.model = joblib.load(self.model_path)
+                self.scaler = joblib.load(self.scaler_path)
+                logger.info("Classifier model and scaler loaded successfully")
         except Exception as e:
-            logger.warning(f"Could not load existing CNN model: {e}")
+            logger.warning(f"Could not load existing classifier model: {e}")
             self.model = None

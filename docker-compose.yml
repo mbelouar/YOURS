@@ -1,3 +1,6 @@
+# Main docker-compose file - references docker/ folder for Dockerfiles
+version: '3.8'
+
 services:
   # MySQL Database
   mysql:
@@ -25,7 +28,7 @@ services:
   tomcat:
     build:
       context: .
-      dockerfile: Dockerfile.java
+      dockerfile: docker/Dockerfile.java
     container_name: yours-tomcat
     restart: unless-stopped
     ports:
@@ -73,7 +76,7 @@ services:
   ai-service:
     build:
       context: .
-      dockerfile: Dockerfile.python
+      dockerfile: docker/Dockerfile.python
     container_name: yours-ai-service
     restart: unless-stopped
     ports:

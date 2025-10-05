@@ -14,13 +14,13 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first for better caching
-COPY ai-service/requirements.txt .
+COPY ../ai-service/requirements.txt .
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Install Python dependencies with timeout and retry settings
+RUN pip install --no-cache-dir --timeout=1000 --retries=5 -r requirements.txt
 
 # Copy the AI service code
-COPY ai-service/ .
+COPY ../ai-service/ .
 
 # Create directories for models and data
 RUN mkdir -p models data logs
