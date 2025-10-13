@@ -4,7 +4,7 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-12">
-            <h1 class="display-4 fw-bold text-primary mb-4">Matériel Disponible</h1>
+            <h1 class="display-4 fw-bold text-primary mb-4">Mat&eacute;riel Disponible</h1>
             
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">

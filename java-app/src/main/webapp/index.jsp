@@ -7,15 +7,15 @@
         <div class="row align-items-center min-vh-100">
             <div class="col-lg-6 hero-content">
                 <h1 class="hero-title animate-fade-in-left">
-                    Location Intelligente de Matériel Professionnel
+                    Location Intelligente de Mat&eacute;riel Professionnel
                 </h1>
                 <p class="hero-subtitle animate-fade-in-left" style="animation-delay: 0.2s;">
-                    Découvrez notre plateforme révolutionnaire qui utilise l'intelligence artificielle 
-                    pour vous recommander le matériel parfait selon vos besoins.
+                    D&eacute;couvrez notre plateforme r&eacute;volutionnaire qui utilise l'intelligence artificielle 
+                    pour vous recommander le mat&eacute;riel parfait selon vos besoins.
                 </p>
                 <div class="d-flex flex-wrap gap-3 animate-fade-in-left" style="animation-delay: 0.4s;">
                     <a href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp" class="btn btn-glass btn-lg">
-                        <i class="fas fa-search me-2"></i>Explorer le Matériel
+                        <i class="fas fa-search me-2"></i>Explorer le Mat&eacute;riel
                     </a>
                     <a href="${pageContext.request.contextPath}/pages/auth/register-client.jsp" class="btn btn-gradient btn-lg">
                         <i class="fas fa-rocket me-2"></i>Commencer Gratuitement
@@ -77,8 +77,8 @@
 <section class="py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold text-primary mb-3">Matériel en Vedette</h2>
-            <p class="lead text-muted">Découvrez notre sélection d'équipements les plus populaires</p>
+            <h2 class="display-5 fw-bold text-primary mb-3">Mat&eacute;riel en Vedette</h2>
+            <p class="lead text-muted">D&eacute;couvrez notre s&eacute;lection d'&eacute;quipements les plus populaires</p>
         </div>
         
         <div class="row g-4">
@@ -92,7 +92,7 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">Canon EOS R5</h5>
-                        <p class="card-text text-muted">Appareil photo professionnel 45MP avec stabilisation intégrée</p>
+                        <p class="card-text text-muted">Appareil photo professionnel 45MP avec stabilisation int&eacute;gr&eacute;e</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="rating">
                                 <i class="fas fa-star text-warning"></i>
@@ -120,7 +120,7 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">MacBook Pro 16"</h5>
-                        <p class="card-text text-muted">Ordinateur portable M2 Pro pour montage vidéo professionnel</p>
+                        <p class="card-text text-muted">Ordinateur portable M2 Pro pour montage vid&eacute;o professionnel</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="rating">
                                 <i class="fas fa-star text-warning"></i>
@@ -179,8 +179,8 @@
 <section class="py-5" style="background: var(--gray-50);">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold text-primary mb-3">Catégories Populaires</h2>
-            <p class="lead text-muted">Explorez nos différentes catégories d'équipements</p>
+            <h2 class="display-5 fw-bold text-primary mb-3">Cat&eacute;gories Populaires</h2>
+            <p class="lead text-muted">Explorez nos diff&eacute;rentes cat&eacute;gories d'&eacute;quipements</p>
         </div>
         
         <div class="row g-4">
@@ -201,8 +201,8 @@
                 <div class="card card-modern text-center h-100">
                     <div class="card-body p-4">
                         <i class="fas fa-video fa-4x text-success mb-3"></i>
-                        <h5 class="card-title">Vidéo</h5>
-                        <p class="card-text text-muted">Caméras, stabilisateurs, micros</p>
+                        <h5 class="card-title">Vid&eacute;o</h5>
+                        <p class="card-text text-muted">Cam&eacute;ras, stabilisateurs, micros</p>
                         <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="btn btn-outline-success">
                             Explorer <i class="fas fa-arrow-right ms-1"></i>
                         </a>
@@ -244,14 +244,14 @@
     <div class="container text-center">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <h2 class="display-5 fw-bold mb-4">Prêt à Commencer ?</h2>
+                <h2 class="display-5 fw-bold mb-4">Pr&ecirc;t &agrave; Commencer ?</h2>
                 <p class="lead mb-4">
-                    Rejoignez des milliers de professionnels qui font confiance à YOURS 
-                    pour leurs besoins en location de matériel.
+                    Rejoignez des milliers de professionnels qui font confiance &agrave; YOURS 
+                    pour leurs besoins en location de mat&eacute;riel.
                 </p>
                 <div class="d-flex flex-wrap justify-content-center gap-3">
                     <a href="${pageContext.request.contextPath}/pages/auth/register-client.jsp" class="btn btn-glass btn-lg">
-                        <i class="fas fa-user-plus me-2"></i>Créer un Compte Client
+                        <i class="fas fa-user-plus me-2"></i>Cr&eacute;er un Compte Client
                     </a>
                     <a href="${pageContext.request.contextPath}/pages/auth/register-partner.jsp" class="btn btn-outline-light btn-lg">
                         <i class="fas fa-handshake me-2"></i>Devenir Partenaire

@@ -23,17 +23,17 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-modern" href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp">
-                        <i class="fas fa-th-large me-2"></i>Matériel
+                        <i class="fas fa-th-large me-2"></i>Mat&eacute;riel
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-modern" href="${pageContext.request.contextPath}/pages/categories.jsp">
-                        <i class="fas fa-tags me-2"></i>Catégories
+                        <i class="fas fa-tags me-2"></i>Cat&eacute;gories
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-modern" href="${pageContext.request.contextPath}/pages/about.jsp">
-                        <i class="fas fa-info-circle me-2"></i>À propos
+                        <i class="fas fa-info-circle me-2"></i>&Agrave; propos
                     </a>
                 </li>
             </ul>

@@ -5,8 +5,8 @@
     <div class="row">
         <div class="col-lg-8 mx-auto">
             <div class="text-center mb-5">
-                <h1 class="display-4 fw-bold text-primary">À Propos de YOURS</h1>
-                <p class="lead text-muted">Votre partenaire intelligent pour la location de matériel professionnel</p>
+                <h1 class="display-4 fw-bold text-primary">&Agrave; Propos de YOURS</h1>
+                <p class="lead text-muted">Votre partenaire intelligent pour la location de mat&eacute;riel professionnel</p>
             </div>
 
             <div class="row g-4">
@@ -15,7 +15,7 @@
                         <div class="card-body text-center p-4">
                             <i class="fas fa-bullseye fa-3x text-primary mb-3"></i>
                             <h4>Notre Mission</h4>
-                            <p class="text-muted">Simplifier l'accès au matériel professionnel grâce à une plateforme intelligente et intuitive.</p>
+                            <p class="text-muted">Simplifier l'acc&egrave;s au mat&eacute;riel professionnel gr&acirc;ce &agrave; une plateforme intelligente et intuitive.</p>
                         </div>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                         <div class="card-body text-center p-4">
                             <i class="fas fa-eye fa-3x text-primary mb-3"></i>
                             <h4>Notre Vision</h4>
-                            <p class="text-muted">Devenir la référence en matière de location de matériel avec l'intelligence artificielle.</p>
+                            <p class="text-muted">Devenir la r&eacute;f&eacute;rence en mati&egrave;re de location de mat&eacute;riel avec l'intelligence artificielle.</p>
                         </div>
                     </div>
                 </div>
