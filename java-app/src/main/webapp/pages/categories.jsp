@@ -27,7 +27,7 @@
 
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100 border-0 shadow-sm category-card overflow-hidden">
-                        <img src="https://i.ytimg.com/vi/dXJPsFH6Dxk/maxresdefault.jpg" 
+                        <img src="https://images.ctfassets.net/et769tc4wc1v/3BVyScrKYEsMuEM5cIEfiq/d14ac33cd95642f18cf8c72695f8ee46/Copy-of-In-Blog-Image-Template-2022-01-25T104132.827-1.png?w=1025&h=500&q=50&fm=png&bg=transparent" 
                              class="card-img-top" alt="Vid&eacute;o" style="height: 250px; object-fit: cover;">
                         <div class="card-body text-center p-4">
                             <i class="fas fa-video fa-3x text-primary mb-3"></i>
