@@ -79,11 +79,13 @@
 </section>
 
 <!-- Featured Equipment Section -->
-<section class="py-5" style="background: var(--white);">
-    <div class="container">
+<section class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(147, 51, 234, 0.1) 0%, transparent 50%); opacity: 1;"></div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><defs><pattern id=&quot;grid&quot; width=&quot;10&quot; height=&quot;10&quot; patternUnits=&quot;userSpaceOnUse&quot;><path d=&quot;M 10 0 L 0 0 0 10&quot; fill=&quot;none&quot; stroke=&quot;rgba(255,255,255,0.05)&quot; stroke-width=&quot;0.5&quot;/></pattern></defs><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;url(%23grid)&quot;/></svg>'); opacity: 0.4;"></div>
+    <div class="container" style="position: relative; z-index: 2;">
         <div class="text-center mb-5 pb-2">
-            <h2 class="display-5 fw-bold mb-3" style="color: var(--gray-900);">Mat&eacute;riel en Vedette</h2>
-            <p class="lead text-muted mb-0">D&eacute;couvrez notre s&eacute;lection d'&eacute;quipements les plus populaires</p>
+            <h2 class="display-5 fw-bold mb-3" style="color: white;">Mat&eacute;riel en Vedette</h2>
+            <p class="lead mb-0" style="color: rgba(255, 255, 255, 0.9);">D&eacute;couvrez notre s&eacute;lection d'&eacute;quipements les plus populaires</p>
         </div>
         
         <div class="row g-4">
@@ -173,7 +175,7 @@
         </div>
 
         <div class="text-center mt-5">
-            <a href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp" class="btn btn-outline-primary btn-lg">
+            <a href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp" class="btn btn-glass btn-lg">
                 <i class="fas fa-th-large me-2"></i>Voir Tout le Mat&eacute;riel
             </a>
         </div>

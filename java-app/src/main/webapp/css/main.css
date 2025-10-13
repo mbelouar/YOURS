@@ -700,6 +700,11 @@ section h2::after {
     border-radius: 2px;
 }
 
+/* White underline for dark backgrounds */
+section[style*="background: linear-gradient(135deg, #1e40af"] h2::after {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
+}
+
 /* Display improvements */
 .display-5, .display-6 {
     letter-spacing: -0.02em;
