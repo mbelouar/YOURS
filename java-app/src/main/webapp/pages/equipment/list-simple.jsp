@@ -10,7 +10,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card card-modern card-equipment h-100">
                         <div class="position-relative">
-                            <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
+                            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&auto=format&fit=crop&q=80" 
                                  class="card-img-top" alt="Canon EOS R5" style="height: 200px; object-fit: cover;">
                             <div class="availability-badge">Disponible</div>
                             <div class="price-badge">240 MAD/jour</div>
@@ -38,7 +38,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card card-modern card-equipment h-100">
                         <div class="position-relative">
-                            <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
+                            <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80" 
                                  class="card-img-top" alt="MacBook Pro" style="height: 200px; object-fit: cover;">
                             <div class="availability-badge">Disponible</div>
                             <div class="price-badge">150 MAD/jour</div>
@@ -65,7 +65,7 @@
 
                 <div class="col-lg-4 col-md-6">
                     <div class="card card-modern card-equipment h-100">
-                        <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
+                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80"
                              class="card-img-top" alt="Sony A7 III" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title">Sony A7 III</h5>
@@ -82,7 +82,7 @@
 
                 <div class="col-lg-4 col-md-6">
                     <div class="card card-modern card-equipment h-100">
-                        <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
+                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80"
                              class="card-img-top" alt="iPad Pro" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title">iPad Pro 12.9"</h5>
@@ -99,7 +99,7 @@
 
                 <div class="col-lg-4 col-md-6">
                     <div class="card card-modern card-equipment h-100">
-                        <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
+                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80"
                              class="card-img-top" alt="DJI Mavic" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title">DJI Mavic Air 2</h5>
@@ -116,7 +116,7 @@
 
                 <div class="col-lg-4 col-md-6">
                     <div class="card card-modern card-equipment h-100">
-                        <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
+                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80"
                              class="card-img-top" alt="Rode Microphone" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title">Rode PodMic</h5>

@@ -528,6 +528,66 @@ a:hover {
     animation: fadeInRight 0.6s ease-out;
 }
 
+/* ===== HERO BADGE ===== */
+.badge-ai {
+    top: -15px;
+    right: -15px;
+    background: linear-gradient(135deg, var(--accent-color), #f59e0b);
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.3);
+    white-space: nowrap;
+    z-index: 10;
+}
+
+/* ===== IMPROVED POSITIONING ===== */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: var(--space-20) 0;
+}
+
+.hero-content {
+    padding-right: var(--space-8);
+}
+
+.stats-card {
+    transform: translateY(0);
+    transition: all var(--transition-normal);
+}
+
+.stats-card:hover {
+    transform: translateY(-12px);
+}
+
+/* Better spacing for sections */
+section {
+    position: relative;
+    overflow: hidden;
+}
+
+section.py-5 {
+    padding: var(--space-20) 0 !important;
+}
+
+/* Improved card spacing */
+.card-modern {
+    margin-bottom: var(--space-6);
+}
+
+/* Better button spacing */
+.btn {
+    margin: var(--space-1);
+}
+
+.btn-lg {
+    margin: var(--space-2);
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
     :root {
@@ -538,10 +598,17 @@ a:hover {
     
     .hero-section {
         padding: var(--space-16) 0;
+        min-height: auto;
     }
     
     .hero-title {
         font-size: var(--text-4xl);
+    }
+    
+    .hero-content {
+        padding-right: 0;
+        margin-bottom: var(--space-8);
+        text-align: center;
     }
     
     .container {
@@ -551,6 +618,18 @@ a:hover {
     .btn-lg {
         padding: var(--space-3) var(--space-6);
         font-size: var(--text-base);
+        margin: var(--space-1);
+    }
+    
+    .badge-ai {
+        top: -10px;
+        right: -10px;
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+    }
+    
+    section.py-5 {
+        padding: var(--space-16) 0 !important;
     }
 }
 

@@ -4,7 +4,7 @@
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="container">
-        <div class="row align-items-center min-vh-100">
+        <div class="row align-items-center">
             <div class="col-lg-6 hero-content">
                 <h1 class="hero-title animate-fade-in-left">
                     Location Intelligente de Mat&eacute;riel Professionnel
@@ -23,13 +23,13 @@
                 </div>
             </div>
             <div class="col-lg-6 text-center animate-fade-in-right">
-                <div style="position: relative; display: inline-block;">
-                    <img src="${pageContext.request.contextPath}/assets/images/hero-equipment.jpg" 
-                         alt="Matériel professionnel" class="img-fluid shadow-2xl" 
-                         style="border-radius: 2rem; max-width: 90%;">
-                    <div style="position: absolute; top: -20px; right: -20px; background: linear-gradient(135deg, var(--accent-color), #f59e0b); color: white; padding: 1rem; border-radius: 1rem; font-weight: 600; box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.3);">
-                        <i class="fas fa-star me-1"></i>
-                        IA Intégrée
+                <div class="position-relative d-inline-block">
+                    <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1200&auto=format&fit=crop&q=80" 
+                         alt="Mat&eacute;riel professionnel" class="img-fluid shadow-2xl" 
+                         style="border-radius: 2rem; max-width: 90%; object-fit: cover;">
+                    <div class="position-absolute badge-ai">
+                        <i class="fas fa-star me-2"></i>
+                        IA Int&eacute;gr&eacute;e
                     </div>
                 </div>
             </div>
@@ -40,12 +40,16 @@
 <!-- Stats Section -->
 <section class="py-5" style="background: var(--gray-50);">
     <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold text-primary mb-3">YOURS en Chiffres</h2>
+            <p class="lead text-muted">La confiance de nos clients en quelques chiffres</p>
+        </div>
         <div class="row g-4">
             <div class="col-lg-3 col-md-6">
                 <div class="stats-card animate-fade-in-up">
                     <i class="fas fa-camera fa-3x text-primary mb-3"></i>
                     <span class="stats-number">500+</span>
-                    <span class="stats-label">Équipements Disponibles</span>
+                    <span class="stats-label">&Eacute;quipements Disponibles</span>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
@@ -85,8 +89,8 @@
             <div class="col-lg-4 col-md-6">
                 <div class="card card-modern card-equipment">
                     <div class="position-relative">
-                        <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
-                             class="card-img-top" alt="Canon EOS R5">
+                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&auto=format&fit=crop&q=80" 
+                             class="card-img-top" alt="Canon EOS R5" style="height: 250px; object-fit: cover;">
                         <div class="availability-badge">Disponible</div>
                         <div class="price-badge">240 MAD/jour</div>
                     </div>
@@ -113,8 +117,8 @@
             <div class="col-lg-4 col-md-6">
                 <div class="card card-modern card-equipment">
                     <div class="position-relative">
-                        <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
-                             class="card-img-top" alt="MacBook Pro">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80" 
+                             class="card-img-top" alt="MacBook Pro" style="height: 250px; object-fit: cover;">
                         <div class="availability-badge">Disponible</div>
                         <div class="price-badge">150 MAD/jour</div>
                     </div>
@@ -141,8 +145,8 @@
             <div class="col-lg-4 col-md-6">
                 <div class="card card-modern card-equipment">
                     <div class="position-relative">
-                        <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
-                             class="card-img-top" alt="DJI Mavic">
+                        <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&auto=format&fit=crop&q=80" 
+                             class="card-img-top" alt="DJI Mavic" style="height: 250px; object-fit: cover;">
                         <div class="availability-badge">Disponible</div>
                         <div class="price-badge">120 MAD/jour</div>
                     </div>
@@ -169,7 +173,7 @@
 
         <div class="text-center mt-5">
             <a href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp" class="btn btn-outline-primary btn-lg">
-                <i class="fas fa-th-large me-2"></i>Voir Tout le Matériel
+                <i class="fas fa-th-large me-2"></i>Voir Tout le Mat&eacute;riel
             </a>
         </div>
     </div>
