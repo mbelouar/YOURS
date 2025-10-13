@@ -11,11 +11,13 @@
 
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm category-card">
+                    <div class="card h-100 border-0 shadow-sm category-card overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&auto=format&fit=crop&q=80" 
+                             class="card-img-top" alt="Photographie" style="height: 200px; object-fit: cover;">
                         <div class="card-body text-center p-4">
-                            <i class="fas fa-camera fa-4x text-primary mb-3"></i>
-                            <h4 class="card-title">Photographie</h4>
-                            <p class="card-text text-muted">Appareils photo, objectifs, &eacute;clairage, tr&eacute;pieds et accessoires photo professionnels.</p>
+                            <i class="fas fa-camera fa-3x text-primary mb-3"></i>
+                            <h4 class="card-title text-primary fw-bold">Photographie</h4>
+                            <p class="card-text text-muted">Appareils photo, objectifs, tr&eacute;pieds, sacs photo et accessoires photographiques.</p>
                             <a href="${pageContext.request.contextPath}/pages/equipment/list.jsp?category=photo" class="btn btn-outline-primary">
                                 Voir les &eacute;quipements <i class="fas fa-arrow-right ms-1"></i>
                             </a>
@@ -24,11 +26,13 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm category-card">
+                    <div class="card h-100 border-0 shadow-sm category-card overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=600&auto=format&fit=crop&q=80" 
+                             class="card-img-top" alt="Vid&eacute;o" style="height: 200px; object-fit: cover;">
                         <div class="card-body text-center p-4">
-                            <i class="fas fa-video fa-4x text-primary mb-3"></i>
-                            <h4 class="card-title">Vid&eacute;o</h4>
-                            <p class="card-text text-muted">Cam&eacute;ras, stabilisateurs, micros, &eacute;clairage et &eacute;quipements de tournage.</p>
+                            <i class="fas fa-video fa-3x text-primary mb-3"></i>
+                            <h4 class="card-title text-primary fw-bold">Vid&eacute;o</h4>
+                            <p class="card-text text-muted">Cam&eacute;ras vid&eacute;o, stabilisateurs, drones, enregistreurs et accessoires de tournage.</p>
                             <a href="${pageContext.request.contextPath}/pages/equipment/list.jsp?category=video" class="btn btn-outline-primary">
                                 Voir les &eacute;quipements <i class="fas fa-arrow-right ms-1"></i>
                             </a>
@@ -37,11 +41,13 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm category-card">
+                    <div class="card h-100 border-0 shadow-sm category-card overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&auto=format&fit=crop&q=80" 
+                             class="card-img-top" alt="Audio" style="height: 200px; object-fit: cover;">
                         <div class="card-body text-center p-4">
-                            <i class="fas fa-music fa-4x text-primary mb-3"></i>
-                            <h4 class="card-title">Audio</h4>
-                            <p class="card-text text-muted">Micros, enregistreurs, mixeurs, enceintes et &eacute;quipements sonores.</p>
+                            <i class="fas fa-music fa-3x text-primary mb-3"></i>
+                            <h4 class="card-title text-primary fw-bold">Audio</h4>
+                            <p class="card-text text-muted">Microphones, casques, mixeurs, tables de mixage et &eacute;quipements audio.</p>
                             <a href="${pageContext.request.contextPath}/pages/equipment/list.jsp?category=audio" class="btn btn-outline-primary">
                                 Voir les &eacute;quipements <i class="fas fa-arrow-right ms-1"></i>
                             </a>
@@ -50,10 +56,12 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm category-card">
+                    <div class="card h-100 border-0 shadow-sm category-card overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?w=600&auto=format&fit=crop&q=80" 
+                             class="card-img-top" alt="&Eacute;clairage" style="height: 200px; object-fit: cover;">
                         <div class="card-body text-center p-4">
-                            <i class="fas fa-lightbulb fa-4x text-primary mb-3"></i>
-                            <h4 class="card-title">&Eacute;clairage</h4>
+                            <i class="fas fa-lightbulb fa-3x text-primary mb-3"></i>
+                            <h4 class="card-title text-primary fw-bold">&Eacute;clairage</h4>
                             <p class="card-text text-muted">Projecteurs, LED, softbox, parapluies et accessoires d'&eacute;clairage.</p>
                             <a href="${pageContext.request.contextPath}/pages/equipment/list.jsp?category=lighting" class="btn btn-outline-primary">
                                 Voir les &eacute;quipements <i class="fas fa-arrow-right ms-1"></i>
@@ -63,11 +71,13 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm category-card">
+                    <div class="card h-100 border-0 shadow-sm category-card overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80" 
+                             class="card-img-top" alt="Informatique" style="height: 200px; object-fit: cover;">
                         <div class="card-body text-center p-4">
-                            <i class="fas fa-laptop fa-4x text-primary mb-3"></i>
-                            <h4 class="card-title">Informatique</h4>
-                            <p class="card-text text-muted">Ordinateurs, tablettes, &eacute;crans, projecteurs et &eacute;quipements IT.</p>
+                            <i class="fas fa-laptop fa-3x text-primary mb-3"></i>
+                            <h4 class="card-title text-primary fw-bold">Informatique</h4>
+                            <p class="card-text text-muted">Ordinateurs, tablettes, &eacute;crans, claviers, souris et accessoires informatiques.</p>
                             <a href="${pageContext.request.contextPath}/pages/equipment/list.jsp?category=it" class="btn btn-outline-primary">
                                 Voir les &eacute;quipements <i class="fas fa-arrow-right ms-1"></i>
                             </a>
@@ -76,10 +86,12 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm category-card">
+                    <div class="card h-100 border-0 shadow-sm category-card overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=600&auto=format&fit=crop&q=80" 
+                             class="card-img-top" alt="Outillage" style="height: 200px; object-fit: cover;">
                         <div class="card-body text-center p-4">
-                            <i class="fas fa-tools fa-4x text-primary mb-3"></i>
-                            <h4 class="card-title">Outillage</h4>
+                            <i class="fas fa-tools fa-3x text-primary mb-3"></i>
+                            <h4 class="card-title text-primary fw-bold">Outillage</h4>
                             <p class="card-text text-muted">Outils &eacute;lectriques, perceuses, scies et &eacute;quipements de construction.</p>
                             <a href="${pageContext.request.contextPath}/pages/equipment/list.jsp?category=tools" class="btn btn-outline-primary">
                                 Voir les &eacute;quipements <i class="fas fa-arrow-right ms-1"></i>
