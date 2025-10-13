@@ -107,7 +107,7 @@
                                 <small class="text-muted ms-1">(4.9)</small>
                             </div>
                             <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=1" class="btn btn-primary btn-sm">
-                                Voir détails
+                                Voir d&eacute;tails
                             </a>
                         </div>
                     </div>
@@ -135,7 +135,7 @@
                                 <small class="text-muted ms-1">(4.8)</small>
                             </div>
                             <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=2" class="btn btn-primary btn-sm">
-                                Voir détails
+                                Voir d&eacute;tails
                             </a>
                         </div>
                     </div>
@@ -163,7 +163,7 @@
                                 <small class="text-muted ms-1">(4.6)</small>
                             </div>
                             <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=3" class="btn btn-primary btn-sm">
-                                Voir détails
+                                Voir d&eacute;tails
                             </a>
                         </div>
                     </div>
@@ -193,7 +193,7 @@
                     <div class="card-body p-4">
                         <i class="fas fa-camera fa-4x text-primary mb-3"></i>
                         <h5 class="card-title">Photographie</h5>
-                        <p class="card-text text-muted">Appareils photo, objectifs, éclairage</p>
+                        <p class="card-text text-muted">Appareils photo, objectifs, &eacute;clairage</p>
                         <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="btn btn-outline-primary">
                             Explorer <i class="fas fa-arrow-right ms-1"></i>
                         </a>
@@ -219,7 +219,7 @@
                     <div class="card-body p-4">
                         <i class="fas fa-laptop fa-4x text-warning mb-3"></i>
                         <h5 class="card-title">Informatique</h5>
-                        <p class="card-text text-muted">Ordinateurs, tablettes, écrans</p>
+                        <p class="card-text text-muted">Ordinateurs, tablettes, &eacute;crans</p>
                         <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="btn btn-outline-warning">
                             Explorer <i class="fas fa-arrow-right ms-1"></i>
                         </a>
