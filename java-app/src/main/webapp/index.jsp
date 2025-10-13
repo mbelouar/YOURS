@@ -2,7 +2,7 @@
 <%@ include file="layouts/navbar.jsp" %>
 
 <!-- Hero Section -->
-<section class="hero-section">
+<section id="accueil" class="hero-section">
     <div class="container">
         <div class="row align-items-center g-5">
             <div class="col-lg-6 hero-content">
@@ -39,7 +39,7 @@
 </section>
 
 <!-- Stats Section -->
-<section class="py-5" style="background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);">
+<section id="chiffres" class="py-5" style="background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);">
     <div class="container">
         <div class="text-center mb-5 pb-2">
             <h2 class="display-6 fw-bold mb-3" style="color: var(--gray-900);">YOURS en Chiffres</h2>
@@ -79,7 +79,7 @@
 </section>
 
 <!-- Featured Equipment Section -->
-<section class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); position: relative; overflow: hidden;">
+<section id="materiel" class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); position: relative; overflow: hidden;">
     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(147, 51, 234, 0.1) 0%, transparent 50%); opacity: 1;"></div>
     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;><defs><pattern id=&quot;grid&quot; width=&quot;10&quot; height=&quot;10&quot; patternUnits=&quot;userSpaceOnUse&quot;><path d=&quot;M 10 0 L 0 0 0 10&quot; fill=&quot;none&quot; stroke=&quot;rgba(255,255,255,0.05)&quot; stroke-width=&quot;0.5&quot;/></pattern></defs><rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;url(%23grid)&quot;/></svg>'); opacity: 0.4;"></div>
     <div class="container" style="position: relative; z-index: 2;">
@@ -183,7 +183,7 @@
 </section>
 
 <!-- Categories Section -->
-<section class="py-5" style="background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);">
+<section id="categories" class="py-5" style="background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);">
     <div class="container">
         <div class="text-center mb-5 pb-3">
             <h2 class="display-5 fw-bold mb-3" style="color: var(--gray-900);">Cat&eacute;gories Populaires</h2>
@@ -257,7 +257,7 @@
 </section>
 
 <!-- CTA Section -->
-<section class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); color: white; position: relative; overflow: hidden;">
+<section id="contact" class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); color: white; position: relative; overflow: hidden;">
     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.2) 0%, transparent 50%); opacity: 0.6;"></div>
     <div class="container text-center position-relative" style="z-index: 2; padding: 3rem 0;">
         <div class="row justify-content-center">

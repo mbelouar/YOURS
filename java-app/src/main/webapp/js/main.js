@@ -44,10 +44,11 @@ const YOURS = {
             input.addEventListener('input', this.debounce(this.handleSearch.bind(this), this.config.debounceDelay));
         });
         
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', this.smoothScroll);
-        });
+        // Smooth scrolling for navigation links
+        this.setupSmoothScrolling();
+        
+        // Section scroll spy
+        this.setupScrollSpy();
         
         // Back to top button
         this.setupBackToTop();
@@ -86,18 +87,88 @@ const YOURS = {
         window.history.replaceState({}, '', url);
     },
     
-    // Smooth scrolling
-    smoothScroll: function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
+    // Setup smooth scrolling for navigation
+    setupSmoothScrolling: function() {
+        const smoothScrollLinks = document.querySelectorAll('.smooth-scroll');
+        const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 80;
         
-        if (targetElement) {
-            targetElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+        smoothScrollLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                
+                // Only handle hash links on same page
+                if (targetId && targetId.startsWith('#')) {
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        e.preventDefault();
+                        
+                        // Calculate position with navbar offset
+                        const targetPosition = targetElement.offsetTop - navbarHeight;
+                        
+                        // Smooth scroll to target
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        const navbarCollapse = document.querySelector('.navbar-collapse');
+                        if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+                            const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+                            if (bsCollapse) {
+                                bsCollapse.hide();
+                            }
+                        }
+                        
+                        // Update URL hash without jumping
+                        if (history.pushState) {
+                            history.pushState(null, null, targetId);
+                        }
+                    }
+                }
             });
-        }
+        });
+    },
+    
+    // Setup scroll spy for active section highlighting
+    setupScrollSpy: function() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.smooth-scroll');
+        const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 80;
+        
+        if (sections.length === 0 || navLinks.length === 0) return;
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: `-${navbarHeight + 50}px 0px -50% 0px`,
+            threshold: 0
+        };
+        
+        const observerCallback = (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.getAttribute('id');
+                    
+                    // Remove active class from all links
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    
+                    // Add active class to current section link
+                    const activeLink = document.querySelector(`.smooth-scroll[href="#${sectionId}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                    }
+                }
+            });
+        };
+        
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
     },
     
     // Setup back to top button

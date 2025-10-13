@@ -17,23 +17,23 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link nav-link-modern" href="${pageContext.request.contextPath}/">
+                    <a class="nav-link nav-link-modern smooth-scroll" href="#accueil" data-section="accueil">
                         <i class="fas fa-home me-2"></i>Accueil
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-modern" href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp">
+                    <a class="nav-link nav-link-modern smooth-scroll" href="#materiel" data-section="materiel">
                         <i class="fas fa-th-large me-2"></i>Mat&eacute;riel
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-modern" href="${pageContext.request.contextPath}/pages/categories.jsp">
+                    <a class="nav-link nav-link-modern smooth-scroll" href="#categories" data-section="categories">
                         <i class="fas fa-tags me-2"></i>Cat&eacute;gories
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-modern" href="${pageContext.request.contextPath}/pages/about.jsp">
-                        <i class="fas fa-info-circle me-2"></i>&Agrave; propos
+                    <a class="nav-link nav-link-modern smooth-scroll" href="#contact" data-section="contact">
+                        <i class="fas fa-envelope me-2"></i>Contact
                     </a>
                 </li>
             </ul>
