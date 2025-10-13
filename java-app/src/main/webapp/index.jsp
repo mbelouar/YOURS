@@ -1,180 +1,270 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YOURS - Location de Matériel Intelligent</title>
-    
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/responsive.css">
-</head>
-<body>
-    <!-- Include Navbar -->
-    <jsp:include page="layouts/navbar.jsp" />
+<%@ include file="layouts/header.jsp" %>
+<%@ include file="layouts/navbar.jsp" %>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 hero-content">
-                    <h1 class="display-4 fw-bold mb-4 fade-in">
-                        Louez du matériel professionnel 
-                        <span class="text-gradient">en toute simplicité</span>
-                    </h1>
-                    <p class="lead mb-4 slide-up">
-                        Découvrez notre large gamme d'équipements professionnels : caméras, éclairage, audio, 
-                        et bien plus encore. Réservez en ligne et récupérez votre matériel rapidement.
-                    </p>
-                    
-                    <!-- CTA Buttons -->
-                    <div class="d-flex flex-wrap gap-3">
-                        <a href="pages/equipment/list.jsp" class="btn btn-light btn-lg">
-                            <i class="bi bi-grid me-2"></i>Parcourir le matériel
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-6 hero-content">
+                <h1 class="hero-title animate-fade-in-left">
+                    Location Intelligente de Matériel Professionnel
+                </h1>
+                <p class="hero-subtitle animate-fade-in-left" style="animation-delay: 0.2s;">
+                    Découvrez notre plateforme révolutionnaire qui utilise l'intelligence artificielle 
+                    pour vous recommander le matériel parfait selon vos besoins.
+                </p>
+                <div class="d-flex flex-wrap gap-3 animate-fade-in-left" style="animation-delay: 0.4s;">
+                    <a href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp" class="btn btn-glass btn-lg">
+                        <i class="fas fa-search me-2"></i>Explorer le Matériel
+                    </a>
+                    <a href="${pageContext.request.contextPath}/pages/auth/register-client.jsp" class="btn btn-gradient btn-lg">
+                        <i class="fas fa-rocket me-2"></i>Commencer Gratuitement
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center animate-fade-in-right">
+                <div style="position: relative; display: inline-block;">
+                    <img src="${pageContext.request.contextPath}/assets/images/hero-equipment.jpg" 
+                         alt="Matériel professionnel" class="img-fluid shadow-2xl" 
+                         style="border-radius: 2rem; max-width: 90%;">
+                    <div style="position: absolute; top: -20px; right: -20px; background: linear-gradient(135deg, var(--accent-color), #f59e0b); color: white; padding: 1rem; border-radius: 1rem; font-weight: 600; box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.3);">
+                        <i class="fas fa-star me-1"></i>
+                        IA Intégrée
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5" style="background: var(--gray-50);">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="stats-card animate-fade-in-up">
+                    <i class="fas fa-camera fa-3x text-primary mb-3"></i>
+                    <span class="stats-number">500+</span>
+                    <span class="stats-label">Équipements Disponibles</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stats-card animate-fade-in-up" style="animation-delay: 0.1s;">
+                    <i class="fas fa-users fa-3x text-success mb-3"></i>
+                    <span class="stats-number">1,200+</span>
+                    <span class="stats-label">Clients Satisfaits</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stats-card animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <i class="fas fa-handshake fa-3x text-warning mb-3"></i>
+                    <span class="stats-number">150+</span>
+                    <span class="stats-label">Partenaires</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stats-card animate-fade-in-up" style="animation-delay: 0.3s;">
+                    <i class="fas fa-clock fa-3x text-info mb-3"></i>
+                    <span class="stats-number">24/7</span>
+                    <span class="stats-label">Support Client</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Equipment Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold text-primary mb-3">Matériel en Vedette</h2>
+            <p class="lead text-muted">Découvrez notre sélection d'équipements les plus populaires</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-modern card-equipment">
+                    <div class="position-relative">
+                        <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
+                             class="card-img-top" alt="Canon EOS R5">
+                        <div class="availability-badge">Disponible</div>
+                        <div class="price-badge">240 MAD/jour</div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Canon EOS R5</h5>
+                        <p class="card-text text-muted">Appareil photo professionnel 45MP avec stabilisation intégrée</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="rating">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <small class="text-muted ms-1">(4.9)</small>
+                            </div>
+                            <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=1" class="btn btn-primary btn-sm">
+                                Voir détails
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-modern card-equipment">
+                    <div class="position-relative">
+                        <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
+                             class="card-img-top" alt="MacBook Pro">
+                        <div class="availability-badge">Disponible</div>
+                        <div class="price-badge">150 MAD/jour</div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">MacBook Pro 16"</h5>
+                        <p class="card-text text-muted">Ordinateur portable M2 Pro pour montage vidéo professionnel</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="rating">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <small class="text-muted ms-1">(4.8)</small>
+                            </div>
+                            <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=2" class="btn btn-primary btn-sm">
+                                Voir détails
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-modern card-equipment">
+                    <div class="position-relative">
+                        <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
+                             class="card-img-top" alt="DJI Mavic">
+                        <div class="availability-badge">Disponible</div>
+                        <div class="price-badge">120 MAD/jour</div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">DJI Mavic Air 2</h5>
+                        <p class="card-text text-muted">Drone professionnel 4K avec stabilisation 3 axes</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="rating">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-muted"></i>
+                                <small class="text-muted ms-1">(4.6)</small>
+                            </div>
+                            <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=3" class="btn btn-primary btn-sm">
+                                Voir détails
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-th-large me-2"></i>Voir Tout le Matériel
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="py-5" style="background: var(--gray-50);">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold text-primary mb-3">Catégories Populaires</h2>
+            <p class="lead text-muted">Explorez nos différentes catégories d'équipements</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="card card-modern text-center h-100">
+                    <div class="card-body p-4">
+                        <i class="fas fa-camera fa-4x text-primary mb-3"></i>
+                        <h5 class="card-title">Photographie</h5>
+                        <p class="card-text text-muted">Appareils photo, objectifs, éclairage</p>
+                        <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="btn btn-outline-primary">
+                            Explorer <i class="fas fa-arrow-right ms-1"></i>
                         </a>
-                        <a href="pages/auth/register-client.jsp" class="btn btn-outline-light btn-lg">
-                            <i class="bi bi-person-plus me-2"></i>Créer un compte
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="card card-modern text-center h-100">
+                    <div class="card-body p-4">
+                        <i class="fas fa-video fa-4x text-success mb-3"></i>
+                        <h5 class="card-title">Vidéo</h5>
+                        <p class="card-text text-muted">Caméras, stabilisateurs, micros</p>
+                        <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="btn btn-outline-success">
+                            Explorer <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="card card-modern text-center h-100">
+                    <div class="card-body p-4">
+                        <i class="fas fa-laptop fa-4x text-warning mb-3"></i>
+                        <h5 class="card-title">Informatique</h5>
+                        <p class="card-text text-muted">Ordinateurs, tablettes, écrans</p>
+                        <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="btn btn-outline-warning">
+                            Explorer <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="card card-modern text-center h-100">
+                    <div class="card-body p-4">
+                        <i class="fas fa-music fa-4x text-info mb-3"></i>
+                        <h5 class="card-title">Audio</h5>
+                        <p class="card-text text-muted">Micros, enregistreurs, enceintes</p>
+                        <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="btn btn-outline-info">
+                            Explorer <i class="fas fa-arrow-right ms-1"></i>
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Stats Section -->
-    <section class="py-5 bg-light">
-        <div class="container">
-            <div class="row stats-grid">
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="stats-card">
-                        <div class="stats-icon">
-                            <i class="bi bi-camera-video"></i>
-                        </div>
-                        <div class="stats-number" data-count="276">276</div>
-                        <div class="stats-label">Équipements disponibles</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="stats-card">
-                        <div class="stats-icon">
-                            <i class="bi bi-people"></i>
-                        </div>
-                        <div class="stats-number" data-count="1247">1247</div>
-                        <div class="stats-label">Clients satisfaits</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="stats-card">
-                        <div class="stats-icon">
-                            <i class="bi bi-calendar-check"></i>
-                        </div>
-                        <div class="stats-number" data-count="3456">3456</div>
-                        <div class="stats-label">Réservations réussies</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="stats-card">
-                        <div class="stats-icon">
-                            <i class="bi bi-star-fill"></i>
-                        </div>
-                        <div class="stats-number" data-count="4.8">4.8</div>
-                        <div class="stats-label">Note moyenne</div>
-                    </div>
+<!-- CTA Section -->
+<section class="py-5" style="background: linear-gradient(135deg, var(--primary-600), var(--primary-800)); color: white;">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="display-5 fw-bold mb-4">Prêt à Commencer ?</h2>
+                <p class="lead mb-4">
+                    Rejoignez des milliers de professionnels qui font confiance à YOURS 
+                    pour leurs besoins en location de matériel.
+                </p>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="${pageContext.request.contextPath}/pages/auth/register-client.jsp" class="btn btn-glass btn-lg">
+                        <i class="fas fa-user-plus me-2"></i>Créer un Compte Client
+                    </a>
+                    <a href="${pageContext.request.contextPath}/pages/auth/register-partner.jsp" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-handshake me-2"></i>Devenir Partenaire
+                    </a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- How It Works Section -->
-    <section class="py-5">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold mb-3">Comment ça marche</h2>
-                <p class="lead text-muted">Louez votre matériel en 3 étapes simples</p>
-            </div>
-            
-            <div class="row features-grid">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="bi bi-search"></i>
-                        </div>
-                        <h4 class="feature-title">1. Recherchez</h4>
-                        <p class="feature-description">
-                            Parcourez notre catalogue et trouvez l'équipement qui correspond à vos besoins. 
-                            Utilisez nos filtres pour affiner votre recherche.
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="bi bi-calendar-check"></i>
-                        </div>
-                        <h4 class="feature-title">2. Réservez</h4>
-                        <p class="feature-description">
-                            Sélectionnez vos dates de location et confirmez votre réservation en ligne. 
-                            Paiement sécurisé et confirmation immédiate.
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="bi bi-box-seam"></i>
-                        </div>
-                        <h4 class="feature-title">3. Récupérez</h4>
-                        <p class="feature-description">
-                            Récupérez votre matériel chez notre partenaire ou optez pour la livraison. 
-                            Profitez de votre équipement professionnel !
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- Floating Action Button -->
+<a href="${pageContext.request.contextPath}/pages/auth/login.jsp" class="btn-floating" title="Se connecter">
+    <i class="fas fa-user"></i>
+</a>
 
-    <!-- CTA Section -->
-    <section class="py-5 bg-gradient-primary text-white">
-        <div class="container text-center">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <h2 class="display-5 fw-bold mb-4">Prêt à commencer ?</h2>
-                    <p class="lead mb-4">
-                        Rejoignez des milliers de professionnels qui font confiance à YOURS 
-                        pour leurs besoins en équipement.
-                    </p>
-                    <div class="d-flex flex-wrap justify-content-center gap-3">
-                        <a href="pages/auth/register-client.jsp" class="btn btn-light btn-lg">
-                            <i class="bi bi-person-plus me-2"></i>Créer un compte
-                        </a>
-                        <a href="pages/equipment/list.jsp" class="btn btn-outline-light btn-lg">
-                            <i class="bi bi-grid me-2"></i>Parcourir le matériel
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Include Footer -->
-    <jsp:include page="layouts/footer.jsp" />
-
-    <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Custom JavaScript -->
-    <script src="js/main.js"></script>
-    <script src="js/mock-data.js"></script>
-</body>
-</html>
+<%@ include file="layouts/footer.jsp" %>

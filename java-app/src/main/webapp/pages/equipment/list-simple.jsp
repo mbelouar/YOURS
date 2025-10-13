@@ -8,14 +8,25 @@
             
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
-                             class="card-img-top" alt="Canon EOS R5" style="height: 200px; object-fit: cover;">
+                    <div class="card card-modern card-equipment h-100">
+                        <div class="position-relative">
+                            <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
+                                 class="card-img-top" alt="Canon EOS R5" style="height: 200px; object-fit: cover;">
+                            <div class="availability-badge">Disponible</div>
+                            <div class="price-badge">240 MAD/jour</div>
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title">Canon EOS R5</h5>
                             <p class="card-text text-muted">Appareil photo professionnel 45MP</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <span class="fw-bold text-primary">240 MAD/jour</span>
+                                <div class="rating">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <small class="text-muted ms-1">(4.9)</small>
+                                </div>
                                 <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=1" class="btn btn-primary btn-sm">
                                     Voir détails
                                 </a>
@@ -25,14 +36,25 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
-                             class="card-img-top" alt="MacBook Pro" style="height: 200px; object-fit: cover;">
+                    <div class="card card-modern card-equipment h-100">
+                        <div class="position-relative">
+                            <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
+                                 class="card-img-top" alt="MacBook Pro" style="height: 200px; object-fit: cover;">
+                            <div class="availability-badge">Disponible</div>
+                            <div class="price-badge">150 MAD/jour</div>
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title">MacBook Pro 16"</h5>
                             <p class="card-text text-muted">Ordinateur portable M2 Pro</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <span class="fw-bold text-primary">150 MAD/jour</span>
+                                <div class="rating">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <small class="text-muted ms-1">(4.8)</small>
+                                </div>
                                 <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=2" class="btn btn-primary btn-sm">
                                     Voir détails
                                 </a>
@@ -42,7 +64,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm">
+                    <div class="card card-modern card-equipment h-100">
                         <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
                              class="card-img-top" alt="Sony A7 III" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
@@ -59,7 +81,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm">
+                    <div class="card card-modern card-equipment h-100">
                         <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
                              class="card-img-top" alt="iPad Pro" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
@@ -76,7 +98,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm">
+                    <div class="card card-modern card-equipment h-100">
                         <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
                              class="card-img-top" alt="DJI Mavic" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
@@ -93,7 +115,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm">
+                    <div class="card card-modern card-equipment h-100">
                         <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
                              class="card-img-top" alt="Rode Microphone" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
