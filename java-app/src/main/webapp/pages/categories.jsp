@@ -12,8 +12,8 @@
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100 border-0 shadow-sm category-card overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&auto=format&fit=crop&q=80" 
-                             class="card-img-top" alt="Photographie" style="height: 200px; object-fit: cover;">
+                        <img src="https://thefoxmagazine.com/wp-content/uploads/2021/07/alejandro-luengo-0A6_DK8hfiI-unsplash-scaled.jpg" 
+                             class="card-img-top" alt="Photographie" style="height: 250px; object-fit: cover;">
                         <div class="card-body text-center p-4">
                             <i class="fas fa-camera fa-3x text-primary mb-3"></i>
                             <h4 class="card-title text-primary fw-bold">Photographie</h4>
@@ -27,8 +27,8 @@
 
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100 border-0 shadow-sm category-card overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=600&auto=format&fit=crop&q=80" 
-                             class="card-img-top" alt="Vid&eacute;o" style="height: 200px; object-fit: cover;">
+                        <img src="https://i.ytimg.com/vi/dXJPsFH6Dxk/maxresdefault.jpg" 
+                             class="card-img-top" alt="Vid&eacute;o" style="height: 250px; object-fit: cover;">
                         <div class="card-body text-center p-4">
                             <i class="fas fa-video fa-3x text-primary mb-3"></i>
                             <h4 class="card-title text-primary fw-bold">Vid&eacute;o</h4>
@@ -42,12 +42,12 @@
 
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100 border-0 shadow-sm category-card overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&auto=format&fit=crop&q=80" 
-                             class="card-img-top" alt="Audio" style="height: 200px; object-fit: cover;">
+                        <img src="https://article.images.consumerreports.org/image/upload/t_article_tout/v1680190819/prod/content/dam/CRO-Images-2023/03March/Electronics/CR-Tech-Inlinehero-Sony-Speakers-0323" 
+                             class="card-img-top" alt="Audio" style="height: 250px; object-fit: cover;">
                         <div class="card-body text-center p-4">
                             <i class="fas fa-music fa-3x text-primary mb-3"></i>
                             <h4 class="card-title text-primary fw-bold">Audio</h4>
-                            <p class="card-text text-muted">Microphones, casques, mixeurs, tables de mixage et &eacute;quipements audio.</p>
+                            <p class="card-text text-muted">Microphones, casques, speakers, tables de mixage et &eacute;quipements audio.</p>
                             <a href="${pageContext.request.contextPath}/pages/equipment/list.jsp?category=audio" class="btn btn-outline-primary">
                                 Voir les &eacute;quipements <i class="fas fa-arrow-right ms-1"></i>
                             </a>
@@ -57,13 +57,13 @@
 
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100 border-0 shadow-sm category-card overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?w=600&auto=format&fit=crop&q=80" 
-                             class="card-img-top" alt="&Eacute;clairage" style="height: 200px; object-fit: cover;">
+                        <img src="https://sourcinbox-app.oss-us-west-1.aliyuncs.com/ad8a8a26271b47079c041efb5d3509451661301383385473024.jpg" 
+                             class="card-img-top" alt="Gaming" style="height: 250px; object-fit: cover;">
                         <div class="card-body text-center p-4">
-                            <i class="fas fa-lightbulb fa-3x text-primary mb-3"></i>
-                            <h4 class="card-title text-primary fw-bold">&Eacute;clairage</h4>
-                            <p class="card-text text-muted">Projecteurs, LED, softbox, parapluies et accessoires d'&eacute;clairage.</p>
-                            <a href="${pageContext.request.contextPath}/pages/equipment/list.jsp?category=lighting" class="btn btn-outline-primary">
+                            <i class="fas fa-gamepad fa-3x text-primary mb-3"></i>
+                            <h4 class="card-title text-primary fw-bold">Gaming</h4>
+                            <p class="card-text text-muted">Consoles, PC gaming, p&eacute;riph&eacute;riques, casques et accessoires gaming.</p>
+                            <a href="${pageContext.request.contextPath}/pages/equipment/list.jsp?category=gaming" class="btn btn-outline-primary">
                                 Voir les &eacute;quipements <i class="fas fa-arrow-right ms-1"></i>
                             </a>
                         </div>
@@ -72,8 +72,8 @@
 
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100 border-0 shadow-sm category-card overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80" 
-                             class="card-img-top" alt="Informatique" style="height: 200px; object-fit: cover;">
+                        <img src="https://static.wixstatic.com/media/11062b_5f9ecce43b0a4acab4ca3b05fb7a233d~mv2.jpg/v1/fill/w_640,h_688,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/11062b_5f9ecce43b0a4acab4ca3b05fb7a233d~mv2.jpg" 
+                             class="card-img-top" alt="Informatique" style="height: 250px; object-fit: cover;">
                         <div class="card-body text-center p-4">
                             <i class="fas fa-laptop fa-3x text-primary mb-3"></i>
                             <h4 class="card-title text-primary fw-bold">Informatique</h4>
@@ -87,13 +87,13 @@
 
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100 border-0 shadow-sm category-card overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=600&auto=format&fit=crop&q=80" 
-                             class="card-img-top" alt="Outillage" style="height: 200px; object-fit: cover;">
+                        <img src="https://m.media-amazon.com/images/I/61HbfYLOzbL._UF894,1000_QL80_.jpg" 
+                             class="card-img-top" alt="&Eacute;clairage" style="height: 250px; object-fit: cover;">
                         <div class="card-body text-center p-4">
-                            <i class="fas fa-tools fa-3x text-primary mb-3"></i>
-                            <h4 class="card-title text-primary fw-bold">Outillage</h4>
-                            <p class="card-text text-muted">Outils &eacute;lectriques, perceuses, scies et &eacute;quipements de construction.</p>
-                            <a href="${pageContext.request.contextPath}/pages/equipment/list.jsp?category=tools" class="btn btn-outline-primary">
+                            <i class="fas fa-lightbulb fa-3x text-primary mb-3"></i>
+                            <h4 class="card-title text-primary fw-bold">&Eacute;clairage</h4>
+                            <p class="card-text text-muted">Projecteurs LED, ring lights, softbox, parapluies et &eacute;clairage de studio.</p>
+                            <a href="${pageContext.request.contextPath}/pages/equipment/list.jsp?category=lighting" class="btn btn-outline-primary">
                                 Voir les &eacute;quipements <i class="fas fa-arrow-right ms-1"></i>
                             </a>
                         </div>
