@@ -183,64 +183,74 @@
 </section>
 
 <!-- Categories Section -->
-<section class="py-5" style="background: linear-gradient(180deg, var(--white) 0%, var(--gray-50) 100%);">
+<section class="py-5" style="background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);">
     <div class="container">
-        <div class="text-center mb-5 pb-2">
+        <div class="text-center mb-5 pb-3">
             <h2 class="display-5 fw-bold mb-3" style="color: var(--gray-900);">Cat&eacute;gories Populaires</h2>
-            <p class="lead text-muted mb-0">Explorez nos diff&eacute;rentes cat&eacute;gories d'&eacute;quipements professionnels</p>
+            <p class="lead mb-0" style="color: var(--gray-600); max-width: 700px; margin-left: auto; margin-right: auto;">
+                Explorez nos diff&eacute;rentes cat&eacute;gories d'&eacute;quipements professionnels
+            </p>
         </div>
         
         <div class="row g-4">
             <div class="col-lg-3 col-md-6">
-                <div class="card card-modern text-center h-100">
-                    <div class="card-body p-4">
-                        <i class="fas fa-camera fa-4x text-primary mb-3"></i>
-                        <h5 class="card-title">Photographie</h5>
-                        <p class="card-text text-muted">Appareils photo, objectifs, &eacute;clairage</p>
-                        <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="btn btn-outline-primary">
-                            Explorer <i class="fas fa-arrow-right ms-1"></i>
-                        </a>
+                <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="text-decoration-none">
+                    <div class="category-card" data-category="primary">
+                        <div class="category-icon-wrapper">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h5 class="category-title">Photographie</h5>
+                        <p class="category-description">Appareils photo, objectifs, &eacute;clairage</p>
+                        <div class="category-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <div class="col-lg-3 col-md-6">
-                <div class="card card-modern text-center h-100">
-                    <div class="card-body p-4">
-                        <i class="fas fa-video fa-4x text-success mb-3"></i>
-                        <h5 class="card-title">Vid&eacute;o</h5>
-                        <p class="card-text text-muted">Cam&eacute;ras, stabilisateurs, micros</p>
-                        <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="btn btn-outline-success">
-                            Explorer <i class="fas fa-arrow-right ms-1"></i>
-                        </a>
+                <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="text-decoration-none">
+                    <div class="category-card" data-category="success">
+                        <div class="category-icon-wrapper">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h5 class="category-title">Vid&eacute;o</h5>
+                        <p class="category-description">Cam&eacute;ras, stabilisateurs, micros</p>
+                        <div class="category-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <div class="col-lg-3 col-md-6">
-                <div class="card card-modern text-center h-100">
-                    <div class="card-body p-4">
-                        <i class="fas fa-laptop fa-4x text-warning mb-3"></i>
-                        <h5 class="card-title">Informatique</h5>
-                        <p class="card-text text-muted">Ordinateurs, tablettes, &eacute;crans</p>
-                        <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="btn btn-outline-warning">
-                            Explorer <i class="fas fa-arrow-right ms-1"></i>
-                        </a>
+                <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="text-decoration-none">
+                    <div class="category-card" data-category="warning">
+                        <div class="category-icon-wrapper">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h5 class="category-title">Informatique</h5>
+                        <p class="category-description">Ordinateurs, tablettes, &eacute;crans</p>
+                        <div class="category-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <div class="col-lg-3 col-md-6">
-                <div class="card card-modern text-center h-100">
-                    <div class="card-body p-4">
-                        <i class="fas fa-music fa-4x text-info mb-3"></i>
-                        <h5 class="card-title">Audio</h5>
-                        <p class="card-text text-muted">Micros, enregistreurs, enceintes</p>
-                        <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="btn btn-outline-info">
-                            Explorer <i class="fas fa-arrow-right ms-1"></i>
-                        </a>
+                <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="text-decoration-none">
+                    <div class="category-card" data-category="info">
+                        <div class="category-icon-wrapper">
+                            <i class="fas fa-headphones"></i>
+                        </div>
+                        <h5 class="category-title">Audio</h5>
+                        <p class="category-description">Micros, enregistreurs, enceintes</p>
+                        <div class="category-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
