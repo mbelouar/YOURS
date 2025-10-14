@@ -26,47 +26,61 @@
 
 <%@ include file="../../layouts/navbar.jsp" %>
 
-<!-- Page Header -->
-<section class="py-4" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); margin-top: -80px; padding-top: calc(80px + 2rem) !important; padding-bottom: 2rem !important; position: relative; overflow: hidden;">
-    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%); opacity: 1;"></div>
-    <div class="container" style="position: relative; z-index: 2;">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb" style="background: transparent; padding: 0; margin: 0;">
-                <li class="breadcrumb-item">
-                    <a href="../../index.jsp" style="color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 500; transition: all 0.2s ease;">
-                        <i class="fas fa-home me-1"></i>Accueil
-                    </a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="list-simple.jsp" style="color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 500; transition: all 0.2s ease;">
-                        Mat&eacute;riel
-                    </a>
-                </li>
-                <li class="breadcrumb-item active" id="equipmentBreadcrumb" style="color: white; font-weight: 600;">Chargement...</li>
-            </ol>
-        </nav>
-    </div>
-</section>
+<div class="container" style="margin-top: 100px;">
+<!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb" style="background: transparent; padding: 0; margin: 0;">
+            <li class="breadcrumb-item">
+                <a href="../../index.jsp" class="d-inline-flex align-items-center" style="color: #6b7280; text-decoration: none; font-weight: 500; transition: all 0.2s ease; font-size: 0.875rem; padding: 0.375rem 0.625rem; border-radius: 0.5rem;">
+                    <i class="fas fa-home me-2" style="font-size: 0.75rem; color: #1e40af;"></i>
+                    Accueil
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="list-simple.jsp" class="d-inline-flex align-items-center" style="color: #6b7280; text-decoration: none; font-weight: 500; transition: all 0.2s ease; font-size: 0.875rem; padding: 0.375rem 0.625rem; border-radius: 0.5rem;">
+                    <i class="fas fa-box me-2" style="font-size: 0.75rem; color: #1e40af;"></i>
+                    Mat&eacute;riel
+                </a>
+            </li>
+            <li class="breadcrumb-item active d-inline-flex align-items-center" style="padding: 0.375rem 0.625rem;">
+                <i class="fas fa-chevron-right me-2" style="font-size: 0.625rem; color: #1e40af;"></i>
+                <span id="equipmentBreadcrumb" style="color: #111827; font-weight: 600; font-size: 0.875rem;">Chargement...</span>
+            </li>
+        </ol>
+    </nav>
+</div>
 
-<div class="container py-5">
+<div class="container pb-5">
     <!-- Loading State -->
     <div id="loadingState" class="text-center py-5">
-        <div class="spinner-border" style="color: #1e40af; width: 3rem; height: 3rem;" role="status">
+        <div style="max-width: 300px; margin: 0 auto;">
+            <div style="position: relative; width: 80px; height: 80px; margin: 0 auto 2rem;">
+                <div class="spinner-border" style="color: #1e40af; width: 80px; height: 80px; border-width: 4px;" role="status">
             <span class="visually-hidden">Chargement...</span>
         </div>
-        <p class="text-muted mt-3">Chargement des d&eacute;tails...</p>
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                    <i class="fas fa-box-open" style="color: #1e40af; font-size: 2rem; animation: pulse 2s ease-in-out infinite;"></i>
+                </div>
+            </div>
+            <h5 class="fw-bold mb-2" style="color: #111827;">Chargement en cours...</h5>
+            <p class="text-muted mb-0" style="font-size: 0.9375rem;">Pr&eacute;paration des d&eacute;tails de l'&eacute;quipement</p>
+        </div>
     </div>
 
     <!-- Equipment Not Found -->
     <div id="notFoundState" class="d-none text-center py-5">
-        <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: #d1d5db;"></i>
-        <h3 class="mt-4" style="color: #374151;">&Eacute;quipement non trouv&eacute;</h3>
-        <p class="text-muted mb-4">
-            L'&eacute;quipement que vous recherchez n'existe pas ou n'est plus disponible.
-        </p>
-        <a href="list-simple.jsp" class="btn btn-primary">
-            <i class="fas fa-arrow-left me-2"></i>Retour au catalogue
-        </a>
+        <div style="max-width: 500px; margin: 0 auto; padding: 3rem 2rem;">
+            <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05)); display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem;">
+                <i class="fas fa-box-open" style="font-size: 3.5rem; color: #ef4444;"></i>
+        </div>
+            <h3 class="fw-bold mb-3" style="color: #111827; font-size: 1.75rem;">&Eacute;quipement Non Trouv&eacute;</h3>
+            <p class="mb-4" style="color: #6b7280; font-size: 1.0625rem; line-height: 1.6;">
+                L'&eacute;quipement que vous recherchez n'existe pas ou n'est plus disponible dans notre catalogue.
+            </p>
+            <a href="list-simple.jsp" class="btn btn-primary" style="border-radius: 0.875rem; padding: 0.875rem 2rem; font-weight: 600; font-size: 1rem; box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);">
+                <i class="fas fa-arrow-left me-2"></i>Retour au Catalogue
+            </a>
+        </div>
     </div>
 
     <!-- Equipment Detail Content -->
@@ -96,58 +110,70 @@
             <!-- Equipment Information -->
             <div class="col-lg-6">
                 <div class="equipment-info">
-                    <!-- Category Badge -->
-                    <div class="mb-3">
-                        <span id="equipmentCategory" class="badge d-inline-flex align-items-center" style="font-size: 0.8125rem; padding: 0.5rem 1rem; font-weight: 600; border-radius: 0.625rem;">
+                    <!-- Category & Status Row -->
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <span id="equipmentCategory" class="badge d-inline-flex align-items-center" style="font-size: 0.8125rem; padding: 0.625rem 1.125rem; font-weight: 600; border-radius: 0.75rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
                             <i class="fas fa-tag me-2" style="font-size: 0.75rem;"></i>
                             <span id="categoryText"></span>
                         </span>
+                        <div id="statusBadge" class="d-inline-flex align-items-center" style="padding: 0.625rem 1.125rem; border-radius: 0.75rem; font-weight: 600; font-size: 0.8125rem;">
+                            <i class="fas fa-circle me-2" style="font-size: 0.5rem;"></i>
+                            <span id="statusText"></span>
+                        </div>
                     </div>
-                    
+
                     <!-- Title -->
-                    <h1 id="equipmentName" class="display-5 fw-bold mb-3" style="color: #111827; line-height: 1.2; letter-spacing: -0.02em;"></h1>
-                    <p id="equipmentDescription" class="lead mb-4" style="color: #6b7280; font-size: 1.125rem; line-height: 1.7;"></p>
+                    <h1 id="equipmentName" class="display-4 fw-bold mb-3" style="color: #111827; line-height: 1.15; letter-spacing: -0.025em;"></h1>
+                    <p id="equipmentDescription" class="lead mb-4" style="color: #6b7280; font-size: 1.125rem; line-height: 1.75; font-weight: 400;"></p>
 
                     <!-- Price Section -->
-                    <div class="p-4 mb-4" style="background: linear-gradient(135deg, rgba(30, 64, 175, 0.05), rgba(30, 58, 138, 0.05)); border-radius: 1.25rem; border: 2px solid rgba(30, 64, 175, 0.15); box-shadow: 0 4px 15px rgba(30, 64, 175, 0.08);">
-                        <div class="d-flex align-items-baseline mb-2">
-                            <div id="equipmentPrice" style="font-size: 3rem; font-weight: 800; color: #1e40af; letter-spacing: -0.02em;"></div>
-                            <span class="ms-2" style="font-size: 1.25rem; color: #6b7280; font-weight: 500;">/jour</span>
+                    <div class="position-relative mb-4" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); border-radius: 1.5rem; padding: 2rem; overflow: hidden; box-shadow: 0 12px 40px rgba(30, 64, 175, 0.25);">
+                        <div style="position: absolute; top: 0; right: 0; width: 200px; height: 200px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); opacity: 0.5;"></div>
+                        <div style="position: relative; z-index: 2;">
+                            <div class="d-flex align-items-baseline mb-3">
+                                <div id="equipmentPrice" style="font-size: 3.5rem; font-weight: 900; color: white; letter-spacing: -0.03em; text-shadow: 0 2px 10px rgba(0,0,0,0.2);"></div>
+                                <span class="ms-3" style="font-size: 1.375rem; color: rgba(255,255,255,0.85); font-weight: 500;">/jour</span>
                         </div>
-                        <div class="d-flex align-items-center" style="color: #6b7280; font-size: 0.875rem;">
-                            <i class="fas fa-info-circle me-2" style="color: #1e40af;"></i>
-                            <span>Prix d&eacute;gressifs pour les locations longues</span>
+                            <div class="d-flex align-items-center" style="color: rgba(255,255,255,0.9); font-size: 0.9375rem;">
+                                <i class="fas fa-info-circle me-2" style="font-size: 1rem;"></i>
+                                <span>R&eacute;ductions disponibles pour les locations longue dur&eacute;e</span>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Partner Information -->
-                    <div class="card mb-4" style="border-radius: 1.25rem; border: 1px solid #e5e7eb; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: all 0.3s ease;">
+                    <div class="card mb-4" style="border-radius: 1.25rem; border: 1px solid #e5e7eb; background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%); box-shadow: 0 4px 15px rgba(0,0,0,0.06); transition: all 0.3s ease;">
                         <div class="card-body p-4">
-                            <div class="d-flex align-items-center mb-3">
-                                <i class="fas fa-store-alt me-2" style="color: #1e40af; font-size: 1.125rem;"></i>
-                                <h6 class="fw-semibold mb-0" style="color: #1f2937; font-size: 0.9375rem; letter-spacing: 0.01em;">PROPOS&Eacute; PAR</h6>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h5 id="partnerName" class="mb-2" style="color: #111827; font-weight: 700;"></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div id="partnerRating" class="me-2"></div>
-                                        <small style="color: #6b7280; font-weight: 500;" id="partnerRatingText"></small>
+                            <div class="d-flex align-items-center gap-2 mb-3 pb-3" style="border-bottom: 1px solid #f3f4f6;">
+                                <div style="width: 40px; height: 40px; border-radius: 0.75rem; background: linear-gradient(135deg, #1e40af, #1e3a8a); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(30, 64, 175, 0.25);">
+                                    <i class="fas fa-store-alt" style="color: white; font-size: 1.125rem;"></i>
                                     </div>
+                                <div>
+                                    <div style="color: #6b7280; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Partenaire</div>
+                                    <h5 id="partnerName" class="mb-0" style="color: #111827; font-weight: 700; font-size: 1.125rem;"></h5>
                                 </div>
-                                <button class="btn btn-outline-primary btn-sm" style="border-radius: 0.75rem; padding: 0.625rem 1rem; border-width: 2px; font-weight: 600;" onclick="contactPartner()">
-                                    <i class="fas fa-comment-dots me-1"></i>Contacter
+                                    </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div id="partnerRating"></div>
+                                    <span style="color: #6b7280; font-weight: 600; font-size: 0.9375rem;" id="partnerRatingText"></span>
+                                </div>
+                                <button class="btn btn-primary btn-sm" style="border-radius: 0.75rem; padding: 0.625rem 1.25rem; font-weight: 600; box-shadow: 0 2px 8px rgba(30, 64, 175, 0.3);" onclick="contactPartner()">
+                                    <i class="fas fa-comment-dots me-2"></i>Contacter
                                 </button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Quick Booking Form -->
-                    <div class="card mb-4" style="border-radius: 1.25rem; border: 2px solid #1e40af; background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); box-shadow: 0 8px 25px rgba(30, 64, 175, 0.15);">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center mb-4">
-                                <i class="fas fa-calendar-check me-2" style="color: #1e40af; font-size: 1.25rem;"></i>
-                                <h5 class="fw-bold mb-0" style="color: #111827; font-size: 1.125rem;">R&eacute;servation Rapide</h5>
+                    <div class="card mb-4 position-relative" style="border-radius: 1.5rem; border: 2px solid #1e40af; background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); box-shadow: 0 12px 40px rgba(30, 64, 175, 0.2); overflow: hidden;">
+                        <div style="position: absolute; top: 0; right: 0; width: 150px; height: 150px; background: radial-gradient(circle, rgba(30, 64, 175, 0.05) 0%, transparent 70%);"></div>
+                        <div class="card-body p-4" style="position: relative; z-index: 2;">
+                            <div class="d-flex align-items-center mb-4 pb-3" style="border-bottom: 2px solid rgba(30, 64, 175, 0.1);">
+                                <div style="width: 48px; height: 48px; border-radius: 1rem; background: linear-gradient(135deg, #1e40af, #1e3a8a); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);">
+                                    <i class="fas fa-calendar-check" style="color: white; font-size: 1.25rem;"></i>
+                                </div>
+                                <h5 class="fw-bold mb-0 ms-3" style="color: #111827; font-size: 1.25rem; letter-spacing: -0.01em;">R&eacute;servation Rapide</h5>
                             </div>
                             <form id="quickBookingForm">
                                 <div class="row g-3">
@@ -184,8 +210,11 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button type="submit" class="btn btn-primary w-100" style="height: 54px; border-radius: 0.875rem; font-weight: 700; font-size: 1.0625rem; box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3); transition: all 0.3s ease;">
-                                            <i class="fas fa-calendar-plus me-2"></i>R&eacute;server Maintenant
+                                        <button type="submit" class="btn btn-primary w-100 position-relative" style="height: 56px; border-radius: 0.875rem; font-weight: 700; font-size: 1.125rem; box-shadow: 0 8px 20px rgba(30, 64, 175, 0.35); transition: all 0.3s ease; background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); border: none; overflow: hidden;">
+                                            <span style="position: relative; z-index: 2;">
+                                                <i class="fas fa-calendar-plus me-2"></i>R&eacute;server Maintenant
+                                            </span>
+                                            <div style="position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s ease;"></div>
                                         </button>
                                     </div>
                                 </div>
@@ -194,12 +223,12 @@
                     </div>
 
                     <!-- Share & Wishlist -->
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-outline-secondary d-flex align-items-center justify-content-center" style="flex: 1; border-radius: 0.875rem; height: 48px; border-width: 2px; font-weight: 600; transition: all 0.3s ease;" onclick="addToWishlist()">
-                            <i class="fas fa-heart me-2"></i>Favoris
+                    <div class="d-flex gap-3">
+                        <button class="btn d-flex align-items-center justify-content-center" style="flex: 1; border-radius: 0.875rem; height: 52px; background: white; border: 2px solid #e5e7eb; color: #374151; font-weight: 600; font-size: 0.9375rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: all 0.3s ease;" onclick="addToWishlist()">
+                            <i class="fas fa-heart me-2" style="font-size: 1rem;"></i>Ajouter aux Favoris
                         </button>
-                        <button class="btn btn-outline-secondary d-flex align-items-center justify-content-center" style="flex: 1; border-radius: 0.875rem; height: 48px; border-width: 2px; font-weight: 600; transition: all 0.3s ease;" onclick="shareEquipment()">
-                            <i class="fas fa-share-alt me-2"></i>Partager
+                        <button class="btn d-flex align-items-center justify-content-center" style="flex: 1; border-radius: 0.875rem; height: 52px; background: white; border: 2px solid #e5e7eb; color: #374151; font-weight: 600; font-size: 0.9375rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: all 0.3s ease;" onclick="shareEquipment()">
+                            <i class="fas fa-share-alt me-2" style="font-size: 1rem;"></i>Partager
                         </button>
                     </div>
                 </div>
@@ -308,14 +337,14 @@
 
 <!-- Image Modal -->
 <div class="modal fade" id="imageModal" tabindex="-1">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content" style="border-radius: 1rem;">
-            <div class="modal-header border-0">
-                <h5 class="modal-title fw-bold" id="imageModalTitle">Images</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 1.25rem; border: none; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+            <div class="modal-header border-0 pb-0" style="padding: 1.5rem 1.5rem 0.5rem;">
+                <h5 class="modal-title fw-bold" id="imageModalTitle" style="color: #111827; font-size: 1.25rem;"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" style="font-size: 0.875rem;"></button>
             </div>
-            <div class="modal-body text-center">
-                <img id="modalImage" src="" alt="" class="img-fluid" style="border-radius: 0.5rem;">
+            <div class="modal-body text-center" style="padding: 1.5rem;">
+                <img id="modalImage" src="" alt="" class="img-fluid" style="border-radius: 1rem; max-height: 70vh; object-fit: contain; box-shadow: 0 8px 30px rgba(0,0,0,0.15);">
             </div>
         </div>
     </div>
@@ -494,6 +523,9 @@ function displayEquipmentDetail() {
     
     var categoryBadge = document.getElementById('equipmentCategory');
     var categoryText = document.getElementById('categoryText');
+    var statusBadge = document.getElementById('statusBadge');
+    var statusText = document.getElementById('statusText');
+    
     var categoryColors = {
         'Photographie': 'linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(37, 99, 235, 0.2))',
         'Video': 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.2))',
@@ -506,6 +538,15 @@ function displayEquipmentDetail() {
     categoryBadge.style.color = '#1e40af';
     
     var availabilityText = currentEquipment.disponibilite ? 'Disponible' : 'Non disponible';
+    var availabilityColor = currentEquipment.disponibilite ? '#10b981' : '#ef4444';
+    var availabilityBg = currentEquipment.disponibilite ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)';
+    
+    statusText.textContent = availabilityText;
+    statusBadge.style.background = availabilityBg;
+    statusBadge.style.color = availabilityColor;
+    statusBadge.querySelector('i').style.color = availabilityColor;
+    statusBadge.style.border = '1px solid ' + availabilityColor + '33';
+    
     document.getElementById('imageBadge').textContent = availabilityText;
     document.getElementById('imagePriceBadge').textContent = currentEquipment.prix + ' MAD/jour';
     
@@ -531,14 +572,21 @@ function displayImages() {
     var thumbnailsHtml = '';
     for (var i = 0; i < currentEquipment.images.length; i++) {
         var isActive = i === 0;
+        thumbnailsHtml += '<div style="position: relative; flex-shrink: 0;">';
         thumbnailsHtml += '<img src="' + currentEquipment.images[i] + '" ';
         thumbnailsHtml += 'alt="' + currentEquipment.nom + ' ' + (i + 1) + '" ';
         thumbnailsHtml += 'class="thumbnail' + (isActive ? ' active' : '') + '" ';
         thumbnailsHtml += 'onclick="changeMainImage(' + i + ')" ';
-        thumbnailsHtml += 'style="width: 110px; height: 82px; object-fit: cover; border-radius: 0.75rem; cursor: pointer; ';
-        thumbnailsHtml += 'opacity: ' + (isActive ? '1' : '0.6') + '; transition: all 0.3s ease; ';
-        thumbnailsHtml += 'border: 3px solid ' + (isActive ? '#1e40af' : 'transparent') + '; ';
-        thumbnailsHtml += 'box-shadow: ' + (isActive ? '0 4px 12px rgba(30, 64, 175, 0.3)' : '0 2px 6px rgba(0,0,0,0.1)') + ';">';
+        thumbnailsHtml += 'style="width: 110px; height: 82px; object-fit: cover; border-radius: 0.875rem; cursor: pointer; ';
+        thumbnailsHtml += 'opacity: ' + (isActive ? '1' : '0.6') + '; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); ';
+        thumbnailsHtml += 'border: 3px solid ' + (isActive ? '#1e40af' : '#e5e7eb') + '; ';
+        thumbnailsHtml += 'box-shadow: ' + (isActive ? '0 6px 16px rgba(30, 64, 175, 0.35)' : '0 2px 8px rgba(0,0,0,0.08)') + ';">';
+        if (isActive) {
+            thumbnailsHtml += '<div style="position: absolute; top: 0.375rem; right: 0.375rem; width: 20px; height: 20px; background: linear-gradient(135deg, #1e40af, #1e3a8a); border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">';
+            thumbnailsHtml += '<i class="fas fa-check" style="color: white; font-size: 0.625rem;"></i>';
+            thumbnailsHtml += '</div>';
+        }
+        thumbnailsHtml += '</div>';
     }
     thumbnailGallery.innerHTML = thumbnailsHtml;
 }
@@ -548,12 +596,28 @@ function changeMainImage(index) {
     var mainImage = document.getElementById('mainImage');
     mainImage.src = currentEquipment.images[index];
     
-    var thumbnails = document.querySelectorAll('.thumbnail');
-    for (var i = 0; i < thumbnails.length; i++) {
-        thumbnails[i].style.opacity = i === index ? '1' : '0.6';
-        thumbnails[i].style.borderColor = i === index ? '#1e40af' : 'transparent';
-        thumbnails[i].style.borderWidth = '3px';
-        thumbnails[i].style.boxShadow = i === index ? '0 4px 12px rgba(30, 64, 175, 0.3)' : '0 2px 6px rgba(0,0,0,0.1)';
+    // Update all thumbnails
+    var thumbnailContainers = document.getElementById('thumbnailGallery').children;
+    for (var i = 0; i < thumbnailContainers.length; i++) {
+        var img = thumbnailContainers[i].querySelector('.thumbnail');
+        var isActive = i === index;
+        
+        img.style.opacity = isActive ? '1' : '0.6';
+        img.style.borderColor = isActive ? '#1e40af' : '#e5e7eb';
+        img.style.boxShadow = isActive ? '0 6px 16px rgba(30, 64, 175, 0.35)' : '0 2px 8px rgba(0,0,0,0.08)';
+        
+        // Update checkmark
+        var existingCheck = thumbnailContainers[i].querySelector('div:last-child');
+        if (existingCheck && existingCheck.querySelector('.fa-check')) {
+            existingCheck.remove();
+        }
+        
+        if (isActive) {
+            var checkmark = document.createElement('div');
+            checkmark.style.cssText = 'position: absolute; top: 0.375rem; right: 0.375rem; width: 20px; height: 20px; background: linear-gradient(135deg, #1e40af, #1e3a8a); border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.2);';
+            checkmark.innerHTML = '<i class="fas fa-check" style="color: white; font-size: 0.625rem;"></i>';
+            thumbnailContainers[i].appendChild(checkmark);
+        }
     }
 }
 
@@ -791,13 +855,18 @@ function shareEquipment() {
 
 .breadcrumb-item + .breadcrumb-item::before {
     content: "›";
-    color: rgba(255,255,255,0.6);
-    font-size: 1.125rem;
+    color: #d1d5db;
+    font-size: 0.875rem;
     padding: 0 0.5rem;
 }
 
 .breadcrumb-item a:hover {
-    color: white !important;
+    background: #f3f4f6 !important;
+    color: #1e40af !important;
+}
+
+.breadcrumb {
+    transition: all 0.2s ease;
 }
 
 .form-control:focus {
@@ -806,8 +875,12 @@ function shareEquipment() {
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(30, 64, 175, 0.45) !important;
+}
+
+.btn-primary:active {
+    transform: translateY(0);
 }
 
 .btn-outline-primary:hover {
@@ -815,13 +888,24 @@ function shareEquipment() {
     border-color: #1e40af !important;
     color: white !important;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3) !important;
 }
 
-.btn-outline-secondary:hover {
-    background: #374151 !important;
-    border-color: #374151 !important;
-    color: white !important;
-    transform: translateY(-2px);
+.btn[onclick*="Wishlist"]:hover,
+.btn[onclick*="shareEquipment"]:hover {
+    background: #f9fafb !important;
+    border-color: #1e40af !important;
+    color: #1e40af !important;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12) !important;
+}
+
+.btn[onclick*="Wishlist"]:hover i {
+    color: #ef4444 !important;
+}
+
+.card:hover {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12) !important;
 }
 
 .card-equipment:hover {
@@ -860,6 +944,133 @@ function shareEquipment() {
 
 .thumbnail-gallery::-webkit-scrollbar-thumb:hover {
     background: #9ca3af;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+    opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#equipmentDetail {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Shimmer effect for loading */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.main-image-container {
+    transition: all 0.3s ease;
+}
+
+.main-image-container:hover {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.18) !important;
+    transform: translateY(-2px);
+}
+
+/* Partner card hover */
+.card-body:has(#partnerName) {
+    transition: all 0.3s ease;
+}
+
+/* Enhanced focus states */
+input[type="date"]:focus {
+    transform: translateY(-1px);
+}
+
+/* Book button shine effect on hover */
+button[type="submit"]:hover div {
+    left: 100% !important;
+}
+
+/* Tab content fade in */
+.tab-pane {
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* Review avatar pulse */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Price card gradient animation */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Smooth page transitions */
+body {
+    overflow-x: hidden;
+}
+
+/* Enhanced shadows on interactive elements */
+.card-body:has(#partnerName):hover {
+    transform: translateY(-2px);
+}
+
+/* Input animations */
+input[type="date"] {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+input[type="date"]:hover {
+    border-color: #9ca3af !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+    .equipment-detail-images {
+        position: static !important;
+    }
+    
+    .main-image-container img {
+        height: 350px !important;
+    }
+    
+    #equipmentName {
+        font-size: 2rem !important;
+    }
+    
+    #equipmentPrice {
+        font-size: 2.5rem !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .main-image-container img {
+        height: 300px !important;
+    }
+    
+    .thumbnail {
+        width: 80px !important;
+        height: 60px !important;
+    }
 }
 </style>
 
