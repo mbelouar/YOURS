@@ -192,10 +192,10 @@
             </p>
         </div>
         
-        <div class="row g-4">
-            <div class="col-lg-3 col-md-6">
+        <div class="row g-3">
+            <div class="col-lg-2 col-md-4 col-sm-6">
                 <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="text-decoration-none">
-                    <div class="category-card" data-category="primary">
+                    <div class="category-card category-card-compact" data-category="primary">
                         <div class="category-icon-wrapper">
                             <i class="fas fa-camera"></i>
                         </div>
@@ -208,9 +208,9 @@
                 </a>
             </div>
 
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-2 col-md-4 col-sm-6">
                 <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="text-decoration-none">
-                    <div class="category-card" data-category="success">
+                    <div class="category-card category-card-compact" data-category="success">
                         <div class="category-icon-wrapper">
                             <i class="fas fa-video"></i>
                         </div>
@@ -223,9 +223,9 @@
                 </a>
             </div>
 
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-2 col-md-4 col-sm-6">
                 <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="text-decoration-none">
-                    <div class="category-card" data-category="warning">
+                    <div class="category-card category-card-compact" data-category="warning">
                         <div class="category-icon-wrapper">
                             <i class="fas fa-laptop"></i>
                         </div>
@@ -238,14 +238,44 @@
                 </a>
             </div>
 
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-2 col-md-4 col-sm-6">
                 <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="text-decoration-none">
-                    <div class="category-card" data-category="info">
+                    <div class="category-card category-card-compact" data-category="info">
                         <div class="category-icon-wrapper">
                             <i class="fas fa-headphones"></i>
                         </div>
                         <h5 class="category-title">Audio</h5>
                         <p class="category-description">Micros, enregistreurs, enceintes</p>
+                        <div class="category-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+                <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="text-decoration-none">
+                    <div class="category-card category-card-compact" data-category="danger">
+                        <div class="category-icon-wrapper">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <h5 class="category-title">Gaming</h5>
+                        <p class="category-description">Consoles, PC gaming, accessoires</p>
+                        <div class="category-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-6">
+                <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="text-decoration-none">
+                    <div class="category-card category-card-compact" data-category="secondary">
+                        <div class="category-icon-wrapper">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h5 class="category-title">&Eacute;clairage</h5>
+                        <p class="category-description">Lumi&egrave;res LED, projecteurs, studios</p>
                         <div class="category-arrow">
                             <i class="fas fa-arrow-right"></i>
                         </div>

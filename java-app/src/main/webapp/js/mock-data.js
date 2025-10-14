@@ -18,9 +18,9 @@ const mockEquipment = [
             "Double slot carte mémoire"
         ],
         images: [
-            "assets/images/equipment/canon-r5-1.jpg",
-            "assets/images/equipment/canon-r5-2.jpg",
-            "assets/images/equipment/canon-r5-3.jpg"
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80",
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80",
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80"
         ],
         partner: {
             idPartenaire: 1,
@@ -46,8 +46,8 @@ const mockEquipment = [
             "Connectivité sans fil intégrée"
         ],
         images: [
-            "assets/images/equipment/sony-fx3-1.jpg",
-            "assets/images/equipment/sony-fx3-2.jpg"
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80",
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80"
         ],
         partner: {
             idPartenaire: 2,
@@ -73,7 +73,7 @@ const mockEquipment = [
             "Système de suivi ActiveTrack Pro"
         ],
         images: [
-            "assets/images/equipment/dji-ronin-4d-1.jpg"
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80"
         ],
         partner: {
             idPartenaire: 1,
@@ -99,8 +99,8 @@ const mockEquipment = [
             "Effets spéciaux intégrés"
         ],
         images: [
-            "assets/images/equipment/arri-skypanel-1.jpg",
-            "assets/images/equipment/arri-skypanel-2.jpg"
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80",
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80"
         ],
         partner: {
             idPartenaire: 3,
@@ -126,7 +126,7 @@ const mockEquipment = [
             "Connecteur XLR-3"
         ],
         images: [
-            "assets/images/equipment/sennheiser-mke600-1.jpg"
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80"
         ],
         partner: {
             idPartenaire: 3,
@@ -152,7 +152,7 @@ const mockEquipment = [
             "Ports Thunderbolt 4"
         ],
         images: [
-            "assets/images/equipment/macbook-pro-1.jpg"
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80"
         ],
         partner: {
             idPartenaire: 4,

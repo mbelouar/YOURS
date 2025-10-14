@@ -6,68 +6,87 @@
 <%@ include file="../../layouts/header.jsp" %>
 <%@ include file="../../layouts/navbar.jsp" %>
 
-<!-- Breadcrumb -->
-<div class="container py-3">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb breadcrumb-custom">
-            <li class="breadcrumb-item">
-                <a href="${pageContext.request.contextPath}/" class="text-decoration-none">
-                    <i class="bi bi-house me-1"></i>Accueil
-                </a>
-            </li>
-            <li class="breadcrumb-item active">Matériel</li>
-        </ol>
-    </nav>
-</div>
+<!-- Page Header -->
+<section class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); margin-top: -80px; padding-top: calc(80px + 4rem) !important; padding-bottom: 4rem !important;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-4 fw-bold mb-3" style="color: white;">Catalogue Mat&eacute;riel</h1>
+                <p class="lead mb-0" style="color: rgba(255, 255, 255, 0.9);">
+                    Explorez, filtrez et r&eacute;servez le mat&eacute;riel professionnel dont vous avez besoin
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
 
-<div class="container py-4">
+<div class="container py-5">
     <div class="row">
         <!-- Filter Sidebar -->
         <div class="col-lg-3 col-md-4 mb-4">
             <div class="filter-sidebar">
-                <h5 class="fw-bold mb-4">
-                    <i class="bi bi-funnel me-2"></i>Filtres
-                </h5>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="fw-bold mb-0" style="color: var(--gray-900);">
+                        <i class="fas fa-filter me-2" style="color: var(--primary-600);"></i>Filtres
+                    </h5>
+                    <button class="btn btn-sm btn-outline-secondary" onclick="clearAllFilters()" style="font-size: 0.75rem; padding: 0.375rem 0.75rem; border-radius: 0.5rem;">
+                        <i class="fas fa-redo me-1"></i>R&eacute;initialiser
+                    </button>
+                </div>
 
                 <!-- Search -->
                 <div class="filter-group">
-                    <h6>Recherche</h6>
-                    <div class="search-box-custom">
-                        <i class="bi bi-search search-icon"></i>
+                    <h6 style="color: var(--gray-800); font-size: 0.9375rem; margin-bottom: 0.75rem;">
+                        <i class="fas fa-search me-2" style="color: var(--gray-500); font-size: 0.875rem;"></i>Recherche
+                    </h6>
+                    <div class="position-relative">
+                        <i class="fas fa-search position-absolute" style="left: 0.875rem; top: 50%; transform: translateY(-50%); color: var(--gray-400); font-size: 0.875rem;"></i>
                         <input type="text" class="form-control search-input" id="equipmentSearch" 
-                               placeholder="Rechercher...">
+                               placeholder="Rechercher..." 
+                               style="padding-left: 2.5rem; border-radius: 0.75rem; border: 2px solid var(--gray-200); font-size: 0.9375rem;">
                     </div>
                 </div>
 
                 <!-- Categories -->
                 <div class="filter-group">
-                    <h6>Catégories</h6>
-                    <div id="categoryFilters">
+                    <h6 style="color: var(--gray-800); font-size: 0.9375rem; margin-bottom: 0.75rem;">
+                        <i class="fas fa-tags me-2" style="color: var(--gray-500); font-size: 0.875rem;"></i>Cat&eacute;gories
+                    </h6>
+                    <div id="categoryFilters" style="max-height: 200px; overflow-y: auto;">
                         <!-- Categories will be loaded here -->
                     </div>
                 </div>
 
                 <!-- Price Range -->
                 <div class="filter-group">
-                    <h6>Prix par jour</h6>
+                    <h6 style="color: var(--gray-800); font-size: 0.9375rem; margin-bottom: 0.75rem;">
+                        <i class="fas fa-coins me-2" style="color: var(--gray-500); font-size: 0.875rem;"></i>Prix par jour
+                    </h6>
                     <div class="price-range-slider">
-                        <input type="range" class="form-range min-price" id="minPrice" 
-                               min="0" max="1000" value="0" step="10">
-                        <input type="range" class="form-range max-price" id="maxPrice" 
-                               min="0" max="1000" value="1000" step="10">
-                        <div class="price-display">
-                            <span class="min-price-display">0 MAD</span>
-                            <span class="max-price-display">1000 MAD</span>
+                        <div class="mb-3">
+                            <label for="minPrice" class="form-label" style="font-size: 0.875rem; color: var(--gray-600);">Min: <span class="min-price-display fw-bold" style="color: var(--primary-600);">0 MAD</span></label>
+                            <input type="range" class="form-range min-price" id="minPrice" 
+                                   min="0" max="1000" value="0" step="10" 
+                                   style="accent-color: var(--primary-600);">
+                        </div>
+                        <div>
+                            <label for="maxPrice" class="form-label" style="font-size: 0.875rem; color: var(--gray-600);">Max: <span class="max-price-display fw-bold" style="color: var(--primary-600);">1000 MAD</span></label>
+                            <input type="range" class="form-range max-price" id="maxPrice" 
+                                   min="0" max="1000" value="1000" step="10" 
+                                   style="accent-color: var(--primary-600);">
                         </div>
                     </div>
                 </div>
 
                 <!-- Availability -->
                 <div class="filter-group">
-                    <h6>Disponibilité</h6>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="availableOnly" checked>
-                        <label class="form-check-label" for="availableOnly">
+                    <h6 style="color: var(--gray-800); font-size: 0.9375rem; margin-bottom: 0.75rem;">
+                        <i class="fas fa-check-circle me-2" style="color: var(--gray-500); font-size: 0.875rem;"></i>Disponibilit&eacute;
+                    </h6>
+                    <div class="form-check" style="padding: 0.5rem 0.75rem; border-radius: 0.5rem; transition: background 0.2s ease;">
+                        <input class="form-check-input" type="checkbox" id="availableOnly" checked 
+                               style="width: 1.25rem; height: 1.25rem; margin-top: 0.125rem; cursor: pointer;">
+                        <label class="form-check-label" for="availableOnly" style="margin-left: 0.5rem; cursor: pointer; color: var(--gray-700);">
                             Disponible uniquement
                         </label>
                     </div>
@@ -75,68 +94,76 @@
 
                 <!-- Partner Rating -->
                 <div class="filter-group">
-                    <h6>Note du partenaire</h6>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="rating5" value="5">
-                        <label class="form-check-label" for="rating5">
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            5 étoiles
+                    <h6 style="color: var(--gray-800); font-size: 0.9375rem; margin-bottom: 0.75rem;">
+                        <i class="fas fa-star me-2" style="color: var(--gray-500); font-size: 0.875rem;"></i>Note partenaire
+                    </h6>
+                    <div class="form-check mb-2" style="padding: 0.5rem 0.75rem; border-radius: 0.5rem; transition: background 0.2s ease;">
+                        <input class="form-check-input" type="checkbox" id="rating5" value="5" 
+                               style="width: 1.25rem; height: 1.25rem; margin-top: 0.125rem; cursor: pointer;">
+                        <label class="form-check-label" for="rating5" style="margin-left: 0.5rem; cursor: pointer; color: var(--gray-700); font-size: 0.9375rem;">
+                            <i class="fas fa-star" style="color: #fbbf24; font-size: 0.75rem;"></i>
+                            <i class="fas fa-star" style="color: #fbbf24; font-size: 0.75rem;"></i>
+                            <i class="fas fa-star" style="color: #fbbf24; font-size: 0.75rem;"></i>
+                            <i class="fas fa-star" style="color: #fbbf24; font-size: 0.75rem;"></i>
+                            <i class="fas fa-star" style="color: #fbbf24; font-size: 0.75rem;"></i>
+                            <span class="ms-1">5 &eacute;toiles</span>
                         </label>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="rating4" value="4">
-                        <label class="form-check-label" for="rating4">
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            4+ étoiles
+                    <div class="form-check" style="padding: 0.5rem 0.75rem; border-radius: 0.5rem; transition: background 0.2s ease;">
+                        <input class="form-check-input" type="checkbox" id="rating4" value="4" 
+                               style="width: 1.25rem; height: 1.25rem; margin-top: 0.125rem; cursor: pointer;">
+                        <label class="form-check-label" for="rating4" style="margin-left: 0.5rem; cursor: pointer; color: var(--gray-700); font-size: 0.9375rem;">
+                            <i class="fas fa-star" style="color: #fbbf24; font-size: 0.75rem;"></i>
+                            <i class="fas fa-star" style="color: #fbbf24; font-size: 0.75rem;"></i>
+                            <i class="fas fa-star" style="color: #fbbf24; font-size: 0.75rem;"></i>
+                            <i class="fas fa-star" style="color: #fbbf24; font-size: 0.75rem;"></i>
+                            <i class="far fa-star" style="color: #fbbf24; font-size: 0.75rem;"></i>
+                            <span class="ms-1">4+ &eacute;toiles</span>
                         </label>
                     </div>
                 </div>
-
-                <!-- Clear Filters -->
-                <button class="btn btn-outline-secondary w-100" onclick="clearAllFilters()">
-                    <i class="bi bi-x-circle me-2"></i>Effacer les filtres
-                </button>
             </div>
         </div>
 
         <!-- Equipment Grid -->
         <div class="col-lg-9 col-md-8">
             <!-- Header with Sort -->
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <h2 class="fw-bold mb-1">Matériel disponible</h2>
-                    <p class="text-muted mb-0" id="resultsCount">Chargement...</p>
-                </div>
-                
-                <div class="d-flex align-items-center gap-3">
-                    <!-- View Toggle -->
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-secondary active" id="gridView" 
-                                onclick="toggleView('grid')">
-                            <i class="bi bi-grid"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary" id="listView" 
-                                onclick="toggleView('list')">
-                            <i class="bi bi-list"></i>
-                        </button>
+            <div class="p-4 mb-4" style="background: white; border-radius: 1rem; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08); border: 1px solid var(--gray-200);">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                    <div>
+                        <h2 class="fw-bold mb-1" style="color: var(--gray-900); font-size: 1.5rem;">Mat&eacute;riel disponible</h2>
+                        <p class="mb-0" id="resultsCount" style="color: var(--gray-600); font-size: 0.9375rem;">
+                            <i class="fas fa-spinner fa-spin me-1"></i>Chargement...
+                        </p>
                     </div>
                     
-                    <!-- Sort -->
-                    <select class="form-select" id="sortBy" style="width: auto;">
-                        <option value="popularity">Plus populaire</option>
-                        <option value="price-asc">Prix croissant</option>
-                        <option value="price-desc">Prix décroissant</option>
-                        <option value="name">Nom A-Z</option>
-                        <option value="newest">Plus récent</option>
-                    </select>
+                    <div class="d-flex align-items-center gap-2">
+                        <!-- View Toggle -->
+                        <div class="btn-group" role="group" style="border-radius: 0.625rem; overflow: hidden;">
+                            <button type="button" class="btn btn-outline-primary active" id="gridView" 
+                                    onclick="toggleView('grid')" 
+                                    style="border-radius: 0; padding: 0.5rem 1rem;">
+                                <i class="fas fa-th"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-primary" id="listView" 
+                                    onclick="toggleView('list')" 
+                                    style="border-radius: 0; padding: 0.5rem 1rem;">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Sort -->
+                        <select class="form-select" id="sortBy" 
+                                style="width: auto; min-width: 180px; border-radius: 0.625rem; border: 2px solid var(--gray-200);">
+                            <option value="popularity">
+                                <i class="fas fa-fire"></i> Plus populaire
+                            </option>
+                            <option value="price-asc">Prix croissant</option>
+                            <option value="price-desc">Prix d&eacute;croissant</option>
+                            <option value="name">Nom A-Z</option>
+                            <option value="newest">Plus r&eacute;cent</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -147,29 +174,31 @@
 
             <!-- Loading Indicator -->
             <div id="loadingIndicator" class="text-center py-5">
-                <div class="spinner-border text-primary" role="status">
+                <div class="spinner-border" role="status" style="width: 3rem; height: 3rem; color: var(--primary-600); border-width: 0.3rem;">
                     <span class="visually-hidden">Chargement...</span>
                 </div>
-                <p class="text-muted mt-2">Chargement du matériel...</p>
+                <p class="text-muted mt-3" style="font-size: 1rem; font-weight: 500;">Chargement du mat&eacute;riel...</p>
             </div>
 
             <!-- No Results -->
-            <div id="noResults" class="empty-state d-none">
-                <div class="empty-icon">
-                    <i class="bi bi-search"></i>
+            <div id="noResults" class="d-none">
+                <div class="text-center py-5" style="background: white; border-radius: 1rem; padding: 4rem 2rem; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08); border: 1px solid var(--gray-200);">
+                    <div style="width: 100px; height: 100px; margin: 0 auto 2rem; background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(37, 99, 235, 0.05)); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-search" style="font-size: 3rem; color: var(--primary-600);"></i>
+                    </div>
+                    <h3 style="color: var(--gray-900); font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Aucun r&eacute;sultat trouv&eacute;</h3>
+                    <p style="color: var(--gray-600); font-size: 1rem; max-width: 400px; margin: 0 auto 2rem; line-height: 1.6;">
+                        Essayez de modifier vos crit&egrave;res de recherche ou de supprimer certains filtres.
+                    </p>
+                    <button class="btn btn-primary" onclick="clearAllFilters()">
+                        <i class="fas fa-redo me-2"></i>R&eacute;initialiser les filtres
+                    </button>
                 </div>
-                <h3 class="empty-title">Aucun résultat trouvé</h3>
-                <p class="empty-description">
-                    Essayez de modifier vos critères de recherche ou de supprimer certains filtres.
-                </p>
-                <button class="btn btn-primary" onclick="clearAllFilters()">
-                    <i class="bi bi-arrow-clockwise me-2"></i>Réinitialiser les filtres
-                </button>
             </div>
 
             <!-- Pagination -->
             <nav aria-label="Equipment pagination" class="mt-5">
-                <ul class="pagination justify-content-center" id="pagination">
+                <ul class="pagination pagination-modern justify-content-center" id="pagination">
                     <!-- Pagination will be generated here -->
                 </ul>
             </nav>

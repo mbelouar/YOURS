@@ -327,15 +327,35 @@
 .filter-sidebar {
     background: white;
     border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    padding: 1.75rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     border: 1px solid var(--gray-200);
     position: sticky;
-    top: 2rem;
+    top: 6rem;
+    max-height: calc(100vh - 7rem);
+    overflow-y: auto;
+}
+
+.filter-sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.filter-sidebar::-webkit-scrollbar-track {
+    background: var(--gray-100);
+    border-radius: 3px;
+}
+
+.filter-sidebar::-webkit-scrollbar-thumb {
+    background: var(--gray-400);
+    border-radius: 3px;
+}
+
+.filter-sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--gray-500);
 }
 
 .filter-group {
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
     padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--gray-200);
 }
@@ -343,22 +363,23 @@
 .filter-group:last-child {
     border-bottom: none;
     margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .filter-group h6 {
     font-weight: 600;
     color: var(--gray-800);
-    margin-bottom: 1rem;
-    font-size: 1rem;
+    margin-bottom: 0.875rem;
+    font-size: 0.9375rem;
 }
 
 .filter-checkbox {
     display: flex;
     align-items: center;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
     cursor: pointer;
-    transition: all 0.2s ease;
-    padding: 0.5rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
 }
 
@@ -368,8 +389,19 @@
 
 .filter-checkbox input[type="checkbox"] {
     margin-right: 0.75rem;
-    transform: scale(1.2);
-    accent-color: var(--primary-500);
+    width: 1.25rem;
+    height: 1.25rem;
+    cursor: pointer;
+    accent-color: var(--primary-600);
+}
+
+.form-check:hover {
+    background: var(--gray-50);
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-600);
+    border-color: var(--primary-600);
 }
 
 /* ===== BADGE COMPONENTS ===== */
@@ -462,28 +494,50 @@
     margin: 2rem 0;
 }
 
-.pagination-modern .page-link {
-    padding: 0.75rem 1rem;
+.pagination-modern .page-item .page-link {
+    padding: 0.75rem 1.125rem;
     border: 2px solid var(--gray-200);
-    border-radius: 0.5rem;
-    color: var(--gray-600);
-    text-decoration: none;
+    border-radius: 0.625rem;
+    color: var(--gray-700);
+    text-decoration: none !important;
     font-weight: 500;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     min-width: 44px;
     text-align: center;
+    background: white;
 }
 
-.pagination-modern .page-link:hover {
-    border-color: var(--primary-500);
-    color: var(--primary-500);
-    transform: translateY(-1px);
+.pagination-modern .page-item .page-link:hover {
+    border-color: var(--primary-600);
+    color: var(--primary-600);
+    background: var(--primary-50);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px -2px rgba(37, 99, 235, 0.2);
 }
 
-.pagination-modern .page-link.active {
-    background: var(--primary-500);
-    border-color: var(--primary-500);
+.pagination-modern .page-item.active .page-link {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border-color: var(--primary-600);
     color: white;
+    box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.3);
+}
+
+.pagination-modern .page-item.active .page-link:hover {
+    background: linear-gradient(135deg, var(--primary-700), var(--primary-800));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px -2px rgba(37, 99, 235, 0.4);
+}
+
+.pagination-modern .page-item.disabled .page-link {
+    background: var(--gray-100);
+    border-color: var(--gray-200);
+    color: var(--gray-400);
+    cursor: not-allowed;
+}
+
+.pagination-modern .page-item.disabled .page-link:hover {
+    transform: none;
+    box-shadow: none;
 }
 
 /* ===== MODAL COMPONENTS ===== */
@@ -607,6 +661,37 @@
     justify-content: center;
 }
 
+/* Compact version for inline display */
+.category-card-compact {
+    padding: 1.5rem 1rem;
+}
+
+.category-card-compact .category-icon-wrapper {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 1rem;
+}
+
+.category-card-compact .category-icon-wrapper i {
+    font-size: 1.75rem;
+}
+
+.category-card-compact .category-title {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+}
+
+.category-card-compact .category-description {
+    font-size: 0.8125rem;
+    margin-bottom: 0.875rem;
+    line-height: 1.5;
+}
+
+.category-card-compact .category-arrow {
+    width: 32px;
+    height: 32px;
+}
+
 .category-card::before {
     content: '';
     position: absolute;
@@ -662,6 +747,16 @@
     color: var(--info-color);
 }
 
+.category-card[data-category="danger"] .category-icon-wrapper {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.2));
+    color: var(--error-color);
+}
+
+.category-card[data-category="secondary"] .category-icon-wrapper {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.2));
+    color: #8b5cf6;
+}
+
 .category-icon-wrapper i {
     font-size: 2.5rem;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -697,6 +792,18 @@
     background: linear-gradient(135deg, var(--info-color), #0891b2);
     color: white;
     box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.4);
+}
+
+.category-card[data-category="danger"]:hover .category-icon-wrapper {
+    background: linear-gradient(135deg, var(--error-color), var(--error-dark));
+    color: white;
+    box-shadow: 0 10px 25px -5px rgba(239, 68, 68, 0.4);
+}
+
+.category-card[data-category="secondary"]:hover .category-icon-wrapper {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    color: white;
+    box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.4);
 }
 
 .category-title {
@@ -851,6 +958,28 @@
     
     .category-card {
         padding: 2rem 1.5rem;
+    }
+    
+    .category-card-compact {
+        padding: 1.25rem 0.75rem;
+    }
+    
+    .category-card-compact .category-icon-wrapper {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 0.75rem;
+    }
+    
+    .category-card-compact .category-icon-wrapper i {
+        font-size: 1.5rem;
+    }
+    
+    .category-card-compact .category-title {
+        font-size: 0.9375rem;
+    }
+    
+    .category-card-compact .category-description {
+        font-size: 0.75rem;
     }
     
     .category-icon-wrapper {
