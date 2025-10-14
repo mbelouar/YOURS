@@ -6,53 +6,49 @@
 <%@ include file="../../layouts/header.jsp" %>
 <%@ include file="../../layouts/navbar.jsp" %>
 
-<!-- Login Hero Section -->
-<section class="min-vh-100 d-flex align-items-center" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); margin-top: -80px; padding-top: calc(80px + 3rem); padding-bottom: 3rem; position: relative; overflow: hidden;">
-    <!-- Background Effects -->
-    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);"></div>
-    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 20px 20px;"></div>
-    
-    <div class="container" style="position: relative; z-index: 2; padding-top: 2rem; padding-bottom: 2rem;">
+<!-- Login Hero Section - Same as Homepage Hero -->
+<section class="login-hero-section">
+    <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-7 col-sm-9">
+            <div class="col-lg-6 col-md-8 col-sm-10">
                 <!-- Main Login Card -->
                 <div class="card card-modern" style="border: none; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); background: rgba(255, 255, 255, 0.95);">
-                    <div class="card-body p-5">
+                    <div class="card-body p-4 py-4">
                         <!-- Logo and Title -->
-                        <div class="text-center mb-5">
-                            <div class="mb-4">
-                                <div class="d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary-600), var(--primary-700)); border-radius: 1.5rem; box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4);">
-                                    <i class="fas fa-user-circle" style="font-size: 2.5rem; color: white;"></i>
+                        <div class="text-center mb-4">
+                            <div class="mb-3">
+                                <div class="d-inline-flex align-items-center justify-content-center" style="width: 70px; height: 70px; background: linear-gradient(135deg, var(--primary-600), var(--primary-700)); border-radius: 1.25rem; box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4);">
+                                    <i class="fas fa-user-circle" style="font-size: 2rem; color: white;"></i>
                                 </div>
                             </div>
-                            <h1 class="display-6 fw-bold mb-3" style="color: var(--gray-900);">Connexion</h1>
-                            <p class="lead text-muted mb-0">Connectez-vous &agrave; votre compte YOURS</p>
+                            <h1 class="h2 fw-bold mb-2" style="color: var(--gray-900);">Connexion</h1>
+                            <p class="text-muted mb-0" style="font-size: 0.95rem;">Connectez-vous &agrave; votre compte YOURS</p>
                         </div>
 
                         <!-- Login Form -->
                         <form id="loginForm" class="needs-validation" novalidate>
                             <!-- Email -->
-                            <div class="mb-4">
-                                <label for="email" class="form-label fw-semibold mb-2" style="color: var(--gray-700);">
+                            <div class="mb-3">
+                                <label for="email" class="form-label fw-semibold mb-2" style="color: var(--gray-700); font-size: 0.9rem;">
                                     <i class="fas fa-envelope me-2 text-primary"></i>Adresse email
                                 </label>
-                                <input type="email" class="form-control form-control-lg" id="email" 
+                                <input type="email" class="form-control" id="email" 
                                        name="email" required placeholder="votre@email.com"
-                                       style="height: 3.5rem; border: 2px solid var(--gray-200); border-radius: 0.875rem; font-size: 1rem; transition: all 0.3s ease;">
+                                       style="height: 3rem; border: 2px solid var(--gray-200); border-radius: 0.875rem; font-size: 0.95rem; transition: all 0.3s ease;">
                                 <div class="invalid-feedback">
                                     Veuillez saisir une adresse email valide.
                                 </div>
                             </div>
 
                             <!-- Password -->
-                            <div class="mb-4">
-                                <label for="password" class="form-label fw-semibold mb-2" style="color: var(--gray-700);">
+                            <div class="mb-3">
+                                <label for="password" class="form-label fw-semibold mb-2" style="color: var(--gray-700); font-size: 0.9rem;">
                                     <i class="fas fa-lock me-2 text-primary"></i>Mot de passe
                                 </label>
                                 <div class="position-relative">
-                                    <input type="password" class="form-control form-control-lg" id="password" 
+                                    <input type="password" class="form-control" id="password" 
                                            name="password" required placeholder="Votre mot de passe"
-                                           style="height: 3.5rem; border: 2px solid var(--gray-200); border-radius: 0.875rem; font-size: 1rem; padding-right: 3.5rem; transition: all 0.3s ease;">
+                                           style="height: 3rem; border: 2px solid var(--gray-200); border-radius: 0.875rem; font-size: 0.95rem; padding-right: 3.5rem; transition: all 0.3s ease;">
                                     <button type="button" class="btn position-absolute end-0 top-50 translate-middle-y me-2" 
                                             onclick="togglePassword('password')" style="z-index: 5; border: none; background: none; color: var(--gray-500); padding: 0.5rem;">
                                         <i class="fas fa-eye" id="passwordToggleIcon"></i>
@@ -64,59 +60,59 @@
                             </div>
 
                             <!-- Remember Me & Forgot Password -->
-                            <div class="d-flex justify-content-between align-items-center mb-5">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe"
                                            style="border-radius: 0.375rem; border: 2px solid var(--gray-300);">
-                                    <label class="form-check-label fw-medium" for="rememberMe" style="color: var(--gray-600);">
+                                    <label class="form-check-label fw-medium" for="rememberMe" style="color: var(--gray-600); font-size: 0.9rem;">
                                         Se souvenir de moi
                                     </label>
                                 </div>
                                 <a href="${pageContext.request.contextPath}/pages/auth/forgot-password.jsp" 
-                                   class="text-decoration-none fw-semibold" style="color: var(--primary-600);">
+                                   class="text-decoration-none fw-semibold" style="color: var(--primary-600); font-size: 0.9rem;">
                                     Mot de passe oubli&eacute; ?
                                 </a>
                             </div>
 
                             <!-- Submit Button -->
-                            <button type="submit" class="btn btn-gradient btn-lg w-100 mb-4" 
-                                    style="height: 3.5rem; font-size: 1.1rem; font-weight: 600; border-radius: 0.875rem; text-decoration: none !important;">
+                            <button type="submit" class="btn btn-gradient btn-lg w-100 mb-3" 
+                                    style="height: 3rem; font-size: 1rem; font-weight: 600; border-radius: 0.875rem; text-decoration: none !important;">
                                 <i class="fas fa-sign-in-alt me-2"></i>
                                 <span class="button-text">Se connecter</span>
                                 <span class="spinner-border spinner-border-sm d-none ms-2" role="status"></span>
                             </button>
 
                             <!-- Social Login Divider -->
-                            <div class="position-relative text-center mb-4">
+                            <div class="position-relative text-center mb-3">
                                 <hr style="border-color: var(--gray-200);">
-                                <span class="position-absolute top-50 start-50 translate-middle px-3 bg-white text-muted small">
+                                <span class="position-absolute top-50 start-50 translate-middle px-3 bg-white text-muted" style="font-size: 0.85rem;">
                                     ou connectez-vous avec
                                 </span>
                             </div>
                             
                             <!-- Social Login Buttons -->
-                            <div class="d-flex gap-3 mb-4">
+                            <div class="d-flex gap-2 mb-3">
                                 <button type="button" class="btn btn-outline-primary flex-fill" 
-                                        style="height: 3rem; border: 2px solid var(--gray-200); border-radius: 0.875rem; font-weight: 500;">
-                                    <i class="fab fa-google me-2"></i>Google
+                                        style="height: 2.75rem; border: 2px solid var(--gray-200); border-radius: 0.875rem; font-weight: 500; font-size: 0.9rem;">
+                                    <i class="fab fa-google me-1"></i>Google
                                 </button>
                                 <button type="button" class="btn btn-outline-primary flex-fill"
-                                        style="height: 3rem; border: 2px solid var(--gray-200); border-radius: 0.875rem; font-weight: 500;">
-                                    <i class="fab fa-facebook-f me-2"></i>Facebook
+                                        style="height: 2.75rem; border: 2px solid var(--gray-200); border-radius: 0.875rem; font-weight: 500; font-size: 0.9rem;">
+                                    <i class="fab fa-facebook-f me-1"></i>Facebook
                                 </button>
                             </div>
                         </form>
 
                         <!-- Register Links -->
                         <div class="text-center">
-                            <p class="mb-2" style="color: var(--gray-600);">
+                            <p class="mb-2" style="color: var(--gray-600); font-size: 0.9rem;">
                                 Pas encore de compte ? 
                                 <a href="${pageContext.request.contextPath}/pages/auth/register-client.jsp" 
                                    class="text-decoration-none fw-semibold" style="color: var(--primary-600);">
                                     Cr&eacute;er un compte client
                                 </a>
                             </p>
-                            <p class="mb-0" style="color: var(--gray-600);">
+                            <p class="mb-0" style="color: var(--gray-600); font-size: 0.9rem;">
                                 Vous &ecirc;tes un partenaire ? 
                                 <a href="${pageContext.request.contextPath}/pages/auth/register-partner.jsp" 
                                    class="text-decoration-none fw-semibold" style="color: var(--primary-600);">
@@ -128,29 +124,29 @@
                 </div>
 
                 <!-- Demo Accounts Info Card -->
-                <div class="card mt-4" style="border: 2px solid var(--gray-100); border-radius: 1rem; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px);">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <div class="d-inline-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: linear-gradient(135deg, var(--success-500), var(--success-600)); border-radius: 0.75rem;">
-                                <i class="fas fa-info-circle" style="color: white; font-size: 1.25rem;"></i>
+                <div class="card mt-3" style="border: 2px solid var(--gray-100); border-radius: 1rem; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px);">
+                    <div class="card-body text-center p-3">
+                        <div class="d-flex align-items-center justify-content-center mb-2">
+                            <div class="d-inline-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px; background: linear-gradient(135deg, var(--success-500), var(--success-600)); border-radius: 0.5rem;">
+                                <i class="fas fa-info-circle" style="color: white; font-size: 0.9rem;"></i>
                             </div>
+                            <h6 class="fw-bold mb-0" style="color: var(--gray-800); font-size: 0.95rem;">
+                                Comptes de d&eacute;monstration
+                            </h6>
                         </div>
-                        <h6 class="fw-bold mb-3" style="color: var(--gray-800);">
-                            Comptes de d&eacute;monstration
-                        </h6>
-                        <div class="row g-3">
+                        <div class="row g-2">
                             <div class="col-md-6">
-                                <div class="p-3 rounded-3" style="background: var(--gray-50); border: 1px solid var(--gray-100);">
-                                    <small class="text-muted d-block fw-semibold mb-1">Client</small>
-                                    <code class="d-block" style="background: none; color: var(--primary-600); font-size: 0.875rem;">client@demo.com</code>
-                                    <code class="d-block" style="background: none; color: var(--primary-600); font-size: 0.875rem;">demo123</code>
+                                <div class="p-2 rounded-3" style="background: var(--gray-50); border: 1px solid var(--gray-100);">
+                                    <small class="text-muted d-block fw-semibold mb-1" style="font-size: 0.8rem;">Client</small>
+                                    <code class="d-block" style="background: none; color: var(--primary-600); font-size: 0.8rem;">client@demo.com</code>
+                                    <code class="d-block" style="background: none; color: var(--primary-600); font-size: 0.8rem;">demo123</code>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="p-3 rounded-3" style="background: var(--gray-50); border: 1px solid var(--gray-100);">
-                                    <small class="text-muted d-block fw-semibold mb-1">Partenaire</small>
-                                    <code class="d-block" style="background: none; color: var(--primary-600); font-size: 0.875rem;">partner@demo.com</code>
-                                    <code class="d-block" style="background: none; color: var(--primary-600); font-size: 0.875rem;">demo123</code>
+                                <div class="p-2 rounded-3" style="background: var(--gray-50); border: 1px solid var(--gray-100);">
+                                    <small class="text-muted d-block fw-semibold mb-1" style="font-size: 0.8rem;">Partenaire</small>
+                                    <code class="d-block" style="background: none; color: var(--primary-600); font-size: 0.8rem;">partner@demo.com</code>
+                                    <code class="d-block" style="background: none; color: var(--primary-600); font-size: 0.8rem;">demo123</code>
                                 </div>
                             </div>
                         </div>
@@ -163,6 +159,68 @@
 
 <!-- Enhanced Form Styles -->
 <style>
+/* Login Hero Section - Exact Copy of Homepage Hero Section */
+.login-hero-section {
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%);
+    color: var(--white);
+    padding: 3rem 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    margin-top: -80px;
+    padding-top: calc(80px + 6rem);
+    padding-bottom: 3rem;
+}
+
+.login-hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(147, 51, 234, 0.1) 0%, transparent 50%);
+    opacity: 1;
+    z-index: 1;
+}
+
+.login-hero-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid-login" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid-login)"/></svg>');
+    opacity: 0.4;
+    z-index: 1;
+}
+
+.login-hero-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.login-hero-section .card {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Form Controls */
 .form-control:focus {
     border-color: var(--primary-500) !important;
     box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.15) !important;
@@ -178,6 +236,7 @@
     border-color: var(--primary-600) !important;
 }
 
+/* Button Effects */
 .btn-gradient:hover {
     transform: translateY(-2px) !important;
     box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4) !important;
@@ -209,6 +268,31 @@
 
 .success-checkmark {
     animation: checkmark 0.6s ease-in-out;
+}
+
+/* Responsive Adjustments - Matching Homepage */
+@media (max-width: 992px) {
+    .login-hero-section {
+        padding: 2.5rem 0;
+        padding-top: calc(80px + 4rem);
+        min-height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .login-hero-section {
+        padding: 2rem 0;
+        padding-top: calc(80px + 3.5rem);
+        min-height: auto;
+    }
+    
+    .login-hero-section .card-body {
+        padding: 2.5rem !important;
+    }
+    
+    .login-hero-section .col-lg-6 {
+        max-width: 95%;
+    }
 }
 </style>
 
