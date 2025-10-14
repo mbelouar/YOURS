@@ -19,7 +19,7 @@
     font-weight: 500;
     color: var(--gray-700);
     padding: 0.625rem 1rem;
-    border-radius: 0.5rem;
+    border-radius: 0.875rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none !important;
 }
