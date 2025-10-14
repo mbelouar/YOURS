@@ -175,27 +175,18 @@ const YOURS = {
     setupBackToTop: function() {
         // Create back to top button
         const backToTopBtn = document.createElement('button');
-        backToTopBtn.innerHTML = '<i class="bi bi-arrow-up"></i>';
-        backToTopBtn.className = 'btn btn-primary position-fixed';
-        backToTopBtn.style.cssText = `
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        `;
+        backToTopBtn.innerHTML = '<i class="fas fa-chevron-up"></i>';
+        backToTopBtn.className = 'back-to-top-btn';
         backToTopBtn.setAttribute('aria-label', 'Retour en haut');
+        backToTopBtn.setAttribute('title', 'Retour en haut');
         document.body.appendChild(backToTopBtn);
         
-        // Show/hide based on scroll position
+        // Show/hide based on scroll position with smooth animation
         window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopBtn.style.display = 'block';
+            if (window.pageYOffset > 400) {
+                backToTopBtn.classList.add('show');
             } else {
-                backToTopBtn.style.display = 'none';
+                backToTopBtn.classList.remove('show');
             }
         });
         

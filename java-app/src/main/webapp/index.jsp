@@ -282,9 +282,4 @@
     </div>
 </section>
 
-<!-- Floating Action Button -->
-<a href="${pageContext.request.contextPath}/pages/auth/login.jsp" class="btn-floating" title="Se connecter">
-    <i class="fas fa-user"></i>
-</a>
-
 <%@ include file="layouts/footer.jsp" %>
