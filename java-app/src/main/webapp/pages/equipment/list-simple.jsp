@@ -207,11 +207,11 @@
                                 </div>
                                 <small class="text-muted">(4.9)</small>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=1" class="btn btn-primary btn-sm" style="flex: 1; margin-right: 0.5rem;">
+                            <div class="d-flex gap-2 align-items-stretch">
+                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=1" class="btn btn-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-eye me-1"></i>Voir
                                 </a>
-                                <button class="btn btn-outline-primary btn-sm" style="flex: 1;">
+                                <button class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-calendar-plus me-1"></i>R&eacute;server
                                 </button>
                             </div>
@@ -245,11 +245,11 @@
                                 </div>
                                 <small class="text-muted">(4.8)</small>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=2" class="btn btn-primary btn-sm" style="flex: 1; margin-right: 0.5rem;">
+                            <div class="d-flex gap-2 align-items-stretch">
+                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=2" class="btn btn-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-eye me-1"></i>Voir
                                 </a>
-                                <button class="btn btn-outline-primary btn-sm" style="flex: 1;">
+                                <button class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-calendar-plus me-1"></i>R&eacute;server
                                 </button>
                             </div>
@@ -283,11 +283,11 @@
                                 </div>
                                 <small class="text-muted">(4.7)</small>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=3" class="btn btn-primary btn-sm" style="flex: 1; margin-right: 0.5rem;">
+                            <div class="d-flex gap-2 align-items-stretch">
+                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=3" class="btn btn-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-eye me-1"></i>Voir
                                 </a>
-                                <button class="btn btn-outline-primary btn-sm" style="flex: 1;">
+                                <button class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-calendar-plus me-1"></i>R&eacute;server
                                 </button>
                             </div>
@@ -321,11 +321,11 @@
                                 </div>
                                 <small class="text-muted">(5.0)</small>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=4" class="btn btn-primary btn-sm" style="flex: 1; margin-right: 0.5rem;">
+                            <div class="d-flex gap-2 align-items-stretch">
+                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=4" class="btn btn-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-eye me-1"></i>Voir
                                 </a>
-                                <button class="btn btn-outline-primary btn-sm" style="flex: 1;">
+                                <button class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-calendar-plus me-1"></i>R&eacute;server
                                 </button>
                             </div>
@@ -359,11 +359,11 @@
                                 </div>
                                 <small class="text-muted">(4.6)</small>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=5" class="btn btn-primary btn-sm" style="flex: 1; margin-right: 0.5rem;">
+                            <div class="d-flex gap-2 align-items-stretch">
+                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=5" class="btn btn-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-eye me-1"></i>Voir
                                 </a>
-                                <button class="btn btn-outline-primary btn-sm" style="flex: 1;">
+                                <button class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-calendar-plus me-1"></i>R&eacute;server
                                 </button>
                             </div>
@@ -397,11 +397,11 @@
                                 </div>
                                 <small class="text-muted">(4.5)</small>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=6" class="btn btn-primary btn-sm" style="flex: 1; margin-right: 0.5rem;">
+                            <div class="d-flex gap-2 align-items-stretch">
+                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=6" class="btn btn-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-eye me-1"></i>Voir
                                 </a>
-                                <button class="btn btn-outline-primary btn-sm" style="flex: 1;">
+                                <button class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-calendar-plus me-1"></i>R&eacute;server
                                 </button>
                             </div>
