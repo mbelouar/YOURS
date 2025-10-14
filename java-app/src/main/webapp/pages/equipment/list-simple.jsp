@@ -1,46 +1,39 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../../layouts/header.jsp" %>
 <%@ include file="../../layouts/navbar.jsp" %>
 
 <!-- Page Header -->
-<section class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); margin-top: -80px; padding-top: calc(80px + 4rem) !important; position: relative; overflow: hidden;">
+<section class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); margin-top: -80px; padding-top: calc(80px + 6rem) !important; padding-bottom: 6rem !important; position: relative; overflow: hidden;">
     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%); opacity: 1;"></div>
     <div class="container" style="position: relative; z-index: 2;">
         <div class="row">
             <div class="col-lg-10 mx-auto text-center">
-                <h1 class="display-4 fw-bold mb-3" style="color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">Mat&eacute;riel Disponible</h1>
-                <p class="lead mb-4" style="color: rgba(255, 255, 255, 0.9); max-width: 700px; margin: 0 auto;">
-                    D&eacute;couvrez notre large s&eacute;lection d'&eacute;quipements professionnels disponibles &agrave; la location
-                </p>
+                <!-- Badge -->
+                <div class="d-inline-flex align-items-center mb-4" style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(20px); border-radius: 50px; padding: 0.75rem 1.5rem; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
+                    <i class="fas fa-tools me-2" style="color: #fbbf24; font-size: 1rem;"></i>
+                    <span style="color: white; font-weight: 600; font-size: 0.875rem; letter-spacing: 0.5px;">CATALOGUE PROFESSIONNEL</span>
+                </div>
                 
-                <!-- Quick Stats -->
-                <div class="row g-3 mt-2">
-                    <div class="col-md-4">
-                        <div class="d-flex align-items-center justify-content-center" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 1rem; padding: 1rem; border: 1px solid rgba(255, 255, 255, 0.2);">
-                            <i class="fas fa-boxes me-2" style="color: rgba(255, 255, 255, 0.9); font-size: 1.5rem;"></i>
-                            <div class="text-start">
-                                <div style="color: white; font-size: 1.5rem; font-weight: 700;">500+</div>
-                                <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">Équipements</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="d-flex align-items-center justify-content-center" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 1rem; padding: 1rem; border: 1px solid rgba(255, 255, 255, 0.2);">
-                            <i class="fas fa-check-circle me-2" style="color: rgba(16, 185, 129, 1); font-size: 1.5rem;"></i>
-                            <div class="text-start">
-                                <div style="color: white; font-size: 1.5rem; font-weight: 700;">95%</div>
-                                <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">Disponibles</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="d-flex align-items-center justify-content-center" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 1rem; padding: 1rem; border: 1px solid rgba(255, 255, 255, 0.2);">
-                            <i class="fas fa-shipping-fast me-2" style="color: rgba(245, 158, 11, 1); font-size: 1.5rem;"></i>
-                            <div class="text-start">
-                                <div style="color: white; font-size: 1.5rem; font-weight: 700;">24h</div>
-                                <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">Livraison</div>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Main Title -->
+                <h1 class="display-2 fw-bold mb-4" style="color: white; text-shadow: 0 4px 20px rgba(0,0,0,0.3); letter-spacing: -0.03em; line-height: 1.1;">
+                    Mat&eacute;riel <span style="background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Professionnel</span>
+                </h1>
+                
+                <!-- Subtitle -->
+                <div class="mb-4" style="max-width: 700px; margin: 0 auto;">
+                    <p class="lead mb-2" style="color: rgba(255, 255, 255, 0.95); font-size: 1.375rem; font-weight: 400; line-height: 1.6; letter-spacing: -0.01em;">
+                        Explorez notre collection exclusive d'&eacute;quipements haut de gamme
+                    </p>
+                    <p class="mb-0" style="color: rgba(255, 255, 255, 0.8); font-size: 1.1rem; font-weight: 300; line-height: 1.7;">
+                        Solutions professionnelles pour tous vos projets • Disponibilit&eacute; garantie • Livraison rapide
+                    </p>
+                </div>
+                
+                <!-- Decorative Elements -->
+                <div class="d-flex justify-content-center align-items-center gap-3 mt-4">
+                    <div style="width: 60px; height: 2px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); border-radius: 1px;"></div>
+                    <div style="width: 8px; height: 8px; background: rgba(251, 191, 36, 0.8); border-radius: 50%; box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);"></div>
+                    <div style="width: 60px; height: 2px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); border-radius: 1px;"></div>
                 </div>
             </div>
         </div>
@@ -57,32 +50,32 @@
                     <div class="col-md-5">
                         <div class="position-relative">
                             <i class="fas fa-search position-absolute" style="left: 1rem; top: 50%; transform: translateY(-50%); color: var(--gray-400);"></i>
-                            <input type="text" class="form-control" placeholder="Rechercher un équipement..." 
+                            <input type="text" class="form-control" placeholder="Rechercher un &eacute;quipement..." 
                                    style="padding-left: 2.75rem; border-radius: 0.75rem; border: 2px solid var(--gray-200);">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <select class="form-select" style="border-radius: 0.75rem; border: 2px solid var(--gray-200);">
-                            <option selected>Toutes catégories</option>
+                            <option selected>Toutes cat&eacute;gories</option>
                             <option value="1">Photographie</option>
-                            <option value="2">Vidéo</option>
+                            <option value="2">Vid&eacute;o</option>
                             <option value="3">Informatique</option>
                             <option value="4">Audio</option>
                             <option value="5">Gaming</option>
-                            <option value="6">Éclairage</option>
+                            <option value="6">&Eacute;clairage</option>
                         </select>
                     </div>
                     <div class="col-md-3">
                         <select class="form-select" style="border-radius: 0.75rem; border: 2px solid var(--gray-200);">
-                            <option selected>Trier par popularité</option>
+                            <option selected>Trier par popularit&eacute;</option>
                             <option value="1">Prix croissant</option>
-                            <option value="2">Prix décroissant</option>
-                            <option value="3">Nouveautés</option>
+                            <option value="2">Prix d&eacute;croissant</option>
+                            <option value="3">Nouveaut&eacute;s</option>
                             <option value="4">Meilleures notes</option>
                         </select>
                     </div>
                     <div class="col-md-1">
-                        <button class="btn btn-outline-primary w-100" style="border-radius: 0.75rem;" title="Filtres avancés">
+                        <button class="btn btn-outline-primary w-100" style="border-radius: 0.75rem;" title="Filtres avanc&eacute;s">
                             <i class="fas fa-sliders-h"></i>
                         </button>
                     </div>
@@ -252,7 +245,7 @@
                         <div class="card-body">
                             <div class="mb-2">
                                 <span class="badge" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.2)); color: var(--success-color); font-size: 0.75rem; padding: 0.375rem 0.75rem; border-radius: 0.5rem; font-weight: 600;">
-                                    <i class="fas fa-video me-1"></i>Vidéo
+                                    <i class="fas fa-video me-1"></i>Vid&eacute;o
                                 </span>
                             </div>
                             <h5 class="card-title mb-2">DJI Mavic Air 2</h5>

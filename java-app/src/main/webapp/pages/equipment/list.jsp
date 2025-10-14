@@ -7,11 +7,12 @@
 <%@ include file="../../layouts/navbar.jsp" %>
 
 <!-- Page Header -->
-<section class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); margin-top: -80px; padding-top: calc(80px + 4rem) !important; padding-bottom: 4rem !important;">
-    <div class="container">
+<section class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); margin-top: -80px; padding-top: calc(80px + 5rem) !important; padding-bottom: 5rem !important; position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%); opacity: 1;"></div>
+    <div class="container" style="position: relative; z-index: 2;">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
-                <h1 class="display-4 fw-bold mb-3" style="color: white;">Catalogue Mat&eacute;riel</h1>
+                <h1 class="display-4 fw-bold mb-4" style="color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">Catalogue Mat&eacute;riel</h1>
                 <p class="lead mb-0" style="color: rgba(255, 255, 255, 0.9);">
                     Explorez, filtrez et r&eacute;servez le mat&eacute;riel professionnel dont vous avez besoin
                 </p>
