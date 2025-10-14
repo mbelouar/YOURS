@@ -537,7 +537,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         cardBody.style.flexDirection = 'column';
                         cardBody.style.justifyContent = 'space-between';
                         cardBody.style.padding = '1.5rem 2rem';
-                        cardBody.style.background = 'white';
                     }
                     
                     // Optimize content layout for list view
@@ -658,7 +657,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         cardBody.style.flexDirection = 'column';
                         cardBody.style.justifyContent = 'space-between';
                         cardBody.style.padding = '1.5rem';
-                        cardBody.style.background = 'white';
                     }
                     
                     // Reset content styling for grid view
