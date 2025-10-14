@@ -348,12 +348,12 @@
             <div class="modal-body d-flex align-items-center justify-content-center p-0" style="min-height: 100vh; position: relative;">
                 <div class="position-relative" style="max-width: 85%; max-height: 80vh;">
                     <img id="modalImage" src="" alt="" class="img-fluid" style="max-height: 80vh; width: auto; object-fit: contain; border-radius: 0.75rem; box-shadow: 0 20px 60px rgba(0,0,0,0.8);">
-                </div>
+            </div>
                 
                 <!-- Side Navigation Areas (Invisible but clickable) -->
                 <div onclick="navigateImage(-1)" id="prevArea" style="position: absolute; left: 0; top: 0; bottom: 0; width: 15%; cursor: w-resize; z-index: 10; display: none;"></div>
                 <div onclick="navigateImage(1)" id="nextArea" style="position: absolute; right: 0; top: 0; bottom: 0; width: 15%; cursor: e-resize; z-index: 10; display: none;"></div>
-            </div>
+        </div>
             
             <!-- Navigation & Actions Bar -->
             <div class="position-absolute w-100 bottom-0" style="background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, transparent 100%); padding: 1.5rem 2rem 2rem; z-index: 1050;">
@@ -1189,7 +1189,7 @@ input[type="date"]:hover {
         transform: scale(0.9);
     }
     to {
-        opacity: 1;
+    opacity: 1;
         transform: scale(1);
     }
 }
