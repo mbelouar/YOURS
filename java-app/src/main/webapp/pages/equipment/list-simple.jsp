@@ -44,44 +44,90 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-12">
-            <!-- Filter Bar -->
-            <div class="mb-4 p-4" style="background: white; border-radius: 1rem; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08); border: 1px solid var(--gray-200);">
-                <div class="row g-3 align-items-center">
-                    <div class="col-md-5">
-                        <div class="position-relative">
-                            <i class="fas fa-search position-absolute" style="left: 1rem; top: 50%; transform: translateY(-50%); color: var(--gray-400);"></i>
-                            <input type="text" class="form-control" placeholder="Rechercher un &eacute;quipement..." 
-                                   style="padding-left: 2.75rem; border-radius: 0.75rem; border: 2px solid var(--gray-200);">
+            <!-- Enhanced Search & Filter Section -->
+            <div class="mb-4">
+                <!-- Main Search Bar -->
+                <div class="p-4 mb-3" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); border-radius: 1.25rem; box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08), 0 2px 8px -2px rgba(0, 0, 0, 0.04); border: 1px solid rgba(226, 232, 240, 0.8);">
+                    <div class="row g-3 align-items-center">
+                        <!-- Search Input -->
+                        <div class="col-lg-5">
+                            <label class="form-label fw-semibold mb-2" style="color: var(--gray-700); font-size: 0.875rem; display: flex; align-items: center;">
+                                <i class="fas fa-search me-2" style="color: var(--primary-600); font-size: 0.875rem;"></i>
+                                Recherche
+                            </label>
+                            <div class="position-relative">
+                                <i class="fas fa-search position-absolute" style="left: 1.125rem; top: 50%; transform: translateY(-50%); color: var(--gray-400); font-size: 0.9375rem;"></i>
+                                <input type="text" id="searchInput" class="form-control" placeholder="Rechercher par nom, marque, mod&egrave;le..." 
+                                       style="padding-left: 2.875rem; padding-right: 2.875rem; border-radius: 0.875rem; border: 2px solid var(--gray-200); height: 48px; font-size: 0.9375rem; transition: all 0.3s ease; background: white;">
+                                <button class="btn btn-link position-absolute d-none" id="clearSearch" style="right: 0.5rem; top: 50%; transform: translateY(-50%); color: var(--gray-400); text-decoration: none; padding: 0.25rem 0.5rem;">
+                                    <i class="fas fa-times-circle"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Category Filter -->
+                        <div class="col-lg-3">
+                            <label class="form-label fw-semibold mb-2" style="color: var(--gray-700); font-size: 0.875rem; display: flex; align-items-center;">
+                                <i class="fas fa-folder-open me-2" style="color: var(--primary-600); font-size: 0.875rem;"></i>
+                                Cat&eacute;gorie
+                            </label>
+                            <select class="form-select" id="categoryFilter" style="border-radius: 0.875rem; border: 2px solid var(--gray-200); height: 48px; font-size: 0.9375rem; transition: all 0.3s ease; background: white;">
+                                <option value="" selected>Toutes cat&eacute;gories</option>
+                                <option value="photo">Photographie</option>
+                                <option value="video">Vid&eacute;o</option>
+                                <option value="info">Informatique</option>
+                                <option value="audio">Audio</option>
+                                <option value="gaming">Gaming</option>
+                                <option value="light">&Eacute;clairage</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Sort Filter -->
+                        <div class="col-lg-3">
+                            <label class="form-label fw-semibold mb-2" style="color: var(--gray-700); font-size: 0.875rem; display: flex; align-items: center;">
+                                <i class="fas fa-sort-amount-down me-2" style="color: var(--primary-600); font-size: 0.875rem;"></i>
+                                Trier par
+                            </label>
+                            <select class="form-select" id="sortFilter" style="border-radius: 0.875rem; border: 2px solid var(--gray-200); height: 48px; font-size: 0.9375rem; transition: all 0.3s ease; background: white;">
+                                <option value="popular" selected>Popularit&eacute;</option>
+                                <option value="price-asc">Prix croissant</option>
+                                <option value="price-desc">Prix d&eacute;croissant</option>
+                                <option value="newest">Nouveaut&eacute;s</option>
+                                <option value="rating">Meilleures notes</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Advanced Filter Button -->
+                        <div class="col-lg-1">
+                            <label class="form-label mb-2" style="font-size: 0.875rem; opacity: 0;">_</label>
+                            <button class="btn w-100" style="background: linear-gradient(135deg, var(--primary-600), var(--primary-700)); color: white; border: none; border-radius: 0.875rem; height: 48px; box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.4); transition: all 0.3s ease;" title="Filtres avanc&eacute;s">
+                                <i class="fas fa-sliders-h"></i>
+                            </button>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <select class="form-select" style="border-radius: 0.75rem; border: 2px solid var(--gray-200);">
-                            <option selected>Toutes cat&eacute;gories</option>
-                            <option value="1">Photographie</option>
-                            <option value="2">Vid&eacute;o</option>
-                            <option value="3">Informatique</option>
-                            <option value="4">Audio</option>
-                            <option value="5">Gaming</option>
-                            <option value="6">&Eacute;clairage</option>
-                        </select>
+                </div>
+                
+                <!-- Results Bar & Quick Filters -->
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+                    <!-- Results Count -->
+                    <div class="d-flex align-items-center" style="background: white; padding: 0.625rem 1.125rem; border-radius: 0.75rem; border: 1px solid var(--gray-200); box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                        <i class="fas fa-box-open me-2" style="color: var(--primary-600); font-size: 0.875rem;"></i>
+                        <span style="font-weight: 600; color: var(--gray-900); font-size: 0.9375rem;">248</span>
+                        <span style="color: var(--gray-500); font-size: 0.875rem; margin-left: 0.375rem;">&eacute;quipements trouv&eacute;s</span>
                     </div>
-                    <div class="col-md-3">
-                        <select class="form-select" style="border-radius: 0.75rem; border: 2px solid var(--gray-200);">
-                            <option selected>Trier par popularit&eacute;</option>
-                            <option value="1">Prix croissant</option>
-                            <option value="2">Prix d&eacute;croissant</option>
-                            <option value="3">Nouveaut&eacute;s</option>
-                            <option value="4">Meilleures notes</option>
-                        </select>
-                    </div>
-                    <div class="col-md-1">
-                        <button class="btn btn-outline-primary w-100" style="border-radius: 0.75rem;" title="Filtres avanc&eacute;s">
-                            <i class="fas fa-sliders-h"></i>
+                    
+                    <!-- View Toggle -->
+                    <div class="btn-group" role="group" style="background: white; border-radius: 0.75rem; padding: 0.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid var(--gray-200);">
+                        <button type="button" class="btn view-toggle-btn active" data-view="grid" style="background: linear-gradient(135deg, var(--primary-600), var(--primary-700)); color: white; border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3); transition: all 0.3s ease;">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button type="button" class="btn view-toggle-btn" data-view="list" style="background: transparent; color: var(--gray-500); border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; transition: all 0.3s ease;">
+                            <i class="fas fa-list"></i>
                         </button>
                     </div>
                 </div>
             </div>
-            <div class="row g-4">
+            <div class="row g-4" id="equipmentGrid">
                 <div class="col-lg-4 col-md-6">
                     <div class="card card-modern card-equipment h-100">
                         <div class="position-relative">
@@ -343,5 +389,352 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Search Input Enhancement
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearch');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const sortFilter = document.getElementById('sortFilter');
+    
+    // Show/hide clear button
+    if (searchInput && clearSearchBtn) {
+        searchInput.addEventListener('input', function() {
+            if (this.value.length > 0) {
+                clearSearchBtn.classList.remove('d-none');
+            } else {
+                clearSearchBtn.classList.add('d-none');
+            }
+        });
+        
+        clearSearchBtn.addEventListener('click', function() {
+            searchInput.value = '';
+            clearSearchBtn.classList.add('d-none');
+            searchInput.focus();
+        });
+    }
+    
+    // Enhanced focus effects for inputs
+    const formControls = [searchInput, categoryFilter, sortFilter];
+    formControls.forEach(control => {
+        if (control) {
+            control.addEventListener('focus', function() {
+                this.style.borderColor = 'var(--primary-500)';
+                this.style.boxShadow = '0 0 0 4px rgba(37, 99, 235, 0.1)';
+            });
+            
+            control.addEventListener('blur', function() {
+                this.style.borderColor = 'var(--gray-200)';
+                this.style.boxShadow = 'none';
+            });
+        }
+    });
+    
+    
+    // View toggle buttons
+    const viewToggleBtns = document.querySelectorAll('.view-toggle-btn');
+    const equipmentGrid = document.getElementById('equipmentGrid');
+    
+    // Add hover effects
+    viewToggleBtns.forEach(btn => {
+        btn.addEventListener('mouseenter', function() {
+            if (!this.classList.contains('active')) {
+                this.style.background = 'var(--gray-50)';
+                this.style.color = 'var(--gray-700)';
+            }
+        });
+        
+        btn.addEventListener('mouseleave', function() {
+            if (!this.classList.contains('active')) {
+                this.style.background = 'transparent';
+                this.style.color = 'var(--gray-500)';
+            }
+        });
+    });
+    
+    viewToggleBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const viewType = this.getAttribute('data-view');
+            
+            // Remove active state from all buttons
+            viewToggleBtns.forEach(b => {
+                b.classList.remove('active');
+                b.style.background = 'transparent';
+                b.style.color = 'var(--gray-500)';
+                b.style.boxShadow = 'none';
+            });
+            
+            // Add active state to clicked button
+            this.classList.add('active');
+            this.style.background = 'linear-gradient(135deg, var(--primary-600), var(--primary-700))';
+            this.style.color = 'white';
+            this.style.boxShadow = '0 2px 8px rgba(37, 99, 235, 0.3)';
+            
+            // Update grid layout
+            const cardColumns = equipmentGrid.querySelectorAll('[class*="col-"]');
+            const equipmentCards = equipmentGrid.querySelectorAll('.card');
+            
+            if (viewType === 'list') {
+                // List view - horizontal card layout
+                cardColumns.forEach(card => {
+                    card.className = 'col-12';
+                });
+                
+                equipmentCards.forEach(card => {
+                    // Change card to horizontal layout
+                    card.style.flexDirection = 'row';
+                    card.style.maxHeight = 'none';
+                    card.style.height = '200px';
+                    card.style.alignItems = 'stretch';
+                    card.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                    card.style.transition = 'all 0.3s ease';
+                    
+                    const imgContainer = card.querySelector('.position-relative');
+                    const cardBody = card.querySelector('.card-body');
+                    const img = card.querySelector('.card-img-top');
+                    
+                    if (imgContainer) {
+                        imgContainer.style.flex = '0 0 300px';
+                        imgContainer.style.maxWidth = '300px';
+                        imgContainer.style.height = '100%';
+                        imgContainer.style.overflow = 'hidden';
+                        imgContainer.style.display = 'flex';
+                        imgContainer.style.alignItems = 'center';
+                        imgContainer.style.justifyContent = 'center';
+                        imgContainer.style.borderRadius = '1rem 0 0 1rem';
+                        
+                        // Position badges for list view
+                        const availabilityBadge = imgContainer.querySelector('.availability-badge');
+                        const priceBadge = imgContainer.querySelector('.price-badge');
+                        if (availabilityBadge) {
+                            availabilityBadge.style.top = '0.75rem';
+                            availabilityBadge.style.left = '0.75rem';
+                            availabilityBadge.style.right = 'auto';
+                            availabilityBadge.style.fontSize = '0.7rem';
+                        }
+                        if (priceBadge) {
+                            priceBadge.style.bottom = '0.75rem';
+                            priceBadge.style.left = '0.75rem';
+                            priceBadge.style.right = 'auto';
+                            priceBadge.style.fontSize = '0.7rem';
+                            priceBadge.style.fontWeight = '600';
+                        }
+                    }
+                    
+                    if (img) {
+                        img.style.width = '100%';
+                        img.style.height = '100%';
+                        img.style.objectFit = 'cover';
+                        img.style.objectPosition = 'center';
+                        img.style.borderRadius = '1rem 0 0 1rem';
+                        img.style.transition = 'transform 0.3s ease';
+                    }
+                    
+                    if (cardBody) {
+                        cardBody.style.flex = '1';
+                        cardBody.style.display = 'flex';
+                        cardBody.style.flexDirection = 'column';
+                        cardBody.style.justifyContent = 'space-between';
+                        cardBody.style.padding = '1.5rem 2rem';
+                        cardBody.style.background = 'white';
+                    }
+                    
+                    // Optimize content layout for list view
+                    const categoryBadge = card.querySelector('.badge');
+                    if (categoryBadge) {
+                        categoryBadge.style.marginBottom = '0.5rem';
+                        categoryBadge.style.fontSize = '0.75rem';
+                    }
+                    
+                    const cardTitle = card.querySelector('.card-title');
+                    if (cardTitle) {
+                        cardTitle.style.fontSize = '1.25rem';
+                        cardTitle.style.fontWeight = '700';
+                        cardTitle.style.marginBottom = '0.5rem';
+                        cardTitle.style.lineHeight = '1.3';
+                    }
+                    
+                    const cardText = card.querySelector('.card-text');
+                    if (cardText) {
+                        cardText.style.fontSize = '0.9rem';
+                        cardText.style.lineHeight = '1.5';
+                        cardText.style.marginBottom = '0.75rem';
+                        cardText.style.display = '-webkit-box';
+                        cardText.style.webkitLineClamp = '2';
+                        cardText.style.webkitBoxOrient = 'vertical';
+                        cardText.style.overflow = 'hidden';
+                    }
+                    
+                    const ratingContainer = card.querySelector('.d-flex.align-items-center.mb-3');
+                    if (ratingContainer) {
+                        ratingContainer.style.marginBottom = '1rem';
+                    }
+                    
+                    // Adjust button container
+                    const buttonContainer = card.querySelector('.d-flex.justify-content-between.align-items-center');
+                    if (buttonContainer) {
+                        buttonContainer.style.marginTop = 'auto';
+                        buttonContainer.style.gap = '0.75rem';
+                    }
+                    
+                    // Add hover effect
+                    card.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateY(-2px)';
+                        this.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.12)';
+                        const cardImg = this.querySelector('.card-img-top');
+                        if (cardImg) cardImg.style.transform = 'scale(1.05)';
+                    });
+                    
+                    card.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translateY(0)';
+                        this.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                        const cardImg = this.querySelector('.card-img-top');
+                        if (cardImg) cardImg.style.transform = 'scale(1)';
+                    });
+                });
+                
+                equipmentGrid.classList.remove('g-4');
+                equipmentGrid.classList.add('g-3');
+            } else {
+                // Grid view - vertical card layout
+                cardColumns.forEach(card => {
+                    card.className = 'col-lg-4 col-md-6';
+                });
+                
+                equipmentCards.forEach(card => {
+                    // Reset to vertical layout
+                    card.style.flexDirection = 'column';
+                    card.style.maxHeight = 'none';
+                    card.style.height = '100%';
+                    card.style.alignItems = 'stretch';
+                    card.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.06)';
+                    card.style.transition = 'all 0.3s ease';
+                    
+                    const imgContainer = card.querySelector('.position-relative');
+                    const cardBody = card.querySelector('.card-body');
+                    const img = card.querySelector('.card-img-top');
+                    
+                    if (imgContainer) {
+                        imgContainer.style.flex = 'none';
+                        imgContainer.style.maxWidth = 'none';
+                        imgContainer.style.height = '250px';
+                        imgContainer.style.overflow = 'hidden';
+                        imgContainer.style.display = 'block';
+                        imgContainer.style.alignItems = 'initial';
+                        imgContainer.style.justifyContent = 'initial';
+                        imgContainer.style.borderRadius = '1rem 1rem 0 0';
+                        
+                        // Reset badges position for grid view
+                        const availabilityBadge = imgContainer.querySelector('.availability-badge');
+                        const priceBadge = imgContainer.querySelector('.price-badge');
+                        if (availabilityBadge) {
+                            availabilityBadge.style.top = '1rem';
+                            availabilityBadge.style.left = 'auto';
+                            availabilityBadge.style.right = '1rem';
+                            availabilityBadge.style.fontSize = '';
+                        }
+                        if (priceBadge) {
+                            priceBadge.style.bottom = '1rem';
+                            priceBadge.style.left = '1rem';
+                            priceBadge.style.right = 'auto';
+                            priceBadge.style.fontSize = '';
+                            priceBadge.style.fontWeight = '';
+                        }
+                    }
+                    
+                    if (img) {
+                        img.style.width = '100%';
+                        img.style.height = '250px';
+                        img.style.objectFit = 'cover';
+                        img.style.objectPosition = 'center';
+                        img.style.borderRadius = '1rem 1rem 0 0';
+                        img.style.transition = 'transform 0.3s ease';
+                    }
+                    
+                    if (cardBody) {
+                        cardBody.style.flex = '1';
+                        cardBody.style.display = 'flex';
+                        cardBody.style.flexDirection = 'column';
+                        cardBody.style.justifyContent = 'space-between';
+                        cardBody.style.padding = '1.5rem';
+                        cardBody.style.background = 'white';
+                    }
+                    
+                    // Reset content styling for grid view
+                    const categoryBadge = card.querySelector('.badge');
+                    if (categoryBadge) {
+                        categoryBadge.style.marginBottom = '';
+                        categoryBadge.style.fontSize = '';
+                    }
+                    
+                    const cardTitle = card.querySelector('.card-title');
+                    if (cardTitle) {
+                        cardTitle.style.fontSize = '';
+                        cardTitle.style.fontWeight = '';
+                        cardTitle.style.marginBottom = '';
+                        cardTitle.style.lineHeight = '';
+                    }
+                    
+                    const cardText = card.querySelector('.card-text');
+                    if (cardText) {
+                        cardText.style.fontSize = '';
+                        cardText.style.lineHeight = '';
+                        cardText.style.marginBottom = '';
+                        cardText.style.display = '';
+                        cardText.style.webkitLineClamp = '';
+                        cardText.style.webkitBoxOrient = '';
+                        cardText.style.overflow = '';
+                    }
+                    
+                    const ratingContainer = card.querySelector('.d-flex.align-items-center.mb-3');
+                    if (ratingContainer) {
+                        ratingContainer.style.marginBottom = '';
+                    }
+                    
+                    // Reset button container
+                    const buttonContainer = card.querySelector('.d-flex.justify-content-between.align-items-center');
+                    if (buttonContainer) {
+                        buttonContainer.style.marginTop = '';
+                        buttonContainer.style.gap = '';
+                    }
+                    
+                    // Add hover effect for grid view
+                    card.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateY(-4px)';
+                        this.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+                        const cardImg = this.querySelector('.card-img-top');
+                        if (cardImg) cardImg.style.transform = 'scale(1.05)';
+                    });
+                    
+                    card.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translateY(0)';
+                        this.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.06)';
+                        const cardImg = this.querySelector('.card-img-top');
+                        if (cardImg) cardImg.style.transform = 'scale(1)';
+                    });
+                });
+                
+                equipmentGrid.classList.remove('g-3');
+                equipmentGrid.classList.add('g-4');
+            }
+        });
+    });
+    
+    // Advanced filter button hover effect
+    const advancedFilterBtn = document.querySelector('[title="Filtres avancés"]');
+    if (advancedFilterBtn) {
+        advancedFilterBtn.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+            this.style.boxShadow = '0 6px 20px -2px rgba(37, 99, 235, 0.5)';
+        });
+        
+        advancedFilterBtn.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 4px 12px -2px rgba(37, 99, 235, 0.4)';
+        });
+    }
+});
+</script>
 
 <%@ include file="../../layouts/footer.jsp" %>
