@@ -294,6 +294,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
     
+    // Update navbar links to redirect to homepage sections
+    updateNavbarLinks();
+    
     // Enhanced form validation and submission
     loginForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -318,6 +321,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Update navbar links to redirect to homepage sections
+function updateNavbarLinks() {
+    var navLinks = document.querySelectorAll('.nav-link.smooth-scroll');
+    
+    navLinks.forEach(function(link) {
+        var section = link.getAttribute('data-section');
+        if (section) {
+            link.href = '../../index.jsp#' + section;
+            link.classList.remove('smooth-scroll');
+        }
+    });
+}
 
 // Toggle password visibility with enhanced animation
 function togglePassword(inputId) {

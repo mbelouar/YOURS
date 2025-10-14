@@ -381,6 +381,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const accountTypeInput = document.getElementById('accountType');
     const emailLabel = document.getElementById('emailLabel');
     
+    // Update navbar links to redirect to homepage sections
+    updateNavbarLinks();
+    
     // User type toggle handler
     userTypeRadios.forEach(radio => {
         radio.addEventListener('change', function() {
@@ -436,6 +439,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Update navbar links to redirect to homepage sections
+function updateNavbarLinks() {
+    var navLinks = document.querySelectorAll('.nav-link.smooth-scroll');
+    
+    navLinks.forEach(function(link) {
+        var section = link.getAttribute('data-section');
+        if (section) {
+            link.href = '../../index.jsp#' + section;
+            link.classList.remove('smooth-scroll');
+        }
+    });
+}
 
 // Toggle password visibility with enhanced animation
 function togglePassword(inputId) {

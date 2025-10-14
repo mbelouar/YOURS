@@ -248,6 +248,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const resetForm = document.getElementById('resetForm');
     const emailInput = document.getElementById('email');
     
+    // Update navbar links to redirect to homepage sections
+    updateNavbarLinks();
+    
     // Setup form validation
     resetForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -269,6 +272,19 @@ document.addEventListener('DOMContentLoaded', function() {
         this.parentElement.classList.remove('focused');
     });
 });
+
+// Update navbar links to redirect to homepage sections
+function updateNavbarLinks() {
+    var navLinks = document.querySelectorAll('.nav-link.smooth-scroll');
+    
+    navLinks.forEach(function(link) {
+        var section = link.getAttribute('data-section');
+        if (section) {
+            link.href = '../../index.jsp#' + section;
+            link.classList.remove('smooth-scroll');
+        }
+    });
+}
 
 // Enhanced password reset handler
 function handlePasswordReset() {
