@@ -92,7 +92,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="card card-modern card-equipment">
                     <div class="position-relative">
-                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&auto=format&fit=crop&q=80" 
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80" 
                              class="card-img-top" alt="Canon EOS R5" style="height: 250px; object-fit: cover;">
                         <div class="availability-badge">Disponible</div>
                         <div class="price-badge">240 MAD/jour</div>
@@ -120,7 +120,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="card card-modern card-equipment">
                     <div class="position-relative">
-                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80" 
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80" 
                              class="card-img-top" alt="MacBook Pro" style="height: 250px; object-fit: cover;">
                         <div class="availability-badge">Disponible</div>
                         <div class="price-badge">150 MAD/jour</div>
@@ -148,7 +148,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="card card-modern card-equipment">
                     <div class="position-relative">
-                        <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&auto=format&fit=crop&q=80" 
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80" 
                              class="card-img-top" alt="DJI Mavic" style="height: 250px; object-fit: cover;">
                         <div class="availability-badge">Disponible</div>
                         <div class="price-badge">120 MAD/jour</div>
