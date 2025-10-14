@@ -82,6 +82,27 @@
                                                   required placeholder="Votre adresse compl&egrave;te" style="font-size: 0.9rem;"></textarea>
                                         <div class="invalid-feedback">L'adresse est requise.</div>
                                     </div>
+
+                                    <!-- Type d'activité (Partner field) -->
+                                    <div id="partnerFieldLeft" style="display: none;">
+                                        <div class="mb-3">
+                                            <label for="businessType" class="form-label fw-semibold" style="font-size: 0.9rem;">
+                                                <i class="fas fa-tag me-1 text-primary" style="font-size: 0.8rem;"></i>
+                                                Type d'activit&eacute; *
+                                            </label>
+                                            <select class="form-select partner-required" id="businessType" name="businessType" style="height: 2.75rem; font-size: 0.9rem;">
+                                                <option value="">S&eacute;lectionnez votre activit&eacute;</option>
+                                                <option value="photo-video">Photographie/Vid&eacute;ographie</option>
+                                                <option value="event">&Eacute;v&eacute;nementiel</option>
+                                                <option value="production">Production audiovisuelle</option>
+                                                <option value="rental">Location d'&eacute;quipement</option>
+                                                <option value="studio">Studio de production</option>
+                                                <option value="freelance">Freelance</option>
+                                                <option value="other">Autre</option>
+                                            </select>
+                                            <div class="invalid-feedback">Veuillez s&eacute;lectionner votre type d'activit&eacute;.</div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <!-- Right Column - Account Information -->
@@ -127,7 +148,7 @@
                                     </div>
 
                                     <!-- Partner-specific fields (hidden by default) -->
-                                    <div id="partnerFields" style="display: none;">
+                                    <div id="partnerFieldRight" style="display: none;">
                                         <!-- Business Name -->
                                         <div class="mb-3">
                                             <label for="businessName" class="form-label fw-semibold" style="font-size: 0.9rem;">
@@ -139,23 +160,54 @@
                                             <div class="invalid-feedback">Le nom de l'entreprise est requis.</div>
                                         </div>
 
-                                        <!-- Business Type -->
+                                        <!-- Photo de profil -->
                                         <div class="mb-3">
-                                            <label for="businessType" class="form-label fw-semibold" style="font-size: 0.9rem;">
-                                                <i class="fas fa-tag me-1 text-primary" style="font-size: 0.8rem;"></i>
-                                                Type d'activit&eacute; *
+                                            <label for="photoPerso" class="form-label fw-semibold" style="font-size: 0.9rem;">
+                                                <i class="fas fa-camera me-1 text-primary" style="font-size: 0.8rem;"></i>
+                                                Photo de profil
                                             </label>
-                                            <select class="form-select partner-required" id="businessType" name="businessType" style="height: 2.75rem; font-size: 0.9rem;">
-                                                <option value="">S&eacute;lectionnez votre activit&eacute;</option>
-                                                <option value="photo-video">Photographie/Vid&eacute;ographie</option>
-                                                <option value="event">&Eacute;v&eacute;nementiel</option>
-                                                <option value="production">Production audiovisuelle</option>
-                                                <option value="rental">Location d'&eacute;quipement</option>
-                                                <option value="studio">Studio de production</option>
-                                                <option value="freelance">Freelance</option>
-                                                <option value="other">Autre</option>
-                                            </select>
-                                            <div class="invalid-feedback">Veuillez s&eacute;lectionner votre type d'activit&eacute;.</div>
+                                            <input type="file" class="form-control" id="photoPerso" name="photoPerso" 
+                                                   accept="image/*" onchange="previewImage(this, 'photoPreview')" style="height: 2.75rem; font-size: 0.9rem; padding-top: 0.55rem;">
+                                            <div class="mt-2">
+                                                <img id="photoPreview" class="img-thumbnail d-none" style="max-width: 100px; border-radius: 0.5rem;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Partner-specific sections (full width, hidden by default) -->
+                            <div id="partnerSections" style="display: none;">
+                                <div class="col-12">
+                                    <hr class="my-4" style="border-color: var(--gray-200);">
+
+                                    <!-- Required Documents Section -->
+                                    <h6 class="fw-bold mb-3" style="color: var(--gray-800); font-size: 0.95rem;">
+                                        <i class="fas fa-file-alt me-2 text-primary"></i>Documents requis
+                                    </h6>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <!-- CIN Upload -->
+                                            <div class="mb-3">
+                                                <label class="form-label fw-semibold" style="font-size: 0.9rem;">
+                                                    Pi&egrave;ce d'identit&eacute; (CIN) *
+                                                </label>
+                                                <div class="row g-2">
+                                                    <div class="col-md-6">
+                                                        <label for="cinRECTO" class="form-label small">Recto</label>
+                                                        <input type="file" class="form-control form-control-sm partner-required" id="cinRECTO" 
+                                                               name="cinRECTO" accept="image/*" onchange="previewImage(this, 'cinRectoPreview')" style="font-size: 0.85rem;">
+                                                        <img id="cinRectoPreview" class="img-thumbnail mt-1 d-none" style="max-width: 80px; border-radius: 0.375rem;">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="cinVERSO" class="form-label small">Verso</label>
+                                                        <input type="file" class="form-control form-control-sm partner-required" id="cinVERSO" 
+                                                               name="cinVERSO" accept="image/*" onchange="previewImage(this, 'cinVersoPreview')" style="font-size: 0.85rem;">
+                                                        <img id="cinVersoPreview" class="img-thumbnail mt-1 d-none" style="max-width: 80px; border-radius: 0.375rem;">
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">Les deux faces de la CIN sont requises.</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -377,7 +429,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const passwordInput = document.getElementById('motDepasse');
     const confirmPasswordInput = document.getElementById('confirmPassword');
     const userTypeRadios = document.querySelectorAll('input[name="userType"]');
-    const partnerFields = document.getElementById('partnerFields');
     const accountTypeInput = document.getElementById('accountType');
     const emailLabel = document.getElementById('emailLabel');
     
@@ -385,10 +436,16 @@ document.addEventListener('DOMContentLoaded', function() {
     updateNavbarLinks();
     
     // User type toggle handler
+    const partnerFieldLeft = document.getElementById('partnerFieldLeft');
+    const partnerFieldRight = document.getElementById('partnerFieldRight');
+    const partnerSections = document.getElementById('partnerSections');
+    
     userTypeRadios.forEach(radio => {
         radio.addEventListener('change', function() {
             if (this.value === 'partner') {
-                partnerFields.style.display = 'block';
+                partnerFieldLeft.style.display = 'block';
+                partnerFieldRight.style.display = 'block';
+                partnerSections.style.display = 'block';
                 emailLabel.textContent = 'Email professionnel *';
                 accountTypeInput.value = 'partner';
                 
@@ -397,7 +454,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     field.required = true;
                 });
             } else {
-                partnerFields.style.display = 'none';
+                partnerFieldLeft.style.display = 'none';
+                partnerFieldRight.style.display = 'none';
+                partnerSections.style.display = 'none';
                 emailLabel.textContent = 'Email *';
                 accountTypeInput.value = 'client';
                 
@@ -558,6 +617,24 @@ function handleRegistration() {
             window.location.href = '${pageContext.request.contextPath}/pages/auth/login.jsp';
         }, 2000);
     }, 2000);
+}
+
+// Preview uploaded image
+function previewImage(input, previewId) {
+    const preview = document.getElementById(previewId);
+    
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.classList.remove('d-none');
+        };
+        
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        preview.classList.add('d-none');
+    }
 }
 </script>
 
