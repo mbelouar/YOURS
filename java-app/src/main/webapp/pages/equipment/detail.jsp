@@ -91,13 +91,12 @@
                 <div class="equipment-detail-images" style="position: sticky; top: 6rem;">
                     <!-- Main Image -->
                     <div class="main-image-container position-relative mb-3" style="border-radius: 1.25rem; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.12); border: 1px solid rgba(0,0,0,0.05);">
-                        <img id="mainImage" src="" alt="" class="img-fluid" style="width: 100%; height: 500px; object-fit: cover;">
+                        <img id="mainImage" src="" alt="" class="img-fluid" style="width: 100%; height: 500px; object-fit: cover; cursor: zoom-in;" onclick="openImageModal()">
                         <button class="btn position-absolute" style="top: 1.25rem; right: 1.25rem; border-radius: 0.75rem; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(0,0,0,0.1); padding: 0.625rem 0.875rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: all 0.2s ease;" 
                                 onclick="openImageModal()" title="Agrandir">
                             <i class="fas fa-expand" style="color: #1e40af;"></i>
                         </button>
                         <div class="availability-badge" id="imageBadge" style="position: absolute; top: 1.25rem; left: 1.25rem;"></div>
-                        <div class="price-badge" id="imagePriceBadge" style="position: absolute; bottom: 1.25rem; left: 1.25rem;"></div>
                     </div>
                     
                     <!-- Thumbnail Gallery -->
@@ -109,7 +108,7 @@
 
             <!-- Equipment Information -->
             <div class="col-lg-6">
-                <div class="equipment-info">
+                <div class="equipment-info" style="position: sticky; top: 6rem;">
                     <!-- Category & Status Row -->
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <span id="equipmentCategory" class="badge d-inline-flex align-items-center" style="font-size: 0.8125rem; padding: 0.625rem 1.125rem; font-weight: 600; border-radius: 0.75rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
@@ -336,15 +335,45 @@
 </div>
 
 <!-- Image Modal -->
-<div class="modal fade" id="imageModal" tabindex="-1">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content" style="border-radius: 1.25rem; border: none; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
-            <div class="modal-header border-0 pb-0" style="padding: 1.5rem 1.5rem 0.5rem;">
-                <h5 class="modal-title fw-bold" id="imageModalTitle" style="color: #111827; font-size: 1.25rem;"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" style="font-size: 0.875rem;"></button>
+<div class="modal fade" id="imageModal" tabindex="-1" style="background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content" style="background: transparent; border: none;">
+            <div class="modal-header border-0 position-absolute w-100" style="z-index: 1050; background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, transparent 100%); padding: 1.5rem 2rem;">
+                <h5 class="modal-title fw-bold d-flex align-items-center" id="imageModalTitle" style="color: white; font-size: 1.125rem;">
+                    <i class="fas fa-images me-3" style="color: #fbbf24;"></i>
+                    <span></span>
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" style="font-size: 1rem; opacity: 0.9;"></button>
             </div>
-            <div class="modal-body text-center" style="padding: 1.5rem;">
-                <img id="modalImage" src="" alt="" class="img-fluid" style="border-radius: 1rem; max-height: 70vh; object-fit: contain; box-shadow: 0 8px 30px rgba(0,0,0,0.15);">
+            <div class="modal-body d-flex align-items-center justify-content-center p-0" style="min-height: 100vh; position: relative;">
+                <div class="position-relative" style="max-width: 85%; max-height: 80vh;">
+                    <img id="modalImage" src="" alt="" class="img-fluid" style="max-height: 80vh; width: auto; object-fit: contain; border-radius: 0.75rem; box-shadow: 0 20px 60px rgba(0,0,0,0.8);">
+                </div>
+                
+                <!-- Side Navigation Areas (Invisible but clickable) -->
+                <div onclick="navigateImage(-1)" id="prevArea" style="position: absolute; left: 0; top: 0; bottom: 0; width: 15%; cursor: w-resize; z-index: 10; display: none;"></div>
+                <div onclick="navigateImage(1)" id="nextArea" style="position: absolute; right: 0; top: 0; bottom: 0; width: 15%; cursor: e-resize; z-index: 10; display: none;"></div>
+            </div>
+            
+            <!-- Navigation & Actions Bar -->
+            <div class="position-absolute w-100 bottom-0" style="background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, transparent 100%); padding: 1.5rem 2rem 2rem; z-index: 1050;">
+                <div class="d-flex flex-column align-items-center gap-3">
+                    <!-- Thumbnail Navigation -->
+                    <div id="modalThumbnails" class="d-flex gap-2 justify-content-center" style="max-width: 600px; overflow-x: auto; padding: 0.5rem;">
+                        <!-- Thumbnails will be loaded here -->
+                    </div>
+                    
+                    <!-- Counter & Download -->
+                    <div class="d-flex justify-content-center align-items-center gap-3">
+                        <div id="imageCounter" class="d-flex align-items-center" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(20px); padding: 0.5rem 1rem; border-radius: 0.625rem; color: white; font-weight: 700; font-size: 0.875rem; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: all 0.3s ease;">
+                            <i class="fas fa-images me-2" style="color: #fbbf24; font-size: 0.875rem;"></i>
+                            <span><!-- Counter will be updated here --></span>
+                        </div>
+                        <button class="btn btn-sm d-flex align-items-center" onclick="downloadImage()" style="background: linear-gradient(135deg, rgba(30, 64, 175, 0.9), rgba(30, 58, 138, 0.9)); backdrop-filter: blur(20px); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 0.625rem; font-weight: 600; font-size: 0.875rem; box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4); transition: all 0.3s ease;">
+                            <i class="fas fa-download me-2"></i>T&eacute;l&eacute;charger
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -548,7 +577,6 @@ function displayEquipmentDetail() {
     statusBadge.style.border = '1px solid ' + availabilityColor + '33';
     
     document.getElementById('imageBadge').textContent = availabilityText;
-    document.getElementById('imagePriceBadge').textContent = currentEquipment.prix + ' MAD/jour';
     
     document.getElementById('partnerName').textContent = currentEquipment.partner.nom;
     document.getElementById('partnerRating').innerHTML = generateStars(currentEquipment.partner.rating);
@@ -623,9 +651,96 @@ function changeMainImage(index) {
 
 function openImageModal() {
     var modal = new bootstrap.Modal(document.getElementById('imageModal'));
-    document.getElementById('modalImage').src = currentEquipment.images[currentImageIndex];
-    document.getElementById('imageModalTitle').textContent = currentEquipment.nom + ' - Image ' + (currentImageIndex + 1);
+    updateModalImage();
+    populateModalThumbnails();
+    
+    // Show/hide navigation areas
+    var prevArea = document.getElementById('prevArea');
+    var nextArea = document.getElementById('nextArea');
+    var hasMultipleImages = currentEquipment.images.length > 1;
+    
+    if (hasMultipleImages) {
+        prevArea.style.display = 'block';
+        nextArea.style.display = 'block';
+    }
+    
     modal.show();
+    
+    // Add keyboard navigation
+    document.addEventListener('keydown', handleModalKeyboard);
+}
+
+function populateModalThumbnails() {
+    var container = document.getElementById('modalThumbnails');
+    var html = '';
+    
+    for (var i = 0; i < currentEquipment.images.length; i++) {
+        var isActive = i === currentImageIndex;
+        html += '<div onclick="changeMainImage(' + i + ')" class="modal-thumb" style="position: relative; cursor: pointer; transition: all 0.3s ease;">';
+        html += '<img src="' + currentEquipment.images[i] + '" ';
+        html += 'style="width: 80px; height: 60px; object-fit: cover; border-radius: 0.5rem; ';
+        html += 'opacity: ' + (isActive ? '1' : '0.5') + '; ';
+        html += 'border: 2px solid ' + (isActive ? '#fbbf24' : 'rgba(255,255,255,0.3)') + '; ';
+        html += 'box-shadow: ' + (isActive ? '0 4px 16px rgba(251, 191, 36, 0.5)' : '0 2px 8px rgba(0,0,0,0.3)') + '; ';
+        html += 'transition: all 0.3s ease;">';
+        if (isActive) {
+            html += '<div style="position: absolute; top: -6px; left: 50%; transform: translateX(-50%); width: 16px; height: 3px; background: #fbbf24; border-radius: 2px; box-shadow: 0 0 10px rgba(251, 191, 36, 0.8);"></div>';
+        }
+        html += '</div>';
+    }
+    
+    container.innerHTML = html;
+}
+
+function handleModalKeyboard(e) {
+    var modal = document.getElementById('imageModal');
+    if (!modal.classList.contains('show')) return;
+    
+    if (e.key === 'ArrowLeft') {
+        navigateImage(-1);
+    } else if (e.key === 'ArrowRight') {
+        navigateImage(1);
+    } else if (e.key === 'Escape') {
+        bootstrap.Modal.getInstance(modal).hide();
+        document.removeEventListener('keydown', handleModalKeyboard);
+    }
+}
+
+function updateModalImage() {
+    var modalImage = document.getElementById('modalImage');
+    var modalTitle = document.getElementById('imageModalTitle').querySelector('span');
+    var imageCounter = document.getElementById('imageCounter').querySelector('span');
+    
+    modalImage.src = currentEquipment.images[currentImageIndex];
+    modalTitle.textContent = currentEquipment.nom;
+    imageCounter.textContent = (currentImageIndex + 1) + ' / ' + currentEquipment.images.length;
+}
+
+function navigateImage(direction) {
+    var newIndex = currentImageIndex + direction;
+    
+    if (newIndex < 0) {
+        newIndex = currentEquipment.images.length - 1;
+    } else if (newIndex >= currentEquipment.images.length) {
+        newIndex = 0;
+    }
+    
+    currentImageIndex = newIndex;
+    updateModalImage();
+    
+    // Update modal thumbnails if modal is open
+    if (document.getElementById('imageModal').classList.contains('show')) {
+        populateModalThumbnails();
+    }
+}
+
+function downloadImage() {
+    var link = document.createElement('a');
+    link.href = currentEquipment.images[currentImageIndex];
+    link.download = currentEquipment.nom + '_image_' + (currentImageIndex + 1) + '.jpg';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 
 function displaySpecifications() {
@@ -1043,9 +1158,125 @@ input[type="date"]:hover {
     border-color: #9ca3af !important;
 }
 
+/* Modal Enhancements */
+#imageModal .modal-content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+#modalImage {
+    animation: zoomIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Modal thumbnail navigation */
+.modal-thumb:hover img {
+    opacity: 1 !important;
+    transform: scale(1.1);
+    border-color: #fbbf24 !important;
+    box-shadow: 0 6px 20px rgba(251, 191, 36, 0.6) !important;
+}
+
+.modal-thumb img {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Side navigation areas - show hint on hover */
+#prevArea:hover::before,
+#nextArea:hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+#nextArea:hover::before {
+    background: linear-gradient(270deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+}
+
+/* Thumbnail scrollbar */
+#modalThumbnails::-webkit-scrollbar {
+    height: 4px;
+}
+
+#modalThumbnails::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+}
+
+#modalThumbnails::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+}
+
+#modalThumbnails::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.5);
+}
+
+.modal-header button:hover {
+    transform: scale(1.1);
+}
+
+/* Download button hover */
+button[onclick="downloadImage()"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(30, 64, 175, 0.6) !important;
+    background: linear-gradient(135deg, #1e40af, #1e3a8a) !important;
+}
+
+button[onclick="downloadImage()"]:active {
+    transform: translateY(0) !important;
+}
+
+/* Image counter hover */
+#imageCounter:hover {
+    background: rgba(255,255,255,0.25) !important;
+    transform: scale(1.05);
+}
+
+/* Keyboard navigation hint */
+#imageModal::after {
+    content: "Cliquez sur les côtés ou utilisez ← → | ESC pour fermer";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(10px);
+    color: rgba(255,255,255,0.8);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+    pointer-events: none;
+    z-index: 1051;
+    opacity: 0;
+    animation: fadeInOut 4s ease-in-out 0.5s;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    10%, 90% { opacity: 1; }
+}
+
 /* Responsive adjustments */
 @media (max-width: 991px) {
-    .equipment-detail-images {
+    .equipment-detail-images,
+    .equipment-info {
         position: static !important;
     }
     
@@ -1059,6 +1290,16 @@ input[type="date"]:hover {
     
     #equipmentPrice {
         font-size: 2.5rem !important;
+    }
+    
+    #modalThumbnails {
+        max-width: 90% !important;
+    }
+    
+    #prevArea,
+    #nextArea {
+        display: block !important;
+        width: 20% !important;
     }
 }
 
