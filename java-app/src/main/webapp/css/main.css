@@ -168,6 +168,14 @@ a:hover {
     text-decoration: underline;
 }
 
+/* Remove underline from button links */
+a.btn,
+a.btn:hover,
+a.btn:focus,
+a.btn:active {
+    text-decoration: none !important;
+}
+
 /* ===== LAYOUT ===== */
 .container {
     max-width: 1200px;
@@ -214,12 +222,34 @@ a:hover {
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     margin: 0 0.25rem;
     position: relative;
+    text-decoration: none !important;
 }
 
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-link.active {
+.navbar-nav .nav-link:hover {
     color: var(--primary-600) !important;
     background-color: var(--primary-50);
+    text-decoration: none !important;
+}
+
+.navbar-nav .nav-link.active {
+    color: white !important;
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.3);
+    text-decoration: none !important;
+}
+
+.navbar-nav .nav-link.active:hover {
+    background: linear-gradient(135deg, var(--primary-700), var(--primary-800));
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px -2px rgba(37, 99, 235, 0.4);
+}
+
+.navbar-nav .nav-link.active i {
+    color: white !important;
+}
+
+.navbar-nav .nav-link i {
+    transition: color 0.2s ease;
 }
 
 .navbar-toggler {
@@ -248,9 +278,15 @@ a:hover {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    text-decoration: none;
+    text-decoration: none !important;
     line-height: 1;
     letter-spacing: 0.01em;
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active {
+    text-decoration: none !important;
 }
 
 .btn-primary {
@@ -830,6 +866,15 @@ html {
     section h2::after {
         width: 50px;
         height: 3px;
+    }
+    
+    /* Mobile navbar active state */
+    .navbar-nav .nav-link {
+        margin: 0.25rem 0.5rem;
+    }
+    
+    .navbar-nav .nav-link.active {
+        margin: 0.25rem 0.5rem;
     }
 }
 
