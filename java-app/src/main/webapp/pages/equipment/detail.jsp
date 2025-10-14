@@ -411,43 +411,45 @@ const mockEquipment = [
     },
     {
         idMateriel: 2,
-        nom: "Sony A7 IV",
-        prix: 180,
-        disponibilite: true,
-        idCategorie: 1,
-        categorie: "Photographie",
-        description: "Hybride full-frame 33MP avec autofocus intelligent et video 4K 60fps.",
-        specifications: [
-            "Capteur CMOS full-frame 33MP",
-            "Video 4K 60fps",
-            "Autofocus AF-I avance",
-            "Stabilisation 5.5 stops",
-            "Ecran tactile orientable"
-        ],
-        images: [
-            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80"
-        ],
-        partner: { idPartenaire: 1, nom: "Photo Pro Rental", rating: 4.8 }
-    },
-    {
-        idMateriel: 3,
         nom: "MacBook Pro 16\"",
-        prix: 120,
+        prix: 150,
         disponibilite: true,
         idCategorie: 3,
         categorie: "Informatique",
-        description: "Ordinateur portable haute performance pour montage video professionnel.",
+        description: "Ordinateur portable M2 Pro pour montage video professionnel.",
         specifications: [
-            "Apple M2 Max",
-            "32GB RAM",
-            "1TB SSD",
+            "Apple M2 Pro",
+            "16GB RAM",
+            "512GB SSD",
             "Ecran Retina 16 pouces",
-            "GPU 38 coeurs"
+            "GPU 19 coeurs"
         ],
         images: [
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80",
             "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80"
         ],
-        partner: { idPartenaire: 2, nom: "Tech Solutions", rating: 4.9 }
+        partner: { idPartenaire: 2, nom: "Tech Solutions", rating: 4.8 }
+    },
+    {
+        idMateriel: 3,
+        nom: "DJI Mavic Air 2",
+        prix: 120,
+        disponibilite: true,
+        idCategorie: 2,
+        categorie: "Video",
+        description: "Drone professionnel 4K avec stabilisation 3 axes.",
+        specifications: [
+            "Camera 4K 60fps",
+            "Stabilisation 3 axes",
+            "Autonomie 34 minutes",
+            "Portee 10km",
+            "HDR video"
+        ],
+        images: [
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80",
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80"
+        ],
+        partner: { idPartenaire: 1, nom: "Photo Pro Rental", rating: 4.6 }
     },
     {
         idMateriel: 4,
