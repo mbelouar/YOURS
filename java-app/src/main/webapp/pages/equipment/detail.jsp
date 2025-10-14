@@ -523,7 +523,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     setupFormListeners();
+    updateNavbarLinks();
 });
+
+function updateNavbarLinks() {
+    // Update navbar links to point to homepage sections
+    var navLinks = document.querySelectorAll('.nav-link.smooth-scroll');
+    
+    navLinks.forEach(function(link) {
+        var section = link.getAttribute('data-section');
+        if (section) {
+            link.href = '../../index.jsp#' + section;
+            link.classList.remove('smooth-scroll');
+        }
+    });
+}
 
 function loadEquipmentDetail(equipmentId) {
     setTimeout(function() {

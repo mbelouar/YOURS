@@ -445,6 +445,9 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Update navbar links to redirect to homepage sections
+    updateNavbarLinks();
+    
     // Search Input Enhancement
     const searchInput = document.getElementById('searchInput');
     const clearSearchBtn = document.getElementById('clearSearch');
@@ -826,6 +829,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Update navbar links to redirect to homepage sections
+function updateNavbarLinks() {
+    var navLinks = document.querySelectorAll('.nav-link.smooth-scroll');
+    
+    navLinks.forEach(function(link) {
+        var section = link.getAttribute('data-section');
+        if (section) {
+            link.href = '../../index.jsp#' + section;
+            link.classList.remove('smooth-scroll');
+        }
+    });
+}
 </script>
 
 <%@ include file="../../layouts/footer.jsp" %>
