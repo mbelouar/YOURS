@@ -89,19 +89,72 @@
                                 Trier par
                             </label>
                             <select class="form-select" id="sortFilter" style="border-radius: 0.875rem; border: 2px solid var(--gray-200); height: 48px; font-size: 0.9375rem; transition: all 0.3s ease; background: white;">
-                                <option value="popular" selected>Popularit&eacute;</option>
+                                <option value="name-asc" selected>Nom (A-Z)</option>
+                                <option value="name-desc">Nom (Z-A)</option>
                                 <option value="price-asc">Prix croissant</option>
                                 <option value="price-desc">Prix d&eacute;croissant</option>
-                                <option value="newest">Nouveaut&eacute;s</option>
-                                <option value="rating">Meilleures notes</option>
+                                <option value="availability">Disponibilit&eacute;</option>
                             </select>
                         </div>
                         
                         <!-- Advanced Filter Button -->
                         <div class="col-lg-1">
                             <label class="form-label mb-2" style="font-size: 0.875rem; opacity: 0;">_</label>
-                            <button class="btn w-100" style="background: linear-gradient(135deg, var(--primary-600), var(--primary-700)); color: white; border: none; border-radius: 0.875rem; height: 48px; box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.4); transition: all 0.3s ease;" title="Filtres avanc&eacute;s">
+                            <button id="advancedFilterToggle" class="btn w-100" style="background: linear-gradient(135deg, var(--primary-600), var(--primary-700)); color: white; border: none; border-radius: 0.875rem; height: 48px; box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.4); transition: all 0.3s ease;" title="Filtres avanc&eacute;s">
                                 <i class="fas fa-sliders-h"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Advanced Filters Panel (Hidden by default) -->
+                <div id="advancedFiltersPanel" class="mt-3 mb-4" style="display: none; animation: slideDown 0.3s ease;">
+                    <div class="p-4" style="background: white; border-radius: 1rem; border: 1px solid var(--gray-200); box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="mb-0" style="color: var(--gray-800); font-weight: 600;">
+                                <i class="fas fa-filter me-2" style="color: var(--primary-600);"></i>
+                                Filtres Avanc&eacute;s
+                            </h6>
+                            <button id="closeAdvancedFilters" class="btn btn-sm" style="color: var(--gray-500); padding: 0.25rem 0.5rem;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="row g-3">
+                            <!-- Price Range -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold mb-2" style="color: var(--gray-700); font-size: 0.875rem;">
+                                    <i class="fas fa-tag me-1" style="color: var(--primary-600); font-size: 0.75rem;"></i>
+                                    Fourchette de Prix
+                                </label>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <input type="number" id="priceMin" class="form-control form-control-sm" placeholder="Min" style="border-radius: 0.5rem;" min="0">
+                                    <span style="color: var(--gray-400);">—</span>
+                                    <input type="number" id="priceMax" class="form-control form-control-sm" placeholder="Max" style="border-radius: 0.5rem;" min="0">
+                                </div>
+                            </div>
+                            
+                            <!-- Availability -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold mb-2" style="color: var(--gray-700); font-size: 0.875rem;">
+                                    <i class="fas fa-calendar-check me-1" style="color: var(--primary-600); font-size: 0.75rem;"></i>
+                                    Disponibilit&eacute;
+                                </label>
+                                <select id="availabilityFilter" class="form-select form-select-sm" style="border-radius: 0.5rem;">
+                                    <option value="">Tous</option>
+                                    <option value="1">Disponible</option>
+                                    <option value="0">Non disponible</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="d-flex gap-2 justify-content-end mt-3 pt-3" style="border-top: 1px solid var(--gray-200);">
+                            <button class="btn btn-sm btn-outline-secondary" id="resetFilters" style="border-radius: 0.5rem; padding: 0.5rem 1rem;">
+                                <i class="fas fa-redo me-1"></i>R&eacute;initialiser
+                            </button>
+                            <button id="applyFilters" class="btn btn-sm btn-primary" style="border-radius: 0.5rem; padding: 0.5rem 1rem;">
+                                <i class="fas fa-check me-1"></i>Appliquer
                             </button>
                         </div>
                     </div>
@@ -657,7 +710,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         cardBody.style.flexDirection = 'column';
                         cardBody.style.justifyContent = 'space-between';
                         cardBody.style.padding = '1.5rem';
-                    }
+""                    }
                     
                     // Reset content styling for grid view
                     const categoryBadge = card.querySelector('.badge');
@@ -719,15 +772,55 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Advanced filter button hover effect
-    const advancedFilterBtn = document.querySelector('[title="Filtres avancés"]');
-    if (advancedFilterBtn) {
-        advancedFilterBtn.addEventListener('mouseenter', function() {
+    // Advanced filter panel toggle
+    const advancedFilterToggle = document.getElementById('advancedFilterToggle');
+    const advancedFiltersPanel = document.getElementById('advancedFiltersPanel');
+    const closeAdvancedFilters = document.getElementById('closeAdvancedFilters');
+    const resetFilters = document.getElementById('resetFilters');
+    
+    if (advancedFilterToggle && advancedFiltersPanel) {
+        // Toggle panel
+        advancedFilterToggle.addEventListener('click', function() {
+            if (advancedFiltersPanel.style.display === 'none') {
+                advancedFiltersPanel.style.display = 'block';
+                advancedFiltersPanel.style.animation = 'slideDown 0.3s ease';
+                this.style.background = 'linear-gradient(135deg, var(--primary-700), var(--primary-800))';
+            } else {
+                advancedFiltersPanel.style.display = 'none';
+                this.style.background = 'linear-gradient(135deg, var(--primary-600), var(--primary-700))';
+            }
+        });
+        
+        // Close panel
+        if (closeAdvancedFilters) {
+            closeAdvancedFilters.addEventListener('click', function() {
+                advancedFiltersPanel.style.display = 'none';
+                advancedFilterToggle.style.background = 'linear-gradient(135deg, var(--primary-600), var(--primary-700))';
+            });
+        }
+        
+        // Reset filters
+        if (resetFilters) {
+            resetFilters.addEventListener('click', function() {
+                // Reset all form inputs in the advanced filter panel
+                const inputs = advancedFiltersPanel.querySelectorAll('input, select');
+                inputs.forEach(input => {
+                    if (input.tagName === 'SELECT') {
+                        input.selectedIndex = 0;
+                    } else {
+                        input.value = '';
+                    }
+                });
+            });
+        }
+        
+        // Hover effect
+        advancedFilterToggle.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-2px)';
             this.style.boxShadow = '0 6px 20px -2px rgba(37, 99, 235, 0.5)';
         });
         
-        advancedFilterBtn.addEventListener('mouseleave', function() {
+        advancedFilterToggle.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
             this.style.boxShadow = '0 4px 12px -2px rgba(37, 99, 235, 0.4)';
         });
