@@ -67,14 +67,6 @@
                                         <div class="invalid-feedback">Le nom est requis.</div>
                                     </div>
 
-                                    <!-- Phone -->
-                                    <div class="mb-3">
-                                        <label for="numTelephone" class="form-label fw-semibold" style="font-size: 0.9rem;">T&eacute;l&eacute;phone *</label>
-                                        <input type="tel" class="form-control" id="numTelephone" name="numTelephone" 
-                                               required placeholder="+212 6 12 34 56 78" style="height: 2.75rem; font-size: 0.9rem;">
-                                        <div class="invalid-feedback">Le num&eacute;ro de t&eacute;l&eacute;phone est requis.</div>
-                                    </div>
-
                                     <!-- Address -->
                                     <div class="mb-3">
                                         <label for="adresse" class="form-label fw-semibold" style="font-size: 0.9rem;">Adresse *</label>
@@ -83,8 +75,9 @@
                                         <div class="invalid-feedback">L'adresse est requise.</div>
                                     </div>
 
-                                    <!-- Type d'activité (Partner field) -->
+                                    <!-- Partner fields (left column) -->
                                     <div id="partnerFieldLeft" style="display: none;">
+                                        <!-- Type d'activité -->
                                         <div class="mb-3">
                                             <label for="businessType" class="form-label fw-semibold" style="font-size: 0.9rem;">
                                                 <i class="fas fa-tag me-1 text-primary" style="font-size: 0.8rem;"></i>
@@ -101,6 +94,19 @@
                                                 <option value="other">Autre</option>
                                             </select>
                                             <div class="invalid-feedback">Veuillez s&eacute;lectionner votre type d'activit&eacute;.</div>
+                                        </div>
+
+                                        <!-- Photo de profil -->
+                                        <div class="mb-3">
+                                            <label for="photoPerso" class="form-label fw-semibold" style="font-size: 0.9rem;">
+                                                <i class="fas fa-camera me-1 text-primary" style="font-size: 0.8rem;"></i>
+                                                Photo de profil
+                                            </label>
+                                            <input type="file" class="form-control" id="photoPerso" name="photoPerso" 
+                                                   accept="image/*" onchange="previewImage(this, 'photoPreview')" style="height: 2.75rem; font-size: 0.9rem; padding-top: 0.55rem;">
+                                            <div class="mt-2">
+                                                <img id="photoPreview" class="img-thumbnail d-none" style="max-width: 100px; border-radius: 0.5rem;">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -119,6 +125,14 @@
                                         <input type="email" class="form-control" id="mail" name="mail" 
                                                required placeholder="votre@email.com" style="height: 2.75rem; font-size: 0.9rem;">
                                         <div class="invalid-feedback">Veuillez saisir une adresse email valide.</div>
+                                    </div>
+
+                                    <!-- Phone -->
+                                    <div class="mb-3">
+                                        <label for="numTelephone" class="form-label fw-semibold" style="font-size: 0.9rem;">T&eacute;l&eacute;phone *</label>
+                                        <input type="tel" class="form-control" id="numTelephone" name="numTelephone" 
+                                               required placeholder="+212 6 12 34 56 78" style="height: 2.75rem; font-size: 0.9rem;">
+                                        <div class="invalid-feedback">Le num&eacute;ro de t&eacute;l&eacute;phone est requis.</div>
                                     </div>
 
                                     <!-- Password -->
@@ -158,19 +172,6 @@
                                             <input type="text" class="form-control partner-required" id="businessName" name="businessName" 
                                                    placeholder="Nom de votre entreprise" style="height: 2.75rem; font-size: 0.9rem;">
                                             <div class="invalid-feedback">Le nom de l'entreprise est requis.</div>
-                                        </div>
-
-                                        <!-- Photo de profil -->
-                                        <div class="mb-3">
-                                            <label for="photoPerso" class="form-label fw-semibold" style="font-size: 0.9rem;">
-                                                <i class="fas fa-camera me-1 text-primary" style="font-size: 0.8rem;"></i>
-                                                Photo de profil
-                                            </label>
-                                            <input type="file" class="form-control" id="photoPerso" name="photoPerso" 
-                                                   accept="image/*" onchange="previewImage(this, 'photoPreview')" style="height: 2.75rem; font-size: 0.9rem; padding-top: 0.55rem;">
-                                            <div class="mt-2">
-                                                <img id="photoPreview" class="img-thumbnail d-none" style="max-width: 100px; border-radius: 0.5rem;">
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
