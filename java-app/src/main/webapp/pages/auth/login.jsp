@@ -103,20 +103,13 @@
                             </div>
                         </form>
 
-                        <!-- Register Links -->
+                        <!-- Register Link -->
                         <div class="text-center">
-                            <p class="mb-2" style="color: var(--gray-600); font-size: 0.9rem;">
+                            <p class="mb-0" style="color: var(--gray-600); font-size: 0.9rem;">
                                 Pas encore de compte ? 
                                 <a href="${pageContext.request.contextPath}/pages/auth/register-client.jsp" 
                                    class="text-decoration-none fw-semibold" style="color: var(--primary-600);">
-                                    Cr&eacute;er un compte client
-                                </a>
-                            </p>
-                            <p class="mb-0" style="color: var(--gray-600); font-size: 0.9rem;">
-                                Vous &ecirc;tes un partenaire ? 
-                                <a href="${pageContext.request.contextPath}/pages/auth/register-partner.jsp" 
-                                   class="text-decoration-none fw-semibold" style="color: var(--primary-600);">
-                                    Cr&eacute;er un compte partenaire
+                                    Cr&eacute;er un compte
                                 </a>
                             </p>
                         </div>
