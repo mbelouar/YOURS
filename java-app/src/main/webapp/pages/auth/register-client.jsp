@@ -44,13 +44,14 @@
                         <form id="registerForm" class="needs-validation" novalidate>
                             <input type="hidden" id="accountType" name="accountType" value="client">
                             
+                            <!-- Form Fields -->
                             <div class="row">
                                 <!-- Left Column - Personal Information -->
                                 <div class="col-md-6">
                                     <h6 class="fw-bold mb-3" style="color: var(--gray-800); font-size: 0.95rem;">
                                         <i class="fas fa-user me-2 text-primary"></i>Informations personnelles
                                     </h6>
-                                    
+
                                     <!-- First Name -->
                                     <div class="mb-3">
                                         <label for="prenom" class="form-label fw-semibold" style="font-size: 0.9rem;">Pr&eacute;nom *</label>
@@ -67,47 +68,25 @@
                                         <div class="invalid-feedback">Le nom est requis.</div>
                                     </div>
 
-                                    <!-- Address -->
-                                    <div class="mb-3">
-                                        <label for="adresse" class="form-label fw-semibold" style="font-size: 0.9rem;">Adresse *</label>
-                                        <textarea class="form-control" id="adresse" name="adresse" rows="2" 
-                                                  required placeholder="Votre adresse compl&egrave;te" style="font-size: 0.9rem;"></textarea>
-                                        <div class="invalid-feedback">L'adresse est requise.</div>
-                                    </div>
-
-                                    <!-- Partner fields (left column) -->
-                                    <div id="partnerFieldLeft" style="display: none;">
-                                        <!-- Type d'activité -->
-                                        <div class="mb-3">
-                                            <label for="businessType" class="form-label fw-semibold" style="font-size: 0.9rem;">
-                                                <i class="fas fa-tag me-1 text-primary" style="font-size: 0.8rem;"></i>
-                                                Type d'activit&eacute; *
-                                            </label>
-                                            <select class="form-select partner-required" id="businessType" name="businessType" style="height: 2.75rem; font-size: 0.9rem;">
-                                                <option value="">S&eacute;lectionnez votre activit&eacute;</option>
-                                                <option value="photo-video">Photographie/Vid&eacute;ographie</option>
-                                                <option value="event">&Eacute;v&eacute;nementiel</option>
-                                                <option value="production">Production audiovisuelle</option>
-                                                <option value="rental">Location d'&eacute;quipement</option>
-                                                <option value="studio">Studio de production</option>
-                                                <option value="freelance">Freelance</option>
-                                                <option value="other">Autre</option>
-                                            </select>
-                                            <div class="invalid-feedback">Veuillez s&eacute;lectionner votre type d'activit&eacute;.</div>
+                                    <!-- Password (Client only) -->
+                                    <div class="mb-3" id="clientPasswordField">
+                                        <label for="motDePasseClient" class="form-label fw-semibold" style="font-size: 0.9rem;">
+                                            <i class="fas fa-lock me-1 text-primary" style="font-size: 0.8rem;"></i>
+                                            Mot de passe *
+                                        </label>
+                                        <div class="position-relative">
+                                            <input type="password" class="form-control" id="motDePasseClient" name="motDepasse" 
+                                                   required minlength="8" placeholder="Minimum 8 caract&egrave;res" style="height: 2.75rem; font-size: 0.9rem; padding-right: 3rem;">
+                                            <button type="button" class="btn position-absolute end-0 top-50 translate-middle-y me-1" 
+                                                    onclick="togglePassword('motDePasseClient')" style="z-index: 5; border: none; background: none; color: var(--gray-500); padding: 0.5rem;">
+                                                <i class="fas fa-eye" id="motDePasseClientToggleIcon"></i>
+                                            </button>
                                         </div>
-
-                                        <!-- Photo de profil -->
-                                        <div class="mb-3">
-                                            <label for="photoPerso" class="form-label fw-semibold" style="font-size: 0.9rem;">
-                                                <i class="fas fa-camera me-1 text-primary" style="font-size: 0.8rem;"></i>
-                                                Photo de profil
-                                            </label>
-                                            <input type="file" class="form-control" id="photoPerso" name="photoPerso" 
-                                                   accept="image/*" onchange="previewImage(this, 'photoPreview')" style="height: 2.75rem; font-size: 0.9rem; padding-top: 0.55rem;">
-                                            <div class="mt-2">
-                                                <img id="photoPreview" class="img-thumbnail d-none" style="max-width: 100px; border-radius: 0.5rem;">
-                                            </div>
+                                        <div class="progress mt-1" style="height: 4px;">
+                                            <div class="progress-bar" id="passwordStrengthClient" style="width: 0%"></div>
                                         </div>
+                                        <small class="text-muted" id="passwordStrengthTextClient" style="font-size: 0.8rem;">Force du mot de passe</small>
+                                        <div class="invalid-feedback">Le mot de passe doit contenir au moins 8 caract&egrave;res.</div>
                                     </div>
                                 </div>
 
@@ -129,40 +108,30 @@
 
                                     <!-- Phone -->
                                     <div class="mb-3">
-                                        <label for="numTelephone" class="form-label fw-semibold" style="font-size: 0.9rem;">T&eacute;l&eacute;phone *</label>
+                                        <label for="numTelephone" class="form-label fw-semibold" style="font-size: 0.9rem;">
+                                            <i class="fas fa-phone me-1 text-primary" style="font-size: 0.8rem;"></i>
+                                            T&eacute;l&eacute;phone *
+                                        </label>
                                         <input type="tel" class="form-control" id="numTelephone" name="numTelephone" 
                                                required placeholder="+212 6 12 34 56 78" style="height: 2.75rem; font-size: 0.9rem;">
                                         <div class="invalid-feedback">Le num&eacute;ro de t&eacute;l&eacute;phone est requis.</div>
                                     </div>
 
-                                    <!-- Password -->
-                                    <div class="mb-3">
-                                        <label for="motDepasse" class="form-label fw-semibold" style="font-size: 0.9rem;">Mot de passe *</label>
-                                        <div class="position-relative">
-                                            <input type="password" class="form-control" id="motDepasse" name="motDepasse" 
-                                                   required minlength="8" placeholder="Minimum 8 caract&egrave;res" style="height: 2.75rem; font-size: 0.9rem; padding-right: 3rem;">
-                                            <button type="button" class="btn position-absolute end-0 top-50 translate-middle-y me-1" 
-                                                    onclick="togglePassword('motDepasse')" style="z-index: 5; border: none; background: none; color: var(--gray-500); padding: 0.5rem;">
-                                                <i class="fas fa-eye" id="motDePasseToggleIcon"></i>
-                                            </button>
-                                        </div>
-                                        <div class="progress mt-1" style="height: 4px;">
-                                            <div class="progress-bar" id="passwordStrength" style="width: 0%"></div>
-                                        </div>
-                                        <small class="text-muted" id="passwordStrengthText" style="font-size: 0.8rem;">Force du mot de passe</small>
-                                        <div class="invalid-feedback">Le mot de passe doit contenir au moins 8 caract&egrave;res.</div>
-                                    </div>
-
-                                    <!-- Confirm Password -->
-                                    <div class="mb-3">
-                                        <label for="confirmPassword" class="form-label fw-semibold" style="font-size: 0.9rem;">Confirmer le mot de passe *</label>
-                                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" 
+                                    <!-- Confirm Password (Client only) -->
+                                    <div class="mb-3" id="clientConfirmPasswordField">
+                                        <label for="confirmPasswordClient" class="form-label fw-semibold" style="font-size: 0.9rem;">Confirmer le mot de passe *</label>
+                                        <input type="password" class="form-control" id="confirmPasswordClient" name="confirmPassword" 
                                                required placeholder="Confirmez votre mot de passe" style="height: 2.75rem; font-size: 0.9rem;">
                                         <div class="invalid-feedback">Les mots de passe ne correspondent pas.</div>
                                     </div>
+                                </div>
+                            </div>
 
-                                    <!-- Partner-specific fields (hidden by default) -->
-                                    <div id="partnerFieldRight" style="display: none;">
+                            <!-- Partner-specific fields (hidden by default) -->
+                            <div id="partnerFields" style="display: none;">
+                                <div class="row">
+                                    <!-- Left Column - Business Info -->
+                                    <div class="col-md-6">
                                         <!-- Business Name -->
                                         <div class="mb-3">
                                             <label for="businessName" class="form-label fw-semibold" style="font-size: 0.9rem;">
@@ -172,6 +141,57 @@
                                             <input type="text" class="form-control partner-required" id="businessName" name="businessName" 
                                                    placeholder="Nom de votre entreprise" style="height: 2.75rem; font-size: 0.9rem;">
                                             <div class="invalid-feedback">Le nom de l'entreprise est requis.</div>
+                                        </div>
+
+                                        <!-- Password -->
+                                        <div class="mb-3">
+                                            <label for="motDepasse" class="form-label fw-semibold" style="font-size: 0.9rem;">
+                                                <i class="fas fa-lock me-1 text-primary" style="font-size: 0.8rem;"></i>
+                                                Mot de passe *
+                                            </label>
+                                            <div class="position-relative">
+                                                <input type="password" class="form-control" id="motDepasse" name="motDepasse" 
+                                                       required minlength="8" placeholder="Minimum 8 caract&egrave;res" style="height: 2.75rem; font-size: 0.9rem; padding-right: 3rem;">
+                                                <button type="button" class="btn position-absolute end-0 top-50 translate-middle-y me-1" 
+                                                        onclick="togglePassword('motDepasse')" style="z-index: 5; border: none; background: none; color: var(--gray-500); padding: 0.5rem;">
+                                                    <i class="fas fa-eye" id="motDePasseToggleIcon"></i>
+                                                </button>
+                                            </div>
+                                            <div class="progress mt-1" style="height: 4px;">
+                                                <div class="progress-bar" id="passwordStrength" style="width: 0%"></div>
+                                            </div>
+                                            <small class="text-muted" id="passwordStrengthText" style="font-size: 0.8rem;">Force du mot de passe</small>
+                                            <div class="invalid-feedback">Le mot de passe doit contenir au moins 8 caract&egrave;res.</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Right Column - Business Info -->
+                                    <div class="col-md-6">
+                                        <!-- Business Type -->
+                                        <div class="mb-3">
+                                            <label for="businessType" class="form-label fw-semibold" style="font-size: 0.9rem;">
+                                                <i class="fas fa-tag me-1 text-primary" style="font-size: 0.8rem;"></i>
+                                                Type d'activit&eacute; *
+                                            </label>
+                                            <select class="form-select partner-required" id="businessType" name="businessType" style="height: 2.75rem; font-size: 0.9rem;">
+                                                <option value="">S&eacute;lectionnez votre activit&eacute;</option>
+                                                <option value="photo-video">Photographie/Vid&eacute;ographie</option>
+                                                <option value="event">&Eacute;v&eacute;nementiel</option>
+                                                <option value="production">Production audiovisuelle</option>
+                                                <option value="rental">Location d'&eacute;quipement</option>
+                                                <option value="studio">Studio de production</option>
+                                                <option value="freelance">Freelance</option>
+                                                <option value="other">Autre</option>
+                                            </select>
+                                            <div class="invalid-feedback">Veuillez s&eacute;lectionner votre type d'activit&eacute;.</div>
+                                        </div>
+
+                                        <!-- Confirm Password -->
+                                        <div class="mb-3">
+                                            <label for="confirmPassword" class="form-label fw-semibold" style="font-size: 0.9rem;">Confirmer le mot de passe *</label>
+                                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" 
+                                                   required placeholder="Confirmez votre mot de passe" style="height: 2.75rem; font-size: 0.9rem;">
+                                            <div class="invalid-feedback">Les mots de passe ne correspondent pas.</div>
                                         </div>
                                     </div>
                                 </div>
@@ -208,6 +228,19 @@
                                                     </div>
                                                 </div>
                                                 <div class="invalid-feedback">Les deux faces de la CIN sont requises.</div>
+                                            </div>
+
+                                            <!-- Photo de profil -->
+                                            <div class="mb-3">
+                                                <label for="photoPerso" class="form-label fw-semibold" style="font-size: 0.9rem;">
+                                                    <i class="fas fa-camera me-1 text-primary" style="font-size: 0.8rem;"></i>
+                                                    Photo de profil
+                                                </label>
+                                                <input type="file" class="form-control" id="photoPerso" name="photoPerso" 
+                                                       accept="image/*" onchange="previewImage(this, 'photoPreview')" style="height: 2.75rem; font-size: 0.9rem; padding-top: 0.55rem;">
+                                                <div class="mt-2">
+                                                    <img id="photoPreview" class="img-thumbnail d-none" style="max-width: 100px; border-radius: 0.5rem;">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -437,34 +470,59 @@ document.addEventListener('DOMContentLoaded', function() {
     updateNavbarLinks();
     
     // User type toggle handler
-    const partnerFieldLeft = document.getElementById('partnerFieldLeft');
-    const partnerFieldRight = document.getElementById('partnerFieldRight');
+    const partnerFields = document.getElementById('partnerFields');
     const partnerSections = document.getElementById('partnerSections');
+    const clientPasswordField = document.getElementById('clientPasswordField');
+    const clientConfirmPasswordField = document.getElementById('clientConfirmPasswordField');
     
     userTypeRadios.forEach(radio => {
         radio.addEventListener('change', function() {
             if (this.value === 'partner') {
-                partnerFieldLeft.style.display = 'block';
-                partnerFieldRight.style.display = 'block';
+                // Show partner fields
+                partnerFields.style.display = 'block';
                 partnerSections.style.display = 'block';
                 emailLabel.textContent = 'Email professionnel *';
                 accountTypeInput.value = 'partner';
+                
+                // Hide client password fields
+                clientPasswordField.style.display = 'none';
+                clientConfirmPasswordField.style.display = 'none';
                 
                 // Make partner fields required
                 document.querySelectorAll('.partner-required').forEach(field => {
                     field.required = true;
                 });
+                
+                // Make partner password fields required
+                document.getElementById('motDepasse').required = true;
+                document.getElementById('confirmPassword').required = true;
+                
+                // Make client password fields not required
+                document.getElementById('motDePasseClient').required = false;
+                document.getElementById('confirmPasswordClient').required = false;
             } else {
-                partnerFieldLeft.style.display = 'none';
-                partnerFieldRight.style.display = 'none';
+                // Hide partner fields
+                partnerFields.style.display = 'none';
                 partnerSections.style.display = 'none';
                 emailLabel.textContent = 'Email *';
                 accountTypeInput.value = 'client';
+                
+                // Show client password fields
+                clientPasswordField.style.display = 'block';
+                clientConfirmPasswordField.style.display = 'block';
                 
                 // Make partner fields not required
                 document.querySelectorAll('.partner-required').forEach(field => {
                     field.required = false;
                 });
+                
+                // Make partner password fields not required
+                document.getElementById('motDepasse').required = false;
+                document.getElementById('confirmPassword').required = false;
+                
+                // Make client password fields required
+                document.getElementById('motDePasseClient').required = true;
+                document.getElementById('confirmPasswordClient').required = true;
             }
         });
     });
@@ -481,11 +539,18 @@ document.addEventListener('DOMContentLoaded', function() {
         handleRegistration();
     });
     
-    // Password strength indicator
-    passwordInput.addEventListener('input', updatePasswordStrength);
+    // Password strength indicator for partner
+    passwordInput.addEventListener('input', updatePasswordStrengthPartner);
     
-    // Password confirmation validation
+    // Password confirmation validation for partner
     confirmPasswordInput.addEventListener('input', validatePasswords);
+    
+    // Password strength indicator for client
+    const clientPasswordInput = document.getElementById('motDePasseClient');
+    const clientConfirmPasswordInput = document.getElementById('confirmPasswordClient');
+    
+    clientPasswordInput.addEventListener('input', updatePasswordStrengthClient);
+    clientConfirmPasswordInput.addEventListener('input', validatePasswords);
     
     // Add focus effects to form inputs
     const formInputs = document.querySelectorAll('.form-control, .form-select');
@@ -532,8 +597,39 @@ function togglePassword(inputId) {
     }, 150);
 }
 
-// Update password strength
-function updatePasswordStrength() {
+// Update password strength for client
+function updatePasswordStrengthClient() {
+    const password = document.getElementById('motDePasseClient').value;
+    const strengthBar = document.getElementById('passwordStrengthClient');
+    const strengthText = document.getElementById('passwordStrengthTextClient');
+    
+    let strength = 0;
+    let strengthLabel = '';
+    let strengthColor = '';
+    
+    if (password.length >= 8) strength += 25;
+    if (/[a-z]/.test(password)) strength += 25;
+    if (/[A-Z]/.test(password)) strength += 25;
+    if (/[0-9]/.test(password)) strength += 25;
+    
+    if (strength < 50) {
+        strengthLabel = 'Faible';
+        strengthColor = 'bg-danger';
+    } else if (strength < 75) {
+        strengthLabel = 'Moyen';
+        strengthColor = 'bg-warning';
+    } else {
+        strengthLabel = 'Fort';
+        strengthColor = 'bg-success';
+    }
+    
+    strengthBar.style.width = strength + '%';
+    strengthBar.className = 'progress-bar ' + strengthColor;
+    strengthText.textContent = strengthLabel;
+}
+
+// Update password strength for partner
+function updatePasswordStrengthPartner() {
     const password = document.getElementById('motDepasse').value;
     const strengthBar = document.getElementById('passwordStrength');
     const strengthText = document.getElementById('passwordStrengthText');
@@ -565,16 +661,32 @@ function updatePasswordStrength() {
 
 // Validate password confirmation
 function validatePasswords() {
-    const password = document.getElementById('motDepasse').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-    const confirmInput = document.getElementById('confirmPassword');
+    const accountType = document.getElementById('accountType').value;
     
-    if (password !== confirmPassword) {
-        confirmInput.setCustomValidity('Les mots de passe ne correspondent pas');
-        return false;
+    if (accountType === 'partner') {
+        const password = document.getElementById('motDepasse').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const confirmInput = document.getElementById('confirmPassword');
+        
+        if (password !== confirmPassword) {
+            confirmInput.setCustomValidity('Les mots de passe ne correspondent pas');
+            return false;
+        } else {
+            confirmInput.setCustomValidity('');
+            return true;
+        }
     } else {
-        confirmInput.setCustomValidity('');
-        return true;
+        const password = document.getElementById('motDePasseClient').value;
+        const confirmPassword = document.getElementById('confirmPasswordClient').value;
+        const confirmInput = document.getElementById('confirmPasswordClient');
+        
+        if (password !== confirmPassword) {
+            confirmInput.setCustomValidity('Les mots de passe ne correspondent pas');
+            return false;
+        } else {
+            confirmInput.setCustomValidity('');
+            return true;
+        }
     }
 }
 
