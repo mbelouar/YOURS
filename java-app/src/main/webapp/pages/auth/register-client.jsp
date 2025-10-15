@@ -45,30 +45,55 @@
                             <input type="hidden" id="accountType" name="accountType" value="client">
                             
                             <!-- Form Fields -->
+                            <div class="mb-4">
+                                <h6 class="fw-bold mb-3" style="color: var(--gray-800); font-size: 0.95rem;">
+                                    <i class="fas fa-user me-2 text-primary"></i>Informations personnelles
+                                </h6>
+                            </div>
                             <div class="row">
-                                <!-- Left Column - Personal Information -->
+                                <!-- Row 1: Prénom + Email -->
                                 <div class="col-md-6">
-                                    <h6 class="fw-bold mb-3" style="color: var(--gray-800); font-size: 0.95rem;">
-                                        <i class="fas fa-user me-2 text-primary"></i>Informations personnelles
-                                    </h6>
-
-                                    <!-- First Name -->
                                     <div class="mb-3">
                                         <label for="prenom" class="form-label fw-semibold" style="font-size: 0.9rem;">Pr&eacute;nom *</label>
                                         <input type="text" class="form-control" id="prenom" name="prenom" 
                                                required placeholder="Votre pr&eacute;nom" style="height: 2.75rem; font-size: 0.9rem;">
                                         <div class="invalid-feedback">Le pr&eacute;nom est requis.</div>
                                     </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="mail" class="form-label fw-semibold" style="font-size: 0.9rem;">
+                                            <span id="emailLabel">Email *</span>
+                                        </label>
+                                        <input type="email" class="form-control" id="mail" name="mail" 
+                                               required placeholder="votre@email.com" style="height: 2.75rem; font-size: 0.9rem;">
+                                        <div class="invalid-feedback">Veuillez saisir une adresse email valide.</div>
+                                    </div>
+                                </div>
 
-                                    <!-- Last Name -->
+                                <!-- Row 2: Nom + Téléphone -->
+                                <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="nom" class="form-label fw-semibold" style="font-size: 0.9rem;">Nom *</label>
                                         <input type="text" class="form-control" id="nom" name="nom" 
                                                required placeholder="Votre nom" style="height: 2.75rem; font-size: 0.9rem;">
                                         <div class="invalid-feedback">Le nom est requis.</div>
                                     </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="numTelephone" class="form-label fw-semibold" style="font-size: 0.9rem;">
+                                            <i class="fas fa-phone me-1 text-primary" style="font-size: 0.8rem;"></i>
+                                            T&eacute;l&eacute;phone *
+                                        </label>
+                                        <input type="tel" class="form-control" id="numTelephone" name="numTelephone" 
+                                               required placeholder="+212 6 12 34 56 78" style="height: 2.75rem; font-size: 0.9rem;">
+                                        <div class="invalid-feedback">Le num&eacute;ro de t&eacute;l&eacute;phone est requis.</div>
+                                    </div>
+                                </div>
 
-                                    <!-- Password (Client only) -->
+                                <!-- Row 3: Mot de passe + Confirmer le mot de passe -->
+                                <div class="col-md-6">
                                     <div class="mb-3" id="clientPasswordField">
                                         <label for="motDePasseClient" class="form-label fw-semibold" style="font-size: 0.9rem;">
                                             <i class="fas fa-lock me-1 text-primary" style="font-size: 0.8rem;"></i>
@@ -89,35 +114,7 @@
                                         <div class="invalid-feedback">Le mot de passe doit contenir au moins 8 caract&egrave;res.</div>
                                     </div>
                                 </div>
-
-                                <!-- Right Column - Account Information -->
                                 <div class="col-md-6">
-                                    <h6 class="fw-bold mb-3" style="color: var(--gray-800); font-size: 0.95rem;">
-                                        <i class="fas fa-lock me-2 text-primary"></i>Informations de compte
-                                    </h6>
-
-                                    <!-- Email -->
-                                    <div class="mb-3">
-                                        <label for="mail" class="form-label fw-semibold" style="font-size: 0.9rem;">
-                                            <span id="emailLabel">Email *</span>
-                                        </label>
-                                        <input type="email" class="form-control" id="mail" name="mail" 
-                                               required placeholder="votre@email.com" style="height: 2.75rem; font-size: 0.9rem;">
-                                        <div class="invalid-feedback">Veuillez saisir une adresse email valide.</div>
-                                    </div>
-
-                                    <!-- Phone -->
-                                    <div class="mb-3">
-                                        <label for="numTelephone" class="form-label fw-semibold" style="font-size: 0.9rem;">
-                                            <i class="fas fa-phone me-1 text-primary" style="font-size: 0.8rem;"></i>
-                                            T&eacute;l&eacute;phone *
-                                        </label>
-                                        <input type="tel" class="form-control" id="numTelephone" name="numTelephone" 
-                                               required placeholder="+212 6 12 34 56 78" style="height: 2.75rem; font-size: 0.9rem;">
-                                        <div class="invalid-feedback">Le num&eacute;ro de t&eacute;l&eacute;phone est requis.</div>
-                                    </div>
-
-                                    <!-- Confirm Password (Client only) -->
                                     <div class="mb-3" id="clientConfirmPasswordField">
                                         <label for="confirmPasswordClient" class="form-label fw-semibold" style="font-size: 0.9rem;">Confirmer le mot de passe *</label>
                                         <input type="password" class="form-control" id="confirmPasswordClient" name="confirmPassword" 
@@ -375,8 +372,9 @@
 }
 
 .user-type-toggle .btn-outline-primary:hover:not(:has(.btn-check:checked)) {
-    background: var(--gray-50);
+    background: var(--primary-50);
     border-color: var(--primary-300);
+    color: var(--primary-700);
     transform: translateY(-1px);
 }
 
