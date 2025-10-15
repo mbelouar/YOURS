@@ -12,7 +12,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-7 col-md-9 col-sm-11">
                 <!-- Main Registration Card -->
-                <div class="card card-modern">
+                <div class="card card-modern" style="border: none; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); background: rgba(255, 255, 255, 0.95);">
                     <div class="card-body p-4 py-4">
                         <!-- Logo and Title -->
                         <div class="text-center mb-4">
@@ -347,43 +347,6 @@
     }
 }
 
-/* Registration Card */
-.card-modern {
-    border-radius: 1.5rem;
-    border: none;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(20px);
-    background: rgba(255, 255, 255, 0.95);
-    height: 700px;
-}
-
-.card-modern .card-body {
-    height: 700px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    overflow-y: auto;
-}
-
-/* Custom Scrollbar */
-.card-modern .card-body::-webkit-scrollbar {
-    width: 6px;
-}
-
-.card-modern .card-body::-webkit-scrollbar-track {
-    background: var(--gray-100);
-    border-radius: 3px;
-}
-
-.card-modern .card-body::-webkit-scrollbar-thumb {
-    background: var(--primary-300);
-    border-radius: 3px;
-}
-
-.card-modern .card-body::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-500);
-}
-
 /* User Type Toggle */
 .user-type-toggle {
     border-radius: 0.875rem;
@@ -538,14 +501,6 @@
         padding: 0.625rem 1rem;
         font-size: 0.875rem;
     }
-    
-    .card-modern {
-        height: 650px;
-    }
-    
-    .card-modern .card-body {
-        height: 650px;
-    }
 }
 </style>
 
@@ -561,6 +516,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update navbar links to redirect to homepage sections
     updateNavbarLinks();
+    
+    // Check URL parameter for mode and auto-select partner if needed
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('mode') === 'partner') {
+        document.getElementById('typePartner').checked = true;
+        document.getElementById('typePartner').dispatchEvent(new Event('change'));
+    }
     
     // User type toggle handler
     const partnerFields = document.getElementById('partnerFields');

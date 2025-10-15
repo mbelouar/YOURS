@@ -303,7 +303,7 @@
                     <a href="${pageContext.request.contextPath}/pages/auth/register-client.jsp" class="btn btn-glass btn-lg">
                         <i class="fas fa-user-plus me-2"></i>Cr&eacute;er un Compte
                     </a>
-                    <a href="${pageContext.request.contextPath}/pages/auth/register-partner.jsp" class="btn btn-outline-light btn-lg">
+                    <a href="${pageContext.request.contextPath}/pages/auth/register-client.jsp?mode=partner" class="btn btn-outline-light btn-lg">
                         <i class="fas fa-handshake me-2"></i>Devenir Partenaire
                     </a>
                 </div>
