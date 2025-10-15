@@ -34,7 +34,7 @@
                                 </label>
                                 <input type="email" class="form-control" id="email" 
                                        name="email" required placeholder="votre@email.com"
-                                       style="height: 3rem; border: 2px solid var(--gray-200); border-radius: 0.875rem; font-size: 0.95rem; transition: all 0.3s ease;">
+                                       style="height: 3rem; border: 2px solid var(--gray-200); border-radius: 0.875rem; font-size: 0.95rem; transition: all 0.3s ease; background-position: right 0.75rem center; background-size: 1rem 1rem;">
                                 <div class="invalid-feedback">
                                     Veuillez saisir une adresse email valide.
                                 </div>
@@ -48,13 +48,13 @@
                                 <div class="position-relative">
                                     <input type="password" class="form-control" id="password" 
                                            name="password" required placeholder="Votre mot de passe"
-                                           style="height: 3rem; border: 2px solid var(--gray-200); border-radius: 0.875rem; font-size: 0.95rem; padding-right: 3.5rem; transition: all 0.3s ease;">
-                                    <button type="button" class="btn position-absolute end-0 top-50 translate-middle-y me-2" 
-                                            onclick="togglePassword('password')" style="z-index: 5; border: none; background: none; color: var(--gray-500); padding: 0.5rem;">
+                                           style="height: 3rem; border: 2px solid var(--gray-200); border-radius: 0.875rem; font-size: 0.95rem; padding-right: 3.5rem; transition: all 0.3s ease; background-position: right calc(3.5rem + 0.375rem) center; background-size: 1rem 1rem;">
+                                    <button type="button" class="btn position-absolute end-0 top-50 translate-middle-y me-2 password-toggle-btn" 
+                                            onclick="togglePassword('password')" style="border: none; background: none; color: var(--gray-500); padding: 0.5rem;">
                                         <i class="fas fa-eye" id="passwordToggleIcon"></i>
                                     </button>
                                 </div>
-                                <div class="invalid-feedback">
+                                <div class="invalid-feedback" style="position: relative; z-index: 1; margin-top: 0.25rem; padding-right: 2.5rem;">
                                     Le mot de passe est requis.
                                 </div>
                             </div>
@@ -76,11 +76,18 @@
 
                             <!-- Submit Button -->
                             <button type="submit" class="btn btn-gradient btn-lg w-100 mb-3" 
-                                    style="height: 3rem; font-size: 1rem; font-weight: 600; border-radius: 0.875rem; text-decoration: none !important;">
-                                <i class="fas fa-sign-in-alt me-2"></i>
+                                    style="height: 3rem; font-size: 1rem; font-weight: 600; border-radius: 0.875rem; text-decoration: none !important; transition: all 0.3s ease;">
+                                <i class="fas fa-sign-in-alt me-2 button-icon"></i>
                                 <span class="button-text">Se connecter</span>
                                 <span class="spinner-border spinner-border-sm d-none ms-2" role="status"></span>
                             </button>
+                            
+                            <!-- Login Error Message -->
+                            <div class="alert alert-danger d-none mb-3" id="loginError" role="alert" 
+                                 style="border-radius: 0.875rem; border: none; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); color: #dc2626;">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Erreur de connexion</strong> - Email ou mot de passe incorrect
+                            </div>
 
                             <!-- Social Login Divider -->
                             <div class="position-relative text-center mb-3">
@@ -224,6 +231,81 @@
     border-color: var(--primary-300) !important;
 }
 
+.form-control.is-invalid {
+    border-color: #dc2626 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 38, 38, 0.15) !important;
+}
+
+.form-control.is-valid {
+    border-color: #059669 !important;
+    box-shadow: 0 0 0 0.2rem rgba(5, 150, 105, 0.15) !important;
+}
+
+/* Ensure validation feedback doesn't interfere with password toggle */
+#password.form-control.is-valid, 
+#password.form-control.is-invalid {
+    background-position: right calc(3.5rem + 0.375rem) center;
+    background-size: 1rem 1rem;
+    padding-right: calc(3.5rem + 2rem);
+}
+
+#email.form-control.is-valid, 
+#email.form-control.is-invalid {
+    background-position: right 0.75rem center;
+    background-size: 1rem 1rem;
+    padding-right: calc(0.75rem + 2rem);
+}
+
+/* Override Bootstrap's validation feedback positioning */
+.was-validated .form-control:valid,
+.was-validated .form-control:invalid {
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2.25rem;
+}
+
+#password.was-validated.form-control:valid,
+#password.was-validated.form-control:invalid {
+    background-position: right calc(3.5rem + 0.375rem) center;
+    padding-right: calc(3.5rem + 2rem);
+}
+
+/* Password toggle button styling */
+.password-toggle-btn {
+    z-index: 10 !important;
+    transition: all 0.2s ease;
+}
+
+.password-toggle-btn:hover {
+    color: var(--primary-600) !important;
+    transform: scale(1.1);
+}
+
+/* Validation feedback improvements */
+.invalid-feedback {
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    padding-right: 2.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Login error alert animation */
+.alert-danger {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .form-check-input:checked {
     background-color: var(--primary-600) !important;
     border-color: var(--primary-600) !important;
@@ -339,19 +421,24 @@ function updateNavbarLinks() {
 function togglePassword(inputId) {
     const input = document.getElementById(inputId);
     const icon = document.getElementById(inputId + 'ToggleIcon');
+    const button = icon.closest('.password-toggle-btn');
     
     // Add transition effect
     icon.style.transform = 'scale(0.8)';
+    button.style.transform = 'scale(0.9)';
     
     setTimeout(() => {
         if (input.type === 'password') {
             input.type = 'text';
             icon.className = 'fas fa-eye-slash';
+            button.style.color = 'var(--primary-600)';
         } else {
             input.type = 'password';
             icon.className = 'fas fa-eye';
+            button.style.color = 'var(--gray-500)';
         }
         icon.style.transform = 'scale(1)';
+        button.style.transform = 'scale(1)';
     }, 150);
 }
 
@@ -413,15 +500,6 @@ function handleLogin() {
         }
         
         if (user) {
-            // Success state
-            submitBtn.classList.remove('loading-pulse');
-            submitBtn.classList.add('btn-success');
-            buttonText.textContent = 'Connexion r&eacute;ussie !';
-            spinner.classList.add('d-none');
-            icon.className = 'fas fa-check';
-            icon.style.display = 'inline';
-            icon.classList.add('success-checkmark');
-            
             // Store user session
             if (rememberMe) {
                 localStorage.setItem('yours_user', JSON.stringify(user));
@@ -429,50 +507,43 @@ function handleLogin() {
                 sessionStorage.setItem('yours_user', JSON.stringify(user));
             }
             
-            // Show success toast if available
-            if (typeof showToast === 'function') {
-                showToast('Connexion r&eacute;ussie ! Redirection...', 'success');
+            // Redirect immediately without showing success message
+            switch (userType) {
+                case 'client':
+                    window.location.href = '${pageContext.request.contextPath}/pages/client/dashboard.jsp';
+                    break;
+                case 'partner':
+                    window.location.href = '${pageContext.request.contextPath}/pages/partner/dashboard.jsp';
+                    break;
+                case 'admin':
+                    window.location.href = '${pageContext.request.contextPath}/pages/admin/dashboard.jsp';
+                    break;
+                default:
+                    window.location.href = '${pageContext.request.contextPath}/';
             }
-            
-            // Redirect based on user type
-            setTimeout(() => {
-                switch (userType) {
-                    case 'client':
-                        window.location.href = '${pageContext.request.contextPath}/pages/client/dashboard.jsp';
-                        break;
-                    case 'partner':
-                        window.location.href = '${pageContext.request.contextPath}/pages/partner/dashboard.jsp';
-                        break;
-                    case 'admin':
-                        window.location.href = '${pageContext.request.contextPath}/pages/admin/dashboard.jsp';
-                        break;
-                    default:
-                        window.location.href = '${pageContext.request.contextPath}/';
-                }
-            }, 2000);
         } else {
-            // Error state
+            // Error state - show error message instead of changing button
             submitBtn.classList.remove('loading-pulse');
-            submitBtn.classList.add('btn-danger');
-            buttonText.textContent = 'Identifiants incorrects';
+            buttonText.textContent = 'Se connecter';
             spinner.classList.add('d-none');
-            icon.className = 'fas fa-times';
+            icon.className = 'fas fa-sign-in-alt button-icon';
             icon.style.display = 'inline';
+            icon.classList.remove('success-checkmark');
+            submitBtn.disabled = false;
+            
+            // Show error message
+            const errorAlert = document.getElementById('loginError');
+            errorAlert.classList.remove('d-none');
+            
+            // Hide error message after 5 seconds
+            setTimeout(() => {
+                errorAlert.classList.add('d-none');
+            }, 5000);
             
             // Show error toast if available
             if (typeof showToast === 'function') {
                 showToast('Email ou mot de passe incorrect', 'danger');
             }
-            
-            // Reset form state after delay
-            setTimeout(() => {
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('btn-danger');
-                submitBtn.classList.add('btn-gradient');
-                buttonText.textContent = 'Se connecter';
-                icon.className = 'fas fa-sign-in-alt';
-                icon.classList.remove('success-checkmark');
-            }, 2000);
         }
     }, 1800); // Realistic network delay
 }

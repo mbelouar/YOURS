@@ -14,7 +14,7 @@
                     pour vous recommander le mat&eacute;riel parfait adapt&eacute; &agrave; vos besoins sp&eacute;cifiques.
                 </p>
                 <div class="d-flex flex-wrap gap-3 animate-fade-in-left" style="animation-delay: 0.4s;">
-                    <a href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp" class="btn btn-glass btn-lg">
+                    <a href="${pageContext.request.contextPath}/pages/auth/login.jsp" class="btn btn-glass btn-lg">
                         <i class="fas fa-search me-2"></i>Explorer le Mat&eacute;riel
                     </a>
                     <a href="${pageContext.request.contextPath}/pages/auth/register-client.jsp" class="btn btn-gradient btn-lg">
@@ -109,7 +109,7 @@
                                 <i class="fas fa-star text-warning"></i>
                                 <small class="text-muted ms-1">(4.9)</small>
                             </div>
-                            <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=1" class="btn btn-primary btn-sm">
+                            <a href="${pageContext.request.contextPath}/pages/auth/login.jsp" class="btn btn-primary btn-sm">
                                 Voir d&eacute;tails
                             </a>
                         </div>
@@ -137,7 +137,7 @@
                                 <i class="fas fa-star text-warning"></i>
                                 <small class="text-muted ms-1">(4.8)</small>
                             </div>
-                            <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=2" class="btn btn-primary btn-sm">
+                            <a href="${pageContext.request.contextPath}/pages/auth/login.jsp" class="btn btn-primary btn-sm">
                                 Voir d&eacute;tails
                             </a>
                         </div>
@@ -165,7 +165,7 @@
                                 <i class="fas fa-star text-muted"></i>
                                 <small class="text-muted ms-1">(4.6)</small>
                             </div>
-                            <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=3" class="btn btn-primary btn-sm">
+                            <a href="${pageContext.request.contextPath}/pages/auth/login.jsp" class="btn btn-primary btn-sm">
                                 Voir d&eacute;tails
                             </a>
                         </div>
@@ -175,7 +175,7 @@
         </div>
 
         <div class="text-center mt-5">
-            <a href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp" class="btn btn-glass btn-lg">
+            <a href="${pageContext.request.contextPath}/pages/auth/login.jsp" class="btn btn-glass btn-lg">
                 <i class="fas fa-th-large me-2"></i>Voir Tout le Mat&eacute;riel
             </a>
         </div>
@@ -194,7 +194,7 @@
         
         <div class="row g-3">
             <div class="col-lg-2 col-md-4 col-sm-6">
-                <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="text-decoration-none">
+                <a href="${pageContext.request.contextPath}/pages/auth/login.jsp" class="text-decoration-none">
                     <div class="category-card category-card-compact" data-category="primary">
                         <div class="category-icon-wrapper">
                             <i class="fas fa-camera"></i>
@@ -209,7 +209,7 @@
             </div>
 
             <div class="col-lg-2 col-md-4 col-sm-6">
-                <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="text-decoration-none">
+                <a href="${pageContext.request.contextPath}/pages/auth/login.jsp" class="text-decoration-none">
                     <div class="category-card category-card-compact" data-category="success">
                         <div class="category-icon-wrapper">
                             <i class="fas fa-video"></i>
@@ -224,7 +224,7 @@
             </div>
 
             <div class="col-lg-2 col-md-4 col-sm-6">
-                <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="text-decoration-none">
+                <a href="${pageContext.request.contextPath}/pages/auth/login.jsp" class="text-decoration-none">
                     <div class="category-card category-card-compact" data-category="warning">
                         <div class="category-icon-wrapper">
                             <i class="fas fa-laptop"></i>
@@ -239,7 +239,7 @@
             </div>
 
             <div class="col-lg-2 col-md-4 col-sm-6">
-                <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="text-decoration-none">
+                <a href="${pageContext.request.contextPath}/pages/auth/login.jsp" class="text-decoration-none">
                     <div class="category-card category-card-compact" data-category="info">
                         <div class="category-icon-wrapper">
                             <i class="fas fa-headphones"></i>
@@ -254,7 +254,7 @@
             </div>
 
             <div class="col-lg-2 col-md-4 col-sm-6">
-                <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="text-decoration-none">
+                <a href="${pageContext.request.contextPath}/pages/auth/login.jsp" class="text-decoration-none">
                     <div class="category-card category-card-compact" data-category="danger">
                         <div class="category-icon-wrapper">
                             <i class="fas fa-gamepad"></i>
@@ -269,7 +269,7 @@
             </div>
 
             <div class="col-lg-2 col-md-4 col-sm-6">
-                <a href="${pageContext.request.contextPath}/pages/categories.jsp" class="text-decoration-none">
+                <a href="${pageContext.request.contextPath}/pages/auth/login.jsp" class="text-decoration-none">
                     <div class="category-card category-card-compact" data-category="secondary">
                         <div class="category-icon-wrapper">
                             <i class="fas fa-lightbulb"></i>
