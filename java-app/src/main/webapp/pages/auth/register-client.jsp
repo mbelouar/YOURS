@@ -12,7 +12,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-7 col-md-9 col-sm-11">
                 <!-- Main Registration Card -->
-                <div class="card card-modern" style="border: none; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); background: rgba(255, 255, 255, 0.95);">
+                <div class="card card-modern">
                     <div class="card-body p-4 py-4">
                         <!-- Logo and Title -->
                         <div class="text-center mb-4">
@@ -213,14 +213,14 @@
                                                 <div class="row g-2">
                                                     <div class="col-md-6">
                                                         <label for="cinRECTO" class="form-label small">Recto</label>
-                                                        <input type="file" class="form-control form-control-sm partner-required" id="cinRECTO" 
-                                                               name="cinRECTO" accept="image/*" onchange="previewImage(this, 'cinRectoPreview')" style="font-size: 0.85rem;">
+                                                        <input type="file" class="form-control partner-required" id="cinRECTO" 
+                                                               name="cinRECTO" accept="image/*" onchange="previewImage(this, 'cinRectoPreview')" style="height: 2.75rem; font-size: 0.9rem; padding-top: 0.55rem;">
                                                         <img id="cinRectoPreview" class="img-thumbnail mt-1 d-none" style="max-width: 80px; border-radius: 0.375rem;">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="cinVERSO" class="form-label small">Verso</label>
-                                                        <input type="file" class="form-control form-control-sm partner-required" id="cinVERSO" 
-                                                               name="cinVERSO" accept="image/*" onchange="previewImage(this, 'cinVersoPreview')" style="font-size: 0.85rem;">
+                                                        <input type="file" class="form-control partner-required" id="cinVERSO" 
+                                                               name="cinVERSO" accept="image/*" onchange="previewImage(this, 'cinVersoPreview')" style="height: 2.75rem; font-size: 0.9rem; padding-top: 0.55rem;">
                                                         <img id="cinVersoPreview" class="img-thumbnail mt-1 d-none" style="max-width: 80px; border-radius: 0.375rem;">
                                                     </div>
                                                 </div>
@@ -347,21 +347,65 @@
     }
 }
 
+/* Registration Card */
+.card-modern {
+    border-radius: 1.5rem;
+    border: none;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.95);
+    height: 700px;
+}
+
+.card-modern .card-body {
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: auto;
+}
+
+/* Custom Scrollbar */
+.card-modern .card-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-modern .card-body::-webkit-scrollbar-track {
+    background: var(--gray-100);
+    border-radius: 3px;
+}
+
+.card-modern .card-body::-webkit-scrollbar-thumb {
+    background: var(--primary-300);
+    border-radius: 3px;
+}
+
+.card-modern .card-body::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-500);
+}
+
 /* User Type Toggle */
 .user-type-toggle {
     border-radius: 0.875rem;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 .user-type-toggle .btn-outline-primary {
-    padding: 0.75rem 2rem;
+    flex: 1;
+    padding: 0.75rem 1.5rem;
     font-weight: 600;
     font-size: 0.95rem;
     border: 2px solid var(--gray-200);
     color: var(--gray-700);
     background: white;
     transition: all 0.3s ease;
+    text-align: center;
+    min-width: 0;
 }
 
 .user-type-toggle .btn-check:checked + .btn-outline-primary {
@@ -398,6 +442,45 @@
 .form-check-input:checked {
     background-color: var(--primary-600);
     border-color: var(--primary-600);
+}
+
+/* File Input Styling */
+.form-control[type="file"] {
+    background: white;
+    border: 2px solid var(--gray-200);
+    color: var(--gray-700);
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+.form-control[type="file"]:hover {
+    background: white;
+    border-color: var(--primary-300);
+    color: var(--gray-800);
+}
+
+.form-control[type="file"]:focus {
+    background: white;
+    border-color: var(--primary-500);
+    color: var(--gray-800);
+    box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.15);
+}
+
+.form-control[type="file"]::-webkit-file-upload-button {
+    background: var(--primary-600);
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    margin-right: 0.5rem;
+    font-weight: 500;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.form-control[type="file"]::-webkit-file-upload-button:hover {
+    background: var(--primary-700);
 }
 
 /* Button Effects */
@@ -447,9 +530,21 @@
         padding: 2.5rem !important;
     }
     
+    .user-type-toggle {
+        max-width: 350px;
+    }
+    
     .user-type-toggle .btn-outline-primary {
-        padding: 0.625rem 1.25rem;
+        padding: 0.625rem 1rem;
         font-size: 0.875rem;
+    }
+    
+    .card-modern {
+        height: 650px;
+    }
+    
+    .card-modern .card-body {
+        height: 650px;
     }
 }
 </style>
