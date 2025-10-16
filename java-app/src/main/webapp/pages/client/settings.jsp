@@ -48,7 +48,7 @@
         <div class="col-lg-9">
             <!-- Account Settings -->
             <div class="card border-0 shadow-lg mb-4 settings-card" id="account">
-                <div class="card-header bg-gradient-light border-0 py-4">
+                <div class="card-header bg-gradient-light border-0 py-3">
                     <div class="d-flex justify-content-between align-items-center">
                         <h5 class="fw-bold mb-0 d-flex align-items-center">
                             <i class="bi bi-person-circle me-3 text-primary" style="font-size: 1.3rem;"></i>Paramètres du compte
@@ -56,9 +56,9 @@
                         <span class="badge bg-success">Actif</span>
                     </div>
                 </div>
-                <div class="card-body p-5">
+                <div class="card-body p-4">
                     <form>
-                        <div class="row g-4">
+                        <div class="row g-3">
                             <div class="col-12">
                                 <h6 class="fw-semibold mb-3 text-primary border-bottom pb-2">Informations personnelles</h6>
                             </div>
@@ -99,7 +99,7 @@
 
             <!-- Notification Settings -->
             <div class="card border-0 shadow-lg mb-4 settings-card" id="notifications">
-                <div class="card-header bg-gradient-light border-0 py-4">
+                <div class="card-header bg-gradient-light border-0 py-3">
                     <div class="d-flex justify-content-between align-items-center">
                         <h5 class="fw-bold mb-0 d-flex align-items-center">
                             <i class="bi bi-bell me-3 text-primary" style="font-size: 1.3rem;"></i>Notifications
@@ -107,8 +107,8 @@
                         <span class="badge bg-info">3 actives</span>
                     </div>
                 </div>
-                <div class="card-body p-5">
-                    <div class="row g-4">
+                <div class="card-body p-4">
+                    <div class="row g-3">
                         <div class="col-12">
                             <h6 class="fw-semibold mb-3 text-primary border-bottom pb-2">Préférences de notification</h6>
                         </div>
@@ -162,7 +162,7 @@
 
             <!-- Security Settings -->
             <div class="card border-0 shadow-lg mb-4 settings-card" id="security">
-                <div class="card-header bg-gradient-light border-0 py-4">
+                <div class="card-header bg-gradient-light border-0 py-3">
                     <div class="d-flex justify-content-between align-items-center">
                         <h5 class="fw-bold mb-0 d-flex align-items-center">
                             <i class="bi bi-shield-lock me-3 text-primary" style="font-size: 1.3rem;"></i>Sécurité
@@ -170,14 +170,14 @@
                         <span class="badge bg-success">Sécurisé</span>
                     </div>
                 </div>
-                <div class="card-body p-5">
-                    <div class="row g-4">
+                <div class="card-body p-4">
+                    <div class="row g-3">
                         <div class="col-12">
                             <h6 class="fw-semibold mb-3 text-primary border-bottom pb-2">Paramètres de sécurité</h6>
                         </div>
                         <div class="col-12">
                             <div class="security-item">
-                                <div class="d-flex justify-content-between align-items-center p-4 bg-light rounded-3">
+                                <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-3">
                                     <div class="d-flex align-items-center">
                                         <div class="security-icon me-3">
                                             <i class="bi bi-key text-primary" style="font-size: 1.5rem;"></i>
@@ -195,7 +195,7 @@
                         </div>
                         <div class="col-12">
                             <div class="security-item">
-                                <div class="d-flex justify-content-between align-items-center p-4 bg-light rounded-3">
+                                <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-3">
                                     <div class="d-flex align-items-center">
                                         <div class="security-icon me-3">
                                             <i class="bi bi-shield-check text-success" style="font-size: 1.5rem;"></i>
@@ -213,7 +213,7 @@
                         </div>
                         <div class="col-12">
                             <div class="security-item">
-                                <div class="d-flex justify-content-between align-items-center p-4 bg-light rounded-3">
+                                <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-3">
                                     <div class="d-flex align-items-center">
                                         <div class="security-icon me-3">
                                             <i class="bi bi-eye text-info" style="font-size: 1.5rem;"></i>
@@ -485,11 +485,11 @@ function showToast(message, type = 'info', duration = 3000) {
 
 /* Notification Items - Simplified */
 .notification-item {
-    padding: 1.5rem;
+    padding: 1rem;
     background: #ffffff;
     border: 2px solid #e5e7eb;
     border-radius: 0.75rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
