@@ -110,7 +110,7 @@
                             </h5>
                             <div class="d-flex gap-2">
                                 <span class="badge bg-primary" id="favCount">0 équipements</span>
-                                <a href="${pageContext.request.contextPath}/pages/equipment/list.jsp" class="btn btn-sm btn-outline-primary" id="browseEquipmentBtn">
+                                <a href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp" class="btn btn-sm btn-outline-primary" id="browseEquipmentBtn">
                                     <i class="bi bi-plus-circle me-1"></i>Parcourir
                                 </a>
                             </div>
@@ -344,39 +344,53 @@ function loadCategoriesFavorites() {
     categories.forEach(category => {
         const equipmentList = MockDataUtils.getPopularEquipment(2);
         
-        html += '<div class="mb-4">';
-        html += '    <div class="d-flex justify-content-between align-items-center mb-3">';
-        html += '        <h6 class="fw-bold text-primary mb-0">';
-        html += '            <i class="bi bi-tag me-2"></i>' + category;
-        html += '        </h6>';
-        html += '        <span class="badge bg-primary">2 équipements</span>';
+        html += '<div class="category-section mb-5">';
+        html += '    <div class="category-header">';
+        html += '        <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom">';
+        html += '            <h5 class="fw-bold mb-0">';
+        html += '                <i class="bi bi-tag-fill me-2 text-primary"></i>' + category;
+        html += '            </h5>';
+        html += '            <span class="badge bg-primary rounded-pill px-3 py-2">2 équipements</span>';
+        html += '        </div>';
         html += '    </div>';
         html += '    <div class="row g-3">';
         
         equipmentList.forEach(equipment => {
-            html += '        <div class="col-md-6">';
-            html += '            <div class="card equipment-card-small border-0 shadow-sm">';
-            html += '                <div class="row g-0">';
-            html += '                    <div class="col-4">';
-            html += '                        <div class="position-relative">';
-            html += '                            <img src="' + equipment.images[0] + '" class="img-fluid rounded-start" ';
-            html += '                                 style="height: 120px; width: 100%; object-fit: cover;"';
+            html += '        <div class="col-12">';
+            html += '            <div class="card category-equipment-card border-0 shadow-sm h-100">';
+            html += '                <div class="row g-0 h-100">';
+            html += '                    <div class="col-md-3">';
+            html += '                        <div class="category-image-wrapper">';
+            html += '                            <img src="' + equipment.images[0] + '" class="category-equipment-image" ';
             html += '                                 alt="' + equipment.nom + '"';
             html += '                                 onerror="this.src=\'' + contextPath + '/assets/images/placeholder-equipment.jpg\'">';
             html += '                        </div>';
             html += '                    </div>';
-            html += '                    <div class="col-8">';
-            html += '                        <div class="card-body p-3">';
-            html += '                            <h6 class="card-title fw-bold mb-1 small">' + equipment.nom + '</h6>';
-            html += '                            <p class="text-primary fw-bold mb-2">' + YOURS.formatCurrency(equipment.prix) + '/jour</p>';
-            html += '                            <div class="d-flex gap-1">';
-            html += '                                <a href="' + contextPath + '/pages/equipment/detail.jsp?id=' + equipment.idMateriel + '" ';
-            html += '                                   class="btn btn-xs btn-primary flex-fill">';
-            html += '                                    <i class="bi bi-eye"></i>';
-            html += '                                </a>';
-            html += '                                <button class="btn btn-xs btn-danger" onclick="removeFavorite(' + equipment.idMateriel + ')">';
-            html += '                                    <i class="bi bi-heart-fill"></i>';
-            html += '                                </button>';
+            html += '                    <div class="col-md-9">';
+            html += '                        <div class="card-body p-4">';
+            html += '                            <div class="d-flex justify-content-between align-items-start mb-2">';
+            html += '                                <h6 class="card-title fw-bold mb-0">' + equipment.nom + '</h6>';
+            html += '                                <span class="badge bg-success">Disponible</span>';
+            html += '                            </div>';
+            html += '                            <p class="text-muted small mb-3">' + equipment.description.substring(0, 100) + '...</p>';
+            html += '                            <div class="d-flex justify-content-between align-items-center">';
+            html += '                                <div>';
+            html += '                                    <small class="text-muted d-block">Prix par jour</small>';
+            html += '                                    <h5 class="text-primary fw-bold mb-0">' + YOURS.formatCurrency(equipment.prix) + '</h5>';
+            html += '                                </div>';
+            html += '                                <div class="d-flex gap-2">';
+            html += '                                    <a href="' + contextPath + '/pages/equipment/detail.jsp?id=' + equipment.idMateriel + '" ';
+            html += '                                       class="btn btn-sm btn-outline-primary">';
+            html += '                                        <i class="bi bi-eye me-1"></i>Voir';
+            html += '                                    </a>';
+            html += '                                    <a href="' + contextPath + '/pages/booking/form.jsp?id=' + equipment.idMateriel + '" ';
+            html += '                                       class="btn btn-sm btn-primary">';
+            html += '                                        <i class="bi bi-calendar-check me-1"></i>Réserver';
+            html += '                                    </a>';
+            html += '                                    <button class="btn btn-sm btn-danger" onclick="removeFavorite(' + equipment.idMateriel + ')">';
+            html += '                                        <i class="bi bi-heart-fill"></i>';
+            html += '                                    </button>';
+            html += '                                </div>';
             html += '                            </div>';
             html += '                        </div>';
             html += '                    </div>';
@@ -428,7 +442,7 @@ function showRemoveFavoriteDialog(equipmentId) {
                     <button type="button" class="btn btn-outline-secondary" onclick="closeRemoveFavoriteDialog()">
                         <i class="bi bi-x-circle me-2"></i>Annuler
                     </button>
-                    <button type="button" class="btn btn-danger" onclick="confirmRemoveFavorite(${equipmentId})">
+                    <button type="button" class="btn btn-danger" onclick="confirmRemoveFavorite(` + equipmentId + `)">
                         <i class="bi bi-heart-break me-2"></i>Retirer des favoris
                     </button>
                 </div>
@@ -462,14 +476,18 @@ function closeRemoveFavoriteDialog() {
 }
 
 function confirmRemoveFavorite(equipmentId) {
+    console.log('confirmRemoveFavorite called with ID:', equipmentId);
+    
     // Close the dialog first
     closeRemoveFavoriteDialog();
     
     // Show loading state
+    console.log('Showing loading toast...');
     showRemoveFavoriteToast('Suppression en cours...', 'info', 1000);
     
     // Simulate removal process
     setTimeout(() => {
+        console.log('Showing success toast...');
         showRemoveFavoriteToast('Équipement retiré des favoris avec succès', 'success', 3000);
         
         // Reload favorites after a short delay
@@ -492,39 +510,59 @@ function confirmRemoveFavorite(equipmentId) {
 }
 
 function showRemoveFavoriteToast(message, type = 'info', duration = 3000) {
-    const toast = document.createElement('div');
-    toast.className = `remove-favorite-toast toast-${type}`;
+    console.log('showRemoveFavoriteToast called with:', message, type, duration);
     
-    // Determine icon based on type
-    let iconClass = 'info-circle';
+    // Simple colors based on type
+    let backgroundColor = '#3b82f6';
     if (type === 'success') {
-        iconClass = 'check-circle';
+        backgroundColor = '#10b981';
     } else if (type === 'danger') {
-        iconClass = 'exclamation-triangle';
+        backgroundColor = '#ef4444';
     }
     
-    toast.innerHTML = `
-        <div class="toast-content">
-            <div class="toast-icon">
-                <i class="bi bi-${iconClass}"></i>
-            </div>
-            <span class="toast-message">${message}</span>
-        </div>
-    `;
+    // Create toast container
+    const toast = document.createElement('div');
+    toast.style.position = 'fixed';
+    toast.style.top = '20px';
+    toast.style.right = '20px';
+    toast.style.background = backgroundColor;
+    toast.style.color = '#ffffff';
+    toast.style.borderRadius = '8px';
+    toast.style.padding = '16px 20px';
+    toast.style.zIndex = '99999';
+    toast.style.minWidth = '280px';
+    toast.style.maxWidth = '400px';
+    toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+    toast.style.fontFamily = 'system-ui, -apple-system, sans-serif';
+    toast.style.fontSize = '14px';
+    toast.style.fontWeight = '500';
+    toast.style.transform = 'translateX(100%)';
+    toast.style.opacity = '0';
+    toast.style.transition = 'all 0.3s ease';
     
+    // Create message
+    toast.textContent = message;
+    
+    // Add to body
     document.body.appendChild(toast);
+    console.log('Toast added to body');
     
     // Trigger animation
     setTimeout(() => {
-        toast.classList.add('show');
+        toast.style.transform = 'translateX(0)';
+        toast.style.opacity = '1';
+        console.log('Toast animated in');
     }, 10);
     
     // Auto remove
     setTimeout(() => {
-        toast.classList.remove('show');
+        toast.style.transform = 'translateX(100%)';
+        toast.style.opacity = '0';
+        console.log('Toast animating out');
         setTimeout(() => {
             if (toast.parentElement) {
                 toast.parentElement.removeChild(toast);
+                console.log('Toast removed');
             }
         }, 300);
     }, duration);
@@ -1159,10 +1197,10 @@ body {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: white;
+    background: #ffffff !important;
     border-radius: 0.75rem;
-    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.15);
-    border: 1px solid #e5e7eb;
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.4) !important;
+    border: 2px solid #e5e7eb !important;
     padding: 1rem 1.25rem;
     z-index: 10000;
     min-width: 300px;
@@ -1194,14 +1232,26 @@ body {
     flex-shrink: 0;
 }
 
+.toast-success {
+    border-color: #10b981;
+}
+
 .toast-success .toast-icon {
     background: linear-gradient(135deg, #10b981, #059669);
     color: white;
 }
 
+.toast-info {
+    border-color: #06b6d4;
+}
+
 .toast-info .toast-icon {
     background: linear-gradient(135deg, #06b6d4, #0891b2);
     color: white;
+}
+
+.toast-danger {
+    border-color: #dc2626;
 }
 
 .toast-danger .toast-icon {
@@ -1210,9 +1260,28 @@ body {
 }
 
 .toast-message {
-    font-weight: 500;
-    color: #374151;
+    font-weight: 600 !important;
+    color: #1f2937 !important;
     flex: 1;
+    font-size: 0.95rem !important;
+    line-height: 1.4;
+    text-shadow: none !important;
+}
+
+/* Force text color for all toast messages */
+.remove-favorite-toast .toast-message,
+.remove-favorite-toast .toast-content,
+.remove-favorite-toast .toast-content span {
+    color: #1f2937 !important;
+}
+
+/* Ensure no white text inheritance */
+.remove-favorite-toast * {
+    color: inherit !important;
+}
+
+.remove-favorite-toast .toast-content {
+    color: #1f2937 !important;
 }
 
 /* Enhanced favorite button animations */
@@ -1227,6 +1296,131 @@ body {
 
 .favorite-btn:active {
     transform: scale(0.95);
+}
+
+/* Category Section Styling */
+.category-section {
+    margin-bottom: 2rem;
+}
+
+.category-header h5 {
+    color: #1f2937;
+    font-size: 1.25rem;
+}
+
+.category-header .border-bottom {
+    border-color: #e5e7eb !important;
+}
+
+.category-equipment-card {
+    border-radius: 0.75rem !important;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid #e5e7eb;
+}
+
+.category-equipment-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.15) !important;
+    border-color: #d1d5db;
+}
+
+.category-image-wrapper {
+    height: 100%;
+    min-height: 180px;
+    overflow: hidden;
+    background: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.category-equipment-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.category-equipment-card:hover .category-equipment-image {
+    transform: scale(1.05);
+}
+
+.category-equipment-card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.category-equipment-card .card-title {
+    color: #1f2937;
+    font-size: 1.1rem;
+}
+
+.category-equipment-card .badge {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+}
+
+.category-equipment-card .btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    border-radius: 0.5rem;
+}
+
+.category-equipment-card .btn-danger {
+    padding: 0.5rem 0.75rem;
+}
+
+/* Responsive Category Cards */
+@media (max-width: 768px) {
+    .category-image-wrapper {
+        min-height: 200px;
+    }
+    
+    .category-equipment-card .card-body {
+        padding: 1.5rem !important;
+    }
+    
+    .category-equipment-card .d-flex.gap-2 {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .category-equipment-card .btn-sm {
+        width: 100%;
+    }
+}
+
+/* Parcourir Button Styling */
+#browseEquipmentBtn {
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    border: 2px solid #3b82f6;
+    color: #3b82f6;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.1);
+}
+
+#browseEquipmentBtn:hover {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border-color: #2563eb;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.25);
+}
+
+#browseEquipmentBtn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.1);
+}
+
+#browseEquipmentBtn i {
+    transition: transform 0.3s ease;
+}
+
+#browseEquipmentBtn:hover i {
+    transform: scale(1.1);
 }
 </style>
 
