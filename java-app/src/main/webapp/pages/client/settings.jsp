@@ -743,8 +743,8 @@ function showToast(message, type = 'info', duration = 3000) {
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 4px rgba(37, 99, 235, 0.2) !important;
 }
 
-/* Notification Items - Simplified */
-.notification-item {
+/* Notification Items - Simplified - Only for settings page */
+#notifications .notification-item {
     padding: 1rem;
     background: #ffffff;
     border: 2px solid #e5e7eb;
@@ -754,40 +754,40 @@ function showToast(message, type = 'info', duration = 3000) {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.notification-item:hover {
+#notifications .notification-item:hover {
     border-color: #3b82f6;
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
     transform: translateY(-1px);
     background-color: #ffffff;
 }
 
-.notification-item .form-check-label {
+#notifications .notification-item .form-check-label {
     color: #374151;
     font-weight: 600;
 }
 
-.notification-description {
+#notifications .notification-description {
     margin-top: 0.5rem;
 }
 
-.notification-description small {
+#notifications .notification-description small {
     color: #6b7280;
     font-weight: 500;
 }
 
-/* Remove any background images or overlays */
-.notification-item,
-.notification-item *,
-.notification-item:hover,
-.notification-item:hover * {
+/* Remove any background images or overlays - Only for settings page notification items */
+#notifications .notification-item,
+#notifications .notification-item *,
+#notifications .notification-item:hover,
+#notifications .notification-item:hover * {
     background-image: none !important;
     background-color: #ffffff !important;
 }
 
-.notification-item .form-check,
-.notification-item .form-check-input,
-.notification-item .form-check-label,
-.notification-item .notification-description {
+#notifications .notification-item .form-check,
+#notifications .notification-item .form-check-input,
+#notifications .notification-item .form-check-label,
+#notifications .notification-item .notification-description {
     background: transparent !important;
     background-image: none !important;
 }
