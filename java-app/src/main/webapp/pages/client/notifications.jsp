@@ -1,519 +1,506 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    // Set page title
     request.setAttribute("pageTitle", "Notifications - YOURS");
 %>
 
-<%@ include file="../../layouts/navbar.jsp" %>
 <%@ include file="../../layouts/header.jsp" %>
+<%@ include file="../../layouts/navbar.jsp" %>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${pageTitle}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css">
-    <style>
-        /* Notifications Page Specific Styles */
-        .notification-card {
-            border: none;
-            border-radius: 1rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            margin-bottom: 1rem;
-            background: #ffffff;
-        }
-
-        .notification-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-        }
-
-        .notification-card.unread {
-            border-left: 4px solid #3b82f6;
-            background: linear-gradient(135deg, #f8fafc, #ffffff);
-        }
-
-        .notification-card.read {
-            opacity: 0.7;
-        }
-
-        .notification-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        .notification-icon.reservation {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-        }
-
-        .notification-icon.payment {
-            background: linear-gradient(135deg, #10b981, #059669);
-        }
-
-        .notification-icon.reminder {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-        }
-
-        .notification-icon.system {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-        }
-
-        .notification-icon.warning {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-        }
-
-        .notification-content h6 {
-            color: #1f2937;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .notification-content p {
-            color: #6b7280;
-            margin-bottom: 0.25rem;
-            line-height: 1.5;
-        }
-
-        .notification-meta {
-            color: #9ca3af;
-            font-size: 0.875rem;
-        }
-
-        .notification-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .notification-actions .btn {
-            padding: 0.375rem 0.75rem;
-            font-size: 0.875rem;
-            border-radius: 0.5rem;
-        }
-
-        .filter-tabs {
-            background: #ffffff;
-            border-radius: 1rem;
-            padding: 0.5rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            margin-bottom: 2rem;
-        }
-
-        .filter-tab {
-            border: none;
-            background: transparent;
-            color: #6b7280;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .filter-tab.active {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            color: white;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-        }
-
-        .filter-tab:hover:not(.active) {
-            background: #f3f4f6;
-            color: #374151;
-        }
-
-        .notification-badge {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-            font-size: 0.75rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 1rem;
-            font-weight: 600;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: #6b7280;
-        }
-
-        .empty-state i {
-            font-size: 4rem;
-            color: #d1d5db;
-            margin-bottom: 1rem;
-        }
-
-        .page-header {
-            background: linear-gradient(135deg, #f8fafc, #ffffff);
-            border-radius: 1rem;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid #e5e7eb;
-        }
-
-        .page-header h1 {
-            color: #1f2937;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .page-header p {
-            color: #6b7280;
-            margin-bottom: 0;
-        }
-
-        .mark-all-btn {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            border: none;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .mark-all-btn:hover {
-            background: linear-gradient(135deg, #1d4ed8, #1e40af);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-        }
-
-        .notification-card .btn-outline-primary {
-            border-color: #3b82f6;
-            color: #3b82f6;
-        }
-
-        .notification-card .btn-outline-primary:hover {
-            background: #3b82f6;
-            border-color: #3b82f6;
-            color: white;
-        }
-
-        .notification-card .btn-outline-danger {
-            border-color: #ef4444;
-            color: #ef4444;
-        }
-
-        .notification-card .btn-outline-danger:hover {
-            background: #ef4444;
-            border-color: #ef4444;
-            color: white;
-        }
-    </style>
-</head>
-<body>
-    <div class="container-fluid py-4">
+<!-- Page Header -->
+<section class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); margin-top: -80px; padding-top: calc(80px + 6rem) !important; padding-bottom: 6rem !important; min-height: 400px; position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%); opacity: 1;"></div>
+    <div class="container" style="position: relative; z-index: 2;">
         <div class="row">
-            <div class="col-12">
-                <!-- Page Header -->
-                <div class="page-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h1><i class="bi bi-bell me-3 text-primary"></i>Mes Notifications</h1>
-                            <p>Restez informé de toutes vos activités et rappels importants</p>
+            <div class="col-lg-10 mx-auto text-center">
+                <!-- Badge -->
+                <div class="d-inline-flex align-items-center mb-4" style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(20px); border-radius: 50px; padding: 0.75rem 1.5rem; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
+                    <i class="fas fa-bell me-2" style="color: #fbbf24; font-size: 1rem;"></i>
+                    <span style="color: white; font-weight: 600; font-size: 0.875rem; letter-spacing: 0.5px;">CENTRE DE NOTIFICATIONS</span>
+                </div>
+                
+                <!-- Main Title -->
+                <h1 class="display-2 fw-bold mb-4" style="color: white; text-shadow: 0 4px 20px rgba(0,0,0,0.3); letter-spacing: -0.03em; line-height: 1.1;">
+                    Mes <span style="background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Notifications</span>
+                </h1>
+                
+                <!-- Subtitle -->
+                <div class="mb-4" style="max-width: 700px; margin: 0 auto;">
+                    <p class="lead mb-2" style="color: rgba(255, 255, 255, 0.95); font-size: 1.375rem; font-weight: 400; line-height: 1.6; letter-spacing: -0.01em;">
+                        Restez informé de toutes vos activités et rappels importants
+                    </p>
+                    <p class="mb-0" style="color: rgba(255, 255, 255, 0.8); font-size: 1.1rem; font-weight: 300; line-height: 1.7;">
+                        Suivez vos réservations • Gérez vos paiements • Restez à jour
+                    </p>
+                </div>
+                
+                <!-- Decorative Elements -->
+                <div class="d-flex justify-content-center align-items-center gap-3 mt-4">
+                    <div style="width: 60px; height: 2px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); border-radius: 1px;"></div>
+                    <div style="width: 8px; height: 8px; background: rgba(251, 191, 36, 0.8); border-radius: 50%; box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);"></div>
+                    <div style="width: 60px; height: 2px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); border-radius: 1px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Notifications Content -->
+<div class="container py-5">
+
+    <!-- Filter Tabs -->
+    <div class="mb-4">
+        <div class="nav nav-pills nav-pills-modern" role="tablist" style="background: white; border-radius: 1rem; padding: 0.5rem; box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08); border: 1px solid rgba(226, 232, 240, 0.8);">
+            <button class="nav-link active filter-tab" onclick="filterNotifications('all')" style="border-radius: 0.75rem; font-weight: 600; padding: 0.75rem 1.5rem; transition: all 0.3s ease; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05)); color: #3b82f6; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);">
+                <i class="fas fa-list me-2"></i>Toutes
+                <span class="badge bg-danger ms-2">4</span>
+            </button>
+            <button class="nav-link filter-tab" onclick="filterNotifications('unread')" style="border-radius: 0.75rem; font-weight: 600; padding: 0.75rem 1.5rem; transition: all 0.3s ease;">
+                Non lues
+                <span class="badge bg-danger ms-2">2</span>
+            </button>
+            <button class="nav-link filter-tab" onclick="filterNotifications('reservations')" style="border-radius: 0.75rem; font-weight: 600; padding: 0.75rem 1.5rem; transition: all 0.3s ease;">
+                <i class="fas fa-calendar-check me-2"></i>Réservations
+                <span class="badge bg-danger ms-2">2</span>
+            </button>
+            <button class="nav-link filter-tab" onclick="filterNotifications('payments')" style="border-radius: 0.75rem; font-weight: 600; padding: 0.75rem 1.5rem; transition: all 0.3s ease;">
+                <i class="fas fa-credit-card me-2"></i>Paiements
+                <span class="badge bg-danger ms-2">1</span>
+            </button>
+            <button class="nav-link filter-tab" onclick="filterNotifications('system')" style="border-radius: 0.75rem; font-weight: 600; padding: 0.75rem 1.5rem; transition: all 0.3s ease;">
+                <i class="fas fa-cog me-2"></i>Système
+                <span class="badge bg-danger ms-2">1</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Notifications List -->
+    <div id="notificationsContainer">
+        <!-- Notification 1 -->
+        <div class="card mb-4 notification-item border-start border-primary border-2" data-type="reservation" data-read="false" data-id="1" style="border-radius: 1rem; box-shadow: 0 4px 20px -2px rgba(59, 130, 246, 0.15); transition: all 0.3s ease; border-left: 2px solid #3b82f6 !important;">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-start">
+                    <div class="me-3">
+                        <div class="d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: linear-gradient(135deg, #3b82f6, #1e40af); border-radius: 12px; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">
+                            <i class="fas fa-calendar-check text-white" style="font-size: 1.25rem;"></i>
                         </div>
-                        <div class="d-flex gap-2">
-                            <button class="mark-all-btn" id="markAllReadBtn">
-                                <i class="bi bi-check-all me-2"></i>Tout marquer comme lu
-                            </button>
-                            <button class="btn btn-outline-primary" id="refreshBtn">
-                                <i class="bi bi-arrow-clockwise me-2"></i>Actualiser
-                            </button>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h6 class="mb-0 fw-bold" style="color: #1e293b;">Rappel de réservation</h6>
+                            <span class="badge px-3 py-2" style="font-size: 0.75rem; border-radius: 8px; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; font-weight: 600; box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);">Non lue</span>
+                        </div>
+                        <p class="mb-3 text-muted" style="line-height: 1.6;">Votre réservation #RES001 arrive à échéance dans 2 jours.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted d-flex align-items-center">
+                                <i class="fas fa-clock me-1"></i>Il y a 2 heures
+                            </small>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-sm" onclick="markAsRead(1)" style="border-radius: 8px; font-weight: 600; padding: 0.5rem 1rem; background: linear-gradient(135deg, #fbbf24, #f59e0b); border: none; color: white; box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);">
+                                    <i class="fas fa-check me-1"></i>Marquer comme lu
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteNotification(1)" style="border-radius: 8px; padding: 0.5rem;">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <!-- Filter Tabs -->
-                <div class="filter-tabs">
-                    <div class="d-flex flex-wrap gap-2">
-                        <button class="filter-tab active" data-filter="all">
-                            <i class="bi bi-list-ul me-2"></i>Toutes
-                            <span class="notification-badge ms-2" id="allCount">12</span>
-                        </button>
-                        <button class="filter-tab" data-filter="unread">
-                            <i class="bi bi-circle-fill me-2"></i>Non lues
-                            <span class="notification-badge ms-2" id="unreadCount">5</span>
-                        </button>
-                        <button class="filter-tab" data-filter="reservations">
-                            <i class="bi bi-calendar-check me-2"></i>Réservations
-                            <span class="notification-badge ms-2" id="reservationsCount">6</span>
-                        </button>
-                        <button class="filter-tab" data-filter="payments">
-                            <i class="bi bi-credit-card me-2"></i>Paiements
-                            <span class="notification-badge ms-2" id="paymentsCount">3</span>
-                        </button>
-                        <button class="filter-tab" data-filter="system">
-                            <i class="bi bi-gear me-2"></i>Système
-                            <span class="notification-badge ms-2" id="systemCount">3</span>
-                        </button>
+        <!-- Notification 2 -->
+        <div class="card mb-4 notification-item border-start border-primary border-2" data-type="payment" data-read="false" data-id="2" style="border-radius: 1rem; box-shadow: 0 4px 20px -2px rgba(59, 130, 246, 0.15); transition: all 0.3s ease; border-left: 2px solid #3b82f6 !important;">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-start">
+                    <div class="me-3">
+                        <div class="d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: linear-gradient(135deg, #3b82f6, #1e40af); border-radius: 12px; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">
+                            <i class="fas fa-credit-card text-white" style="font-size: 1.25rem;"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h6 class="mb-0 fw-bold" style="color: #1e293b;">Paiement confirmé</h6>
+                            <span class="badge px-3 py-2" style="font-size: 0.75rem; border-radius: 8px; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; font-weight: 600; box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);">Non lue</span>
+                        </div>
+                        <p class="mb-3 text-muted" style="line-height: 1.6;">Votre paiement de 150€ a été confirmé avec succès.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted d-flex align-items-center">
+                                <i class="fas fa-clock me-1"></i>Il y a 4 heures
+                            </small>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-sm" onclick="markAsRead(2)" style="border-radius: 8px; font-weight: 600; padding: 0.5rem 1rem; background: linear-gradient(135deg, #fbbf24, #f59e0b); border: none; color: white; box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);">
+                                    <i class="fas fa-check me-1"></i>Marquer comme lu
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteNotification(2)" style="border-radius: 8px; padding: 0.5rem;">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <!-- Notifications List -->
-                <div id="notificationsList">
-                    <!-- Notifications will be loaded here -->
+        <!-- Notification 3 -->
+        <div class="card mb-4 notification-item border-start border-primary border-2" data-type="reservation" data-read="true" data-id="3" style="border-radius: 1rem; box-shadow: 0 4px 20px -2px rgba(59, 130, 246, 0.15); transition: all 0.3s ease; border-left: 2px solid #3b82f6 !important;">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-start">
+                    <div class="me-3">
+                        <div class="d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: linear-gradient(135deg, #3b82f6, #1e40af); border-radius: 12px; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">
+                            <i class="fas fa-calendar-check text-white" style="font-size: 1.25rem;"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h6 class="mb-0 fw-bold" style="color: #1e293b;">Fin de réservation</h6>
+                            <span class="badge px-3 py-2" style="font-size: 0.75rem; border-radius: 8px; background: linear-gradient(135deg, #22c55e, #16a34a); color: white; font-weight: 600; box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);">Lue</span>
+                        </div>
+                        <p class="mb-3 text-muted" style="line-height: 1.6;">Votre réservation #RES003 se termine aujourd'hui à 18h00.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted d-flex align-items-center">
+                                <i class="fas fa-clock me-1"></i>Il y a 6 heures
+                            </small>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteNotification(3)" style="border-radius: 8px; padding: 0.5rem;">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </div>
 
-                <!-- Empty State -->
-                <div id="emptyState" class="empty-state" style="display: none;">
-                    <i class="bi bi-bell-slash"></i>
-                    <h4>Aucune notification</h4>
-                    <p>Vous n'avez aucune notification pour le moment.</p>
-                </div>
-
-                <!-- Load More Button -->
-                <div class="text-center mt-4" id="loadMoreContainer" style="display: none;">
-                    <button class="btn btn-outline-primary btn-lg" id="loadMoreBtn">
-                        <i class="bi bi-arrow-down-circle me-2"></i>Charger plus de notifications
-                    </button>
+        <!-- Notification 4 -->
+        <div class="card mb-4 notification-item border-start border-primary border-2" data-type="system" data-read="true" data-id="4" style="border-radius: 1rem; box-shadow: 0 4px 20px -2px rgba(59, 130, 246, 0.15); transition: all 0.3s ease; border-left: 2px solid #3b82f6 !important;">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-start">
+                    <div class="me-3">
+                        <div class="d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: linear-gradient(135deg, #3b82f6, #1e40af); border-radius: 12px; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">
+                            <i class="fas fa-cog text-white" style="font-size: 1.25rem;"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h6 class="mb-0 fw-bold" style="color: #1e293b;">Mise à jour disponible</h6>
+                            <span class="badge px-3 py-2" style="font-size: 0.75rem; border-radius: 8px; background: linear-gradient(135deg, #22c55e, #16a34a); color: white; font-weight: 600; box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);">Lue</span>
+                        </div>
+                        <p class="mb-3 text-muted" style="line-height: 1.6;">Une nouvelle version de l'application est disponible.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted d-flex align-items-center">
+                                <i class="fas fa-clock me-1"></i>Il y a 1 jour
+                            </small>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteNotification(4)" style="border-radius: 8px; padding: 0.5rem;">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Empty State (Hidden by default) -->
+    <div id="emptyState" class="text-center py-5" style="display: none;">
+        <div class="mb-4">
+            <div class="d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background: linear-gradient(135deg, #f3f4f6, #e5e7eb); border-radius: 20px; box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.1);">
+                <i class="fas fa-bell-slash text-muted" style="font-size: 2rem;"></i>
+            </div>
+        </div>
+        <h4 class="text-muted mt-3 mb-2">Aucune notification</h4>
+        <p class="text-muted">Vous n'avez aucune notification pour le moment.</p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="text-center mt-5">
+        <div class="d-flex justify-content-center gap-3">
+            <button class="btn btn-lg" onclick="markAllRead()" style="border-radius: 12px; padding: 0.75rem 2rem; font-weight: 600; background: linear-gradient(135deg, #fbbf24, #f59e0b); border: none; color: white; box-shadow: 0 4px 20px -2px rgba(251, 191, 36, 0.4);">
+                <i class="fas fa-check-double me-2"></i>Tout marquer comme lu
+            </button>
+            <button class="btn btn-outline-primary btn-lg" onclick="refreshNotifications()" style="border-radius: 12px; padding: 0.75rem 2rem; font-weight: 600;">
+                <i class="fas fa-sync-alt me-2"></i>Actualiser
+            </button>
+        </div>
+    </div>
+</div>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Simple mock data for notifications
-        const mockNotifications = [
-            {
-                id: 1,
-                type: 'reservation',
-                title: 'Rappel de réservation',
-                message: 'Votre réservation #RES001 arrive à échéance dans 2 jours.',
-                time: 'Il y a 2 heures',
-                read: false
-            },
-            {
-                id: 2,
-                type: 'payment',
-                title: 'Paiement confirmé',
-                message: 'Votre paiement de 150€ a été confirmé avec succès.',
-                time: 'Il y a 4 heures',
-                read: false
-            },
-            {
-                id: 3,
-                type: 'reminder',
-                title: 'Fin de réservation',
-                message: 'Votre réservation #RES003 se termine aujourd\'hui à 18h00.',
-                time: 'Il y a 6 heures',
-                read: true
-            },
-            {
-                id: 4,
-                type: 'system',
-                title: 'Mise à jour disponible',
-                message: 'Une nouvelle version de l\'application est disponible.',
-                time: 'Il y a 1 jour',
-                read: true
-            }
-        ];
-
-        let currentFilter = 'all';
-        let currentNotifications = mockNotifications.slice();
-
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            try {
-                loadNotifications();
-                setupEventListeners();
-                updateCounts();
-            } catch (error) {
-                console.error('Error initializing notifications page:', error);
-            }
-        });
-
-        function loadNotifications() {
-            try {
-                const container = document.getElementById('notificationsList');
-                const emptyState = document.getElementById('emptyState');
-                
-                if (!container) return;
-                
-                let filteredNotifications = getFilteredNotifications();
-                
-                if (filteredNotifications.length === 0) {
-                    container.innerHTML = '';
-                    if (emptyState) emptyState.style.display = 'block';
-                    return;
+        // Enhanced filter function with smooth animations
+        function filterNotifications(type) {
+            var items = document.querySelectorAll('.notification-item');
+            var emptyState = document.getElementById('emptyState');
+            var container = document.getElementById('notificationsContainer');
+            var visibleCount = 0;
+            
+            // Add fade out animation
+            container.style.opacity = '0.5';
+            container.style.transition = 'opacity 0.3s ease';
+            
+            setTimeout(function() {
+                for (var i = 0; i < items.length; i++) {
+                    var item = items[i];
+                    var show = false;
+                    
+                    if (type === 'all') {
+                        show = true;
+                    } else if (type === 'unread') {
+                        show = item.getAttribute('data-read') === 'false';
+                    } else {
+                        show = item.getAttribute('data-type') === type;
+                    }
+                    
+                    if (show) {
+                        item.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        item.style.display = 'none';
+                    }
                 }
                 
-                if (emptyState) emptyState.style.display = 'none';
+                if (visibleCount === 0) {
+                    container.style.display = 'none';
+                    emptyState.style.display = 'block';
+                } else {
+                    container.style.display = 'block';
+                    emptyState.style.display = 'none';
+                }
                 
-            container.innerHTML = filteredNotifications.map(notification => 
-                '<div class="notification-card ' + (notification.read ? 'read' : 'unread') + '" data-id="' + notification.id + '">' +
-                    '<div class="card-body p-4">' +
-                        '<div class="d-flex align-items-start">' +
-                            '<div class="notification-icon ' + notification.type + ' me-3">' +
-                                getNotificationIcon(notification.type) +
-                            '</div>' +
-                            '<div class="notification-content flex-grow-1">' +
-                                '<h6>' + notification.title + '</h6>' +
-                                '<p>' + notification.message + '</p>' +
-                                '<div class="d-flex justify-content-between align-items-center">' +
-                                    '<span class="notification-meta">' +
-                                        '<i class="bi bi-clock me-1"></i>' + notification.time +
-                                    '</span>' +
-                                    '<div class="notification-actions">' +
-                                        (!notification.read ? 
-                                            '<button class="btn btn-outline-primary btn-sm mark-read-btn" data-id="' + notification.id + '">' +
-                                                '<i class="bi bi-check"></i>Marquer comme lu' +
-                                            '</button>' : '') +
-                                        '<button class="btn btn-outline-danger btn-sm delete-btn" data-id="' + notification.id + '">' +
-                                            '<i class="bi bi-trash"></i>' +
-                                        '</button>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>'
-            ).join('');
+                // Fade back in
+                container.style.opacity = '1';
                 
-                setupNotificationEventListeners();
-            } catch (error) {
-                console.error('Error loading notifications:', error);
+                // Update button states
+                updateFilterButtons(type);
+            }, 150);
+        }
+        
+        function updateFilterButtons(activeType) {
+            // Reset all buttons to inactive state
+            var buttons = document.querySelectorAll('.filter-tab');
+            buttons.forEach(function(btn) {
+                btn.classList.remove('active');
+                btn.style.background = 'transparent';
+                btn.style.color = '#6b7280';
+                btn.style.transform = 'translateY(0)';
+                btn.style.boxShadow = 'none';
+            });
+            
+            // Find and activate the button that matches the activeType
+            var activeBtn = null;
+            buttons.forEach(function(btn) {
+                var onclickAttr = btn.getAttribute('onclick');
+                if (onclickAttr && onclickAttr.includes("'" + activeType + "'")) {
+                    activeBtn = btn;
+                }
+            });
+            
+            // Apply active styles to the correct button
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+                activeBtn.style.background = 'linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05))';
+                activeBtn.style.color = '#3b82f6';
+                activeBtn.style.transform = 'translateY(-1px)';
+                activeBtn.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.2)';
             }
         }
-
-        function getNotificationIcon(type) {
-            const icons = {
-                'reservation': '<i class="bi bi-calendar-check"></i>',
-                'payment': '<i class="bi bi-credit-card"></i>',
-                'reminder': '<i class="bi bi-alarm"></i>',
-                'system': '<i class="bi bi-gear"></i>',
-                'warning': '<i class="bi bi-exclamation-triangle"></i>'
-            };
-            return icons[type] || '<i class="bi bi-bell"></i>';
-        }
-
-        function getFilteredNotifications() {
-            if (currentFilter === 'all') {
-                return currentNotifications;
-            } else if (currentFilter === 'unread') {
-                return currentNotifications.filter(n => !n.read);
-            } else {
-                return currentNotifications.filter(n => n.type === currentFilter);
+        
+        function markAsRead(id) {
+            var item = document.querySelector('[data-id="' + id + '"]');
+            if (item) {
+                item.setAttribute('data-read', 'true');
+                // Use blue border for all notifications (smaller, non-bold)
+                item.style.borderLeft = '2px solid #3b82f6';
+                // Remove opacity to keep notifications crisp and clear
+                item.style.opacity = '1';
+                
+                // Update badge
+                var badge = item.querySelector('.badge');
+                if (badge) {
+                    badge.textContent = 'Lue';
+                    badge.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+                    badge.style.color = 'white';
+                    badge.style.boxShadow = '0 2px 8px rgba(34, 197, 94, 0.3)';
+                }
+                
+                // Hide mark as read button
+                var markBtn = item.querySelector('button[onclick*="markAsRead"]');
+                if (markBtn) {
+                    markBtn.style.display = 'none';
+                }
+                
+                showToast('Notification marquée comme lue', 'success');
             }
         }
-
-        function updateCounts() {
-            try {
-                const counts = {
-                    all: currentNotifications.length,
-                    unread: currentNotifications.filter(n => !n.read).length,
-                    reservations: currentNotifications.filter(n => n.type === 'reservation').length,
-                    payments: currentNotifications.filter(n => n.type === 'payment').length,
-                    system: currentNotifications.filter(n => n.type === 'system').length
-                };
-
-                Object.keys(counts).forEach(filter => {
-                    const element = document.getElementById(`${filter}Count`);
-                    if (element) {
-                        element.textContent = counts[filter];
+        
+        function markAllRead() {
+            var items = document.querySelectorAll('.notification-item[data-read="false"]');
+            var count = items.length;
+            
+            if (count === 0) {
+                showToast('Toutes les notifications sont déjà lues', 'info');
+                return;
+            }
+            
+            items.forEach(function(item) {
+                item.setAttribute('data-read', 'true');
+                // Use blue border for all notifications (smaller, non-bold)
+                item.style.borderLeft = '2px solid #3b82f6';
+                // Remove opacity to keep notifications crisp and clear
+                item.style.opacity = '1';
+                
+                var badge = item.querySelector('.badge');
+                if (badge) {
+                    badge.textContent = 'Lue';
+                    badge.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+                    badge.style.color = 'white';
+                    badge.style.boxShadow = '0 2px 8px rgba(34, 197, 94, 0.3)';
+                }
+                
+                var markBtn = item.querySelector('button[onclick*="markAsRead"]');
+                if (markBtn) {
+                    markBtn.style.display = 'none';
+                }
+            });
+            
+            showToast(`${count} notifications marquées comme lues`, 'success');
+        }
+        
+        function deleteNotification(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette notification ?')) {
+                var item = document.querySelector('[data-id="' + id + '"]');
+                if (item) {
+                    item.style.transition = 'all 0.3s ease';
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateX(-20px)';
+                    
+                    setTimeout(function() {
+                        item.remove();
+                        showToast('Notification supprimée', 'success');
+                        
+                        // Check if container is empty
+                        var remainingItems = document.querySelectorAll('.notification-item');
+                        if (remainingItems.length === 0) {
+                            document.getElementById('notificationsContainer').style.display = 'none';
+                            document.getElementById('emptyState').style.display = 'block';
+                        }
+                    }, 300);
+                }
+            }
+        }
+        
+        function refreshNotifications() {
+            var btn = event.target.closest('button');
+            var originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Actualisation...';
+            btn.disabled = true;
+            
+            setTimeout(function() {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                showToast('Notifications actualisées', 'success');
+            }, 1500);
+        }
+        
+        function showToast(message, type) {
+            // Create toast element
+            var toast = document.createElement('div');
+            toast.className = 'toast align-items-center text-white bg-' + (type === 'success' ? 'success' : type === 'error' ? 'danger' : 'info') + ' border-0';
+            toast.setAttribute('role', 'alert');
+            toast.setAttribute('aria-live', 'assertive');
+            toast.setAttribute('aria-atomic', 'true');
+            
+            var iconClass = type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle';
+            toast.innerHTML = '<div class="d-flex">' +
+                '<div class="toast-body">' +
+                    '<i class="fas fa-' + iconClass + ' me-2"></i>' +
+                    message +
+                '</div>' +
+                '<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>' +
+            '</div>';
+            
+            // Add to page
+            var toastContainer = document.getElementById('toastContainer') || createToastContainer();
+            toastContainer.appendChild(toast);
+            
+            // Show toast
+            var bsToast = new bootstrap.Toast(toast);
+            bsToast.show();
+            
+            // Remove from DOM after hiding
+            toast.addEventListener('hidden.bs.toast', function() {
+                toast.remove();
+            });
+        }
+        
+        function createToastContainer() {
+            var container = document.createElement('div');
+            container.id = 'toastContainer';
+            container.className = 'toast-container position-fixed top-0 end-0 p-3';
+            container.style.zIndex = '9999';
+            document.body.appendChild(container);
+            return container;
+        }
+        
+        // Add hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Notification items hover effects
+            var notificationItems = document.querySelectorAll('.notification-item');
+            notificationItems.forEach(function(item) {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = '0 8px 25px -5px rgba(0, 0, 0, 0.1)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    var isRead = this.getAttribute('data-read') === 'true';
+                    if (isRead) {
+                        this.style.boxShadow = '0 4px 20px -2px rgba(0, 0, 0, 0.08)';
+                    } else {
+                        var type = this.getAttribute('data-type');
+                        var color = type === 'reservation' ? '59, 130, 246' : type === 'payment' ? '34, 197, 94' : '107, 114, 128';
+                        this.style.boxShadow = '0 4px 20px -2px rgba(' + color + ', 0.15)';
                     }
                 });
-            } catch (error) {
-                console.error('Error updating counts:', error);
-            }
-        }
-
-        function setupEventListeners() {
-            try {
-                // Filter tabs
-                document.querySelectorAll('.filter-tab').forEach(tab => {
-                    tab.addEventListener('click', function() {
-                        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-                        this.classList.add('active');
-                        currentFilter = this.dataset.filter;
-                        loadNotifications();
-                    });
+            });
+            
+            // Filter tabs hover effects
+            var filterTabs = document.querySelectorAll('.filter-tab');
+            filterTabs.forEach(function(tab) {
+                tab.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.background = 'linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05))';
+                        this.style.color = '#3b82f6';
+                        this.style.transform = 'translateY(-1px)';
+                        this.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.2)';
+                    }
                 });
-
-                // Mark all as read button
-                const markAllBtn = document.getElementById('markAllReadBtn');
-                if (markAllBtn) {
-                    markAllBtn.addEventListener('click', function() {
-                        currentNotifications.forEach(notification => {
-                            notification.read = true;
-                        });
-                        loadNotifications();
-                        updateCounts();
-                        alert('Toutes les notifications ont été marquées comme lues');
-                    });
+                
+                tab.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.background = 'transparent';
+                        this.style.color = '#6b7280';
+                        this.style.transform = 'translateY(0)';
+                        this.style.boxShadow = 'none';
+                    }
+                });
+            });
+            
+            // Ensure initial state is correct
+            setTimeout(function() {
+                var activeTab = document.querySelector('.filter-tab.active');
+                if (activeTab) {
+                    activeTab.style.background = 'linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05))';
+                    activeTab.style.color = '#3b82f6';
+                    activeTab.style.transform = 'translateY(-1px)';
+                    activeTab.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.2)';
                 }
-
-                // Refresh button
-                const refreshBtn = document.getElementById('refreshBtn');
-                if (refreshBtn) {
-                    refreshBtn.addEventListener('click', function() {
-                        this.innerHTML = '<i class="bi bi-arrow-clockwise me-2"></i>Actualisation...';
-                        this.disabled = true;
-                        
-                        setTimeout(() => {
-                            loadNotifications();
-                            updateCounts();
-                            this.innerHTML = '<i class="bi bi-arrow-clockwise me-2"></i>Actualiser';
-                            this.disabled = false;
-                            alert('Notifications actualisées');
-                        }, 1000);
-                    });
-                }
-            } catch (error) {
-                console.error('Error setting up event listeners:', error);
-            }
-        }
-
-        function setupNotificationEventListeners() {
-            try {
-                // Mark as read buttons
-                document.querySelectorAll('.mark-read-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const notificationId = parseInt(this.dataset.id);
-                        const notification = currentNotifications.find(n => n.id === notificationId);
-                        if (notification) {
-                            notification.read = true;
-                            loadNotifications();
-                            updateCounts();
-                            alert('Notification marquée comme lue');
-                        }
-                    });
-                });
-
-                // Delete buttons
-                document.querySelectorAll('.delete-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const notificationId = parseInt(this.dataset.id);
-                        if (confirm('Êtes-vous sûr de vouloir supprimer cette notification ?')) {
-                            currentNotifications = currentNotifications.filter(n => n.id !== notificationId);
-                            loadNotifications();
-                            updateCounts();
-                            alert('Notification supprimée');
-                        }
-                    });
-                });
-            } catch (error) {
-                console.error('Error setting up notification event listeners:', error);
-            }
-        }
-
-        // Simple error handling
-        function showError(message) {
-            console.error(message);
-            alert(message);
-        }
+            }, 100);
+        });
     </script>
 </body>
 </html>
