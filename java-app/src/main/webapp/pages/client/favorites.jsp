@@ -393,26 +393,149 @@ function loadCategoriesFavorites() {
 }
 
 function removeFavorite(id) {
-    YOURS.showConfirmDialog(
-        'Retirer des favoris',
-        'Êtes-vous sûr de vouloir retirer cet équipement de vos favoris ?',
-        function() {
-            YOURS.showToast('Équipement retiré des favoris', 'success');
-            // Reload favorites after a short delay
-            setTimeout(() => {
-                loadFavorites();
-                // Check which section is active and reload accordingly
-                const activeSection = document.querySelector('.favorites-nav-item.active');
-                const sectionId = activeSection ? activeSection.getAttribute('data-section') : 'all-favorites';
-                
-                if (sectionId === 'recent-favorites') {
-                    loadRecentFavorites();
-                } else if (sectionId === 'categories-favorites') {
-                    loadCategoriesFavorites();
-                }
-            }, 500);
-        }
-    );
+    showRemoveFavoriteDialog(id);
+}
+
+function showRemoveFavoriteDialog(equipmentId) {
+    // Create the modal backdrop
+    const backdrop = document.createElement('div');
+    backdrop.className = 'remove-favorite-backdrop';
+    backdrop.innerHTML = `
+        <div class="remove-favorite-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-icon">
+                        <div class="icon-container">
+                            <i class="bi bi-heart-fill icon-heart"></i>
+                            <i class="bi bi-x icon-cross"></i>
+                        </div>
+                    </div>
+                    <h4 class="modal-title">Retirer des favoris</h4>
+                    <button type="button" class="btn-close" onclick="closeRemoveFavoriteDialog()">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-message">
+                        Êtes-vous sûr de vouloir retirer cet équipement de vos favoris ?
+                    </p>
+                    <div class="modal-warning">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        <span>Cette action peut être annulée en ajoutant à nouveau l'équipement aux favoris.</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" onclick="closeRemoveFavoriteDialog()">
+                        <i class="bi bi-x-circle me-2"></i>Annuler
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="confirmRemoveFavorite(${equipmentId})">
+                        <i class="bi bi-heart-break me-2"></i>Retirer des favoris
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Add to body
+    document.body.appendChild(backdrop);
+    
+    // Trigger animation
+    setTimeout(() => {
+        backdrop.classList.add('show');
+    }, 10);
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+}
+
+function closeRemoveFavoriteDialog() {
+    const backdrop = document.querySelector('.remove-favorite-backdrop');
+    if (backdrop) {
+        backdrop.classList.remove('show');
+        setTimeout(() => {
+            if (backdrop.parentElement) {
+                backdrop.parentElement.removeChild(backdrop);
+            }
+            document.body.style.overflow = '';
+        }, 300);
+    }
+}
+
+function confirmRemoveFavorite(equipmentId) {
+    // Close the dialog first
+    closeRemoveFavoriteDialog();
+    
+    // Show loading state
+    showRemoveFavoriteToast('Suppression en cours...', 'info', 1000);
+    
+    // Simulate removal process
+    setTimeout(() => {
+        showRemoveFavoriteToast('Équipement retiré des favoris avec succès', 'success', 3000);
+        
+        // Reload favorites after a short delay
+        setTimeout(() => {
+            loadFavorites();
+            // Check which section is active and reload accordingly
+            const activeSection = document.querySelector('.favorites-nav-item.active');
+            const sectionId = activeSection ? activeSection.getAttribute('data-section') : 'all-favorites';
+            
+            if (sectionId === 'recent-favorites') {
+                loadRecentFavorites();
+            } else if (sectionId === 'categories-favorites') {
+                loadCategoriesFavorites();
+            }
+            
+            // Update stats
+            updateFavoriteStats();
+        }, 500);
+    }, 800);
+}
+
+function showRemoveFavoriteToast(message, type = 'info', duration = 3000) {
+    const toast = document.createElement('div');
+    toast.className = `remove-favorite-toast toast-${type}`;
+    
+    // Determine icon based on type
+    let iconClass = 'info-circle';
+    if (type === 'success') {
+        iconClass = 'check-circle';
+    } else if (type === 'danger') {
+        iconClass = 'exclamation-triangle';
+    }
+    
+    toast.innerHTML = `
+        <div class="toast-content">
+            <div class="toast-icon">
+                <i class="bi bi-${iconClass}"></i>
+            </div>
+            <span class="toast-message">${message}</span>
+        </div>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    // Trigger animation
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 10);
+    
+    // Auto remove
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            if (toast.parentElement) {
+                toast.parentElement.removeChild(toast);
+            }
+        }, 300);
+    }, duration);
+}
+
+function updateFavoriteStats() {
+    // Update the statistics in the sidebar
+    const favorites = MockDataUtils.getPopularEquipment(6);
+    document.getElementById('totalFavs').textContent = favorites.length;
+    document.getElementById('availableFavs').textContent = favorites.length;
+    document.getElementById('favCount').textContent = `${favorites.length} équipement${favorites.length > 1 ? 's' : ''}`;
 }
 </script>
 
@@ -835,6 +958,275 @@ body {
     .equipment-image {
         height: 180px;
     }
+}
+
+/* Remove Favorite Modal Styles */
+.remove-favorite-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.remove-favorite-backdrop.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.remove-favorite-modal {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    max-width: 500px;
+    width: 90%;
+    margin: 1rem;
+    transform: scale(0.9) translateY(20px);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+}
+
+.remove-favorite-backdrop.show .remove-favorite-modal {
+    transform: scale(1) translateY(0);
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    padding: 1.5rem 1.5rem 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, #fef2f2, #ffffff);
+}
+
+.modal-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+}
+
+.icon-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-heart {
+    font-size: 1.5rem;
+    color: white;
+    z-index: 2;
+}
+
+.icon-cross {
+    position: absolute;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #991b1b;
+    z-index: 3;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+    flex: 1;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-size: 1.25rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-close:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-message {
+    font-size: 1rem;
+    color: #374151;
+    margin: 0 0 1rem;
+    line-height: 1.5;
+}
+
+.modal-warning {
+    background: linear-gradient(135deg, #fef3c7, #fef7cd);
+    border: 1px solid #f59e0b;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    color: #92400e;
+    font-size: 0.875rem;
+    line-height: 1.4;
+}
+
+.modal-warning i {
+    color: #f59e0b;
+    font-size: 1rem;
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem 1.5rem;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+}
+
+.modal-footer .btn {
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.modal-footer .btn-outline-secondary {
+    background: transparent;
+    border-color: #6b7280;
+    color: #6b7280;
+}
+
+.modal-footer .btn-outline-secondary:hover {
+    background: #6b7280;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -5px rgba(107, 114, 128, 0.2);
+}
+
+.modal-footer .btn-danger {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    border-color: #dc2626;
+    color: white;
+}
+
+.modal-footer .btn-danger:hover {
+    background: linear-gradient(135deg, #b91c1c, #991b1b);
+    border-color: #b91c1c;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -5px rgba(220, 38, 38, 0.3);
+}
+
+/* Remove Favorite Toast Styles */
+.remove-favorite-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e5e7eb;
+    padding: 1rem 1.25rem;
+    z-index: 10000;
+    min-width: 300px;
+    max-width: 400px;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.remove-favorite-toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.toast-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.toast-success .toast-icon {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.toast-info .toast-icon {
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    color: white;
+}
+
+.toast-danger .toast-icon {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    color: white;
+}
+
+.toast-message {
+    font-weight: 500;
+    color: #374151;
+    flex: 1;
+}
+
+/* Enhanced favorite button animations */
+.favorite-btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.favorite-btn:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 6px 20px -5px rgba(220, 38, 38, 0.4);
+}
+
+.favorite-btn:active {
+    transform: scale(0.95);
 }
 </style>
 
