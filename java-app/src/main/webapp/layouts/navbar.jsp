@@ -157,55 +157,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 <!-- Right Navigation -->
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <!-- Notifications -->
-                    <li class="nav-item dropdown me-2">
-                        <a class="nav-link nav-link-client d-flex align-items-center position-relative" href="#" role="button" data-bs-toggle="dropdown" id="notificationDropdown">
-                            <i class="bi bi-bell" style="font-size: 1.25rem;"></i>
-                            <span class="notification-badge">3</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end notification-dropdown shadow-lg border-0" id="notificationDropdownMenu">
-                            <div class="dropdown-header d-flex justify-content-between align-items-center">
-                                <h6 class="mb-0">Notifications</h6>
-                                <span class="badge bg-primary rounded-pill">3</span>
-                            </div>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item notification-item" href="#">
-                                <div class="d-flex">
-                                    <div class="notification-icon bg-success">
-                                        <i class="bi bi-check-circle"></i>
-                                    </div>
-                                    <div class="notification-content">
-                                        <p class="mb-0">Réservation confirmée</p>
-                                        <small class="text-muted">Il y a 2 heures</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item notification-item" href="#">
-                                <div class="d-flex">
-                                    <div class="notification-icon bg-info">
-                                        <i class="bi bi-info-circle"></i>
-                                    </div>
-                                    <div class="notification-content">
-                                        <p class="mb-0">Nouveau matériel disponible</p>
-                                        <small class="text-muted">Il y a 5 heures</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item notification-item" href="#">
-                                <div class="d-flex">
-                                    <div class="notification-icon bg-warning">
-                                        <i class="bi bi-exclamation-triangle"></i>
-                                    </div>
-                                    <div class="notification-content">
-                                        <p class="mb-0">Rappel: Retour dans 2 jours</p>
-                                        <small class="text-muted">Il y a 1 jour</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-center text-primary small" href="${pageContext.request.contextPath}/pages/client/notifications.jsp">Voir toutes les notifications</a>
-                        </div>
-                    </li>
 
                     <!-- Profile Dropdown -->
                     <li class="nav-item dropdown">
@@ -235,11 +186,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             <li>
                                 <a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/client/profile.jsp">
                                     <i class="bi bi-person me-2 text-primary"></i>Mon Profil
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/client/notifications.jsp">
-                                    <i class="bi bi-bell me-2 text-warning"></i>Notifications
                                 </a>
                             </li>
                             <li>
