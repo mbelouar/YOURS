@@ -211,9 +211,9 @@
                                 <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=1" class="btn btn-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-eye me-1"></i>Voir
                                 </a>
-                                <button class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
+                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=1&autobook=true#reservation" class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-calendar-plus me-1"></i>R&eacute;server
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -249,9 +249,9 @@
                                 <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=2" class="btn btn-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-eye me-1"></i>Voir
                                 </a>
-                                <button class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
+                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=2&autobook=true#reservation" class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-calendar-plus me-1"></i>R&eacute;server
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -287,9 +287,9 @@
                                 <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=3" class="btn btn-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-eye me-1"></i>Voir
                                 </a>
-                                <button class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
+                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=3&autobook=true#reservation" class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-calendar-plus me-1"></i>R&eacute;server
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -325,9 +325,9 @@
                                 <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=4" class="btn btn-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-eye me-1"></i>Voir
                                 </a>
-                                <button class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
+                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=4&autobook=true#reservation" class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-calendar-plus me-1"></i>R&eacute;server
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -363,9 +363,9 @@
                                 <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=5" class="btn btn-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-eye me-1"></i>Voir
                                 </a>
-                                <button class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
+                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=5&autobook=true#reservation" class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-calendar-plus me-1"></i>R&eacute;server
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -401,9 +401,9 @@
                                 <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=6" class="btn btn-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-eye me-1"></i>Voir
                                 </a>
-                                <button class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
+                                <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=6&autobook=true#reservation" class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" style="flex: 1; padding: 0.5rem 0.75rem; white-space: nowrap;">
                                     <i class="fas fa-calendar-plus me-1"></i>R&eacute;server
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
