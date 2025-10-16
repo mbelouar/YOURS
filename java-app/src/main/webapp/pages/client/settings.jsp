@@ -22,24 +22,49 @@
     <div class="row">
         <div class="col-lg-3 mb-4">
             <!-- Settings Navigation -->
-            <div class="card border-0 shadow-lg settings-nav-card">
+            <div class="card border-0 shadow-lg settings-nav-card enhanced-nav">
                 <div class="card-header bg-gradient-primary text-white border-0 py-4">
                     <h5 class="fw-bold mb-0 d-flex align-items-center">
                         <i class="bi bi-gear me-3" style="font-size: 1.2rem;"></i>Paramètres
                     </h5>
+                    <small class="text-white-50 mt-1">Gérez vos préférences</small>
                 </div>
                 <div class="list-group list-group-flush settings-nav-list">
-                    <a href="#account" class="list-group-item list-group-item-action settings-nav-item active">
-                        <i class="bi bi-person-circle me-3"></i>Compte
-                        <i class="bi bi-chevron-right ms-auto"></i>
+                    <a href="#account" class="list-group-item list-group-item-action settings-nav-item active" data-section="account">
+                        <div class="d-flex align-items-center">
+                            <div class="nav-icon-wrapper me-3">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <div class="nav-content">
+                                <div class="nav-title">Compte</div>
+                                <small class="nav-subtitle">Informations personnelles</small>
+                            </div>
+                            <i class="bi bi-chevron-right ms-auto nav-arrow"></i>
+                        </div>
                     </a>
-                    <a href="#notifications" class="list-group-item list-group-item-action settings-nav-item">
-                        <i class="bi bi-bell me-3"></i>Notifications
-                        <i class="bi bi-chevron-right ms-auto"></i>
+                    <a href="#notifications" class="list-group-item list-group-item-action settings-nav-item" data-section="notifications">
+                        <div class="d-flex align-items-center">
+                            <div class="nav-icon-wrapper me-3">
+                                <i class="bi bi-bell"></i>
+                            </div>
+                            <div class="nav-content">
+                                <div class="nav-title">Notifications</div>
+                                <small class="nav-subtitle">Préférences d'alerte</small>
+                            </div>
+                            <i class="bi bi-chevron-right ms-auto nav-arrow"></i>
+                        </div>
                     </a>
-                    <a href="#security" class="list-group-item list-group-item-action settings-nav-item">
-                        <i class="bi bi-shield-lock me-3"></i>Sécurité
-                        <i class="bi bi-chevron-right ms-auto"></i>
+                    <a href="#security" class="list-group-item list-group-item-action settings-nav-item" data-section="security">
+                        <div class="d-flex align-items-center">
+                            <div class="nav-icon-wrapper me-3">
+                                <i class="bi bi-shield-lock"></i>
+                            </div>
+                            <div class="nav-content">
+                                <div class="nav-title">Sécurité</div>
+                                <small class="nav-subtitle">Protection du compte</small>
+                            </div>
+                            <i class="bi bi-chevron-right ms-auto nav-arrow"></i>
+                        </div>
                     </a>
                 </div>
             </div>
@@ -241,21 +266,27 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Settings page loaded successfully');
     
-    // Smooth scroll navigation
-    document.querySelectorAll('.list-group-item').forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = this.getAttribute('href');
-            const element = document.querySelector(target);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                
-                // Update active state
-                document.querySelectorAll('.list-group-item').forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-            }
+        // Enhanced smooth scroll navigation
+        document.querySelectorAll('.settings-nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = this.getAttribute('href');
+                const element = document.querySelector(target);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    
+                    // Update active state with enhanced styling
+                    document.querySelectorAll('.settings-nav-item').forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Add visual feedback
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                }
+            });
         });
-    });
     
     // Form handling
     document.querySelectorAll('form').forEach(form => {
@@ -315,54 +346,182 @@ function showToast(message, type = 'info', duration = 3000) {
 </script>
 
 <style>
-/* Settings Page Enhanced Styling */
-.settings-nav-card {
+/* Enhanced Navigation Container Styling */
+.settings-nav-card.enhanced-nav {
     position: sticky;
     top: 100px;
     border-radius: 1rem !important;
     overflow: hidden;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
 }
 
-.settings-nav-card .card-header {
-    background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.settings-nav-list .settings-nav-item {
-    border: none !important;
-    padding: 1.25rem 1.5rem !important;
-    transition: all 0.3s ease;
+.enhanced-nav .card-header {
+    background: linear-gradient(135deg, #1e40af, #1d4ed8, #2563eb) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    color: #374151;
-    font-weight: 500;
+    overflow: hidden;
 }
 
-.settings-nav-list .settings-nav-item:hover {
+.enhanced-nav .card-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+    pointer-events: none;
+}
+
+.enhanced-nav .card-header h5 {
+    position: relative;
+    z-index: 2;
+}
+
+.enhanced-nav .card-header small {
+    position: relative;
+    z-index: 2;
+}
+
+/* Enhanced Navigation Items */
+.enhanced-nav .settings-nav-list .settings-nav-item {
+    border: none !important;
+    padding: 1rem 1.25rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    background: transparent;
+    color: #374151;
+    margin-bottom: 0.25rem;
+    border-radius: 0.75rem !important;
+    overflow: hidden;
+}
+
+.enhanced-nav .settings-nav-list .settings-nav-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(147, 197, 253, 0.05));
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.enhanced-nav .settings-nav-list .settings-nav-item:hover {
     background: linear-gradient(135deg, #eff6ff, #dbeafe) !important;
     color: #1e40af !important;
-    transform: translateX(6px);
+    transform: translateX(6px) translateY(-1px);
+    box-shadow: 0 6px 20px -5px rgba(59, 130, 246, 0.15);
     border-left: 3px solid #3b82f6;
+    border-radius: 0.75rem !important;
 }
 
-.settings-nav-list .settings-nav-item.active {
+.enhanced-nav .settings-nav-list .settings-nav-item:hover::before {
+    opacity: 1;
+}
+
+.enhanced-nav .settings-nav-list .settings-nav-item.active {
     background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
     color: white !important;
     font-weight: 600;
-    border-left: 4px solid white;
+    border-left: 3px solid #ffffff;
+    box-shadow: 0 6px 20px -5px rgba(37, 99, 235, 0.25);
+    border-radius: 0 0 0.75rem 0.75rem !important;
 }
 
-.settings-nav-list .settings-nav-item.active::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: white;
+/* Special styling for the first active item (Compte) to connect with header */
+.enhanced-nav .settings-nav-list .settings-nav-item:first-child.active {
+    border-radius: 0 0 0.75rem 0.75rem !important;
+}
+
+.enhanced-nav .settings-nav-list .settings-nav-item.active::before {
+    opacity: 1;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+}
+
+/* Navigation Icon Wrapper */
+.nav-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.enhanced-nav .settings-nav-item:hover .nav-icon-wrapper {
+    background: rgba(59, 130, 246, 0.2);
+    transform: scale(1.1);
+}
+
+.enhanced-nav .settings-nav-item.active .nav-icon-wrapper {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.nav-icon-wrapper i {
+    font-size: 1.1rem;
+    color: #3b82f6;
+    transition: all 0.3s ease;
+}
+
+.enhanced-nav .settings-nav-item:hover .nav-icon-wrapper i {
+    color: #1e40af;
+}
+
+.enhanced-nav .settings-nav-item.active .nav-icon-wrapper i {
+    color: white;
+}
+
+/* Navigation Content */
+.nav-content {
+    flex: 1;
+}
+
+.nav-title {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.125rem;
+    transition: all 0.3s ease;
+}
+
+.nav-subtitle {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    color: inherit;
+}
+
+.enhanced-nav .settings-nav-item:hover .nav-subtitle {
+    opacity: 0.9;
+}
+
+.enhanced-nav .settings-nav-item.active .nav-subtitle {
+    opacity: 0.8;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Navigation Arrow */
+.nav-arrow {
+    font-size: 0.875rem;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.enhanced-nav .settings-nav-item:hover .nav-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+}
+
+.enhanced-nav .settings-nav-item.active .nav-arrow {
+    opacity: 0.8;
+    color: white;
 }
 
 .settings-card {
