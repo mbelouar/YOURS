@@ -55,18 +55,6 @@
                             <i class="bi bi-chevron-right ms-auto nav-arrow"></i>
                         </div>
                     </a>
-                    <a href="#categories-favorites" class="list-group-item list-group-item-action favorites-nav-item" data-section="categories-favorites">
-                        <div class="d-flex align-items-center">
-                            <div class="nav-icon-wrapper me-3">
-                                <i class="bi bi-grid"></i>
-                            </div>
-                            <div class="nav-content">
-                                <div class="nav-title">Par catégorie</div>
-                                <small class="nav-subtitle">Matériel organisé</small>
-                            </div>
-                            <i class="bi bi-chevron-right ms-auto nav-arrow"></i>
-                        </div>
-                    </a>
                 </div>
             </div>
 
@@ -107,9 +95,45 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="fw-bold mb-0 d-flex align-items-center">
                                 <i class="bi bi-heart me-3 text-danger" style="font-size: 1.3rem;"></i>Tous les favoris
+                                <span class="badge bg-primary ms-3" id="favCount">0 équipements</span>
                             </h5>
                             <div class="d-flex gap-2">
-                                <span class="badge bg-primary" id="favCount">0 équipements</span>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="categoryFilterBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-funnel me-1"></i><span id="filterLabel">Toutes catégories</span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow-sm category-dropdown" aria-labelledby="categoryFilterBtn">
+                                        <li><a class="dropdown-item active" href="#" onclick="filterByCategory('all'); return false;">
+                                            <i class="bi bi-grid-fill me-2"></i>
+                                            <span>Toutes catégories</span>
+                                        </a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="#" onclick="filterByCategory('Photographie'); return false;">
+                                            <i class="bi bi-camera-fill me-2" style="color: #8b5cf6;"></i>
+                                            <span>Photographie</span>
+                                        </a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="filterByCategory('Vidéo'); return false;">
+                                            <i class="bi bi-film me-2" style="color: #ef4444;"></i>
+                                            <span>Vidéo</span>
+                                        </a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="filterByCategory('Audio'); return false;">
+                                            <i class="bi bi-music-note-beamed me-2" style="color: #f59e0b;"></i>
+                                            <span>Audio</span>
+                                        </a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="filterByCategory('Gaming'); return false;">
+                                            <i class="bi bi-controller me-2" style="color: #10b981;"></i>
+                                            <span>Gaming</span>
+                                        </a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="filterByCategory('Informatique'); return false;">
+                                            <i class="bi bi-laptop me-2" style="color: #3b82f6;"></i>
+                                            <span>Informatique</span>
+                                        </a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="filterByCategory('Éclairage'); return false;">
+                                            <i class="bi bi-lightbulb-fill me-2" style="color: #eab308;"></i>
+                                            <span>Éclairage</span>
+                                        </a></li>
+                                    </ul>
+                                </div>
                                 <a href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp" class="btn btn-sm btn-outline-primary" id="browseEquipmentBtn">
                                     <i class="bi bi-plus-circle me-1"></i>Parcourir
                                 </a>
@@ -150,25 +174,6 @@
                     <div class="card-body p-4">
                         <div class="row g-4" id="recentFavoritesContainer">
                             <!-- Recent favorites will be loaded here -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Categories Section -->
-            <div class="favorites-section" id="categories-favorites" style="display: none;">
-                <div class="card border-0 shadow-lg mb-4 favorites-card">
-                    <div class="card-header bg-gradient-light border-0 py-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="fw-bold mb-0 d-flex align-items-center">
-                                <i class="bi bi-grid me-3 text-success" style="font-size: 1.3rem;"></i>Par catégorie
-                            </h5>
-                            <span class="badge bg-success">Organisé</span>
-                        </div>
-                    </div>
-                    <div class="card-body p-4">
-                        <div id="categoriesFavoritesContainer">
-                            <!-- Categories will be loaded here -->
                         </div>
                     </div>
                 </div>
@@ -226,16 +231,30 @@ document.addEventListener('DOMContentLoaded', function() {
             // Load appropriate content
             if (sectionId === 'recent-favorites') {
                 loadRecentFavorites();
-            } else if (sectionId === 'categories-favorites') {
-                loadCategoriesFavorites();
             }
         });
     });
 });
 
-function loadFavorites() {
+function loadFavorites(category = 'all') {
     // Simulate loading favorites
-    const favorites = MockDataUtils.getPopularEquipment(6);
+    let favorites = MockDataUtils.getPopularEquipment(6);
+    
+    // Filter by category if specified
+    if (category !== 'all') {
+        // For demo purposes, we'll just show a subset based on category
+        // In real implementation, this would filter based on equipment category
+        favorites = favorites.filter((item, index) => {
+            if (category === 'Photographie') return index % 6 === 0;
+            if (category === 'Vidéo') return index % 6 === 1;
+            if (category === 'Audio') return index % 6 === 2;
+            if (category === 'Gaming') return index % 6 === 3;
+            if (category === 'Informatique') return index % 6 === 4;
+            if (category === 'Éclairage') return index % 6 === 5;
+            return true;
+        });
+    }
+    
     const container = document.getElementById('favoritesContainer');
     const emptyState = document.getElementById('emptyState');
     
@@ -246,8 +265,7 @@ function loadFavorites() {
     document.getElementById('favCount').textContent = `${favorites.length} équipement${favorites.length > 1 ? 's' : ''}`;
     
     if (favorites.length === 0) {
-        container.style.display = 'none';
-        emptyState.style.display = 'block';
+        container.innerHTML = '<div class="col-12 text-center py-5"><p class="text-muted">Aucun équipement trouvé dans cette catégorie.</p></div>';
         return;
     }
     
@@ -336,74 +354,28 @@ function loadRecentFavorites() {
     `).join('');
 }
 
-function loadCategoriesFavorites() {
-    const container = document.getElementById('categoriesFavoritesContainer');
-    const categories = ['Électronique', 'Mobilier', 'Outils'];
+// Track current filter
+let currentFilter = 'all';
+
+function filterByCategory(category) {
+    currentFilter = category;
     
-    let html = '';
-    categories.forEach(category => {
-        const equipmentList = MockDataUtils.getPopularEquipment(2);
-        
-        html += '<div class="category-section mb-5">';
-        html += '    <div class="category-header">';
-        html += '        <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom">';
-        html += '            <h5 class="fw-bold mb-0">';
-        html += '                <i class="bi bi-tag-fill me-2 text-primary"></i>' + category;
-        html += '            </h5>';
-        html += '            <span class="badge bg-primary rounded-pill px-3 py-2">2 équipements</span>';
-        html += '        </div>';
-        html += '    </div>';
-        html += '    <div class="row g-3">';
-        
-        equipmentList.forEach(equipment => {
-            html += '        <div class="col-12">';
-            html += '            <div class="card category-equipment-card border-0 shadow-sm h-100">';
-            html += '                <div class="row g-0 h-100">';
-            html += '                    <div class="col-md-3">';
-            html += '                        <div class="category-image-wrapper">';
-            html += '                            <img src="' + equipment.images[0] + '" class="category-equipment-image" ';
-            html += '                                 alt="' + equipment.nom + '"';
-            html += '                                 onerror="this.src=\'' + contextPath + '/assets/images/placeholder-equipment.jpg\'">';
-            html += '                        </div>';
-            html += '                    </div>';
-            html += '                    <div class="col-md-9">';
-            html += '                        <div class="card-body p-4">';
-            html += '                            <div class="d-flex justify-content-between align-items-start mb-2">';
-            html += '                                <h6 class="card-title fw-bold mb-0">' + equipment.nom + '</h6>';
-            html += '                                <span class="badge bg-success">Disponible</span>';
-            html += '                            </div>';
-            html += '                            <p class="text-muted small mb-3">' + equipment.description.substring(0, 100) + '...</p>';
-            html += '                            <div class="d-flex justify-content-between align-items-center">';
-            html += '                                <div>';
-            html += '                                    <small class="text-muted d-block">Prix par jour</small>';
-            html += '                                    <h5 class="text-primary fw-bold mb-0">' + YOURS.formatCurrency(equipment.prix) + '</h5>';
-            html += '                                </div>';
-            html += '                                <div class="d-flex gap-2">';
-            html += '                                    <a href="' + contextPath + '/pages/equipment/detail.jsp?id=' + equipment.idMateriel + '" ';
-            html += '                                       class="btn btn-sm btn-outline-primary">';
-            html += '                                        <i class="bi bi-eye me-1"></i>Voir';
-            html += '                                    </a>';
-            html += '                                    <a href="' + contextPath + '/pages/booking/form.jsp?id=' + equipment.idMateriel + '" ';
-            html += '                                       class="btn btn-sm btn-primary">';
-            html += '                                        <i class="bi bi-calendar-check me-1"></i>Réserver';
-            html += '                                    </a>';
-            html += '                                    <button class="btn btn-sm btn-danger" onclick="removeFavorite(' + equipment.idMateriel + ')">';
-            html += '                                        <i class="bi bi-heart-fill"></i>';
-            html += '                                    </button>';
-            html += '                                </div>';
-            html += '                            </div>';
-            html += '                        </div>';
-            html += '                    </div>';
-            html += '                </div>';
-            html += '            </div>';
-            html += '        </div>';
-        });
-        
-        html += '    </div>';
-        html += '</div>';
+    // Update filter label
+    const filterLabel = document.getElementById('filterLabel');
+    if (category === 'all') {
+        filterLabel.textContent = 'Toutes catégories';
+    } else {
+        filterLabel.textContent = category;
+    }
+    
+    // Update active state in dropdown
+    document.querySelectorAll('.category-dropdown .dropdown-item').forEach(item => {
+        item.classList.remove('active');
     });
+    event.target.closest('.dropdown-item').classList.add('active');
     
-    container.innerHTML = html;
+    // Reload favorites with filter
+    loadFavorites(category);
 }
 
 function removeFavorite(id) {
@@ -499,8 +471,6 @@ function confirmRemoveFavorite(equipmentId) {
             
             if (sectionId === 'recent-favorites') {
                 loadRecentFavorites();
-            } else if (sectionId === 'categories-favorites') {
-                loadCategoriesFavorites();
             }
             
             // Update stats
@@ -1421,6 +1391,94 @@ body {
 
 #browseEquipmentBtn:hover i {
     transform: scale(1.1);
+}
+
+/* Category Filter Button Styling */
+#categoryFilterBtn {
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    border: 2px solid #6b7280;
+    color: #6b7280;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+#categoryFilterBtn:hover {
+    background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+    border-color: #374151;
+    color: #374151;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#categoryFilterBtn:active {
+    transform: translateY(0);
+}
+
+/* Dropdown Menu Styling */
+.category-dropdown {
+    border-radius: 1rem !important;
+    border: 1px solid #e5e7eb !important;
+    padding: 0.75rem !important;
+    min-width: 240px !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12) !important;
+    margin-top: 0.5rem !important;
+    background: #ffffff !important;
+}
+
+.category-dropdown .dropdown-item {
+    padding: 0.875rem 1rem !important;
+    border-radius: 0.625rem !important;
+    transition: all 0.25s ease !important;
+    font-size: 0.9375rem !important;
+    color: #374151 !important;
+    margin-bottom: 0.375rem !important;
+    display: flex !important;
+    align-items: center !important;
+    font-weight: 500 !important;
+}
+
+.category-dropdown .dropdown-item:last-child {
+    margin-bottom: 0 !important;
+}
+
+.category-dropdown .dropdown-item span {
+    color: inherit !important;
+}
+
+.category-dropdown .dropdown-item i {
+    font-size: 1.125rem !important;
+    flex-shrink: 0 !important;
+}
+
+.category-dropdown .dropdown-item:hover {
+    background: linear-gradient(135deg, #f3f4f6, #e5e7eb) !important;
+    color: #1f2937 !important;
+    transform: translateX(4px) !important;
+}
+
+.category-dropdown .dropdown-item.active {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe) !important;
+    color: #1e40af !important;
+    font-weight: 600 !important;
+    border-left: 3px solid #3b82f6 !important;
+    padding-left: calc(1rem - 3px) !important;
+}
+
+.category-dropdown .dropdown-item.active:hover {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe) !important;
+    color: #1e40af !important;
+    transform: translateX(2px) !important;
+}
+
+.category-dropdown .dropdown-item.active i {
+    color: #3b82f6 !important;
+}
+
+.category-dropdown .dropdown-divider {
+    margin: 0.75rem 0 !important;
+    border-color: #e5e7eb !important;
+    opacity: 1 !important;
 }
 </style>
 
