@@ -500,6 +500,35 @@ document.addEventListener('DOMContentLoaded', function() {
     
     setupFormListeners();
     updateNavbarLinks();
+    
+    // Check for auto-booking parameter
+    const autobook = urlParams.get('autobook');
+    if (autobook === 'true') {
+        // Wait for the equipment to load, then scroll to reservation and focus date
+        setTimeout(() => {
+            const reservationSection = document.getElementById('quickBookingForm');
+            const startDateInput = document.getElementById('startDate');
+            
+            if (reservationSection && startDateInput) {
+                // Smooth scroll to reservation section
+                reservationSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Focus and click on start date input after scroll
+                setTimeout(() => {
+                    startDateInput.focus();
+                    startDateInput.click();
+                    
+                    // Add a visual highlight effect
+                    startDateInput.style.borderColor = '#3b82f6';
+                    startDateInput.style.boxShadow = '0 0 0 4px rgba(59, 130, 246, 0.1)';
+                    setTimeout(() => {
+                        startDateInput.style.borderColor = '';
+                        startDateInput.style.boxShadow = '';
+                    }, 2000);
+                }, 800);
+            }
+        }, 1500); // Wait for equipment to load
+    }
 });
 
 function updateNavbarLinks() {

@@ -302,7 +302,7 @@ function loadFavorites(category = 'all') {
                            class="btn btn-sm btn-primary">
                             <i class="bi bi-eye me-1"></i>Détails
                         </a>
-                        <a href="${contextPath}/pages/booking/form.jsp?id=\${equipment.idMateriel}" 
+                        <a href="${contextPath}/pages/equipment/detail.jsp?id=\${equipment.idMateriel}&autobook=true#reservation" 
                            class="btn btn-sm btn-outline-primary">
                             <i class="bi bi-calendar-check me-1"></i>Réserver
                         </a>
@@ -346,6 +346,10 @@ function loadRecentFavorites() {
                         <a href="${contextPath}/pages/equipment/detail.jsp?id=\${equipment.idMateriel}" 
                            class="btn btn-sm btn-primary">
                             <i class="bi bi-eye me-1"></i>Détails
+                        </a>
+                        <a href="${contextPath}/pages/equipment/detail.jsp?id=\${equipment.idMateriel}&autobook=true#reservation" 
+                           class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-calendar-check me-1"></i>Réserver
                         </a>
                     </div>
                 </div>
