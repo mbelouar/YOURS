@@ -1310,6 +1310,8 @@
     padding: 0.5rem !important;
     margin-top: 0.5rem !important;
     box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.15) !important;
+    z-index: 1050 !important;
+    position: absolute !important;
 }
 
 .client-dropdown .dropdown-header {
@@ -1333,6 +1335,16 @@
 .client-dropdown .dropdown-item i {
     width: 20px;
     text-align: center;
+}
+
+/* Ensure dropdown is visible when shown */
+.client-dropdown.show {
+    display: block !important;
+}
+
+/* Debug: Make sure dropdown container is positioned correctly */
+.nav-item.dropdown {
+    position: relative;
 }
 
 /* Dashboard Stats Icon */

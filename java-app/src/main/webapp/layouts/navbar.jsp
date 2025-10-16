@@ -38,7 +38,48 @@ function checkClientSession() {
 }
 
 // Run on page load
-document.addEventListener('DOMContentLoaded', checkClientSession);
+document.addEventListener('DOMContentLoaded', function() {
+    checkClientSession();
+    
+    // Initialize Bootstrap dropdowns
+    try {
+        const dropdownElementList = [].slice.call(document.querySelectorAll('[data-bs-toggle="dropdown"]'));
+        dropdownElementList.map(function (dropdownToggleEl) {
+            return new bootstrap.Dropdown(dropdownToggleEl);
+        });
+    } catch (error) {
+        console.error('Error initializing dropdowns:', error);
+    }
+    
+    // Add fallback dropdown functionality
+    const profileDropdown = document.getElementById('clientProfileDropdown');
+    const dropdownMenu = document.getElementById('clientDropdownMenu');
+    
+    if (profileDropdown && dropdownMenu) {
+        profileDropdown.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Profile dropdown clicked');
+            
+            // Toggle dropdown visibility
+            if (dropdownMenu.style.display === 'block') {
+                dropdownMenu.style.display = 'none';
+            } else {
+                dropdownMenu.style.display = 'block';
+                dropdownMenu.style.position = 'absolute';
+                dropdownMenu.style.top = '100%';
+                dropdownMenu.style.right = '0';
+                dropdownMenu.style.zIndex = '1000';
+            }
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!profileDropdown.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.style.display = 'none';
+            }
+        });
+    }
+});
 </script>
 
 <!-- Client Dashboard Navigation -->
@@ -131,7 +172,7 @@ document.addEventListener('DOMContentLoaded', checkClientSession);
 
                     <!-- Profile Dropdown -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link nav-link-client d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link nav-link-client d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" id="clientProfileDropdown">
                             <div class="user-avatar me-2">
                                 <i class="bi bi-person-circle"></i>
                             </div>
@@ -141,7 +182,7 @@ document.addEventListener('DOMContentLoaded', checkClientSession);
                             </div>
                             <i class="bi bi-chevron-down ms-2"></i>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end client-dropdown shadow-lg border-0">
+                        <ul class="dropdown-menu dropdown-menu-end client-dropdown shadow-lg border-0" id="clientDropdownMenu">
                             <li class="dropdown-header">
                                 <div class="d-flex align-items-center">
                                     <div class="user-avatar-large me-3">
