@@ -51,19 +51,24 @@
             <!-- Action Bar -->
             <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-5">
                 <!-- Stats Summary -->
-                <div class="d-flex align-items-center" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 1rem 1.5rem; border-radius: 1rem; box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08); border: 1px solid rgba(226, 232, 240, 0.8);">
-                    <i class="fas fa-chart-pie me-3" style="color: var(--primary-600); font-size: 1.5rem;"></i>
+                <div class="d-flex align-items-center bg-white px-4 py-2 rounded-3 shadow-sm border-0" style="border-left: 4px solid var(--primary-600) !important;">
+                    <div class="me-3">
+                        <div class="bg-primary rounded-2 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                            <i class="fas fa-calendar-check text-white" style="font-size: 1.125rem;"></i>
+                        </div>
+                    </div>
                     <div>
-                        <div class="fw-bold" style="color: var(--gray-900); font-size: 1.125rem;">5 réservations</div>
-                        <small style="color: var(--gray-600); font-size: 0.875rem;">Total actuel</small>
+                        <div class="h4 mb-0 text-dark fw-bold">5</div>
+                        <small class="text-muted fw-medium">Réservations totales</small>
                     </div>
                 </div>
                 
                 <!-- New Reservation Button -->
                 <a href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp" 
-                   class="btn" 
-                   style="background: linear-gradient(135deg, var(--primary-600), var(--primary-700)); color: white; border: none; border-radius: 1rem; padding: 1rem 2rem; box-shadow: 0 4px 20px -2px rgba(37, 99, 235, 0.4); transition: all 0.3s ease; font-weight: 600;">
-                    <i class="fas fa-plus me-2"></i>Nouvelle Réservation
+                   class="btn btn-primary btn-lg d-flex align-items-center gap-2 px-4 py-3 rounded-4 shadow-sm border-0 fw-semibold" 
+                   style="min-height: 64px; background: var(--primary-600) !important; border: none !important; transition: all 0.2s ease;">
+                    <i class="fas fa-plus" style="font-size: 0.875rem;"></i>
+                    Nouvelle Réservation
                 </a>
             </div>
 
@@ -515,8 +520,40 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Add hover effects to buttons
-    const actionButtons = document.querySelectorAll('.btn-group .btn');
+    // Add subtle hover effects to action bar elements
+    const statsCard = document.querySelector('.bg-white.px-4.py-3.rounded-3');
+    const newReservationBtn = document.querySelector('a[href*="list-simple.jsp"]');
+    
+    // Stats card hover effect
+    if (statsCard) {
+        statsCard.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-1px)';
+            this.style.boxShadow = '0 0.5rem 1rem rgba(0, 0, 0, 0.15)';
+        });
+        
+        statsCard.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 0.125rem 0.25rem rgba(0, 0, 0, 0.075)';
+        });
+    }
+    
+    // New reservation button hover effect
+    if (newReservationBtn) {
+        newReservationBtn.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-1px)';
+            this.style.boxShadow = '0 0.5rem 1rem rgba(37, 99, 235, 0.4)';
+            this.style.background = 'var(--primary-700) !important';
+        });
+        
+        newReservationBtn.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 0.125rem 0.25rem rgba(0, 0, 0, 0.075)';
+            this.style.background = 'var(--primary-600) !important';
+        });
+    }
+    
+    // Add hover effects to reservation card buttons
+    const actionButtons = document.querySelectorAll('.d-flex.gap-2 .btn');
     
     actionButtons.forEach(button => {
         button.addEventListener('mouseenter', function() {
