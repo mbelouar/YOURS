@@ -1562,6 +1562,161 @@
     border: 2px solid white;
 }
 
+/* ===== SETTINGS PAGE STYLES ===== */
+.settings-nav {
+    position: sticky;
+    top: 100px;
+    border-radius: 1rem !important;
+    overflow: hidden;
+}
+
+.settings-nav .card-header {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+}
+
+.settings-nav-item {
+    border: none !important;
+    padding: 1rem 1.5rem !important;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+.settings-nav-item:hover {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe) !important;
+    color: #1e40af !important;
+    transform: translateX(4px);
+}
+
+.settings-nav-item.active {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+    color: white !important;
+    font-weight: 600;
+}
+
+.settings-nav-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: white;
+}
+
+.settings-section {
+    border-radius: 1rem !important;
+    transition: all 0.3s ease;
+}
+
+.settings-section:hover {
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.15) !important;
+}
+
+.settings-section .card-header {
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.9)) !important;
+}
+
+/* Status indicators */
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Enhanced form controls */
+.settings-section .form-select,
+.settings-section .form-control {
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.settings-section .form-select:focus,
+.settings-section .form-control:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Enhanced switches */
+.settings-section .form-check-input {
+    width: 3rem;
+    height: 1.5rem;
+    border-radius: 1rem;
+    border: 2px solid #d1d5db;
+    background-color: #f3f4f6;
+    transition: all 0.3s ease;
+}
+
+.settings-section .form-check-input:checked {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+}
+
+/* Table styling */
+.settings-section .table {
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.settings-section .table thead th {
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    border: none;
+    font-weight: 600;
+    color: #374151;
+}
+
+.settings-section .table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.settings-section .table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Button enhancements */
+.settings-section .btn {
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.settings-section .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.15);
+}
+
+/* Breadcrumb styling */
+.breadcrumb-custom {
+    background: transparent;
+    padding: 0;
+}
+
+.breadcrumb-custom .breadcrumb-item {
+    font-size: 0.875rem;
+}
+
+.breadcrumb-custom .breadcrumb-item a {
+    color: #6b7280;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb-custom .breadcrumb-item a:hover {
+    color: #3b82f6;
+}
+
+.breadcrumb-custom .breadcrumb-item.active {
+    color: #374151;
+    font-weight: 500;
+}
+
 /* Dashboard Stats Icon */
 .stats-icon {
     font-size: 2.5rem;
