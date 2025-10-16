@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function showBasicDashboard() {
     const userName = document.getElementById('userName');
     if (userName) {
-        userName.textContent = 'Client';
+        userName.textContent = 'Demo Client';
     }
     
     // Set basic stats
@@ -276,7 +276,17 @@ function checkAuthentication() {
     // Update user name
     const userName = document.getElementById('userName');
     if (userName) {
-        userName.textContent = user.prenom || 'Client';
+        // Show full name for demo client, otherwise just first name
+        if (user.email === 'client@demo.com') {
+            userName.textContent = `${user.prenom} ${user.nom}`;
+        } else {
+            userName.textContent = user.prenom || 'Client';
+        }
+    }
+    
+    // Ensure navbar is also updated
+    if (typeof checkClientSession === 'function') {
+        checkClientSession();
     }
 }
 

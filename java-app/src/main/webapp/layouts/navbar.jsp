@@ -139,17 +139,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 <!-- Left Navigation -->
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link nav-link-client" href="${pageContext.request.contextPath}/pages/client/dashboard.jsp">
+                        <a class="nav-link nav-link-client d-flex align-items-center" href="${pageContext.request.contextPath}/pages/client/dashboard.jsp">
                             <i class="bi bi-speedometer2 me-2"></i>Tableau de bord
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-client" href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp">
+                        <a class="nav-link nav-link-client d-flex align-items-center" href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp">
                             <i class="bi bi-grid me-2"></i>Matériel
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-client" href="${pageContext.request.contextPath}/pages/client/reservations.jsp">
+                        <a class="nav-link nav-link-client d-flex align-items-center" href="${pageContext.request.contextPath}/pages/client/reservations.jsp">
                             <i class="bi bi-calendar-check me-2"></i>Réservations
                         </a>
                     </li>
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <ul class="navbar-nav ms-auto align-items-center">
                     <!-- Notifications -->
                     <li class="nav-item dropdown me-2">
-                        <a class="nav-link nav-link-client position-relative" href="#" role="button" data-bs-toggle="dropdown" id="notificationDropdown">
+                        <a class="nav-link nav-link-client d-flex align-items-center position-relative" href="#" role="button" data-bs-toggle="dropdown" id="notificationDropdown">
                             <i class="bi bi-bell" style="font-size: 1.25rem;"></i>
                             <span class="notification-badge">3</span>
                         </a>

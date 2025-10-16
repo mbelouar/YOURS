@@ -11,12 +11,6 @@
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb" style="background: transparent; padding: 0; margin: 0;">
             <li class="breadcrumb-item">
-                <a href="../../index.jsp" class="d-inline-flex align-items-center" style="color: #6b7280; text-decoration: none; font-weight: 500; transition: all 0.2s ease; font-size: 0.875rem; padding: 0.375rem 0.625rem; border-radius: 0.5rem;">
-                    <i class="fas fa-home me-2" style="font-size: 0.75rem; color: #1e40af;"></i>
-                    Accueil
-                </a>
-            </li>
-            <li class="breadcrumb-item">
                 <a href="list-simple.jsp" class="d-inline-flex align-items-center" style="color: #6b7280; text-decoration: none; font-weight: 500; transition: all 0.2s ease; font-size: 0.875rem; padding: 0.375rem 0.625rem; border-radius: 0.5rem;">
                     <i class="fas fa-box me-2" style="font-size: 0.75rem; color: #1e40af;"></i>
                     Mat&eacute;riel
