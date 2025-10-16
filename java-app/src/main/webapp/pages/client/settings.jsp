@@ -139,39 +139,54 @@
                         </div>
                         <div class="col-12">
                             <div class="notification-item">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="emailNotif" checked>
-                                    <label class="form-check-label fw-semibold" for="emailNotif">
-                                        <i class="bi bi-envelope me-2 text-primary"></i>Notifications par email
-                                    </label>
-                                    <div class="notification-description">
-                                        <small class="text-muted">Recevoir les mises à jour par email</small>
+                                <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="notification-icon me-3">
+                                            <i class="bi bi-envelope text-primary" style="font-size: 1.5rem;"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-1 fw-semibold">Notifications par email</h6>
+                                            <small class="text-muted">Recevoir les mises à jour par email</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="emailNotif" checked>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="notification-item">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="smsNotif">
-                                    <label class="form-check-label fw-semibold" for="smsNotif">
-                                        <i class="bi bi-phone me-2 text-success"></i>Notifications SMS
-                                    </label>
-                                    <div class="notification-description">
-                                        <small class="text-muted">Recevoir les alertes par SMS</small>
+                                <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="notification-icon me-3">
+                                            <i class="bi bi-phone text-success" style="font-size: 1.5rem;"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-1 fw-semibold">Notifications SMS</h6>
+                                            <small class="text-muted">Recevoir les alertes par SMS</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="smsNotif">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="notification-item">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="reservationNotif" checked>
-                                    <label class="form-check-label fw-semibold" for="reservationNotif">
-                                        <i class="bi bi-calendar-check me-2 text-warning"></i>Rappels de réservation
-                                    </label>
-                                    <div class="notification-description">
-                                        <small class="text-muted">Rappels avant le début et la fin des réservations</small>
+                                <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="notification-icon me-3">
+                                            <i class="bi bi-calendar-check text-warning" style="font-size: 1.5rem;"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-1 fw-semibold">Rappels de réservation</h6>
+                                            <small class="text-muted">Rappels avant le début et la fin des réservations</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="reservationNotif" checked>
                                     </div>
                                 </div>
                             </div>
@@ -623,23 +638,109 @@ function showToast(message, type = 'info', duration = 3000) {
     outline: none;
 }
 
-/* Enhanced Switches */
+/* Enhanced Modern Switch Toggles */
 .form-check-input {
-    width: 3.5rem;
-    height: 1.75rem;
-    border-radius: 1rem;
-    border: 2px solid #d1d5db;
-    background-color: #f3f4f6;
-    transition: all 0.3s ease;
+    width: 2.75rem !important;
+    height: 1.625rem !important;
+    border-radius: 0.875rem !important;
+    border: 2px solid #e5e7eb !important;
+    background: linear-gradient(135deg, #f3f4f6, #e5e7eb) !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    position: relative !important;
+    cursor: pointer !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.form-check-input::before {
+    content: '';
+    position: absolute;
+    top: 1.5px;
+    left: 1.5px;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .form-check-input:checked {
-    background-color: #2563eb;
-    border-color: #2563eb;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+    border-color: #2563eb !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+}
+
+.form-check-input:checked::before {
+    transform: translateX(1.25rem);
+    background: linear-gradient(135deg, #ffffff, #f0f9ff);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-check-input:hover {
+    border-color: #3b82f6 !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+    transform: scale(1.02) !important;
+}
+
+.form-check-input:checked:hover {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af) !important;
+    border-color: #1d4ed8 !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(29, 78, 216, 0.15) !important;
 }
 
 .form-check-input:focus {
-    box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.1);
+    outline: none !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 4px rgba(37, 99, 235, 0.2) !important;
+}
+
+.form-check-input:active {
+    transform: scale(0.98) !important;
+}
+
+/* Enhanced switch labels */
+.form-check-label {
+    font-weight: 600 !important;
+    color: #374151 !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+}
+
+.form-check-input:checked + .form-check-label {
+    color: #1e40af !important;
+}
+
+/* Specific targeting for all switches */
+.notification-item .form-check-input,
+.security-item .form-check-input {
+    width: 2.75rem !important;
+    height: 1.625rem !important;
+    border-radius: 0.875rem !important;
+    border: 2px solid #e5e7eb !important;
+    background: linear-gradient(135deg, #f3f4f6, #e5e7eb) !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    position: relative !important;
+}
+
+.notification-item .form-check-input:checked,
+.security-item .form-check-input:checked {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+    border-color: #2563eb !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+}
+
+.notification-item .form-check-input:hover,
+.security-item .form-check-input:hover {
+    border-color: #3b82f6 !important;
+    transform: scale(1.02) !important;
+}
+
+.notification-item .form-check-input:focus,
+.security-item .form-check-input:focus {
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 4px rgba(37, 99, 235, 0.2) !important;
 }
 
 /* Notification Items - Simplified */
@@ -788,6 +889,17 @@ function showToast(message, type = 'info', duration = 3000) {
 }
 
 .security-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(37, 99, 235, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Notification Icons - Matching Security Style */
+.notification-icon {
     width: 50px;
     height: 50px;
     border-radius: 50%;
