@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    // Check if user is logged in and on a client page
+    // Check if user is logged in and on a client page or equipment page
     boolean isClientPage = request.getRequestURI().contains("/client/");
+    boolean isEquipmentPage = request.getRequestURI().contains("/equipment/");
     boolean isLoggedIn = session.getAttribute("user") != null;
-    boolean showClientNav = isClientPage && isLoggedIn;
+    boolean showClientNav = (isClientPage || isEquipmentPage) && isLoggedIn;
 %>
 
 <script>
@@ -11,25 +12,32 @@
 function checkClientSession() {
     try {
         const user = localStorage.getItem('yours_user') || sessionStorage.getItem('yours_user');
-        if (user && window.location.pathname.includes('/client/')) {
+        if (user) {
             // Parse user data
             const userData = JSON.parse(user);
             
-            // Force show client navigation
-            const clientNav = document.querySelector('.navbar-client-dashboard');
-            const publicNav = document.querySelector('.navbar-modern');
-            if (clientNav && publicNav) {
-                publicNav.style.display = 'none';
-                clientNav.style.display = 'block';
-                
-                // Update user info in navbar
-                const userName = document.getElementById('clientUserName');
-                const userFullName = document.getElementById('clientUserFullName');
-                const userEmail = document.getElementById('clientUserEmail');
-                
-                if (userName) userName.textContent = userData.prenom || 'Client';
-                if (userFullName) userFullName.textContent = `${userData.prenom || ''} ${userData.nom || ''}`.trim() || 'Client';
-                if (userEmail) userEmail.textContent = userData.email || 'client@email.com';
+            // Check if user is a client and on relevant pages (client pages or equipment pages)
+            const isClientUser = userData.type === 'client';
+            const isClientPage = window.location.pathname.includes('/client/');
+            const isEquipmentPage = window.location.pathname.includes('/equipment/');
+            
+            if (isClientUser && (isClientPage || isEquipmentPage)) {
+                // Force show client navigation
+                const clientNav = document.querySelector('.navbar-client-dashboard');
+                const publicNav = document.querySelector('.navbar-modern');
+                if (clientNav && publicNav) {
+                    publicNav.style.display = 'none';
+                    clientNav.style.display = 'block';
+                    
+                    // Update user info in navbar
+                    const userName = document.getElementById('clientUserName');
+                    const userFullName = document.getElementById('clientUserFullName');
+                    const userEmail = document.getElementById('clientUserEmail');
+                    
+                    if (userName) userName.textContent = userData.prenom || 'Client';
+                    if (userFullName) userFullName.textContent = `${userData.prenom || ''} ${userData.nom || ''}`.trim() || 'Client';
+                    if (userEmail) userEmail.textContent = userData.email || 'client@email.com';
+                }
             }
         }
     } catch (error) {
@@ -112,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!-- Client Dashboard Navigation -->
-<nav class="navbar navbar-expand-lg navbar-client-dashboard fixed-top" style="display: none;">
+<nav class="navbar navbar-expand-lg navbar-client-dashboard fixed-top" style="display: <%= showClientNav ? "block" : "none" %>;">
         <div class="container-fluid px-4">
             <!-- Brand -->
             <a class="navbar-brand fw-bold d-flex align-items-center" href="${pageContext.request.contextPath}/pages/client/dashboard.jsp">
@@ -136,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-client" href="${pageContext.request.contextPath}/pages/equipment/list.jsp">
+                        <a class="nav-link nav-link-client" href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp">
                             <i class="bi bi-grid me-2"></i>Matériel
                         </a>
                     </li>
@@ -263,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </nav>
 
 <!-- Public Navigation -->
-<nav class="navbar navbar-expand-lg navbar-modern fixed-top">
+<nav class="navbar navbar-expand-lg navbar-modern fixed-top" style="display: <%= showClientNav ? "none" : "block" %>;">
     <div class="container">
         <!-- Brand -->
         <a class="navbar-brand fw-bold d-flex align-items-center" href="${pageContext.request.contextPath}/">

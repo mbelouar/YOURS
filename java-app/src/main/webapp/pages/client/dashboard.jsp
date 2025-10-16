@@ -24,7 +24,7 @@
                     Bienvenue sur votre espace personnel. Gérez vos réservations et découvrez du nouveau matériel.
                 </p>
                 <div class="d-flex gap-2 flex-wrap">
-                    <a href="${pageContext.request.contextPath}/pages/equipment/list.jsp" class="btn btn-light btn-lg">
+                    <a href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp" class="btn btn-light btn-lg">
                         <i class="bi bi-plus-circle me-2"></i>Nouvelle réservation
                     </a>
                     <a href="${pageContext.request.contextPath}/pages/client/profile.jsp" class="btn btn-outline-light btn-lg">
@@ -158,7 +158,7 @@
                 </div>
                 <div class="card-body p-3">
                     <div class="d-grid gap-2">
-                        <a href="${pageContext.request.contextPath}/pages/equipment/list.jsp" class="btn btn-primary">
+                        <a href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp" class="btn btn-primary">
                             <i class="bi bi-search me-2"></i>Parcourir le matériel
                         </a>
                         <a href="${pageContext.request.contextPath}/pages/client/reservations.jsp" class="btn btn-outline-primary">
@@ -361,7 +361,7 @@ function loadCurrentReservations() {
                 <i class="bi bi-calendar-x text-muted" style="font-size: 4rem; opacity: 0.3;"></i>
                 <h6 class="text-muted mt-3 mb-2">Aucune réservation active</h6>
                 <p class="text-muted mb-4">Découvrez notre matériel et faites votre première réservation</p>
-                <a href="${pageContext.request.contextPath}/pages/equipment/list.jsp" class="btn btn-primary">
+                <a href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp" class="btn btn-primary">
                     <i class="bi bi-search me-2"></i>Parcourir le matériel
                 </a>
             </div>
