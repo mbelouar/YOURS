@@ -187,7 +187,7 @@
                                             <small class="text-muted">Dernière modification il y a 3 mois</small>
                                         </div>
                                     </div>
-                                    <a href="${pageContext.request.contextPath}/pages/client/profile.jsp" class="btn btn-primary">
+                                    <a href="${pageContext.request.contextPath}/pages/client/profile.jsp" class="btn btn-primary security-btn">
                                         <i class="bi bi-key me-2"></i>Modifier
                                     </a>
                                 </div>
@@ -483,7 +483,7 @@ function showToast(message, type = 'info', duration = 3000) {
     box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.1);
 }
 
-/* Notification Items */
+/* Notification Items - Simplified */
 .notification-item {
     padding: 1.5rem;
     background: #ffffff;
@@ -491,38 +491,141 @@ function showToast(message, type = 'info', duration = 3000) {
     border-radius: 0.75rem;
     margin-bottom: 1rem;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .notification-item:hover {
-    border-color: #2563eb;
-    box-shadow: 0 8px 25px -5px rgba(37, 99, 235, 0.1);
-    transform: translateY(-2px);
-    background-color: #f8fafc;
+    border-color: #3b82f6;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+    transform: translateY(-1px);
+    background-color: #ffffff;
+}
+
+.notification-item .form-check-label {
+    color: #374151;
+    font-weight: 600;
 }
 
 .notification-description {
     margin-top: 0.5rem;
 }
 
-/* Security Items */
+.notification-description small {
+    color: #6b7280;
+    font-weight: 500;
+}
+
+/* Remove any background images or overlays */
+.notification-item,
+.notification-item *,
+.notification-item:hover,
+.notification-item:hover * {
+    background-image: none !important;
+    background-color: #ffffff !important;
+}
+
+.notification-item .form-check,
+.notification-item .form-check-input,
+.notification-item .form-check-label,
+.notification-item .notification-description {
+    background: transparent !important;
+    background-image: none !important;
+}
+
+/* Security Items - Matching Notification Style */
 .security-item {
     transition: all 0.3s ease;
 }
 
-.security-item:hover {
-    transform: translateY(-2px);
-}
-
 .security-item .bg-light {
-    background-color: #f8fafc !important;
+    background-color: #ffffff !important;
     border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .security-item:hover .bg-light {
-    border-color: #2563eb;
-    background-color: #f0f9ff !important;
-    box-shadow: 0 8px 25px -5px rgba(37, 99, 235, 0.1);
+    border-color: #3b82f6;
+    background-color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Remove any background images or overlays from security items */
+.security-item,
+.security-item *,
+.security-item:hover,
+.security-item:hover * {
+    background-image: none !important;
+}
+
+.security-item .bg-light,
+.security-item .bg-light * {
+    background-image: none !important;
+}
+
+/* Security Button Styling */
+.security-btn {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+    border: 2px solid #2563eb !important;
+    border-color: #2563eb !important;
+    color: white !important;
+    font-weight: 500 !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 0.5rem !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+    display: inline-block !important;
+    background-image: none !important;
+    background-color: #2563eb !important;
+}
+
+.security-btn:hover {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af) !important;
+    border-color: #1d4ed8 !important;
+    color: white !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px -5px rgba(37, 99, 235, 0.3) !important;
+    text-decoration: none !important;
+}
+
+.security-btn:focus {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af) !important;
+    border-color: #1d4ed8 !important;
+    color: white !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
+    text-decoration: none !important;
+}
+
+.security-btn i {
+    color: white !important;
+}
+
+/* Force button styling to override any conflicting CSS */
+.security-item .security-btn,
+.security-item a.security-btn,
+.security-item .btn.security-btn {
+    background: #2563eb !important;
+    background-color: #2563eb !important;
+    background-image: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+    border: 2px solid #2563eb !important;
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.security-item .security-btn:link,
+.security-item .security-btn:visited {
+    background: #2563eb !important;
+    background-color: #2563eb !important;
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.security-item .security-btn:active {
+    background: #1d4ed8 !important;
+    background-color: #1d4ed8 !important;
+    color: white !important;
 }
 
 .security-icon {
