@@ -1,7 +1,18 @@
 <%@ include file="../../layouts/header.jsp" %>
 <%@ include file="../../layouts/navbar.jsp" %>
 
-<div class="container py-5">
+<div class="container py-4" style="margin-top: 80px;">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb breadcrumb-custom">
+            <li class="breadcrumb-item">
+                <a href="${pageContext.request.contextPath}/pages/client/dashboard.jsp">
+                    <i class="bi bi-house me-1"></i>Tableau de bord
+                </a>
+            </li>
+            <li class="breadcrumb-item active">Mon Profil</li>
+        </ol>
+    </nav>
     <div class="row">
         <div class="col-lg-8 mx-auto">
             <div class="card border-0 shadow-sm">

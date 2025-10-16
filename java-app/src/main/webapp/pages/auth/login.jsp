@@ -500,27 +500,56 @@ function handleLogin() {
         }
         
         if (user) {
-            // Store user session
+            // Store user session on client-side
             if (rememberMe) {
                 localStorage.setItem('yours_user', JSON.stringify(user));
             } else {
                 sessionStorage.setItem('yours_user', JSON.stringify(user));
             }
             
-            // Redirect immediately without showing success message
-            switch (userType) {
-                case 'client':
-                    window.location.href = '${pageContext.request.contextPath}/pages/client/dashboard.jsp';
-                    break;
-                case 'partner':
-                    window.location.href = '${pageContext.request.contextPath}/pages/partner/dashboard.jsp';
-                    break;
-                case 'admin':
-                    window.location.href = '${pageContext.request.contextPath}/pages/admin/dashboard.jsp';
-                    break;
-                default:
-                    window.location.href = '${pageContext.request.contextPath}/';
-            }
+            // Show success state briefly before redirect
+            submitBtn.classList.remove('loading-pulse');
+            buttonText.textContent = 'Connexion réussie !';
+            spinner.classList.add('d-none');
+            icon.className = 'fas fa-check success-checkmark';
+            icon.style.display = 'inline';
+            submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+            
+            // Redirect after a brief delay to show success state
+            setTimeout(() => {
+                try {
+                    switch (userType) {
+                        case 'client':
+                            // Redirect to main dashboard with error handling
+                            window.location.replace('${pageContext.request.contextPath}/pages/client/dashboard.jsp');
+                            break;
+                        case 'partner':
+                            window.location.replace('${pageContext.request.contextPath}/pages/partner/dashboard.jsp');
+                            break;
+                        case 'admin':
+                            window.location.replace('${pageContext.request.contextPath}/pages/admin/dashboard.jsp');
+                            break;
+                        default:
+                            window.location.replace('${pageContext.request.contextPath}/');
+                    }
+               } catch (error) {
+                   console.error('Redirect error:', error);
+                   // Try alternative redirect method
+                   setTimeout(() => {
+                       try {
+                           if (userType === 'client') {
+                               window.location.href = '${pageContext.request.contextPath}/pages/client/dashboard.jsp';
+                           } else {
+                               window.location.href = '${pageContext.request.contextPath}/';
+                           }
+                       } catch (fallbackError) {
+                           console.error('Fallback redirect error:', fallbackError);
+                           // Last resort: reload page
+                           window.location.reload();
+                       }
+                   }, 1000);
+               }
+            }, 800);
         } else {
             // Error state - show error message instead of changing button
             submitBtn.classList.remove('loading-pulse');
