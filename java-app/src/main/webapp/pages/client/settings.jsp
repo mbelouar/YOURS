@@ -288,7 +288,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 const target = this.getAttribute('href');
                 const element = document.querySelector(target);
                 if (element) {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Calculate offset to align with the top of the left container
+                const leftContainer = document.querySelector('.settings-nav-card');
+                const leftContainerTop = leftContainer.offsetTop;
+                const elementTop = element.offsetTop;
+                const offset = elementTop - leftContainerTop;
+                
+                // Scroll with offset to align with left container
+                window.scrollTo({
+                    top: window.scrollY + offset,
+                    behavior: 'smooth'
+                });
                     
                     // Update active state with enhanced styling
                     document.querySelectorAll('.settings-nav-item').forEach(i => i.classList.remove('active'));
