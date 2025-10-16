@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </div>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-center text-primary small" href="#">Voir toutes les notifications</a>
+                            <a class="dropdown-item text-center text-primary small" href="${pageContext.request.contextPath}/pages/client/notifications-test.jsp">Voir toutes les notifications</a>
                         </div>
                     </li>
 
@@ -227,6 +227,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             <li>
                                 <a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/client/profile.jsp">
                                     <i class="bi bi-person me-2 text-primary"></i>Mon Profil
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/client/notifications-test.jsp">
+                                    <i class="bi bi-bell me-2 text-warning"></i>Notifications
                                 </a>
                             </li>
                             <li>
