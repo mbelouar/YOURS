@@ -12,7 +12,7 @@
 <%@ include file="../../layouts/navbar.jsp" %>
 
 <!-- Page Header -->
-<section class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); margin-top: -80px; padding-top: calc(80px + 6rem) !important; padding-bottom: 6rem !important; position: relative; overflow: hidden;">
+<section class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); margin-top: -80px; padding-top: calc(80px + 6rem) !important; padding-bottom: 6rem !important; min-height: 400px; position: relative; overflow: hidden;">
     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%); opacity: 1;"></div>
     <div class="container" style="position: relative; z-index: 2;">
         <div class="row">
@@ -38,21 +38,6 @@
                     </p>
                 </div>
                 
-                <!-- Action Buttons -->
-                <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
-                    <a href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp" 
-                       class="btn d-flex align-items-center gap-2 px-4 py-3 rounded-4 shadow-sm border-0 fw-semibold" 
-                       style="background: linear-gradient(135deg, #ffffff, #f8fafc); color: var(--primary-600); border: none !important; transition: all 0.3s ease; box-shadow: 0 8px 32px -4px rgba(255, 255, 255, 0.3);">
-                        <i class="fas fa-plus" style="font-size: 0.875rem;"></i>
-                        Nouvelle réservation
-                    </a>
-                    <a href="${pageContext.request.contextPath}/pages/client/profile.jsp" 
-                       class="btn d-flex align-items-center gap-2 px-4 py-3 rounded-4 shadow-sm border-0 fw-semibold" 
-                       style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(20px); color: white; border: 1px solid rgba(255, 255, 255, 0.2) !important; transition: all 0.3s ease;">
-                        <i class="fas fa-user" style="font-size: 0.875rem;"></i>
-                        Mon profil
-                    </a>
-                </div>
                 
                 <!-- Decorative Elements -->
                 <div class="d-flex justify-content-center align-items-center gap-3 mt-4">

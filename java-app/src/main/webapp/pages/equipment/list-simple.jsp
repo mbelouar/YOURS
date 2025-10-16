@@ -3,7 +3,7 @@
 <%@ include file="../../layouts/navbar.jsp" %>
 
 <!-- Page Header -->
-<section class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); margin-top: -80px; padding-top: calc(80px + 6rem) !important; padding-bottom: 6rem !important; position: relative; overflow: hidden;">
+<section class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); margin-top: -80px; padding-top: calc(80px + 6rem) !important; padding-bottom: 6rem !important; min-height: 400px; position: relative; overflow: hidden;">
     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%); opacity: 1;"></div>
     <div class="container" style="position: relative; z-index: 2;">
         <div class="row">
@@ -25,7 +25,7 @@
                         Explorez notre collection exclusive d'&eacute;quipements haut de gamme
                     </p>
                     <p class="mb-0" style="color: rgba(255, 255, 255, 0.8); font-size: 1.1rem; font-weight: 300; line-height: 1.7;">
-                        Solutions professionnelles pour tous vos projets • Disponibilit&eacute; garantie • Livraison rapide
+                        Solutions professionnelles pour tous vos projets • Disponibilit&eacute; garantie
                     </p>
                 </div>
                 
