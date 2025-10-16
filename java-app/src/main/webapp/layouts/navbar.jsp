@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Error initializing dropdowns:', error);
     }
     
-    // Add fallback dropdown functionality
+    // Add fallback dropdown functionality for profile
     const profileDropdown = document.getElementById('clientProfileDropdown');
     const dropdownMenu = document.getElementById('clientDropdownMenu');
     
@@ -76,6 +76,35 @@ document.addEventListener('DOMContentLoaded', function() {
         document.addEventListener('click', function(e) {
             if (!profileDropdown.contains(e.target) && !dropdownMenu.contains(e.target)) {
                 dropdownMenu.style.display = 'none';
+            }
+        });
+    }
+    
+    // Add fallback dropdown functionality for notifications
+    const notificationDropdown = document.getElementById('notificationDropdown');
+    const notificationMenu = document.getElementById('notificationDropdownMenu');
+    
+    if (notificationDropdown && notificationMenu) {
+        notificationDropdown.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Notification dropdown clicked');
+            
+            // Toggle dropdown visibility
+            if (notificationMenu.style.display === 'block') {
+                notificationMenu.style.display = 'none';
+            } else {
+                notificationMenu.style.display = 'block';
+                notificationMenu.style.position = 'absolute';
+                notificationMenu.style.top = '100%';
+                notificationMenu.style.right = '0';
+                notificationMenu.style.zIndex = '1000';
+            }
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!notificationDropdown.contains(e.target) && !notificationMenu.contains(e.target)) {
+                notificationMenu.style.display = 'none';
             }
         });
     }
@@ -122,11 +151,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 <ul class="navbar-nav ms-auto align-items-center">
                     <!-- Notifications -->
                     <li class="nav-item dropdown me-2">
-                        <a class="nav-link nav-link-client position-relative" href="#" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link nav-link-client position-relative" href="#" role="button" data-bs-toggle="dropdown" id="notificationDropdown">
                             <i class="bi bi-bell" style="font-size: 1.25rem;"></i>
                             <span class="notification-badge">3</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end notification-dropdown shadow-lg border-0">
+                        <div class="dropdown-menu dropdown-menu-end notification-dropdown shadow-lg border-0" id="notificationDropdownMenu">
                             <div class="dropdown-header d-flex justify-content-between align-items-center">
                                 <h6 class="mb-0">Notifications</h6>
                                 <span class="badge bg-primary rounded-pill">3</span>
