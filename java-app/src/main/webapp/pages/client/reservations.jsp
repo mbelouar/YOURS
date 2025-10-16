@@ -157,10 +157,10 @@
                                             <span class="fw-bold" style="color: var(--primary-600); font-size: 1.25rem;">1,200 MAD</span>
                                         </div>
                                         <div class="d-flex gap-2">
-                                            <button class="btn btn-sm" style="background: rgba(37, 99, 235, 0.1); color: var(--primary-600); border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease;">
+                                            <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=1" class="btn btn-sm" style="background: rgba(37, 99, 235, 0.1); color: var(--primary-600); border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease; text-decoration: none;">
                                                 <i class="fas fa-eye me-1"></i>Voir
-                                            </button>
-                                            <button class="btn btn-sm" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease;">
+                                            </a>
+                                            <button class="btn btn-sm annuler-btn" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease;" data-reservation-id="R001" data-equipment-name="Canon EOS R5">
                                                 <i class="fas fa-times me-1"></i>Annuler
                                             </button>
                                         </div>
@@ -227,10 +227,10 @@
                                             <span class="fw-bold" style="color: var(--primary-600); font-size: 1.25rem;">2,250 MAD</span>
                                         </div>
                                         <div class="d-flex gap-2">
-                                            <button class="btn btn-sm" style="background: rgba(37, 99, 235, 0.1); color: var(--primary-600); border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease;">
+                                            <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=2" class="btn btn-sm" style="background: rgba(37, 99, 235, 0.1); color: var(--primary-600); border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease; text-decoration: none;">
                                                 <i class="fas fa-eye me-1"></i>Voir
-                                            </button>
-                                            <button class="btn btn-sm" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease;">
+                                            </a>
+                                            <button class="btn btn-sm annuler-btn" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease;" data-reservation-id="R002" data-equipment-name="MacBook Pro 16\"">
                                                 <i class="fas fa-times me-1"></i>Annuler
                                             </button>
                                         </div>
@@ -297,10 +297,10 @@
                                             <span class="fw-bold" style="color: #f59e0b; font-size: 1.25rem;">900 MAD</span>
                                         </div>
                                         <div class="d-flex gap-2">
-                                            <button class="btn btn-sm" style="background: rgba(37, 99, 235, 0.1); color: var(--primary-600); border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease;">
+                                            <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=3" class="btn btn-sm" style="background: rgba(37, 99, 235, 0.1); color: var(--primary-600); border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease; text-decoration: none;">
                                                 <i class="fas fa-eye me-1"></i>Voir
-                                            </button>
-                                            <button class="btn btn-sm" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease;">
+                                            </a>
+                                            <button class="btn btn-sm annuler-btn" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease;" data-reservation-id="R003" data-equipment-name="Sony A7 III">
                                                 <i class="fas fa-times me-1"></i>Annuler
                                             </button>
                                         </div>
@@ -367,11 +367,11 @@
                                             <span class="fw-bold" style="color: #10b981; font-size: 1.25rem;">750 MAD</span>
                                         </div>
                                         <div class="d-flex gap-2">
-                                            <button class="btn btn-sm" style="background: rgba(37, 99, 235, 0.1); color: var(--primary-600); border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease;">
+                                            <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=4" class="btn btn-sm" style="background: rgba(37, 99, 235, 0.1); color: var(--primary-600); border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease; text-decoration: none;">
                                                 <i class="fas fa-eye me-1"></i>Voir
-                                            </button>
-                                            <button class="btn btn-sm" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease;">
-                                                <i class="fas fa-star me-1"></i>Noter
+                                            </a>
+                                            <button class="btn btn-sm annuler-btn" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease;" data-reservation-id="R004" data-equipment-name="iPad Pro 12.9\"">
+                                                <i class="fas fa-times me-1"></i>Annuler
                                             </button>
                                         </div>
                                     </div>
@@ -436,11 +436,11 @@
                                             <span class="fw-bold" style="color: #10b981; font-size: 1.25rem;">600 MAD</span>
                                         </div>
                                         <div class="d-flex gap-2">
-                                            <button class="btn btn-sm" style="background: rgba(37, 99, 235, 0.1); color: var(--primary-600); border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease;">
+                                            <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=5" class="btn btn-sm" style="background: rgba(37, 99, 235, 0.1); color: var(--primary-600); border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease; text-decoration: none;">
                                                 <i class="fas fa-eye me-1"></i>Voir
-                                            </button>
-                                            <button class="btn btn-sm" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease;">
-                                                <i class="fas fa-star me-1"></i>Noter
+                                            </a>
+                                            <button class="btn btn-sm annuler-btn" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: none; border-radius: 0.5rem; padding: 0.5rem 1rem; font-weight: 600; transition: all 0.3s ease;" data-reservation-id="R005" data-equipment-name="DJI Mavic Air 2">
+                                                <i class="fas fa-times me-1"></i>Annuler
                                             </button>
                                         </div>
                                     </div>
@@ -566,6 +566,103 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.boxShadow = 'none';
         });
     });
+    
+    // Confirmation modal functionality
+    const cancelButtons = document.querySelectorAll('.annuler-btn');
+    const confirmModal = new bootstrap.Modal(document.getElementById('confirmCancelModal'));
+    const modalReservationId = document.getElementById('modalReservationId');
+    const modalEquipmentName = document.getElementById('modalEquipmentName');
+    const confirmCancelBtn = document.getElementById('confirmCancelBtn');
+    
+    let currentReservationId = '';
+    let currentEquipmentName = '';
+    
+    cancelButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            currentReservationId = this.getAttribute('data-reservation-id');
+            currentEquipmentName = this.getAttribute('data-equipment-name');
+            
+            // Update modal content
+            modalReservationId.textContent = currentReservationId;
+            modalEquipmentName.textContent = currentEquipmentName;
+            
+            // Show modal
+            confirmModal.show();
+        });
+    });
+    
+    confirmCancelBtn.addEventListener('click', function() {
+        // Here you would typically make an AJAX call to cancel the reservation
+        // For now, we'll just show a success message and hide the reservation card
+        
+        // Find and hide the reservation card
+        const reservationCard = document.querySelector(`[data-reservation-id="${currentReservationId}"]`).closest('.col-lg-6');
+        if (reservationCard) {
+            // Add a fade-out animation
+            reservationCard.style.transition = 'all 0.5s ease';
+            reservationCard.style.opacity = '0';
+            reservationCard.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                reservationCard.style.display = 'none';
+                // Update the stats
+                updateReservationStats();
+            }, 500);
+        }
+        
+        // Hide modal
+        confirmModal.hide();
+        
+        // Show success message
+        showSuccessMessage(`Réservation ${currentReservationId} annulée avec succès !`);
+    });
+    
+    function updateReservationStats() {
+        // Update the reservation count
+        const visibleCards = document.querySelectorAll('.col-lg-6:not([style*="display: none"])');
+        const totalReservations = visibleCards.length;
+        
+        const statsElement = document.querySelector('.h4.mb-0.text-dark.fw-bold');
+        if (statsElement) {
+            statsElement.textContent = totalReservations;
+        }
+    }
+    
+    function showSuccessMessage(message) {
+        // Create and show a success toast
+        const toastContainer = document.createElement('div');
+        toastContainer.className = 'position-fixed top-0 end-0 p-3';
+        toastContainer.style.zIndex = '9999';
+        
+        const toast = document.createElement('div');
+        toast.className = 'toast align-items-center text-white bg-success border-0';
+        toast.setAttribute('role', 'alert');
+        toast.setAttribute('aria-live', 'assertive');
+        toast.setAttribute('aria-atomic', 'true');
+        
+        toast.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fas fa-check-circle me-2"></i>
+                    ${message}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        `;
+        
+        toastContainer.appendChild(toast);
+        document.body.appendChild(toastContainer);
+        
+        const bsToast = new bootstrap.Toast(toast);
+        bsToast.show();
+        
+        // Remove the toast container after it's hidden
+        toast.addEventListener('hidden.bs.toast', () => {
+            document.body.removeChild(toastContainer);
+        });
+    }
 });
 </script>
 
@@ -624,6 +721,110 @@ document.addEventListener('DOMContentLoaded', function() {
 .btn:focus {
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
+
+/* Modal Enhancement Styles */
+#confirmCancelModal .modal-content {
+    transition: all 0.3s ease;
+}
+
+/* Button hover effects */
+#confirmCancelModal .btn[data-bs-dismiss="modal"]:hover {
+    background: linear-gradient(135deg, #e2e8f0, #cbd5e1) !important;
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.1) !important;
+}
+
+#confirmCancelModal #confirmCancelBtn:hover {
+    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+    box-shadow: 0 6px 25px -2px rgba(239, 68, 68, 0.5) !important;
+}
 </style>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmCancelModal" tabindex="-1" aria-labelledby="confirmCancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0" style="border-radius: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden;">
+            <!-- Header -->
+            <div class="modal-header border-0 p-0" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); position: relative; overflow: hidden;">
+                <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%); opacity: 1;"></div>
+                <div class="d-flex align-items-center justify-content-between w-100 p-4" style="position: relative; z-index: 2;">
+                    <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center justify-content-center me-4" style="width: 64px; height: 64px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(20px); border-radius: 1rem; border: 1px solid rgba(255, 255, 255, 0.2);">
+                            <i class="fas fa-exclamation-triangle text-white" style="font-size: 1.5rem;"></i>
+                        </div>
+                        <div>
+                            <h5 class="modal-title fw-bold mb-1 text-white" id="confirmCancelModalLabel" style="font-size: 1.25rem; letter-spacing: -0.01em;">Confirmer l'annulation</h5>
+                            <small class="text-white-50 fw-medium" style="font-size: 0.875rem;">Cette action est irréversible</small>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="opacity: 0.8;"></button>
+                </div>
+            </div>
+            
+            <!-- Body -->
+            <div class="modal-body p-4" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);">
+                <!-- Warning Alert -->
+                <div class="d-flex align-items-center p-3 mb-4" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(251, 191, 36, 0.05)); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 1rem; backdrop-filter: blur(10px);">
+                    <div class="d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 0.75rem;">
+                        <i class="fas fa-info-circle text-white" style="font-size: 1rem;"></i>
+                    </div>
+                    <div>
+                        <span class="fw-semibold d-block" style="color: var(--gray-900); font-size: 0.95rem;">Attention</span>
+                        <small class="text-muted">Vous êtes sur le point d'annuler votre réservation</small>
+                    </div>
+                </div>
+                
+                <!-- Reservation Details -->
+                <div class="p-4 mb-4" style="background: white; border: 1px solid rgba(226, 232, 240, 0.8); border-radius: 1rem; box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08);">
+                    <div class="row g-4">
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center justify-content-center me-3" style="width: 36px; height: 36px; background: rgba(37, 99, 235, 0.1); border-radius: 0.5rem;">
+                                    <i class="fas fa-receipt text-primary" style="font-size: 0.875rem;"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted d-block fw-medium" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Réservation</small>
+                                    <span class="fw-bold text-dark" id="modalReservationId" style="font-size: 1rem;">-</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center justify-content-center me-3" style="width: 36px; height: 36px; background: rgba(37, 99, 235, 0.1); border-radius: 0.5rem;">
+                                    <i class="fas fa-box text-primary" style="font-size: 0.875rem;"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted d-block fw-medium" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Équipement</small>
+                                    <span class="fw-bold text-dark" id="modalEquipmentName" style="font-size: 1rem;">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Message -->
+                <div class="text-center">
+                    <p class="mb-0" style="color: var(--gray-700); line-height: 1.6;">
+                        <strong style="color: var(--gray-900); font-size: 1.05rem;">Êtes-vous sûr de vouloir annuler cette réservation ?</strong><br>
+                        <span style="font-size: 0.9rem;">Cette action libérera l'équipement pour d'autres utilisateurs et ne pourra pas être annulée.</span>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="modal-footer border-0 p-4" style="background: white;">
+                <div class="d-flex gap-3 w-100">
+                    <button type="button" class="btn flex-fill" data-bs-dismiss="modal" style="background: linear-gradient(135deg, #f8fafc, #e2e8f0); color: var(--gray-700); border: 1px solid rgba(226, 232, 240, 0.8); border-radius: 1rem; font-weight: 600; padding: 0.875rem 1.5rem; transition: all 0.3s ease; box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.05);">
+                        <i class="fas fa-arrow-left me-2" style="font-size: 0.875rem;"></i>
+                        Garder la réservation
+                    </button>
+                    <button type="button" class="btn flex-fill" id="confirmCancelBtn" style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white; border: none; border-radius: 1rem; font-weight: 600; padding: 0.875rem 1.5rem; transition: all 0.3s ease; box-shadow: 0 4px 20px -2px rgba(239, 68, 68, 0.4);">
+                        <i class="fas fa-check me-2" style="font-size: 0.875rem;"></i>
+                        Confirmer l'annulation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <%@ include file="../../layouts/footer.jsp" %>
