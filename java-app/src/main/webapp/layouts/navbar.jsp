@@ -8,71 +8,115 @@
 %>
 
 <style>
-/* Dropdown menu item base styling */
+/* Clean, minimal hover effects */
+
+/* Dropdown menu items */
 #clientDropdownMenu .dropdown-item {
     padding: 0.75rem 1rem !important;
-    margin: 0.25rem 0.5rem !important;
-    border-radius: 0.5rem !important;
-    transition: all 0.3s ease !important;
-    position: relative;
+    margin: 0.1rem 0 !important;
+    border-radius: 0.375rem !important;
+    transition: all 0.2s ease !important;
+    color: #6b7280 !important;
+    font-weight: 500 !important;
     border: none !important;
 }
 
-/* Active dropdown menu item styling */
+#clientDropdownMenu .dropdown-item:hover {
+    background-color: #374151 !important;
+    color: white !important;
+}
+
 #clientDropdownMenu .dropdown-item.active {
-    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
-    color: #2563eb !important;
+    background-color: #dbeafe !important;
+    color: #1e40af !important;
     font-weight: 600 !important;
-    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15) !important;
 }
 
 #clientDropdownMenu .dropdown-item.active:hover {
-    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%) !important;
-    color: #1d4ed8 !important;
-    transform: translateX(3px) !important;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2) !important;
+    background-color: #1e40af !important;
+    color: white !important;
 }
 
-#clientDropdownMenu .dropdown-item.active::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
-    border-radius: 0 2px 2px 0;
-}
-
-/* Hover state for non-active items */
-#clientDropdownMenu .dropdown-item:hover:not(.active) {
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
-    color: #1e293b !important;
-    transform: translateX(3px) !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
-}
-
-/* Icon styling */
-#clientDropdownMenu .dropdown-item i {
-    transition: all 0.3s ease !important;
-}
-
-#clientDropdownMenu .dropdown-item:hover i {
-    transform: scale(1.1) !important;
-}
-
-/* Logout item special styling */
-#clientDropdownMenu .dropdown-item.text-danger:hover {
-    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%) !important;
+#clientDropdownMenu .dropdown-item.text-danger {
     color: #dc2626 !important;
-    transform: translateX(3px) !important;
-    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.15) !important;
 }
 
-/* Favorites item special styling */
-#clientDropdownMenu .dropdown-item:hover .bi-heart {
-    color: #ef4444 !important;
-    transform: scale(1.1) !important;
+#clientDropdownMenu .dropdown-item.text-danger:hover {
+    background-color: #dc2626 !important;
+    color: white !important;
+}
+
+/* Main navigation items */
+.navbar-client-dashboard .nav-link-client {
+    padding: 0.5rem 0.75rem !important;
+    margin: 0 0.125rem !important;
+    border-radius: 0.375rem !important;
+    transition: all 0.2s ease !important;
+    color: #6b7280 !important;
+    font-weight: 500 !important;
+    border: none !important;
+}
+
+.navbar-client-dashboard .nav-link-client:hover {
+    background-color: #374151 !important;
+    color: white !important;
+}
+
+/* Profile dropdown button special styling */
+.navbar-client-dashboard .nav-link-client[data-bs-toggle="dropdown"]:hover {
+    background-color: #dbeafe !important;
+    color: #1e40af !important;
+}
+
+.navbar-client-dashboard .nav-link-client.active {
+    background-color: #dbeafe !important;
+    color: #1e40af !important;
+    font-weight: 600 !important;
+}
+
+.navbar-client-dashboard .nav-link-client.active:hover {
+    background-color: #1e40af !important;
+    color: white !important;
+}
+
+/* User avatar */
+.navbar-client-dashboard .user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #dbeafe;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.navbar-client-dashboard .nav-link-client:hover .user-avatar {
+    background-color: #1e40af;
+    color: white;
+}
+
+/* Dropdown menu */
+#clientDropdownMenu {
+    border: 1px solid #e5e7eb !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 0.5rem !important;
+    padding: 0.5rem !important;
+    margin-top: 0.5rem !important;
+    min-width: 200px !important;
+}
+
+#clientDropdownMenu .dropdown-header {
+    padding: 0.75rem 1rem !important;
+    background-color: #f9fafb !important;
+    margin-bottom: 0.25rem !important;
+    border-radius: 0.375rem !important;
+}
+
+#clientDropdownMenu .dropdown-divider {
+    margin: 0.5rem 0 !important;
+    border-color: #e5e7eb !important;
 }
 </style>
 
@@ -139,6 +183,31 @@ function highlightActiveDropdownItem() {
     });
 }
 
+// Function to highlight active main navigation item
+function highlightActiveMainNavItem() {
+    const currentPath = window.location.pathname;
+    const mainNavItems = document.querySelectorAll('.navbar-client-dashboard .nav-link-client');
+    
+    // Clear all active states first
+    mainNavItems.forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    // Check each main navigation item
+    mainNavItems.forEach(item => {
+        const href = item.getAttribute('href');
+        if (href) {
+            // Extract the page name from href
+            const pageName = href.split('/').pop().replace('.jsp', '');
+            
+            // Check if current path contains this page
+            if (currentPath.includes(pageName)) {
+                item.classList.add('active');
+            }
+        }
+    });
+}
+
 // Run on page load
 document.addEventListener('DOMContentLoaded', function() {
     checkClientSession();
@@ -155,6 +224,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Highlight active dropdown menu item based on current page
     highlightActiveDropdownItem();
+    
+    // Highlight active main navigation item based on current page
+    highlightActiveMainNavItem();
     
     // Add fallback dropdown functionality for profile
     const profileDropdown = document.getElementById('clientProfileDropdown');
