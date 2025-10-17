@@ -134,16 +134,13 @@
         <div class="col-lg-8">
             <!-- Current Reservations -->
             <div class="card mb-4 border-0" style="border-radius: 1.25rem; box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.12); overflow: hidden;">
-                <div class="card-header border-0 d-flex justify-content-between align-items-center py-4" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);">
+                <div class="card-header border-0 py-4" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);">
                     <h5 class="fw-bold mb-0 d-flex align-items-center" style="color: var(--gray-900); font-size: 1.125rem;">
                         <div class="d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; background: rgba(37, 99, 235, 0.1); border-radius: 0.75rem;">
                             <i class="fas fa-calendar-check text-primary" style="font-size: 1rem;"></i>
                         </div>
                         Réservations en cours
                     </h5>
-                    <a href="${pageContext.request.contextPath}/pages/client/reservations.jsp" class="btn btn-sm" style="background: rgba(37, 99, 235, 0.1); color: var(--primary-600); border: none; border-radius: 0.75rem; font-weight: 600; padding: 0.5rem 1rem; transition: all 0.3s ease;">
-                        <i class="fas fa-arrow-right me-1"></i>Voir tout
-                    </a>
                 </div>
                 <div class="card-body p-4">
                     <div id="currentReservations">
@@ -336,101 +333,6 @@
                 </div>
             </div>
 
-            <!-- Recommended Equipment -->
-            <div class="card border-0" style="border-radius: 1.25rem; box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.12); overflow: hidden;">
-                <div class="card-header border-0 py-4" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);">
-                    <h5 class="fw-bold mb-0 d-flex align-items-center" style="color: var(--gray-900); font-size: 1.125rem;">
-                        <div class="d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; background: rgba(245, 158, 11, 0.1); border-radius: 0.75rem;">
-                            <i class="fas fa-star text-warning" style="font-size: 1rem;"></i>
-                        </div>
-                        Recommandé pour vous
-                    </h5>
-                </div>
-                <div class="card-body p-4">
-                    <div class="row g-3" id="recommendedEquipment">
-                        <!-- Recommended equipment cards -->
-                        <div class="col-md-4">
-                            <div class="card h-100 border-0 shadow-sm position-relative" style="border-radius: 0.75rem; transition: all 0.3s ease;">
-                                <div class="position-relative">
-                                    <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
-                                         class="card-img-top" alt="Canon EOS R6 Mark II" 
-                                         style="height: 180px; object-fit: cover; border-radius: 0.75rem 0.75rem 0 0;">
-                                    <span class="badge bg-success position-absolute top-0 end-0 m-2" style="border-radius: 1rem;">
-                                        <i class="fas fa-star me-1"></i>Populaire
-                                    </span>
-                                </div>
-                                <div class="card-body">
-                                    <h6 class="card-title fw-bold mb-2 text-dark">Canon EOS R6 Mark II</h6>
-                                    <p class="card-text small text-muted mb-3">Appareil photo professionnel avec capteur plein format et stabilisation d'image...</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="fw-bold text-primary">1,450 MAD/j</span>
-                                        <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=1" 
-                                           class="btn btn-outline-primary btn-sm">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <div class="card h-100 border-0 shadow-sm position-relative" style="border-radius: 0.75rem; transition: all 0.3s ease;">
-                                <div class="position-relative">
-                                    <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
-                                         class="card-img-top" alt="Sony A7 IV" 
-                                         style="height: 180px; object-fit: cover; border-radius: 0.75rem 0.75rem 0 0;">
-                                    <span class="badge bg-warning position-absolute top-0 end-0 m-2" style="border-radius: 1rem;">
-                                        <i class="fas fa-fire me-1"></i>Tendance
-                                    </span>
-                                </div>
-                                <div class="card-body">
-                                    <h6 class="card-title fw-bold mb-2 text-dark">Sony A7 IV</h6>
-                                    <p class="card-text small text-muted mb-3">Hybride plein format avec autofocus rapide et excellente qualité d'image...</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="fw-bold text-primary">1,200 MAD/j</span>
-                                        <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=2" 
-                                           class="btn btn-outline-primary btn-sm">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <div class="card h-100 border-0 shadow-sm position-relative" style="border-radius: 0.75rem; transition: all 0.3s ease;">
-                                <div class="position-relative">
-                                    <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
-                                         class="card-img-top" alt="DJI Mavic 3 Pro" 
-                                         style="height: 180px; object-fit: cover; border-radius: 0.75rem 0.75rem 0 0;">
-                                    <span class="badge bg-info position-absolute top-0 end-0 m-2" style="border-radius: 1rem;">
-                                        <i class="fas fa-heart me-1"></i>Recommandé
-                                    </span>
-                                </div>
-                                <div class="card-body">
-                                    <h6 class="card-title fw-bold mb-2 text-dark">DJI Mavic 3 Pro</h6>
-                                    <p class="card-text small text-muted mb-3">Drone professionnel avec triple caméra et vol longue durée...</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="fw-bold text-primary">800 MAD/j</span>
-                                        <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=3" 
-                                           class="btn btn-outline-primary btn-sm">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- View all recommendations -->
-                    <div class="text-center mt-4">
-                        <a href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp" 
-                           class="btn btn-outline-primary">
-                            <i class="fas fa-th-large me-2"></i>Voir plus de recommandations
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Sidebar -->
