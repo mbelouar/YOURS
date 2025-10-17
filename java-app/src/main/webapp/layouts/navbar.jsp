@@ -295,7 +295,6 @@ document.addEventListener('DOMContentLoaded', function() {
             <a class="navbar-brand fw-bold d-flex align-items-center" href="${pageContext.request.contextPath}/pages/client/dashboard.jsp">
                 <i class="fas fa-camera-retro me-2 text-primary" style="font-size: 1.5rem;"></i>
                 <span style="background: linear-gradient(135deg, var(--primary-600), var(--primary-800)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">YOURS</span>
-                <span class="client-badge ms-2">Client</span>
             </a>
 
             <!-- Mobile toggle -->
