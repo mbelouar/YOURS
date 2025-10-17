@@ -7,6 +7,75 @@
     boolean showClientNav = (isClientPage || isEquipmentPage) && isLoggedIn;
 %>
 
+<style>
+/* Dropdown menu item base styling */
+#clientDropdownMenu .dropdown-item {
+    padding: 0.75rem 1rem !important;
+    margin: 0.25rem 0.5rem !important;
+    border-radius: 0.5rem !important;
+    transition: all 0.3s ease !important;
+    position: relative;
+    border: none !important;
+}
+
+/* Active dropdown menu item styling */
+#clientDropdownMenu .dropdown-item.active {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+    color: #2563eb !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15) !important;
+}
+
+#clientDropdownMenu .dropdown-item.active:hover {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%) !important;
+    color: #1d4ed8 !important;
+    transform: translateX(3px) !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2) !important;
+}
+
+#clientDropdownMenu .dropdown-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+    border-radius: 0 2px 2px 0;
+}
+
+/* Hover state for non-active items */
+#clientDropdownMenu .dropdown-item:hover:not(.active) {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+    color: #1e293b !important;
+    transform: translateX(3px) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Icon styling */
+#clientDropdownMenu .dropdown-item i {
+    transition: all 0.3s ease !important;
+}
+
+#clientDropdownMenu .dropdown-item:hover i {
+    transform: scale(1.1) !important;
+}
+
+/* Logout item special styling */
+#clientDropdownMenu .dropdown-item.text-danger:hover {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%) !important;
+    color: #dc2626 !important;
+    transform: translateX(3px) !important;
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.15) !important;
+}
+
+/* Favorites item special styling */
+#clientDropdownMenu .dropdown-item:hover .bi-heart {
+    color: #ef4444 !important;
+    transform: scale(1.1) !important;
+}
+</style>
+
 <script>
 // Check for client-side user session
 function checkClientSession() {
@@ -45,6 +114,31 @@ function checkClientSession() {
     }
 }
 
+// Function to highlight active dropdown menu item
+function highlightActiveDropdownItem() {
+    const currentPath = window.location.pathname;
+    const dropdownItems = document.querySelectorAll('#clientDropdownMenu .dropdown-item');
+    
+    // Clear all active states first
+    dropdownItems.forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    // Check each dropdown item
+    dropdownItems.forEach(item => {
+        const href = item.getAttribute('href');
+        if (href) {
+            // Extract the page name from href
+            const pageName = href.split('/').pop().replace('.jsp', '');
+            
+            // Check if current path contains this page
+            if (currentPath.includes(pageName)) {
+                item.classList.add('active');
+            }
+        }
+    });
+}
+
 // Run on page load
 document.addEventListener('DOMContentLoaded', function() {
     checkClientSession();
@@ -58,6 +152,9 @@ document.addEventListener('DOMContentLoaded', function() {
     } catch (error) {
         console.error('Error initializing dropdowns:', error);
     }
+    
+    // Highlight active dropdown menu item based on current page
+    highlightActiveDropdownItem();
     
     // Add fallback dropdown functionality for profile
     const profileDropdown = document.getElementById('clientProfileDropdown');
