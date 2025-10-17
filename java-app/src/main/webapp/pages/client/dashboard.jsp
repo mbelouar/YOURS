@@ -243,9 +243,9 @@
                                         <div style="height: 1px; background: rgba(148, 163, 184, 0.2);"></div>
                                         <div style="height: 1px; background: rgba(148, 163, 184, 0.2);"></div>
                                     </div>
-                                </div>
-                            </div>
-                            
+                </div>
+            </div>
+
                             <!-- Chart Bars with Gradient -->
                             <div class="d-flex align-items-end justify-content-between h-100" style="padding-top: 1rem;">
                                 <div class="chart-bar-container d-flex flex-column align-items-center position-relative">
@@ -328,7 +328,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                </div>
                     </div>
                 </div>
             </div>
@@ -391,7 +391,7 @@
                 <div class="card-header border-0 py-4" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);">
                     <h5 class="fw-bold mb-0 d-flex align-items-center" style="color: var(--gray-900); font-size: 1.125rem;">
                         <div class="d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; background: rgba(16, 185, 129, 0.1); border-radius: 0.75rem;">
-                            <i class="fas fa-activity text-success" style="font-size: 1rem;"></i>
+                            <i class="fas fa-history text-success" style="font-size: 1rem;"></i>
                         </div>
                         Activité récente
                     </h5>
