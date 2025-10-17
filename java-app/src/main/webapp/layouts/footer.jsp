@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<footer style="background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%); color: #e2e8f0; padding: 4rem 0 2rem 0; margin-top: 0; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+<footer style="background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%); color: #e2e8f0; padding: 4rem 0 2rem 0; margin-top: 4rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
     <div class="container">
         <div class="row">
             <!-- Company Info -->
