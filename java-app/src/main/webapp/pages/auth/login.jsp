@@ -79,7 +79,6 @@
                                     style="height: 3rem; font-size: 1rem; font-weight: 600; border-radius: 0.875rem; text-decoration: none !important; transition: all 0.3s ease;">
                                 <i class="fas fa-sign-in-alt me-2 button-icon"></i>
                                 <span class="button-text">Se connecter</span>
-                                <span class="spinner-border spinner-border-sm d-none ms-2" role="status"></span>
                             </button>
                             
                             <!-- Login Error Message -->
@@ -317,6 +316,43 @@
     box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4) !important;
 }
 
+/* Enhanced Button States */
+button[type="submit"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    position: relative !important;
+}
+
+button[type="submit"] .button-icon,
+button[type="submit"] .button-text {
+    flex-shrink: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+button[type="submit"] .button-text {
+    white-space: nowrap !important;
+    font-weight: 600 !important;
+}
+
+/* Success state styling */
+.success-checkmark {
+    animation: checkmark 0.6s ease-in-out !important;
+    color: white !important;
+}
+
+/* Loading state styling */
+.loading-pulse .button-text {
+    animation: pulse-text 1.5s ease-in-out infinite !important;
+}
+
+@keyframes pulse-text {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
 .btn-outline-primary:hover {
     background-color: var(--primary-50) !important;
     border-color: var(--primary-300) !important;
@@ -447,15 +483,17 @@ function handleLogin() {
     const form = document.getElementById('loginForm');
     const submitBtn = form.querySelector('button[type="submit"]');
     const buttonText = submitBtn.querySelector('.button-text');
-    const spinner = submitBtn.querySelector('.spinner-border');
     const icon = submitBtn.querySelector('i.fas');
     
     // Enhanced loading state
     submitBtn.disabled = true;
     submitBtn.classList.add('loading-pulse');
     buttonText.textContent = 'Connexion en cours...';
-    spinner.classList.remove('d-none');
     icon.style.display = 'none';
+    submitBtn.style.display = 'flex';
+    submitBtn.style.alignItems = 'center';
+    submitBtn.style.justifyContent = 'center';
+    submitBtn.style.gap = '0.5rem';
     
     // Get form data
     const formData = new FormData(form);
@@ -518,10 +556,15 @@ function handleLogin() {
             // Show success state briefly before redirect
             submitBtn.classList.remove('loading-pulse');
             buttonText.textContent = 'Connexion réussie !';
-            spinner.classList.add('d-none');
             icon.className = 'fas fa-check success-checkmark';
             icon.style.display = 'inline';
+            icon.style.marginRight = '0.5rem';
+            icon.style.fontSize = '1rem';
             submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+            submitBtn.style.display = 'flex';
+            submitBtn.style.alignItems = 'center';
+            submitBtn.style.justifyContent = 'center';
+            submitBtn.style.gap = '0.5rem';
             
             // Redirect after a brief delay to show success state
             setTimeout(() => {
@@ -588,11 +631,17 @@ function handleLogin() {
             // Error state - show error message instead of changing button
             submitBtn.classList.remove('loading-pulse');
             buttonText.textContent = 'Se connecter';
-            spinner.classList.add('d-none');
             icon.className = 'fas fa-sign-in-alt button-icon';
             icon.style.display = 'inline';
+            icon.style.marginRight = '0.5rem';
+            icon.style.fontSize = '1rem';
             icon.classList.remove('success-checkmark');
             submitBtn.disabled = false;
+            submitBtn.style.display = 'flex';
+            submitBtn.style.alignItems = 'center';
+            submitBtn.style.justifyContent = 'center';
+            submitBtn.style.gap = '0.5rem';
+            submitBtn.style.background = 'linear-gradient(135deg, var(--primary-600), var(--primary-700))';
             
             // Show error message
             const errorAlert = document.getElementById('loginError');
