@@ -50,7 +50,7 @@
 .navbar-client-dashboard .nav-link-client {
     padding: 0.5rem 0.75rem !important;
     margin: 0 0.125rem !important;
-    border-radius: 0.375rem !important;
+    border-radius: 0.75rem !important;
     transition: all 0.2s ease !important;
     color: #6b7280 !important;
     font-weight: 500 !important;
@@ -117,6 +117,189 @@
 #clientDropdownMenu .dropdown-divider {
     margin: 0.5rem 0 !important;
     border-color: #e5e7eb !important;
+}
+
+/* Public navigation items styling */
+.navbar-modern .nav-link-modern {
+    padding: 0.5rem 0.75rem !important;
+    margin: 0 0.125rem !important;
+    border-radius: 0.75rem !important;
+    transition: all 0.2s ease !important;
+    color: #6b7280 !important;
+    font-weight: 500 !important;
+    border: none !important;
+}
+
+.navbar-modern .nav-link-modern:hover {
+    background-color: #374151 !important;
+    color: white !important;
+}
+
+.navbar-modern .nav-link-modern.active {
+    background-color: #dbeafe !important;
+    color: #1e40af !important;
+    font-weight: 600 !important;
+}
+
+.navbar-modern .nav-link-modern.active:hover {
+    background-color: #1e40af !important;
+    color: white !important;
+}
+
+/* Enhanced Authentication Buttons */
+.btn-auth-login {
+    background: transparent !important;
+    color: var(--primary-600) !important;
+    border: 2px solid var(--primary-600) !important;
+    border-radius: 0.75rem !important;
+    padding: 0.75rem 1.5rem !important;
+    font-weight: 600 !important;
+    font-size: 0.9375rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    letter-spacing: 0.01em !important;
+    position: relative !important;
+    overflow: hidden !important;
+    min-width: 120px !important;
+    height: 40px !important;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1) !important;
+}
+
+.btn-auth-login::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.btn-auth-login:hover {
+    background: var(--primary-600) !important;
+    color: white !important;
+    border-color: var(--primary-600) !important;
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 8px 20px -5px rgba(37, 99, 235, 0.3), 0 4px 8px -2px rgba(37, 99, 235, 0.2) !important;
+    text-decoration: none !important;
+}
+
+.btn-auth-login:hover::before {
+    left: 100%;
+}
+
+.btn-auth-login:active {
+    transform: translateY(-1px) scale(1.01) !important;
+    box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.3) !important;
+}
+
+.btn-auth-login i {
+    transition: transform 0.3s ease;
+}
+
+.btn-auth-login:hover i {
+    transform: translateX(2px);
+}
+
+.btn-auth-signup {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700)) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 700 !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 0.75rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.3) !important;
+    letter-spacing: 0.01em !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 130px !important;
+    height: 40px !important;
+}
+
+.btn-auth-signup::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    transition: left 0.6s ease;
+}
+
+.btn-auth-signup:hover {
+    background: linear-gradient(135deg, var(--primary-700), var(--primary-800)) !important;
+    transform: translateY(-3px) scale(1.02) !important;
+    box-shadow: 0 12px 25px -5px rgba(37, 99, 235, 0.4), 0 6px 12px -2px rgba(37, 99, 235, 0.3) !important;
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.btn-auth-signup:hover::before {
+    left: 100%;
+}
+
+.btn-auth-signup:active {
+    transform: translateY(-1px) scale(1.01) !important;
+    box-shadow: 0 6px 16px -2px rgba(37, 99, 235, 0.4) !important;
+}
+
+.btn-auth-signup i {
+    transition: transform 0.3s ease;
+}
+
+.btn-auth-signup:hover i {
+    transform: translateX(2px) scale(1.1);
+}
+
+/* Focus states for accessibility */
+.btn-auth-login:focus,
+.btn-auth-signup:focus {
+    outline: 2px solid var(--primary-500) !important;
+    outline-offset: 2px !important;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .btn-auth-login,
+    .btn-auth-signup {
+        padding: 0.625rem 1.25rem !important;
+        font-size: 0.875rem !important;
+        min-width: 100px !important;
+        height: 38px !important;
+    }
+    
+    .navbar-nav .nav-item.ms-3 {
+        margin-left: 0.75rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .btn-auth-login,
+    .btn-auth-signup {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.8125rem !important;
+        min-width: 90px !important;
+        height: 36px !important;
+    }
+    
+    .navbar-nav .nav-item.ms-3 {
+        margin-left: 0.5rem !important;
+    }
+    
+    .btn-auth-login i,
+    .btn-auth-signup i {
+        margin-right: 0.375rem !important;
+    }
 }
 </style>
 
@@ -208,6 +391,39 @@ function highlightActiveMainNavItem() {
     });
 }
 
+// Function to highlight active public navigation item
+function highlightActivePublicNavItem() {
+    const currentPath = window.location.pathname;
+    const publicNavItems = document.querySelectorAll('.navbar-modern .nav-link-modern');
+    
+    // Clear all active states first
+    publicNavItems.forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    // Check each public navigation item
+    publicNavItems.forEach(item => {
+        const href = item.getAttribute('href');
+        const dataSection = item.getAttribute('data-section');
+        
+        if (href && href.startsWith('#')) {
+            // For hash links, check if we're on the homepage and the section matches
+            if (currentPath === '/' || currentPath.includes('index.jsp')) {
+                // Check if this is the current section based on scroll position or URL hash
+                const currentHash = window.location.hash;
+                if (currentHash === href || (href === '#accueil' && !currentHash)) {
+                    item.classList.add('active');
+                }
+            }
+        } else if (dataSection) {
+            // For section-based navigation, check if current path matches
+            if (currentPath.includes(dataSection)) {
+                item.classList.add('active');
+            }
+        }
+    });
+}
+
 // Run on page load
 document.addEventListener('DOMContentLoaded', function() {
     checkClientSession();
@@ -227,6 +443,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Highlight active main navigation item based on current page
     highlightActiveMainNavItem();
+    
+    // Highlight active public navigation item based on current page
+    highlightActivePublicNavItem();
     
     // Add fallback dropdown functionality for profile
     const profileDropdown = document.getElementById('clientProfileDropdown');
@@ -294,7 +513,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <!-- Brand -->
             <a class="navbar-brand fw-bold d-flex align-items-center" href="${pageContext.request.contextPath}/pages/client/dashboard.jsp">
                 <i class="fas fa-camera-retro me-2 text-primary" style="font-size: 1.5rem;"></i>
-                <span style="background: linear-gradient(135deg, var(--primary-600), var(--primary-800)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">YOURS</span>
+                <span style="background: linear-gradient(135deg, var(--primary-600), var(--primary-800)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">YOURS</span>
             </a>
 
             <!-- Mobile toggle -->
@@ -390,7 +609,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <!-- Brand -->
         <a class="navbar-brand fw-bold d-flex align-items-center" href="${pageContext.request.contextPath}/">
             <i class="fas fa-camera-retro me-2 text-primary" style="font-size: 1.5rem;"></i>
-            <span style="background: linear-gradient(135deg, var(--primary-600), var(--primary-800)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">YOURS</span>
+            <span style="background: linear-gradient(135deg, var(--primary-600), var(--primary-800)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">YOURS</span>
         </a>
 
         <!-- Mobile toggle -->
@@ -428,12 +647,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 <!-- If user is not logged in -->
                 <% if (session.getAttribute("user") == null) { %>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-modern" href="${pageContext.request.contextPath}/pages/auth/login.jsp">
+                        <a class="btn btn-outline-primary btn-auth-login" href="${pageContext.request.contextPath}/pages/auth/login.jsp">
                             <i class="fas fa-sign-in-alt me-2"></i>Connexion
                         </a>
                     </li>
-                    <li class="nav-item ms-2">
-                        <a class="btn btn-gradient" href="${pageContext.request.contextPath}/pages/auth/register-client.jsp">
+                    <li class="nav-item ms-3">
+                        <a class="btn btn-gradient btn-auth-signup" href="${pageContext.request.contextPath}/pages/auth/register-client.jsp">
                             <i class="fas fa-user-plus me-2"></i>S'inscrire
                         </a>
                     </li>
