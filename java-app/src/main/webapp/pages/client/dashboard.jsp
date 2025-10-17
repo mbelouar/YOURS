@@ -147,7 +147,63 @@
                 </div>
                 <div class="card-body p-4">
                     <div id="currentReservations">
-                        <!-- Current reservations will be loaded here -->
+                        <!-- Sample current reservations -->
+                        <div class="reservation-item mb-4 p-3" style="background: #f8fafc; border-radius: 0.75rem; border-left: 4px solid #10b981;">
+                            <div class="d-flex align-items-center">
+                                <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
+                                     alt="Canon EOS R5" class="rounded me-3" 
+                                     style="width: 60px; height: 60px; object-fit: cover;">
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1 fw-bold text-dark">Canon EOS R5</h6>
+                                    <small class="text-muted d-block mb-1">
+                                        <i class="fas fa-calendar me-1"></i>
+                                        15 Oct - 20 Oct 2024
+                                    </small>
+                                    <small class="text-success fw-medium">
+                                        <i class="fas fa-clock me-1"></i>
+                                        3 jours restants
+                                    </small>
+                                </div>
+                                <div class="text-end">
+                                    <div class="fw-bold text-primary mb-1">1,200 MAD</div>
+                                    <a href="#" class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-eye me-1"></i>Détails
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="reservation-item mb-4 p-3" style="background: #f8fafc; border-radius: 0.75rem; border-left: 4px solid #f59e0b;">
+                            <div class="d-flex align-items-center">
+                                <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
+                                     alt="Sony FX3" class="rounded me-3" 
+                                     style="width: 60px; height: 60px; object-fit: cover;">
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1 fw-bold text-dark">Sony FX3</h6>
+                                    <small class="text-muted d-block mb-1">
+                                        <i class="fas fa-calendar me-1"></i>
+                                        22 Oct - 25 Oct 2024
+                                    </small>
+                                    <small class="text-warning fw-medium">
+                                        <i class="fas fa-clock me-1"></i>
+                                        Commence dans 2 jours
+                                    </small>
+                                </div>
+                                <div class="text-end">
+                                    <div class="fw-bold text-primary mb-1">850 MAD</div>
+                                    <a href="#" class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-eye me-1"></i>Détails
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <a href="${pageContext.request.contextPath}/pages/client/reservations.jsp" 
+                               class="btn btn-outline-primary">
+                                <i class="fas fa-calendar-check me-2"></i>Voir toutes les réservations
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -163,7 +219,120 @@
                     </h5>
                 </div>
                 <div class="card-body p-4">
-                    <canvas id="reservationChart" height="80"></canvas>
+                    <!-- Professional Chart Design -->
+                    <div class="chart-container" style="position: relative;">
+                        <!-- Chart Header with Period Selector -->
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div>
+                                <h6 class="fw-bold text-dark mb-1">Évolution des réservations</h6>
+                                <small class="text-muted">Derniers 6 mois</small>
+                            </div>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-outline-primary active">6M</button>
+                                <button type="button" class="btn btn-outline-primary">1A</button>
+                                <button type="button" class="btn btn-outline-primary">Tout</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Professional Chart Area -->
+                        <div class="chart-area" style="position: relative; height: 280px; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border-radius: 1rem; padding: 1.5rem; margin-bottom: 1.5rem;">
+                            <!-- Grid Lines -->
+                            <div class="chart-grid" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; padding: 1.5rem;">
+                                <div class="d-flex h-100">
+                                    <div class="flex-grow-1 d-flex flex-column justify-content-between">
+                                        <div style="height: 1px; background: rgba(148, 163, 184, 0.2);"></div>
+                                        <div style="height: 1px; background: rgba(148, 163, 184, 0.2);"></div>
+                                        <div style="height: 1px; background: rgba(148, 163, 184, 0.2);"></div>
+                                        <div style="height: 1px; background: rgba(148, 163, 184, 0.2);"></div>
+                                        <div style="height: 1px; background: rgba(148, 163, 184, 0.2);"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Chart Bars with Gradient -->
+                            <div class="d-flex align-items-end justify-content-between h-100" style="padding-top: 1rem;">
+                                <div class="chart-bar-container d-flex flex-column align-items-center position-relative">
+                                    <div class="chart-bar" style="width: 40px; height: 45px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); border-radius: 8px 8px 0 0; margin-bottom: 0.75rem; position: relative; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">
+                                        <div class="chart-value" style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 0.25rem 0.5rem; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 600;">3</div>
+                                    </div>
+                                    <small class="text-muted fw-medium">Jan</small>
+                                </div>
+                                <div class="chart-bar-container d-flex flex-column align-items-center position-relative">
+                                    <div class="chart-bar" style="width: 40px; height: 75px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); border-radius: 8px 8px 0 0; margin-bottom: 0.75rem; position: relative; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">
+                                        <div class="chart-value" style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 0.25rem 0.5rem; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 600;">5</div>
+                                    </div>
+                                    <small class="text-muted fw-medium">Fév</small>
+                                </div>
+                                <div class="chart-bar-container d-flex flex-column align-items-center position-relative">
+                                    <div class="chart-bar" style="width: 40px; height: 30px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); border-radius: 8px 8px 0 0; margin-bottom: 0.75rem; position: relative; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">
+                                        <div class="chart-value" style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 0.25rem 0.5rem; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 600;">2</div>
+                                    </div>
+                                    <small class="text-muted fw-medium">Mar</small>
+                                </div>
+                                <div class="chart-bar-container d-flex flex-column align-items-center position-relative">
+                                    <div class="chart-bar" style="width: 40px; height: 105px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 8px 8px 0 0; margin-bottom: 0.75rem; position: relative; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">
+                                        <div class="chart-value" style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 0.25rem 0.5rem; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 600;">7</div>
+                                    </div>
+                                    <small class="text-muted fw-medium">Avr</small>
+                                </div>
+                                <div class="chart-bar-container d-flex flex-column align-items-center position-relative">
+                                    <div class="chart-bar" style="width: 40px; height: 90px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); border-radius: 8px 8px 0 0; margin-bottom: 0.75rem; position: relative; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">
+                                        <div class="chart-value" style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 0.25rem 0.5rem; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 600;">6</div>
+                                    </div>
+                                    <small class="text-muted fw-medium">Mai</small>
+                                </div>
+                                <div class="chart-bar-container d-flex flex-column align-items-center position-relative">
+                                    <div class="chart-bar" style="width: 40px; height: 120px; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 8px 8px 0 0; margin-bottom: 0.75rem; position: relative; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);">
+                                        <div class="chart-value" style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 0.25rem 0.5rem; border-radius: 0.375rem; font-size: 0.75rem; font-weight: 600;">8</div>
+                                    </div>
+                                    <small class="text-muted fw-medium">Jun</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Professional Summary Cards -->
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="summary-card p-3" style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border-radius: 0.75rem; border: 1px solid rgba(59, 130, 246, 0.2); text-align: center;">
+                                    <div class="d-flex align-items-center justify-content-center mb-2">
+                                        <div class="summary-icon" style="width: 40px; height: 40px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 0.75rem;">
+                                            <i class="fas fa-calendar-check text-white" style="font-size: 1rem;"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-primary" style="font-size: 1.75rem; line-height: 1;">31</div>
+                                            <small class="text-muted">Total réservations</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="summary-card p-3" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-radius: 0.75rem; border: 1px solid rgba(16, 185, 129, 0.2); text-align: center;">
+                                    <div class="d-flex align-items-center justify-content-center mb-2">
+                                        <div class="summary-icon" style="width: 40px; height: 40px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 0.75rem;">
+                                            <i class="fas fa-chart-line text-white" style="font-size: 1rem;"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-success" style="font-size: 1.75rem; line-height: 1;">5.2</div>
+                                            <small class="text-muted">Moyenne/mois</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="summary-card p-3" style="background: linear-gradient(135deg, #fffbeb, #fef3c7); border-radius: 0.75rem; border: 1px solid rgba(245, 158, 11, 0.2); text-align: center;">
+                                    <div class="d-flex align-items-center justify-content-center mb-2">
+                                        <div class="summary-icon" style="width: 40px; height: 40px; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 0.75rem;">
+                                            <i class="fas fa-arrow-up text-white" style="font-size: 1rem;"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-warning" style="font-size: 1.75rem; line-height: 1;">+23%</div>
+                                            <small class="text-muted">vs mois dernier</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -179,7 +348,86 @@
                 </div>
                 <div class="card-body p-4">
                     <div class="row g-3" id="recommendedEquipment">
-                        <!-- Recommended equipment will be loaded here -->
+                        <!-- Recommended equipment cards -->
+                        <div class="col-md-4">
+                            <div class="card h-100 border-0 shadow-sm position-relative" style="border-radius: 0.75rem; transition: all 0.3s ease;">
+                                <div class="position-relative">
+                                    <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
+                                         class="card-img-top" alt="Canon EOS R6 Mark II" 
+                                         style="height: 180px; object-fit: cover; border-radius: 0.75rem 0.75rem 0 0;">
+                                    <span class="badge bg-success position-absolute top-0 end-0 m-2" style="border-radius: 1rem;">
+                                        <i class="fas fa-star me-1"></i>Populaire
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title fw-bold mb-2 text-dark">Canon EOS R6 Mark II</h6>
+                                    <p class="card-text small text-muted mb-3">Appareil photo professionnel avec capteur plein format et stabilisation d'image...</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold text-primary">1,450 MAD/j</span>
+                                        <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=1" 
+                                           class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="card h-100 border-0 shadow-sm position-relative" style="border-radius: 0.75rem; transition: all 0.3s ease;">
+                                <div class="position-relative">
+                                    <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
+                                         class="card-img-top" alt="Sony A7 IV" 
+                                         style="height: 180px; object-fit: cover; border-radius: 0.75rem 0.75rem 0 0;">
+                                    <span class="badge bg-warning position-absolute top-0 end-0 m-2" style="border-radius: 1rem;">
+                                        <i class="fas fa-fire me-1"></i>Tendance
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title fw-bold mb-2 text-dark">Sony A7 IV</h6>
+                                    <p class="card-text small text-muted mb-3">Hybride plein format avec autofocus rapide et excellente qualité d'image...</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold text-primary">1,200 MAD/j</span>
+                                        <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=2" 
+                                           class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="card h-100 border-0 shadow-sm position-relative" style="border-radius: 0.75rem; transition: all 0.3s ease;">
+                                <div class="position-relative">
+                                    <img src="${pageContext.request.contextPath}/assets/images/placeholder-equipment.jpg" 
+                                         class="card-img-top" alt="DJI Mavic 3 Pro" 
+                                         style="height: 180px; object-fit: cover; border-radius: 0.75rem 0.75rem 0 0;">
+                                    <span class="badge bg-info position-absolute top-0 end-0 m-2" style="border-radius: 1rem;">
+                                        <i class="fas fa-heart me-1"></i>Recommandé
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title fw-bold mb-2 text-dark">DJI Mavic 3 Pro</h6>
+                                    <p class="card-text small text-muted mb-3">Drone professionnel avec triple caméra et vol longue durée...</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold text-primary">800 MAD/j</span>
+                                        <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=3" 
+                                           class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- View all recommendations -->
+                    <div class="text-center mt-4">
+                        <a href="${pageContext.request.contextPath}/pages/equipment/list-simple.jsp" 
+                           class="btn btn-outline-primary">
+                            <i class="fas fa-th-large me-2"></i>Voir plus de recommandations
+                        </a>
                     </div>
                 </div>
             </div>
