@@ -463,6 +463,14 @@ function handleLogin() {
     const password = formData.get('password');
     const rememberMe = formData.get('rememberMe') === 'on';
     
+    // Get redirect URL from query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectUrl = urlParams.get('redirect');
+    
+    // Debug logging
+    console.log('Redirect URL from parameters:', redirectUrl);
+    console.log('Current URL:', window.location.href);
+    
     // Simulate API call with enhanced feedback
     setTimeout(() => {
         // Mock authentication logic
@@ -518,27 +526,53 @@ function handleLogin() {
             // Redirect after a brief delay to show success state
             setTimeout(() => {
                 try {
-                    switch (userType) {
-                        case 'client':
-                            // Redirect to main dashboard with error handling
-                            window.location.replace('${pageContext.request.contextPath}/pages/client/dashboard.jsp');
-                            break;
-                        case 'partner':
-                            window.location.replace('${pageContext.request.contextPath}/pages/partner/dashboard.jsp');
-                            break;
-                        case 'admin':
-                            window.location.replace('${pageContext.request.contextPath}/pages/admin/dashboard.jsp');
-                            break;
-                        default:
-                            window.location.replace('${pageContext.request.contextPath}/');
+                    // Determine redirect destination
+                    let destination = '';
+                    
+                    if (redirectUrl && userType === 'client') {
+                        // If there's a redirect URL and user is a client, use it
+                        // Handle both relative and absolute URLs
+                        if (redirectUrl.startsWith('/')) {
+                            destination = '${pageContext.request.contextPath}' + redirectUrl;
+                        } else {
+                            destination = redirectUrl;
+                        }
+                    } else {
+                        // Default redirects based on user type
+                        switch (userType) {
+                            case 'client':
+                                destination = '${pageContext.request.contextPath}/pages/client/dashboard.jsp';
+                                break;
+                            case 'partner':
+                                destination = '${pageContext.request.contextPath}/pages/partner/dashboard.jsp';
+                                break;
+                            case 'admin':
+                                destination = '${pageContext.request.contextPath}/pages/admin/dashboard.jsp';
+                                break;
+                            default:
+                                destination = '${pageContext.request.contextPath}/';
+                        }
                     }
+                    
+                    // Debug logging
+                    console.log('Final destination:', destination);
+                    console.log('User type:', userType);
+                    
+                    // Perform redirect
+                    window.location.replace(destination);
                } catch (error) {
                    console.error('Redirect error:', error);
                    // Try alternative redirect method
                    setTimeout(() => {
                        try {
                            if (userType === 'client') {
-                               window.location.href = '${pageContext.request.contextPath}/pages/client/dashboard.jsp';
+                               if (redirectUrl) {
+                                   const fallbackDestination = redirectUrl.startsWith('/') ? 
+                                       '${pageContext.request.contextPath}' + redirectUrl : redirectUrl;
+                                   window.location.href = fallbackDestination;
+                               } else {
+                                   window.location.href = '${pageContext.request.contextPath}/pages/client/dashboard.jsp';
+                               }
                            } else {
                                window.location.href = '${pageContext.request.contextPath}/';
                            }
