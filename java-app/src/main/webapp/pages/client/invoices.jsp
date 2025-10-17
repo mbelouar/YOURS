@@ -260,20 +260,41 @@
 }
 
 .favorites-nav-list .list-group-item {
-    border: none;
-    padding: 1rem 1.5rem;
+    border: none !important;
+    border-left: none !important;
+    padding: 1rem 1.5rem !important;
     transition: all 0.3s ease;
     background-color: white !important;
+    position: relative;
 }
 
 .favorites-nav-list .list-group-item:hover {
-    background-color: #f8fafc;
+    background-color: #f8fafc !important;
     transform: translateX(5px);
 }
 
+.favorites-nav-list .list-group-item:hover::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: #2563eb;
+}
+
 .favorites-nav-list .list-group-item.active {
-    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-    border-left: 4px solid #2563eb;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+}
+
+.favorites-nav-list .list-group-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: #2563eb;
 }
 
 .nav-icon-wrapper {

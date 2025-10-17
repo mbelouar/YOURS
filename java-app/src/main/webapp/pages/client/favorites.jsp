@@ -599,139 +599,82 @@ function updateFavoriteStats() {
 /* Enhanced Navigation Items */
 .enhanced-nav .favorites-nav-list .favorites-nav-item {
     border: none !important;
-    padding: 1rem 1.25rem !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    background: transparent;
-    color: #374151;
-    margin-bottom: 0.25rem;
-    border-radius: 0.75rem !important;
-    overflow: hidden;
-}
-
-.enhanced-nav .favorites-nav-list .favorites-nav-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(147, 197, 253, 0.05));
-    opacity: 0;
+    border-left: none !important;
+    padding: 1rem 1.5rem !important;
     transition: all 0.3s ease;
+    background-color: white !important;
+    position: relative;
 }
 
 .enhanced-nav .favorites-nav-list .favorites-nav-item:hover {
-    background: linear-gradient(135deg, #eff6ff, #dbeafe) !important;
-    color: #1e40af !important;
-    transform: translateX(6px) translateY(-1px);
-    box-shadow: 0 6px 20px -5px rgba(59, 130, 246, 0.15);
-    border-left: 3px solid #3b82f6;
-    border-radius: 0.75rem !important;
+    background-color: #f8fafc !important;
+    transform: translateX(5px);
 }
 
 .enhanced-nav .favorites-nav-list .favorites-nav-item:hover::before {
-    opacity: 1;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: #2563eb;
 }
 
 .enhanced-nav .favorites-nav-list .favorites-nav-item.active {
-    background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
-    color: white !important;
-    font-weight: 600;
-    border-left: 3px solid #ffffff;
-    box-shadow: 0 6px 20px -5px rgba(37, 99, 235, 0.25);
-    border-radius: 0 0 0.75rem 0.75rem !important;
-}
-
-.enhanced-nav .favorites-nav-list .favorites-nav-item:first-child.active {
-    border-radius: 0 0 0.75rem 0.75rem !important;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
 }
 
 .enhanced-nav .favorites-nav-list .favorites-nav-item.active::before {
-    opacity: 1;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: #2563eb;
 }
 
 /* Navigation Icon Wrapper */
 .nav-icon-wrapper {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    background: rgba(59, 130, 246, 0.1);
+    border-radius: 0.5rem;
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-}
-
-.enhanced-nav .favorites-nav-item:hover .nav-icon-wrapper {
-    background: rgba(59, 130, 246, 0.2);
-    transform: scale(1.1);
+    font-size: 1.2rem;
+    color: #2563eb;
 }
 
 .enhanced-nav .favorites-nav-item.active .nav-icon-wrapper {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.nav-icon-wrapper i {
-    font-size: 1.1rem;
-    color: #3b82f6;
-    transition: all 0.3s ease;
-}
-
-.enhanced-nav .favorites-nav-item:hover .nav-icon-wrapper i {
-    color: #1e40af;
-}
-
-.enhanced-nav .favorites-nav-item.active .nav-icon-wrapper i {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
     color: white;
 }
 
 /* Navigation Content */
-.nav-content {
-    flex: 1;
-}
-
-.nav-title {
+.nav-content .nav-title {
     font-weight: 600;
-    font-size: 1rem;
-    margin-bottom: 0.125rem;
-    transition: all 0.3s ease;
+    color: #1e293b;
+    font-size: 0.95rem;
 }
 
-.nav-subtitle {
+.nav-content .nav-subtitle {
+    color: #64748b;
     font-size: 0.8rem;
-    opacity: 0.7;
-    transition: all 0.3s ease;
-    color: inherit;
-}
-
-.enhanced-nav .favorites-nav-item:hover .nav-subtitle {
-    opacity: 0.9;
-}
-
-.enhanced-nav .favorites-nav-item.active .nav-subtitle {
-    opacity: 0.8;
-    color: rgba(255, 255, 255, 0.9);
 }
 
 /* Navigation Arrow */
 .nav-arrow {
-    font-size: 0.875rem;
-    opacity: 0.6;
+    color: #cbd5e1;
     transition: all 0.3s ease;
-    flex-shrink: 0;
 }
 
-.enhanced-nav .favorites-nav-item:hover .nav-arrow {
-    opacity: 1;
-    transform: translateX(4px);
-}
-
+.enhanced-nav .favorites-nav-item:hover .nav-arrow,
 .enhanced-nav .favorites-nav-item.active .nav-arrow {
-    opacity: 0.8;
-    color: white;
+    color: #2563eb;
+    transform: translateX(5px);
 }
 
 /* Favorites Card Styling */
