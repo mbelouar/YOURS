@@ -153,6 +153,273 @@
     transform: scale(1.1) !important;
 }
 
+/* Equipment Modal Styling */
+.equipment-modal-content {
+    border: none !important;
+    border-radius: 1.5rem !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+    overflow: hidden !important;
+}
+
+.equipment-modal-header {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700)) !important;
+    border: none !important;
+    padding: 2rem !important;
+    position: relative !important;
+}
+
+.equipment-modal-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.modal-icon-container {
+    width: 60px !important;
+    height: 60px !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    backdrop-filter: blur(10px) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.modal-icon-container i {
+    font-size: 1.5rem !important;
+    color: white !important;
+}
+
+.modal-title {
+    color: white !important;
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+}
+
+.modal-subtitle {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 0.95rem !important;
+    font-weight: 400 !important;
+}
+
+.equipment-modal-body {
+    padding: 2rem !important;
+    background: #f8fafc !important;
+}
+
+.equipment-preview-section {
+    background: white !important;
+    border-radius: 1rem !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid rgba(226, 232, 240, 0.8) !important;
+}
+
+.preview-card {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
+}
+
+.preview-image-container {
+    width: 120px !important;
+    height: 120px !important;
+    border-radius: 0.75rem !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+}
+
+.preview-placeholder {
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: white !important;
+}
+
+.preview-placeholder i {
+    font-size: 2rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.preview-placeholder span {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+}
+
+.preview-info {
+    flex: 1 !important;
+}
+
+.preview-title {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    color: var(--gray-900) !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.preview-category {
+    font-size: 0.875rem !important;
+    color: var(--gray-600) !important;
+    margin-bottom: 0.75rem !important;
+}
+
+.preview-price {
+    font-size: 1.125rem !important;
+    font-weight: 700 !important;
+    color: var(--primary-600) !important;
+}
+
+.form-section {
+    background: white !important;
+    border-radius: 1rem !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid rgba(226, 232, 240, 0.8) !important;
+    height: 100% !important;
+}
+
+.section-header {
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 1.5rem !important;
+    padding-bottom: 0.75rem !important;
+    border-bottom: 2px solid var(--primary-100) !important;
+}
+
+.section-header i {
+    font-size: 1.125rem !important;
+    color: var(--primary-600) !important;
+    margin-right: 0.75rem !important;
+}
+
+.section-header h6 {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: var(--gray-900) !important;
+    margin: 0 !important;
+}
+
+.form-group {
+    margin-bottom: 1.5rem !important;
+}
+
+.form-label {
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    color: var(--gray-700) !important;
+    margin-bottom: 0.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.form-label i {
+    color: var(--primary-600) !important;
+    font-size: 0.875rem !important;
+}
+
+.form-control-modern,
+.form-select-modern {
+    border: 2px solid var(--gray-200) !important;
+    border-radius: 0.75rem !important;
+    padding: 0.75rem 1rem !important;
+    font-size: 0.9375rem !important;
+    transition: all 0.3s ease !important;
+    background: white !important;
+}
+
+.form-control-modern:focus,
+.form-select-modern:focus {
+    border-color: var(--primary-500) !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
+    outline: none !important;
+}
+
+.form-hint {
+    font-size: 0.75rem !important;
+    color: var(--gray-500) !important;
+    margin-top: 0.375rem !important;
+    font-style: italic !important;
+}
+
+.file-upload-area {
+    border: 2px dashed var(--gray-300) !important;
+    border-radius: 0.75rem !important;
+    padding: 2rem 1rem !important;
+    text-align: center !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    background: var(--gray-50) !important;
+}
+
+.file-upload-area:hover {
+    border-color: var(--primary-400) !important;
+    background: var(--primary-50) !important;
+}
+
+.file-upload-area i {
+    font-size: 2rem !important;
+    color: var(--primary-500) !important;
+    margin-bottom: 0.75rem !important;
+}
+
+.file-upload-area p {
+    font-weight: 600 !important;
+    color: var(--gray-700) !important;
+    margin-bottom: 0.25rem !important;
+}
+
+.file-upload-area small {
+    color: var(--gray-500) !important;
+}
+
+.equipment-modal-footer {
+    background: white !important;
+    border: none !important;
+    padding: 1.5rem 2rem !important;
+    border-top: 1px solid var(--gray-200) !important;
+}
+
+.equipment-modal-footer .btn {
+    border-radius: 0.75rem !important;
+    padding: 0.75rem 1.5rem !important;
+    font-weight: 600 !important;
+    font-size: 0.9375rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.equipment-modal-footer .btn-primary {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700)) !important;
+    border: none !important;
+    box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.4) !important;
+}
+
+.equipment-modal-footer .btn-primary:hover {
+    background: linear-gradient(135deg, var(--primary-700), var(--primary-800)) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px -2px rgba(37, 99, 235, 0.5) !important;
+}
+
+.equipment-modal-footer .btn-outline-secondary {
+    border: 2px solid var(--gray-300) !important;
+    color: var(--gray-600) !important;
+}
+
+.equipment-modal-footer .btn-outline-secondary:hover {
+    background: var(--gray-100) !important;
+    border-color: var(--gray-400) !important;
+    color: var(--gray-700) !important;
+}
+
 /* Animation for slide down */
 @keyframes slideDown {
     from {
@@ -340,68 +607,150 @@
 
 <!-- Add/Edit Equipment Modal -->
 <div class="modal fade" id="equipmentModal" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg">
-            <div class="modal-header bg-primary text-white border-0">
-                <h5 class="modal-title fw-bold">
-                    <i class="fas fa-box me-2"></i><span id="modalTitle">Ajouter du matériel</span>
-                </h5>
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content equipment-modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header equipment-modal-header">
+                <div class="d-flex align-items-center">
+                    <div class="modal-icon-container">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="ms-3">
+                        <h4 class="modal-title mb-0 fw-bold" id="modalTitle">Ajouter du matériel</h4>
+                        <p class="modal-subtitle mb-0">Remplissez les informations de votre équipement</p>
+                    </div>
+                </div>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body p-4">
-                <form id="equipmentForm">
+            
+            <!-- Modal Body -->
+            <div class="modal-body equipment-modal-body">
+                <form id="equipmentForm" class="equipment-form">
                     <input type="hidden" id="equipmentId">
                     
-                    <div class="row">
-                        <div class="col-md-8 mb-3">
-                            <label class="form-label fw-semibold">Nom du matériel *</label>
-                            <input type="text" class="form-control form-control-lg" id="equipmentName" required>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label class="form-label fw-semibold">Prix/jour (MAD) *</label>
-                            <input type="number" class="form-control form-control-lg" id="equipmentPrice" required>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Catégorie *</label>
-                            <select class="form-select form-select-lg" id="equipmentCategory" required>
-                                <option value="">Sélectionner une catégorie</option>
-                                <option value="1">Photographie</option>
-                                <option value="2">Vidéo</option>
-                                <option value="3">Audio</option>
-                                <option value="4">Informatique</option>
-                                <option value="5">Gaming</option>
-                                <option value="6">Éclairage</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-semibold">Disponibilité *</label>
-                            <select class="form-select form-select-lg" id="equipmentStatus" required>
-                                <option value="true">Disponible</option>
-                                <option value="false">Non disponible</option>
-                            </select>
+                    <!-- Equipment Preview Section -->
+                    <div class="equipment-preview-section mb-4">
+                        <div class="preview-card">
+                            <div class="preview-image-container">
+                                <div class="preview-placeholder">
+                                    <i class="fas fa-camera"></i>
+                                    <span>Aperçu</span>
+                                </div>
+                            </div>
+                            <div class="preview-info">
+                                <h5 class="preview-title" id="previewTitle">Nom du matériel</h5>
+                                <p class="preview-category" id="previewCategory">Catégorie</p>
+                                <div class="preview-price" id="previewPrice">0 MAD/jour</div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Description</label>
-                        <textarea class="form-control" id="equipmentDescription" rows="3" placeholder="Décrivez votre matériel..."></textarea>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Photos du matériel</label>
-                        <input type="file" class="form-control" id="equipmentPhotos" multiple accept="image/*">
-                        <small class="text-muted">Vous pouvez sélectionner plusieurs images</small>
+                    
+                    <!-- Form Sections -->
+                    <div class="row g-4">
+                        <!-- Basic Information -->
+                        <div class="col-lg-8">
+                            <div class="form-section">
+                                <div class="section-header">
+                                    <i class="fas fa-info-circle"></i>
+                                    <h6>Informations de base</h6>
+                                </div>
+                                
+                                <div class="row g-3">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label class="form-label">
+                                                <i class="fas fa-tag me-2"></i>Nom du matériel *
+                                            </label>
+                                            <input type="text" class="form-control form-control-modern" id="equipmentName" 
+                                                   placeholder="Ex: Canon EOS R5" required>
+                                            <div class="form-hint">Nom complet de votre équipement</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">
+                                                <i class="fas fa-dollar-sign me-2"></i>Prix/jour (MAD) *
+                                            </label>
+                                            <input type="number" class="form-control form-control-modern" id="equipmentPrice" 
+                                                   placeholder="0" min="0" step="0.01" required>
+                                            <div class="form-hint">Prix de location par jour</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <i class="fas fa-align-left me-2"></i>Description
+                                    </label>
+                                    <textarea class="form-control form-control-modern" id="equipmentDescription" 
+                                              rows="4" placeholder="Décrivez votre matériel, ses caractéristiques, son état..."></textarea>
+                                    <div class="form-hint">Description détaillée pour attirer les clients</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Equipment Details -->
+                        <div class="col-lg-4">
+                            <div class="form-section">
+                                <div class="section-header">
+                                    <i class="fas fa-cogs"></i>
+                                    <h6>Détails</h6>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <i class="fas fa-folder me-2"></i>Catégorie *
+                                    </label>
+                                    <select class="form-select form-select-modern" id="equipmentCategory" required>
+                                        <option value="">Sélectionner une catégorie</option>
+                                        <option value="Photographie">📷 Photographie</option>
+                                        <option value="Vidéo">🎥 Vidéo</option>
+                                        <option value="Audio">🎵 Audio</option>
+                                        <option value="Informatique">💻 Informatique</option>
+                                        <option value="Gaming">🎮 Gaming</option>
+                                        <option value="Éclairage">💡 Éclairage</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <i class="fas fa-toggle-on me-2"></i>Statut *
+                                    </label>
+                                    <select class="form-select form-select-modern" id="equipmentStatus" required>
+                                        <option value="available">✅ Disponible</option>
+                                        <option value="unavailable">❌ Non disponible</option>
+                                        <option value="maintenance">🔧 En maintenance</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <i class="fas fa-images me-2"></i>Photos du matériel
+                                    </label>
+                                    <div class="file-upload-area" onclick="document.getElementById('equipmentPhotos').click()">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p class="mb-1">Cliquez pour ajouter des photos</p>
+                                        <small>JPG, PNG, GIF (max 10MB)</small>
+                                    </div>
+                                    <input type="file" class="d-none" id="equipmentPhotos" multiple accept="image/*">
+                                    <div class="form-hint">Ajoutez jusqu'à 5 photos de qualité</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer border-0 bg-light">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <button type="button" class="btn btn-primary" onclick="saveEquipment()">
-                    <i class="fas fa-save me-2"></i>Enregistrer
-                </button>
+            
+            <!-- Modal Footer -->
+            <div class="modal-footer equipment-modal-footer">
+                <div class="d-flex gap-3 w-100">
+                    <button type="button" class="btn btn-outline-secondary btn-lg flex-fill" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i>Annuler
+                    </button>
+                    <button type="button" class="btn btn-primary btn-lg flex-fill" onclick="saveEquipment()">
+                        <i class="fas fa-save me-2"></i>Enregistrer le matériel
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -413,6 +762,9 @@ let equipmentModal;
 document.addEventListener('DOMContentLoaded', function() {
     equipmentModal = new bootstrap.Modal(document.getElementById('equipmentModal'));
     loadEquipment();
+    
+    // Setup preview updates
+    setupPreviewUpdates();
     
     // Search functionality
     const searchInput = document.getElementById('searchInput');
@@ -786,10 +1138,46 @@ function displayEquipment(equipment) {
     }).join('');
 }
 
+function setupPreviewUpdates() {
+    const nameInput = document.getElementById('equipmentName');
+    const priceInput = document.getElementById('equipmentPrice');
+    const categorySelect = document.getElementById('equipmentCategory');
+    const previewTitle = document.getElementById('previewTitle');
+    const previewCategory = document.getElementById('previewCategory');
+    const previewPrice = document.getElementById('previewPrice');
+    
+    if (nameInput && previewTitle) {
+        nameInput.addEventListener('input', function() {
+            previewTitle.textContent = this.value || 'Nom du matériel';
+        });
+    }
+    
+    if (priceInput && previewPrice) {
+        priceInput.addEventListener('input', function() {
+            const price = this.value || '0';
+            previewPrice.textContent = price + ' MAD/jour';
+        });
+    }
+    
+    if (categorySelect && previewCategory) {
+        categorySelect.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            previewCategory.textContent = selectedOption.text || 'Catégorie';
+        });
+    }
+}
+
 function showAddEquipmentModal() {
     document.getElementById('modalTitle').textContent = 'Ajouter du matériel';
+    document.querySelector('.modal-subtitle').textContent = 'Remplissez les informations de votre équipement';
     document.getElementById('equipmentForm').reset();
     document.getElementById('equipmentId').value = '';
+    
+    // Reset preview
+    document.getElementById('previewTitle').textContent = 'Nom du matériel';
+    document.getElementById('previewCategory').textContent = 'Catégorie';
+    document.getElementById('previewPrice').textContent = '0 MAD/jour';
+    
     equipmentModal.show();
 }
 
