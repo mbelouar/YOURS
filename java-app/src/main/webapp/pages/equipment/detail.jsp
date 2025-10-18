@@ -974,7 +974,7 @@ function contactPartner() {
 }
 
 function addToWishlist() {
-    alert('Ajoute aux favoris !');
+    notificationSystem.success('Équipement ajouté aux favoris !');
 }
 
 function shareEquipment() {
@@ -983,10 +983,17 @@ function shareEquipment() {
             title: currentEquipment.nom,
             text: currentEquipment.description,
             url: window.location.href
+        }).then(() => {
+            notificationSystem.success('Équipement partagé avec succès !');
+        }).catch(() => {
+            // Fallback to clipboard if share is cancelled
+            navigator.clipboard.writeText(window.location.href).then(function() {
+                notificationSystem.success('Lien copié dans le presse-papiers !');
+            });
         });
     } else {
         navigator.clipboard.writeText(window.location.href).then(function() {
-            alert('Lien copie dans le presse-papiers !');
+            notificationSystem.success('Lien copié dans le presse-papiers !');
         });
     }
 }
