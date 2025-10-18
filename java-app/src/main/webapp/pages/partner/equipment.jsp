@@ -164,7 +164,7 @@
 .equipment-modal-header {
     background: linear-gradient(135deg, var(--primary-600), var(--primary-700)) !important;
     border: none !important;
-    padding: 2rem !important;
+    padding: 1rem !important;
     position: relative !important;
 }
 
@@ -180,8 +180,8 @@
 }
 
 .modal-icon-container {
-    width: 60px !important;
-    height: 60px !important;
+    width: 40px !important;
+    height: 40px !important;
     background: rgba(255, 255, 255, 0.2) !important;
     border-radius: 50% !important;
     display: flex !important;
@@ -192,45 +192,45 @@
 }
 
 .modal-icon-container i {
-    font-size: 1.5rem !important;
+    font-size: 1rem !important;
     color: white !important;
 }
 
 .modal-title {
     color: white !important;
-    font-size: 1.5rem !important;
+    font-size: 1.25rem !important;
     font-weight: 700 !important;
 }
 
 .modal-subtitle {
     color: rgba(255, 255, 255, 0.8) !important;
-    font-size: 0.95rem !important;
+    font-size: 0.875rem !important;
     font-weight: 400 !important;
 }
 
 .equipment-modal-body {
-    padding: 2rem !important;
+    padding: 1rem !important;
     background: #f8fafc !important;
 }
 
 .equipment-preview-section {
     background: white !important;
-    border-radius: 1rem !important;
-    padding: 1.5rem !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 0.75rem !important;
+    padding: 0.75rem !important;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1) !important;
     border: 1px solid rgba(226, 232, 240, 0.8) !important;
 }
 
 .preview-card {
     display: flex !important;
     align-items: center !important;
-    gap: 1.5rem !important;
+    gap: 0.75rem !important;
 }
 
 .preview-image-container {
-    width: 120px !important;
-    height: 120px !important;
-    border-radius: 0.75rem !important;
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 0.5rem !important;
     overflow: hidden !important;
     flex-shrink: 0 !important;
 }
@@ -247,12 +247,12 @@
 }
 
 .preview-placeholder i {
-    font-size: 2rem !important;
-    margin-bottom: 0.5rem !important;
+    font-size: 1.25rem !important;
+    margin-bottom: 0.125rem !important;
 }
 
 .preview-placeholder span {
-    font-size: 0.75rem !important;
+    font-size: 0.5rem !important;
     font-weight: 600 !important;
 }
 
@@ -261,20 +261,20 @@
 }
 
 .preview-title {
-    font-size: 1.25rem !important;
+    font-size: 0.875rem !important;
     font-weight: 700 !important;
     color: var(--gray-900) !important;
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 0.125rem !important;
 }
 
 .preview-category {
-    font-size: 0.875rem !important;
+    font-size: 0.625rem !important;
     color: var(--gray-600) !important;
-    margin-bottom: 0.75rem !important;
+    margin-bottom: 0.25rem !important;
 }
 
 .preview-price {
-    font-size: 1.125rem !important;
+    font-size: 0.75rem !important;
     font-weight: 700 !important;
     color: var(--primary-600) !important;
 }
@@ -310,29 +310,29 @@
 }
 
 .form-group {
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 1rem !important;
 }
 
 .form-label {
-    font-size: 0.875rem !important;
+    font-size: 0.75rem !important;
     font-weight: 600 !important;
     color: var(--gray-700) !important;
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 0.375rem !important;
     display: flex !important;
     align-items: center !important;
 }
 
 .form-label i {
     color: var(--primary-600) !important;
-    font-size: 0.875rem !important;
+    font-size: 0.75rem !important;
 }
 
 .form-control-modern,
 .form-select-modern {
-    border: 2px solid var(--gray-200) !important;
-    border-radius: 0.75rem !important;
-    padding: 0.75rem 1rem !important;
-    font-size: 0.9375rem !important;
+    border: 1px solid var(--gray-200) !important;
+    border-radius: 0.5rem !important;
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.875rem !important;
     transition: all 0.3s ease !important;
     background: white !important;
 }
@@ -353,8 +353,8 @@
 
 .file-upload-area {
     border: 2px dashed var(--gray-300) !important;
-    border-radius: 0.75rem !important;
-    padding: 2rem 1rem !important;
+    border-radius: 0.5rem !important;
+    padding: 1rem 0.75rem !important;
     text-align: center !important;
     cursor: pointer !important;
     transition: all 0.3s ease !important;
@@ -367,33 +367,35 @@
 }
 
 .file-upload-area i {
-    font-size: 2rem !important;
+    font-size: 1.5rem !important;
     color: var(--primary-500) !important;
-    margin-bottom: 0.75rem !important;
+    margin-bottom: 0.5rem !important;
 }
 
 .file-upload-area p {
     font-weight: 600 !important;
     color: var(--gray-700) !important;
-    margin-bottom: 0.25rem !important;
+    margin-bottom: 0.125rem !important;
+    font-size: 0.875rem !important;
 }
 
 .file-upload-area small {
     color: var(--gray-500) !important;
+    font-size: 0.75rem !important;
 }
 
 .equipment-modal-footer {
     background: white !important;
     border: none !important;
-    padding: 1.5rem 2rem !important;
+    padding: 1rem !important;
     border-top: 1px solid var(--gray-200) !important;
 }
 
 .equipment-modal-footer .btn {
-    border-radius: 0.75rem !important;
-    padding: 0.75rem 1.5rem !important;
+    border-radius: 0.5rem !important;
+    padding: 0.5rem 1rem !important;
     font-weight: 600 !important;
-    font-size: 0.9375rem !important;
+    font-size: 0.875rem !important;
     transition: all 0.3s ease !important;
 }
 
@@ -607,7 +609,7 @@
 
 <!-- Add/Edit Equipment Modal -->
 <div class="modal fade" id="equipmentModal" tabindex="-1">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered" style="max-height: 90vh;">
         <div class="modal-content equipment-modal-content">
             <!-- Modal Header -->
             <div class="modal-header equipment-modal-header">
@@ -629,7 +631,7 @@
                     <input type="hidden" id="equipmentId">
                     
                     <!-- Equipment Preview Section -->
-                    <div class="equipment-preview-section mb-4">
+                    <div class="equipment-preview-section mb-3">
                         <div class="preview-card">
                             <div class="preview-image-container">
                                 <div class="preview-placeholder">
@@ -646,97 +648,81 @@
                     </div>
                     
                     <!-- Form Sections -->
-                    <div class="row g-4">
+                    <div class="row g-3">
                         <!-- Basic Information -->
-                        <div class="col-lg-8">
-                            <div class="form-section">
-                                <div class="section-header">
-                                    <i class="fas fa-info-circle"></i>
-                                    <h6>Informations de base</h6>
-                                </div>
-                                
-                                <div class="row g-3">
-                                    <div class="col-md-8">
-                                        <div class="form-group">
-                                            <label class="form-label">
-                                                <i class="fas fa-tag me-2"></i>Nom du matériel *
-                                            </label>
-                                            <input type="text" class="form-control form-control-modern" id="equipmentName" 
-                                                   placeholder="Ex: Canon EOS R5" required>
-                                            <div class="form-hint">Nom complet de votre équipement</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label">
-                                                <i class="fas fa-dollar-sign me-2"></i>Prix/jour (MAD) *
-                                            </label>
-                                            <input type="number" class="form-control form-control-modern" id="equipmentPrice" 
-                                                   placeholder="0" min="0" step="0.01" required>
-                                            <div class="form-hint">Prix de location par jour</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label">
-                                        <i class="fas fa-align-left me-2"></i>Description
-                                    </label>
-                                    <textarea class="form-control form-control-modern" id="equipmentDescription" 
-                                              rows="4" placeholder="Décrivez votre matériel, ses caractéristiques, son état..."></textarea>
-                                    <div class="form-hint">Description détaillée pour attirer les clients</div>
-                                </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-tag me-2"></i>Nom du matériel *
+                                </label>
+                                <input type="text" class="form-control form-control-modern" id="equipmentName" 
+                                       placeholder="Ex: Canon EOS R5" required>
+                                <div class="form-hint">Nom complet de votre équipement</div>
                             </div>
                         </div>
-                        
-                        <!-- Equipment Details -->
-                        <div class="col-lg-4">
-                            <div class="form-section">
-                                <div class="section-header">
-                                    <i class="fas fa-cogs"></i>
-                                    <h6>Détails</h6>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label">
-                                        <i class="fas fa-folder me-2"></i>Catégorie *
-                                    </label>
-                                    <select class="form-select form-select-modern" id="equipmentCategory" required>
-                                        <option value="">Sélectionner une catégorie</option>
-                                        <option value="Photographie">📷 Photographie</option>
-                                        <option value="Vidéo">🎥 Vidéo</option>
-                                        <option value="Audio">🎵 Audio</option>
-                                        <option value="Informatique">💻 Informatique</option>
-                                        <option value="Gaming">🎮 Gaming</option>
-                                        <option value="Éclairage">💡 Éclairage</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label">
-                                        <i class="fas fa-toggle-on me-2"></i>Statut *
-                                    </label>
-                                    <select class="form-select form-select-modern" id="equipmentStatus" required>
-                                        <option value="available">✅ Disponible</option>
-                                        <option value="unavailable">❌ Non disponible</option>
-                                        <option value="maintenance">🔧 En maintenance</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="form-label">
-                                        <i class="fas fa-images me-2"></i>Photos du matériel
-                                    </label>
-                                    <div class="file-upload-area" onclick="document.getElementById('equipmentPhotos').click()">
-                                        <i class="fas fa-cloud-upload-alt"></i>
-                                        <p class="mb-1">Cliquez pour ajouter des photos</p>
-                                        <small>JPG, PNG, GIF (max 10MB)</small>
-                                    </div>
-                                    <input type="file" class="d-none" id="equipmentPhotos" multiple accept="image/*">
-                                    <div class="form-hint">Ajoutez jusqu'à 5 photos de qualité</div>
-                                </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-dollar-sign me-2"></i>Prix/jour (MAD) *
+                                </label>
+                                <input type="number" class="form-control form-control-modern" id="equipmentPrice" 
+                                       placeholder="0" min="0" step="0.01" required>
+                                <div class="form-hint">Prix de location par jour</div>
                             </div>
                         </div>
+                    </div>
+                    
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-folder me-2"></i>Catégorie *
+                                </label>
+                                <select class="form-select form-select-modern" id="equipmentCategory" required>
+                                    <option value="">Sélectionner une catégorie</option>
+                                    <option value="Photographie">📷 Photographie</option>
+                                    <option value="Vidéo">🎥 Vidéo</option>
+                                    <option value="Audio">🎵 Audio</option>
+                                    <option value="Informatique">💻 Informatique</option>
+                                    <option value="Gaming">🎮 Gaming</option>
+                                    <option value="Éclairage">💡 Éclairage</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-toggle-on me-2"></i>Statut *
+                                </label>
+                                <select class="form-select form-select-modern" id="equipmentStatus" required>
+                                    <option value="available">✅ Disponible</option>
+                                    <option value="unavailable">❌ Non disponible</option>
+                                    <option value="maintenance">🔧 En maintenance</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-align-left me-2"></i>Description
+                        </label>
+                        <textarea class="form-control form-control-modern" id="equipmentDescription" 
+                                  rows="2" placeholder="Décrivez votre matériel, ses caractéristiques, son état..."></textarea>
+                        <div class="form-hint">Description détaillée pour attirer les clients</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-images me-2"></i>Photos du matériel
+                        </label>
+                        <div class="file-upload-area" onclick="document.getElementById('equipmentPhotos').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p class="mb-1">Cliquez pour ajouter des photos</p>
+                            <small>JPG, PNG, GIF (max 10MB)</small>
+                        </div>
+                        <input type="file" class="d-none" id="equipmentPhotos" multiple accept="image/*">
+                        <div class="form-hint">Ajoutez jusqu'à 5 photos de qualité</div>
                     </div>
                 </form>
             </div>
