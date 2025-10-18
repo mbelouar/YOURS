@@ -6,6 +6,408 @@
 <%@ include file="../../layouts/header.jsp" %>
 <%@ include file="../../layouts/navbar.jsp" %>
 
+<style>
+/* Reservations Page Styling */
+.reservations-container {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    min-height: 100vh;
+}
+
+/* Status Filter Cards */
+.status-filter-card {
+    background: white !important;
+    border: 2px solid transparent !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08), 0 2px 8px -2px rgba(0, 0, 0, 0.04) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.status-filter-card::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(29, 78, 216, 0.05)) !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.status-filter-card:hover::before {
+    opacity: 1 !important;
+}
+
+.status-filter-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 12px 40px -8px rgba(37, 99, 235, 0.2), 0 4px 20px -4px rgba(37, 99, 235, 0.1) !important;
+}
+
+.status-filter-card.active {
+    border-color: var(--primary-500) !important;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(29, 78, 216, 0.08)) !important;
+    box-shadow: 0 8px 30px -6px rgba(37, 99, 235, 0.3), 0 4px 20px -4px rgba(37, 99, 235, 0.15) !important;
+}
+
+.status-icon {
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.5rem !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.status-count {
+    font-size: 2rem !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    margin-bottom: 0.25rem !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.status-label {
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+/* Search Section */
+.search-section {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+    border-radius: 1.25rem !important;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08), 0 2px 8px -2px rgba(0, 0, 0, 0.04) !important;
+    border: 1px solid rgba(226, 232, 240, 0.8) !important;
+    padding: 1.5rem !important;
+    margin-bottom: 2rem !important;
+}
+
+.search-input-group {
+    position: relative !important;
+}
+
+.search-input-group .form-control {
+    border: 2px solid var(--gray-200) !important;
+    border-radius: 0.875rem !important;
+    padding: 0.875rem 1rem 0.875rem 3rem !important;
+    font-size: 0.9375rem !important;
+    transition: all 0.3s ease !important;
+    background: white !important;
+    height: 52px !important;
+}
+
+.search-input-group .form-control:focus {
+    border-color: var(--primary-500) !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
+    outline: none !important;
+}
+
+.search-input-group .search-icon {
+    position: absolute !important;
+    left: 1rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: var(--gray-400) !important;
+    font-size: 1rem !important;
+    z-index: 3 !important;
+}
+
+/* Reservations Table */
+.reservations-table-container {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    border-radius: 1.25rem !important;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08), 0 2px 8px -2px rgba(0, 0, 0, 0.04) !important;
+    border: 1px solid rgba(226, 232, 240, 0.8) !important;
+    overflow: hidden !important;
+}
+
+.reservations-table-container * {
+    background: transparent !important;
+}
+
+.reservations-table-container .table-responsive {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+}
+
+.table-modern {
+    margin-bottom: 0 !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+}
+
+.table-modern thead {
+    background: linear-gradient(135deg, var(--primary-50), var(--primary-100)) !important;
+}
+
+.table-modern tbody {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+}
+
+.table-modern tbody tr {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+}
+
+.table-modern tbody tr:hover {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.02), rgba(29, 78, 216, 0.02)) !important;
+}
+
+/* Status column - single line display */
+.table-modern th:nth-child(8),
+.table-modern td:nth-child(8) {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 180px !important;
+}
+
+.table-modern thead th {
+    background: linear-gradient(135deg, var(--primary-50), var(--primary-100)) !important;
+    border: none !important;
+    padding: 1.25rem 1rem !important;
+    font-weight: 700 !important;
+    font-size: 0.875rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    color: var(--primary-700) !important;
+    position: relative !important;
+}
+
+.table-modern thead th::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 2px !important;
+    background: linear-gradient(90deg, var(--primary-500), var(--primary-600)) !important;
+}
+
+.table-modern tbody td {
+    padding: 1.25rem 1rem !important;
+    border: none !important;
+    border-bottom: 1px solid var(--gray-100) !important;
+    vertical-align: middle !important;
+    font-size: 0.9375rem !important;
+}
+
+.table-modern tbody tr:hover {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.02), rgba(29, 78, 216, 0.02)) !important;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 0.5rem 1rem !important;
+    border-radius: 0.75rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    border: none !important;
+}
+
+.status-active {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+}
+
+.status-pending {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3) !important;
+}
+
+.status-completed {
+    background: linear-gradient(135deg, #6b7280, #4b5563) !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3) !important;
+}
+
+.status-cancelled {
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3) !important;
+}
+
+/* Action Buttons */
+.action-btn {
+    padding: 0.5rem 1rem !important;
+    border-radius: 0.5rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    border: 2px solid transparent !important;
+}
+
+.action-btn-primary {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700)) !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+}
+
+.action-btn-primary:hover {
+    background: linear-gradient(135deg, var(--primary-700), var(--primary-800)) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4) !important;
+    color: white !important;
+}
+
+.action-btn-outline {
+    background: white !important;
+    border-color: var(--gray-300) !important;
+    color: var(--gray-600) !important;
+}
+
+.action-btn-outline:hover {
+    background: var(--gray-50) !important;
+    border-color: var(--gray-400) !important;
+    color: var(--gray-700) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center !important;
+    padding: 4rem 2rem !important;
+    color: var(--gray-500) !important;
+}
+
+.empty-state i {
+    font-size: 4rem !important;
+    margin-bottom: 1.5rem !important;
+    opacity: 0.3 !important;
+}
+
+.empty-state h4 {
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.5rem !important;
+    color: var(--gray-600) !important;
+}
+
+.empty-state p {
+    font-size: 0.9375rem !important;
+    margin-bottom: 0 !important;
+}
+
+/* Modal Styling */
+.modal-content-modern {
+    border: none !important;
+    border-radius: 1.5rem !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(20px) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    overflow: hidden !important;
+}
+
+.modal-header-modern {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700)) !important;
+    border: none !important;
+    padding: 1.5rem !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.modal-header-modern::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -50% !important;
+    left: -50% !important;
+    width: 200% !important;
+    height: 200% !important;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%) !important;
+    animation: shimmer 3s ease-in-out infinite !important;
+    pointer-events: none !important;
+}
+
+@keyframes shimmer {
+    0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+    50% { transform: translateX(100%) translateY(100%) rotate(30deg); }
+}
+
+.modal-title-modern {
+    color: white !important;
+    font-size: 1.5rem !important;
+    font-weight: 800 !important;
+    margin: 0 !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    letter-spacing: -0.025em !important;
+}
+
+.modal-body-modern {
+    padding: 2rem !important;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+    position: relative !important;
+}
+
+.modal-body-modern::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 50%) !important;
+    pointer-events: none !important;
+}
+
+.modal-footer-modern {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+    border: none !important;
+    padding: 1.5rem !important;
+    border-top: 1px solid rgba(37, 99, 235, 0.1) !important;
+    position: relative !important;
+}
+
+.modal-footer-modern::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 1px !important;
+    background: linear-gradient(90deg, transparent, var(--primary-600), transparent) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .status-filter-card {
+        margin-bottom: 1rem !important;
+    }
+    
+    .table-modern thead th,
+    .table-modern tbody td {
+        padding: 0.75rem 0.5rem !important;
+        font-size: 0.875rem !important;
+    }
+    
+    .status-count {
+        font-size: 1.5rem !important;
+    }
+    
+    .status-icon {
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 1.25rem !important;
+    }
+}
+</style>
+
 <!-- Page Header -->
 <section class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); margin-top: -80px; padding-top: calc(80px + 6rem) !important; padding-bottom: 6rem !important; min-height: 400px; position: relative; overflow: hidden;">
     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%); opacity: 1;"></div>
@@ -46,104 +448,112 @@
 
 <!-- Reservations Content -->
 <div class="container py-5">
-    
     <!-- Status Filters -->
-    <div class="row g-3 mb-4">
+    <div class="row g-4 mb-5">
         <div class="col-lg-3 col-md-6">
-            <div class="card border-0 shadow-sm h-100 filter-card active" data-status="all" onclick="filterReservations('all')">
-                <div class="card-body d-flex align-items-center">
-                    <div class="icon-box bg-primary text-white me-3">
+            <div class="status-filter-card active" data-status="all" onclick="filterReservations('all')">
+                <div class="card-body d-flex align-items-center p-4">
+                    <div class="status-icon bg-primary text-white me-3">
                         <i class="fas fa-list"></i>
                     </div>
                     <div>
-                        <h3 class="h4 mb-0 fw-bold" id="countAll">0</h3>
-                        <small class="text-muted fw-medium">Toutes</small>
+                        <div class="status-count text-primary" id="countAll">0</div>
+                        <div class="status-label text-muted">Toutes</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="card border-0 shadow-sm h-100 filter-card" data-status="active" onclick="filterReservations('active')">
-                <div class="card-body d-flex align-items-center">
-                    <div class="icon-box bg-success text-white me-3">
+            <div class="status-filter-card" data-status="active" onclick="filterReservations('active')">
+                <div class="card-body d-flex align-items-center p-4">
+                    <div class="status-icon bg-success text-white me-3">
                         <i class="fas fa-check-circle"></i>
                     </div>
                     <div>
-                        <h3 class="h4 mb-0 fw-bold" id="countActive">0</h3>
-                        <small class="text-muted fw-medium">Actives</small>
+                        <div class="status-count text-success" id="countActive">0</div>
+                        <div class="status-label text-muted">Actives</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="card border-0 shadow-sm h-100 filter-card" data-status="pending" onclick="filterReservations('pending')">
-                <div class="card-body d-flex align-items-center">
-                    <div class="icon-box bg-warning text-white me-3">
+            <div class="status-filter-card" data-status="pending" onclick="filterReservations('pending')">
+                <div class="card-body d-flex align-items-center p-4">
+                    <div class="status-icon bg-warning text-white me-3">
                         <i class="fas fa-clock"></i>
                     </div>
                     <div>
-                        <h3 class="h4 mb-0 fw-bold" id="countPending">0</h3>
-                        <small class="text-muted fw-medium">En attente</small>
+                        <div class="status-count text-warning" id="countPending">0</div>
+                        <div class="status-label text-muted">En attente</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="card border-0 shadow-sm h-100 filter-card" data-status="completed" onclick="filterReservations('completed')">
-                <div class="card-body d-flex align-items-center">
-                    <div class="icon-box bg-secondary text-white me-3">
+            <div class="status-filter-card" data-status="completed" onclick="filterReservations('completed')">
+                <div class="card-body d-flex align-items-center p-4">
+                    <div class="status-icon bg-secondary text-white me-3">
                         <i class="fas fa-archive"></i>
                     </div>
                     <div>
-                        <h3 class="h4 mb-0 fw-bold" id="countCompleted">0</h3>
-                        <small class="text-muted fw-medium">Terminées</small>
+                        <div class="status-count text-secondary" id="countCompleted">0</div>
+                        <div class="status-label text-muted">Terminées</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Search Bar -->
-    <div class="card border-0 shadow-sm mb-4">
-        <div class="card-body">
-            <div class="input-group input-group-lg">
-                <span class="input-group-text bg-white border-end-0">
-                    <i class="fas fa-search text-muted"></i>
-                </span>
-                <input type="text" class="form-control border-start-0" placeholder="Rechercher par client, matériel ou date..." id="searchInput">
+    <!-- Search Section -->
+    <div class="search-section">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <div class="search-input-group">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="form-control" placeholder="Rechercher par client, matériel ou date..." id="searchInput">
+                </div>
+            </div>
+            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                <div class="d-flex align-items-center justify-content-lg-end gap-3">
+                    <div class="text-muted">
+                        <i class="fas fa-calendar-alt me-2"></i>
+                        <span id="totalReservations">0</span> réservations
+                    </div>
+                    <button class="action-btn action-btn-outline" onclick="exportReservations()">
+                        <i class="fas fa-download me-2"></i>Exporter
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Reservations Table -->
-    <div class="card border-0 shadow-sm">
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-hover mb-0">
-                    <thead class="bg-light">
-                        <tr>
-                            <th class="border-0 fw-semibold">ID</th>
-                            <th class="border-0 fw-semibold">Client</th>
-                            <th class="border-0 fw-semibold">Matériel</th>
-                            <th class="border-0 fw-semibold">Date début</th>
-                            <th class="border-0 fw-semibold">Date fin</th>
-                            <th class="border-0 fw-semibold">Durée</th>
-                            <th class="border-0 fw-semibold">Prix total</th>
-                            <th class="border-0 fw-semibold">Statut</th>
-                            <th class="border-0 fw-semibold">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="reservationsTable">
-                        <tr>
-                            <td colspan="9" class="text-center py-5">
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="visually-hidden">Chargement...</span>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <div class="reservations-table-container" style="background: #ffffff !important; background-color: #ffffff !important;">
+        <div class="table-responsive" style="background: #ffffff !important; background-color: #ffffff !important;">
+            <table class="table table-modern" style="background: #ffffff !important; background-color: #ffffff !important;">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-hashtag me-2"></i>ID</th>
+                        <th><i class="fas fa-user me-2"></i>Client</th>
+                        <th><i class="fas fa-box me-2"></i>Matériel</th>
+                        <th><i class="fas fa-calendar-start me-2"></i>Date début</th>
+                        <th><i class="fas fa-calendar-end me-2"></i>Date fin</th>
+                        <th><i class="fas fa-clock me-2"></i>Durée</th>
+                        <th><i class="fas fa-dollar-sign me-2"></i>Prix total</th>
+                        <th style="width: 180px;"><i class="fas fa-info-circle me-2"></i>Statut</th>
+                        <th><i class="fas fa-cogs me-2"></i>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="reservationsTable">
+                    <tr>
+                        <td colspan="9" class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Chargement...</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -151,48 +561,25 @@
 <!-- Reservation Detail Modal -->
 <div class="modal fade" id="detailModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg">
-            <div class="modal-header bg-primary text-white border-0">
-                <h5 class="modal-title fw-bold">
+        <div class="modal-content modal-content-modern">
+            <div class="modal-header modal-header-modern">
+                <h5 class="modal-title modal-title-modern">
                     <i class="fas fa-info-circle me-2"></i>Détails de la réservation
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body p-4" id="detailModalBody">
+            <div class="modal-body modal-body-modern" id="detailModalBody">
                 <!-- Details will be loaded here -->
             </div>
-            <div class="modal-footer border-0 bg-light">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            <div class="modal-footer modal-footer-modern">
+                <button type="button" class="action-btn action-btn-outline" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Fermer
+                </button>
             </div>
         </div>
     </div>
 </div>
 
-<style>
-.icon-box {
-    width: 48px;
-    height: 48px;
-    border-radius: 0.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.filter-card {
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.filter-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.15) !important;
-}
-
-.filter-card.active {
-    border: 2px solid var(--primary-600) !important;
-    background: rgba(37, 99, 235, 0.05);
-}
-</style>
 
 <script>
 let currentFilter = 'all';
@@ -261,50 +648,83 @@ function filterReservationsByStatus(reservations, status) {
 
 function displayReservations(reservations) {
     const tableBody = document.getElementById('reservationsTable');
+    const totalReservations = document.getElementById('totalReservations');
     
     if (reservations.length === 0) {
         tableBody.innerHTML = '<tr>' +
-            '<td colspan="9" class="text-center py-5 text-muted">' +
-                '<i class="fas fa-inbox fa-3x mb-3 d-block" style="opacity: 0.3;"></i>' +
-                'Aucune réservation trouvée' +
+            '<td colspan="9" class="empty-state">' +
+                '<i class="fas fa-inbox"></i>' +
+                '<h4>Aucune réservation trouvée</h4>' +
+                '<p>Commencez par accepter des demandes de réservation</p>' +
             '</td>' +
         '</tr>';
+        totalReservations.textContent = '0';
         return;
     }
     
     tableBody.innerHTML = reservations.map(res => {
         const statusConfig = {
-            active: { class: 'bg-success', text: 'Actif' },
-            pending: { class: 'bg-warning', text: 'En attente' },
-            completed: { class: 'bg-secondary', text: 'Terminé' },
-            cancelled: { class: 'bg-danger', text: 'Annulé' }
+            active: { class: 'status-active', text: 'Actif', icon: 'fas fa-check-circle' },
+            pending: { class: 'status-pending', text: 'En attente', icon: 'fas fa-clock' },
+            completed: { class: 'status-completed', text: 'Terminé', icon: 'fas fa-archive' },
+            cancelled: { class: 'status-cancelled', text: 'Annulé', icon: 'fas fa-times-circle' }
         };
         const status = statusConfig[res.status] || statusConfig.pending;
         
         return '<tr>' +
-                '<td class="fw-bold">' + res.id + '</td>' +
+                '<td class="fw-bold text-primary">' + res.id + '</td>' +
                 '<td>' +
-                    '<div class="fw-medium">' + res.client.name + '</div>' +
-                    '<small class="text-muted">' + res.client.phone + '</small>' +
+                    '<div class="fw-semibold text-gray-900">' + res.client.name + '</div>' +
+                    '<small class="text-muted d-block">' + res.client.phone + '</small>' +
+                    '<small class="text-muted">' + res.client.email + '</small>' +
                 '</td>' +
-                '<td>' + res.equipment + '</td>' +
-                '<td>' + new Date(res.startDate).toLocaleDateString('fr-FR') + '</td>' +
-                '<td>' + new Date(res.endDate).toLocaleDateString('fr-FR') + '</td>' +
-                '<td><span class="badge bg-info">' + res.days + ' jours</span></td>' +
-                '<td class="fw-bold text-success">' + res.totalPrice + ' MAD</td>' +
-                '<td><span class="badge ' + status.class + '">' + status.text + '</span></td>' +
                 '<td>' +
-                    '<button class="btn btn-sm btn-outline-primary" onclick="viewReservationDetails(\'' + res.id + '\')">' +
-                        '<i class="fas fa-eye"></i>' +
-                    '</button>' +
+                    '<div class="fw-medium">' + res.equipment + '</div>' +
+                    '<small class="text-muted">' + res.pricePerDay + ' MAD/jour</small>' +
+                '</td>' +
+                '<td>' +
+                    '<div class="fw-medium">' + new Date(res.startDate).toLocaleDateString('fr-FR') + '</div>' +
+                    '<small class="text-muted">' + new Date(res.startDate).toLocaleTimeString('fr-FR', {hour: '2-digit', minute: '2-digit'}) + '</small>' +
+                '</td>' +
+                '<td>' +
+                    '<div class="fw-medium">' + new Date(res.endDate).toLocaleDateString('fr-FR') + '</div>' +
+                    '<small class="text-muted">' + new Date(res.endDate).toLocaleTimeString('fr-FR', {hour: '2-digit', minute: '2-digit'}) + '</small>' +
+                '</td>' +
+                '<td>' +
+                    '<span class="badge bg-info text-white px-3 py-2">' + res.days + ' jours</span>' +
+                '</td>' +
+                '<td>' +
+                    '<div class="fw-bold text-success fs-6">' + res.totalPrice + ' MAD</div>' +
+                '</td>' +
+                '<td>' +
+                    '<span class="status-badge ' + status.class + '">' +
+                        '<i class="' + status.icon + ' me-1"></i>' + status.text +
+                    '</span>' +
+                '</td>' +
+                '<td>' +
+                    '<div class="d-flex gap-2">' +
+                        '<button class="action-btn action-btn-primary" onclick="viewReservationDetails(\'' + res.id + '\')" title="Voir détails">' +
+                            '<i class="fas fa-eye"></i>' +
+                        '</button>' +
+                        (res.status === 'pending' ? 
+                            '<button class="action-btn action-btn-outline" onclick="acceptReservation(\'' + res.id + '\')" title="Accepter">' +
+                                '<i class="fas fa-check"></i>' +
+                            '</button>' : '') +
+                        (res.status === 'active' ? 
+                            '<button class="action-btn action-btn-outline" onclick="completeReservation(\'' + res.id + '\')" title="Marquer comme terminé">' +
+                                '<i class="fas fa-flag-checkered"></i>' +
+                            '</button>' : '') +
+                    '</div>' +
                 '</td>' +
             '</tr>';
     }).join('');
+    
+    totalReservations.textContent = reservations.length;
 }
 
 function filterReservations(status) {
     currentFilter = status;
-    document.querySelectorAll('.filter-card').forEach(card => {
+    document.querySelectorAll('.status-filter-card').forEach(card => {
         card.classList.remove('active');
     });
     document.querySelector(`[data-status="${status}"]`).classList.add('active');
@@ -315,20 +735,54 @@ function viewReservationDetails(id) {
     // Load reservation details - replace with actual API call
     const detailBody = document.getElementById('detailModalBody');
     detailBody.innerHTML = '<div class="row">' +
-            '<div class="col-md-6 mb-3">' +
-                '<h6 class="text-muted mb-2">Informations Client</h6>' +
-                '<p class="mb-1"><strong>Nom:</strong> Ahmed Ben Ali</p>' +
-                '<p class="mb-1"><strong>Email:</strong> ahmed@email.com</p>' +
-                '<p class="mb-1"><strong>Téléphone:</strong> +212 6 12 34 56 78</p>' +
+            '<div class="col-md-6 mb-4">' +
+                '<div class="card border-0 shadow-sm h-100">' +
+                    '<div class="card-header bg-primary text-white">' +
+                        '<h6 class="mb-0"><i class="fas fa-user me-2"></i>Informations Client</h6>' +
+                    '</div>' +
+                    '<div class="card-body">' +
+                        '<p class="mb-2"><strong>Nom:</strong> Ahmed Ben Ali</p>' +
+                        '<p class="mb-2"><strong>Email:</strong> ahmed@email.com</p>' +
+                        '<p class="mb-0"><strong>Téléphone:</strong> +212 6 12 34 56 78</p>' +
+                    '</div>' +
+                '</div>' +
             '</div>' +
-            '<div class="col-md-6 mb-3">' +
-                '<h6 class="text-muted mb-2">Informations Réservation</h6>' +
-                '<p class="mb-1"><strong>ID:</strong> ' + id + '</p>' +
-                '<p class="mb-1"><strong>Matériel:</strong> Canon EOS R5</p>' +
-                '<p class="mb-1"><strong>Prix total:</strong> 1,200 MAD</p>' +
+            '<div class="col-md-6 mb-4">' +
+                '<div class="card border-0 shadow-sm h-100">' +
+                    '<div class="card-header bg-success text-white">' +
+                        '<h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Informations Réservation</h6>' +
+                    '</div>' +
+                    '<div class="card-body">' +
+                        '<p class="mb-2"><strong>ID:</strong> ' + id + '</p>' +
+                        '<p class="mb-2"><strong>Matériel:</strong> Canon EOS R5</p>' +
+                        '<p class="mb-0"><strong>Prix total:</strong> 1,200 MAD</p>' +
+                    '</div>' +
+                '</div>' +
             '</div>' +
         '</div>';
     detailModal.show();
+}
+
+function acceptReservation(id) {
+    if (confirm('Êtes-vous sûr de vouloir accepter cette réservation ?')) {
+        // Accept reservation - replace with actual API call
+        console.log('Accepting reservation:', id);
+        loadReservations();
+    }
+}
+
+function completeReservation(id) {
+    if (confirm('Marquer cette réservation comme terminée ?')) {
+        // Complete reservation - replace with actual API call
+        console.log('Completing reservation:', id);
+        loadReservations();
+    }
+}
+
+function exportReservations() {
+    // Export reservations - replace with actual API call
+    console.log('Exporting reservations...');
+    alert('Fonctionnalité d\'export en cours de développement');
 }
 </script>
 
