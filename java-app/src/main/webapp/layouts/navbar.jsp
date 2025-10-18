@@ -1,10 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    // Check if user is logged in and on a client page or equipment page
+    // Check if user is logged in and on specific page types
     boolean isClientPage = request.getRequestURI().contains("/client/");
+    boolean isPartnerPage = request.getRequestURI().contains("/partner/");
     boolean isEquipmentPage = request.getRequestURI().contains("/equipment/");
     boolean isLoggedIn = session.getAttribute("user") != null;
     boolean showClientNav = (isClientPage || isEquipmentPage) && isLoggedIn;
+    boolean showPartnerNav = isPartnerPage && isLoggedIn;
 %>
 
 <style>
@@ -117,6 +119,103 @@
 #clientDropdownMenu .dropdown-divider {
     margin: 0.5rem 0 !important;
     border-color: #e5e7eb !important;
+}
+
+/* Partner Dashboard Navigation */
+.navbar-partner-dashboard .nav-link-partner {
+    padding: 0.5rem 0.75rem !important;
+    margin: 0 0.125rem !important;
+    border-radius: 0.75rem !important;
+    transition: all 0.2s ease !important;
+    color: #6b7280 !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+}
+
+.navbar-partner-dashboard .nav-link-partner:hover {
+    background-color: #374151 !important;
+    color: white !important;
+}
+
+.navbar-partner-dashboard .nav-link-partner[data-bs-toggle="dropdown"]:hover {
+    background-color: #374151 !important;
+    color: white !important;
+}
+
+.navbar-partner-dashboard .nav-link-partner.active {
+    background-color: #dcfce7 !important;
+    color: #059669 !important;
+    font-weight: 600 !important;
+}
+
+.navbar-partner-dashboard .nav-link-partner.active:hover {
+    background-color: #059669 !important;
+    color: white !important;
+}
+
+.navbar-partner-dashboard .user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10b981, #059669);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-right: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.navbar-partner-dashboard .nav-link-partner:hover .user-avatar {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+/* Partner Dropdown menu */
+#partnerDropdownMenu {
+    border: 1px solid #e5e7eb !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 0.5rem !important;
+    padding: 0.5rem !important;
+    margin-top: 0.5rem !important;
+    min-width: 200px !important;
+}
+
+#partnerDropdownMenu .dropdown-item {
+    padding: 0.75rem 1rem !important;
+    margin: 0.1rem 0 !important;
+    border-radius: 0.375rem !important;
+    transition: all 0.2s ease !important;
+    color: #6b7280 !important;
+    font-weight: 500 !important;
+    border: none !important;
+}
+
+#partnerDropdownMenu .dropdown-item:hover {
+    background-color: #374151 !important;
+    color: white !important;
+}
+
+#partnerDropdownMenu .dropdown-item.active {
+    background-color: #dcfce7 !important;
+    color: #059669 !important;
+    font-weight: 600 !important;
+}
+
+#partnerDropdownMenu .dropdown-item.active:hover {
+    background-color: #059669 !important;
+    color: white !important;
+}
+
+#partnerDropdownMenu .dropdown-item.text-danger {
+    color: #dc2626 !important;
+}
+
+#partnerDropdownMenu .dropdown-item.text-danger:hover {
+    background-color: #dc2626 !important;
+    color: white !important;
 }
 
 /* Public navigation items styling */
@@ -314,15 +413,19 @@ function checkClientSession() {
             
             // Check if user is a client and on relevant pages (client pages or equipment pages)
             const isClientUser = userData.type === 'client';
+            const isPartnerUser = userData.type === 'partner';
             const isClientPage = window.location.pathname.includes('/client/');
+            const isPartnerPage = window.location.pathname.includes('/partner/');
             const isEquipmentPage = window.location.pathname.includes('/equipment/');
             
             if (isClientUser && (isClientPage || isEquipmentPage)) {
                 // Force show client navigation
                 const clientNav = document.querySelector('.navbar-client-dashboard');
+                const partnerNav = document.querySelector('.navbar-partner-dashboard');
                 const publicNav = document.querySelector('.navbar-modern');
                 if (clientNav && publicNav) {
                     publicNav.style.display = 'none';
+                    if (partnerNav) partnerNav.style.display = 'none';
                     clientNav.style.display = 'block';
                     
                     // Update user info in navbar
@@ -333,6 +436,23 @@ function checkClientSession() {
                     if (userName) userName.textContent = userData.prenom || 'Client';
                     if (userFullName) userFullName.textContent = `${userData.prenom || ''} ${userData.nom || ''}`.trim() || 'Client';
                     if (userEmail) userEmail.textContent = userData.email || 'client@email.com';
+                }
+            } else if (isPartnerUser && isPartnerPage) {
+                // Force show partner navigation
+                const clientNav = document.querySelector('.navbar-client-dashboard');
+                const partnerNav = document.querySelector('.navbar-partner-dashboard');
+                const publicNav = document.querySelector('.navbar-modern');
+                if (partnerNav && publicNav) {
+                    publicNav.style.display = 'none';
+                    if (clientNav) clientNav.style.display = 'none';
+                    partnerNav.style.display = 'block';
+                    
+                    // Update user info in navbar
+                    const userName = document.getElementById('partnerUserName');
+                    const dropdownName = document.getElementById('partnerDropdownName');
+                    
+                    if (userName) userName.textContent = userData.prenom || 'Partenaire';
+                    if (dropdownName) dropdownName.textContent = `${userData.prenom || ''} ${userData.nom || ''}`.trim() || 'Partenaire';
                 }
             }
         }
@@ -378,6 +498,31 @@ function highlightActiveMainNavItem() {
     
     // Check each main navigation item
     mainNavItems.forEach(item => {
+        const href = item.getAttribute('href');
+        if (href) {
+            // Extract the page name from href
+            const pageName = href.split('/').pop().replace('.jsp', '');
+            
+            // Check if current path contains this page
+            if (currentPath.includes(pageName)) {
+                item.classList.add('active');
+            }
+        }
+    });
+}
+
+// Function to highlight active partner navigation item
+function highlightActivePartnerNavItem() {
+    const currentPath = window.location.pathname;
+    const partnerNavItems = document.querySelectorAll('.navbar-partner-dashboard .nav-link-partner');
+    
+    // Clear all active states first
+    partnerNavItems.forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    // Check each partner navigation item
+    partnerNavItems.forEach(item => {
         const href = item.getAttribute('href');
         if (href) {
             // Extract the page name from href
@@ -443,6 +588,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Highlight active main navigation item based on current page
     highlightActiveMainNavItem();
+    
+    // Highlight active partner navigation item based on current page
+    highlightActivePartnerNavItem();
     
     // Highlight active public navigation item based on current page
     highlightActivePublicNavItem();
@@ -603,8 +751,103 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </nav>
 
+<!-- Partner Navigation -->
+<nav class="navbar navbar-expand-lg navbar-partner-dashboard fixed-top" style="display: <%= showPartnerNav ? "block" : "none" %>;">
+    <div class="container-fluid px-4">
+        <!-- Brand -->
+        <a class="navbar-brand fw-bold d-flex align-items-center" href="${pageContext.request.contextPath}/pages/partner/dashboard.jsp">
+            <i class="fas fa-handshake me-2" style="font-size: 1.5rem; color: #10b981;"></i>
+            <span style="background: linear-gradient(135deg, #10b981, #059669); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">YOURS</span>
+        </a>
+
+        <!-- Mobile toggle -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPartnerNav">
+            <i class="fas fa-bars" style="color: #10b981;"></i>
+        </button>
+
+        <!-- Navigation items -->
+        <div class="collapse navbar-collapse" id="navbarPartnerNav">
+            <!-- Left Navigation -->
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-partner d-flex align-items-center" href="${pageContext.request.contextPath}/pages/partner/dashboard.jsp">
+                        <i class="fas fa-tachometer-alt me-2"></i>Tableau de bord
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-partner d-flex align-items-center" href="${pageContext.request.contextPath}/pages/partner/equipment.jsp">
+                        <i class="fas fa-boxes me-2"></i>Mon Matériel
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-partner d-flex align-items-center" href="${pageContext.request.contextPath}/pages/partner/reservations.jsp">
+                        <i class="fas fa-calendar-check me-2"></i>Réservations
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-partner d-flex align-items-center" href="${pageContext.request.contextPath}/pages/partner/earnings.jsp">
+                        <i class="fas fa-wallet me-2"></i>Mes Gains
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-partner d-flex align-items-center" href="${pageContext.request.contextPath}/pages/partner/analytics.jsp">
+                        <i class="fas fa-chart-bar me-2"></i>Analytiques
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Right Navigation -->
+            <ul class="navbar-nav ms-auto align-items-center">
+                <!-- Profile Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-link-partner d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" id="partnerProfileDropdown">
+                        <div class="user-avatar me-2">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-info d-none d-lg-block">
+                            <div class="user-name" id="partnerUserName">Partenaire</div>
+                            <small class="user-role">Partenaire</small>
+                        </div>
+                        <i class="fas fa-chevron-down ms-2"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0" id="partnerDropdownMenu">
+                        <li class="dropdown-header">
+                            <div class="d-flex align-items-center">
+                                <div class="user-avatar me-2">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold" id="partnerDropdownName">Partenaire</div>
+                                    <small class="text-muted">partenaire@demo.com</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/pages/partner/profile.jsp">
+                                <i class="fas fa-user-circle me-2"></i>Mon Profil
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/pages/partner/settings.jsp">
+                                <i class="fas fa-cog me-2"></i>Paramètres
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item text-danger" href="${pageContext.request.contextPath}/pages/auth/logout.jsp">
+                                <i class="fas fa-sign-out-alt me-2"></i>Se déconnecter
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <!-- Public Navigation -->
-<nav class="navbar navbar-expand-lg navbar-modern fixed-top" style="display: <%= showClientNav ? "none" : "block" %>;">
+<nav class="navbar navbar-expand-lg navbar-modern fixed-top" style="display: <%= (showClientNav || showPartnerNav) ? "none" : "block" %>;">
     <div class="container">
         <!-- Brand -->
         <a class="navbar-brand fw-bold d-flex align-items-center" href="${pageContext.request.contextPath}/">
