@@ -597,34 +597,36 @@
 
 <!-- Accept Reservation Modal -->
 <div class="modal fade" id="acceptModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-md modal-dialog-centered">
         <div class="modal-content modal-content-modern">
-            <div class="modal-header modal-header-modern">
+            <div class="modal-header modal-header-modern" style="background: linear-gradient(135deg, var(--primary-600), var(--primary-700)) !important;">
                 <h5 class="modal-title modal-title-modern">
                     <i class="fas fa-check-circle me-2"></i>Accepter la réservation
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body modal-body-modern">
-                <div class="text-center mb-4">
-                    <div class="mb-3">
-                        <i class="fas fa-question-circle text-warning" style="font-size: 3rem;"></i>
+                <div class="text-center mb-3">
+                    <div class="mb-2">
+                        <div class="d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 50%; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);">
+                            <i class="fas fa-check" style="font-size: 1.5rem; color: white;"></i>
+                        </div>
                     </div>
-                    <h5 class="mb-3">Confirmer l'acceptation</h5>
-                    <p class="text-muted mb-4">Êtes-vous sûr de vouloir accepter cette réservation ? Cette action confirmera la location du matériel.</p>
+                    <h5 class="mb-2" style="color: var(--gray-800); font-weight: 600; font-size: 1.1rem;">Confirmer l'acceptation</h5>
+                    <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.5;">Êtes-vous sûr de vouloir accepter cette réservation ?</p>
                 </div>
-                <div class="card border-0 bg-light">
-                    <div class="card-body">
+                <div class="card border-0" style="background: linear-gradient(135deg, var(--gray-50), var(--gray-100)); border-radius: 0.75rem; box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);">
+                    <div class="card-body p-3">
                         <div class="row">
-                            <div class="col-md-6">
-                                <h6 class="text-primary mb-2"><i class="fas fa-user me-2"></i>Client</h6>
-                                <p class="mb-1 fw-semibold" id="acceptClientName">-</p>
-                                <p class="text-muted small mb-0" id="acceptClientContact">-</p>
+                            <div class="col-6">
+                                <h6 class="text-primary mb-2" style="font-weight: 600; font-size: 0.9rem;"><i class="fas fa-user me-1"></i>Client</h6>
+                                <p class="mb-1 fw-semibold" id="acceptClientName" style="color: var(--gray-800); font-size: 0.85rem;">-</p>
+                                <p class="text-muted small mb-0" id="acceptClientContact" style="font-size: 0.75rem;">-</p>
                             </div>
-                            <div class="col-md-6">
-                                <h6 class="text-primary mb-2"><i class="fas fa-box me-2"></i>Matériel</h6>
-                                <p class="mb-1 fw-semibold" id="acceptEquipment">-</p>
-                                <p class="text-muted small mb-0" id="acceptDuration">-</p>
+                            <div class="col-6">
+                                <h6 class="text-primary mb-2" style="font-weight: 600; font-size: 0.9rem;"><i class="fas fa-box me-1"></i>Matériel</h6>
+                                <p class="mb-1 fw-semibold" id="acceptEquipment" style="color: var(--gray-800); font-size: 0.85rem;">-</p>
+                                <p class="text-muted small mb-0" id="acceptDuration" style="font-size: 0.75rem;">-</p>
                             </div>
                         </div>
                     </div>
@@ -634,7 +636,7 @@
                 <button type="button" class="action-btn action-btn-outline" data-bs-dismiss="modal">
                     <i class="fas fa-times me-2"></i>Annuler
                 </button>
-                <button type="button" class="action-btn action-btn-primary" onclick="confirmAcceptReservation()">
+                <button type="button" class="action-btn action-btn-primary" onclick="confirmAcceptReservation()" style="background: linear-gradient(135deg, #10b981, #059669) !important; border-color: #10b981 !important;">
                     <i class="fas fa-check me-2"></i>Accepter
                 </button>
             </div>
@@ -644,48 +646,50 @@
 
 <!-- Decline Reservation Modal -->
 <div class="modal fade" id="declineModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-md modal-dialog-centered">
         <div class="modal-content modal-content-modern">
-            <div class="modal-header modal-header-modern">
+            <div class="modal-header modal-header-modern" style="background: linear-gradient(135deg, var(--primary-600), var(--primary-700)) !important;">
                 <h5 class="modal-title modal-title-modern">
                     <i class="fas fa-times-circle me-2"></i>Refuser la réservation
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body modal-body-modern">
-                <div class="text-center mb-4">
-                    <div class="mb-3">
-                        <i class="fas fa-exclamation-triangle text-danger" style="font-size: 3rem;"></i>
+                <div class="text-center mb-3">
+                    <div class="mb-2">
+                        <div class="d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background: linear-gradient(135deg, #ef4444, #dc2626); border-radius: 50%; box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);">
+                            <i class="fas fa-times" style="font-size: 1.5rem; color: white;"></i>
+                        </div>
                     </div>
-                    <h5 class="mb-3">Confirmer le refus</h5>
-                    <p class="text-muted mb-4">Êtes-vous sûr de vouloir refuser cette réservation ? Cette action annulera définitivement la demande.</p>
+                    <h5 class="mb-2" style="color: var(--gray-800); font-weight: 600; font-size: 1.1rem;">Confirmer le refus</h5>
+                    <p class="text-muted mb-3" style="font-size: 0.9rem; line-height: 1.5;">Êtes-vous sûr de vouloir refuser cette réservation ?</p>
                 </div>
-                <div class="card border-0 bg-light">
-                    <div class="card-body">
+                <div class="card border-0" style="background: linear-gradient(135deg, var(--gray-50), var(--gray-100)); border-radius: 0.75rem; box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);">
+                    <div class="card-body p-3">
                         <div class="row">
-                            <div class="col-md-6">
-                                <h6 class="text-primary mb-2"><i class="fas fa-user me-2"></i>Client</h6>
-                                <p class="mb-1 fw-semibold" id="declineClientName">-</p>
-                                <p class="text-muted small mb-0" id="declineClientContact">-</p>
+                            <div class="col-6">
+                                <h6 class="text-primary mb-2" style="font-weight: 600; font-size: 0.9rem;"><i class="fas fa-user me-1"></i>Client</h6>
+                                <p class="mb-1 fw-semibold" id="declineClientName" style="color: var(--gray-800); font-size: 0.85rem;">-</p>
+                                <p class="text-muted small mb-0" id="declineClientContact" style="font-size: 0.75rem;">-</p>
                             </div>
-                            <div class="col-md-6">
-                                <h6 class="text-primary mb-2"><i class="fas fa-box me-2"></i>Matériel</h6>
-                                <p class="mb-1 fw-semibold" id="declineEquipment">-</p>
-                                <p class="text-muted small mb-0" id="declineDuration">-</p>
+                            <div class="col-6">
+                                <h6 class="text-primary mb-2" style="font-weight: 600; font-size: 0.9rem;"><i class="fas fa-box me-1"></i>Matériel</h6>
+                                <p class="mb-1 fw-semibold" id="declineEquipment" style="color: var(--gray-800); font-size: 0.85rem;">-</p>
+                                <p class="text-muted small mb-0" id="declineDuration" style="font-size: 0.75rem;">-</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="alert alert-warning mt-3">
-                    <i class="fas fa-exclamation-triangle me-2"></i>
-                    <strong>Attention:</strong> Cette action est irréversible. Le client sera notifié du refus.
+                <div class="alert alert-warning mt-3" style="border-radius: 0.5rem; border: none; background: linear-gradient(135deg, #fef3c7, #fde68a); padding: 0.75rem;">
+                    <i class="fas fa-exclamation-triangle me-2" style="color: #d97706; font-size: 0.8rem;"></i>
+                    <span style="color: #92400e; font-size: 0.8rem;"><strong>Attention:</strong> Cette action est irréversible.</span>
                 </div>
             </div>
             <div class="modal-footer modal-footer-modern">
                 <button type="button" class="action-btn action-btn-outline" data-bs-dismiss="modal">
                     <i class="fas fa-times me-2"></i>Annuler
                 </button>
-                <button type="button" class="action-btn action-btn-primary" onclick="confirmDeclineReservation()">
+                <button type="button" class="action-btn action-btn-primary" onclick="confirmDeclineReservation()" style="background: linear-gradient(135deg, #ef4444, #dc2626) !important; border-color: #ef4444 !important;">
                     <i class="fas fa-times-circle me-2"></i>Refuser
                 </button>
             </div>
