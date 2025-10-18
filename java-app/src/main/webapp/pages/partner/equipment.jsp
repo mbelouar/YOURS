@@ -1948,14 +1948,34 @@ function saveEquipment() {
     }
 }
 
+let equipmentToDelete = null;
+
 function deleteEquipment(id) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cet équipement ?')) {
+    equipmentToDelete = id;
+    const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+    deleteModal.show();
+}
+
+function confirmDelete() {
+    if (equipmentToDelete) {
         // Delete equipment - replace with actual API call
-        console.log('Deleting equipment:', id);
+        console.log('Deleting equipment:', equipmentToDelete);
         loadEquipment();
         // Show success notification
         notificationSystem.success('Équipement supprimé avec succès !');
+        
+        // Close modal
+        const deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmModal'));
+        deleteModal.hide();
+        
+        equipmentToDelete = null;
     }
+}
+
+function cancelDelete() {
+    equipmentToDelete = null;
+    const deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmModal'));
+    deleteModal.hide();
 }
 
 function filterEquipment() {
@@ -1963,6 +1983,104 @@ function filterEquipment() {
     loadEquipment();
 }
 </script>
+
+<style>
+/* Delete Modal Enhancements */
+#deleteConfirmModal .modal-content {
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+#deleteConfirmModal .btn-outline-secondary:hover {
+    background-color: #f1f5f9;
+    border-color: #94a3b8;
+    color: #475569;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#deleteConfirmModal .btn-danger:hover {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+#deleteConfirmModal .btn-close:hover {
+    opacity: 1 !important;
+    transform: scale(1.1);
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Icon animation */
+#deleteConfirmModal .fa-trash {
+    animation: trashPulse 2s ease-in-out infinite;
+}
+
+@keyframes trashPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+</style>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 20px; border: none; box-shadow: 0 32px 80px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); background: rgba(255, 255, 255, 0.98); position: relative; overflow: hidden;">
+            <!-- Background Pattern -->
+            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(239, 68, 68, 0.02) 0%, rgba(220, 38, 38, 0.01) 100%); pointer-events: none;"></div>
+            
+            <div class="modal-header" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%); color: white; border-radius: 20px 20px 0 0; border-bottom: none; padding: 1.75rem 2rem 1.5rem; position: relative; z-index: 1;">
+                <div class="d-flex align-items-center">
+                    <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(255, 255, 255, 0.25); display: flex; align-items: center; justify-content: center; margin-right: 1.25rem; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 1.375rem;"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title fw-bold mb-1" id="deleteConfirmModalLabel" style="font-size: 1.375rem; letter-spacing: -0.025em;">Confirmer la suppression</h5>
+                        <p class="mb-0" style="opacity: 0.9; font-size: 0.9375rem; font-weight: 500;">Cette action est irréversible</p>
+                    </div>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="opacity: 0.8; filter: brightness(1.2);"></button>
+            </div>
+            
+            <div class="modal-body" style="padding: 2.5rem 2rem; position: relative; z-index: 1;">
+                <div class="text-center">
+                    <div style="width: 88px; height: 88px; border-radius: 50%; background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(220, 38, 38, 0.08)); display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; box-shadow: 0 8px 32px rgba(239, 68, 68, 0.15); border: 3px solid rgba(239, 68, 68, 0.1);">
+                        <i class="fas fa-trash" style="font-size: 2.25rem; color: #ef4444;"></i>
+                    </div>
+                    <h6 class="fw-bold mb-3" style="color: #111827; font-size: 1.25rem; letter-spacing: -0.025em;">Êtes-vous sûr de vouloir supprimer cet équipement ?</h6>
+                    <p class="text-muted mb-0" style="line-height: 1.7; font-size: 1rem; max-width: 400px; margin: 0 auto;">
+                        Cette action supprimera définitivement l'équipement de votre catalogue et toutes les données associées.
+                        <br><strong class="text-danger" style="font-weight: 600;">Cette action ne peut pas être annulée.</strong>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="modal-footer" style="padding: 1.5rem 2rem 2rem; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border-radius: 0 0 20px 20px; border-top: 1px solid rgba(226, 232, 240, 0.8); position: relative; z-index: 1;">
+                <div class="d-flex gap-3 w-100">
+                    <button type="button" class="btn btn-outline-secondary flex-fill" onclick="cancelDelete()" style="border-radius: 12px; padding: 0.875rem 1.75rem; font-weight: 600; font-size: 0.9375rem; border-color: #cbd5e1; color: #64748b; transition: all 0.2s ease; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);">
+                        <i class="fas fa-times me-2"></i>Annuler
+                    </button>
+                    <button type="button" class="btn btn-danger flex-fill" onclick="confirmDelete()" style="border-radius: 12px; padding: 0.875rem 1.75rem; font-weight: 600; font-size: 0.9375rem; background: linear-gradient(135deg, #ef4444, #dc2626); border: none; box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3); transition: all 0.2s ease;">
+                        <i class="fas fa-trash me-2"></i>Supprimer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <%@ include file="../../layouts/footer.jsp" %>
 
