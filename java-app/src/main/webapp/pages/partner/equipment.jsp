@@ -401,8 +401,11 @@
 
 .image-preview-grid {
     display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)) !important;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important;
     gap: 0.75rem !important;
+    max-height: 200px !important;
+    overflow-y: auto !important;
+    padding: 0.5rem !important;
 }
 
 .image-preview-item {
@@ -796,7 +799,7 @@
                             <p class="mb-1">Cliquez pour ajouter des photos</p>
                             <small>JPG, PNG, GIF (max 10MB)</small>
                         </div>
-                        <input type="file" class="d-none" id="equipmentPhotos" multiple accept="image/*" onchange="updateImagePreview()">
+                        <input type="file" class="d-none" id="equipmentPhotos" multiple accept="image/*" onchange="addImagesToPreview()">
                         
                         <!-- Image Preview Container -->
                         <div id="imagePreviewContainer" class="image-preview-container mt-3 d-none">
@@ -807,6 +810,11 @@
                                 <small class="text-success">
                                     <i class="fas fa-check-circle"></i> <span id="imageCount">0</span> image(s) sélectionnée(s)
                                 </small>
+                                <div id="imageProcessingIndicator" class="d-none mt-2">
+                                    <small class="text-info">
+                                        <i class="fas fa-spinner fa-spin"></i> Traitement des images...
+                                    </small>
+                                </div>
                             </div>
                         </div>
                         <div class="form-hint">Ajoutez jusqu'à 5 photos de qualité</div>
@@ -1240,20 +1248,121 @@ function setupPreviewUpdates() {
     }
 }
 
+// Global array to store selected images
+let selectedImages = [];
+
+// Add images to preview (incremental)
+function addImagesToPreview() {
+    const fileInput = document.getElementById('equipmentPhotos');
+    const newFiles = Array.from(fileInput.files);
+    
+    console.log('New files selected:', newFiles.length);
+    
+    // Add new files to the global array
+    newFiles.forEach(file => {
+        if (file.type.startsWith('image/') && !selectedImages.some(img => img.name === file.name && img.size === file.size)) {
+            selectedImages.push(file);
+            console.log('Added image:', file.name);
+        }
+    });
+    
+    // Update the file input to reflect all selected images
+    updateFileInput();
+    
+    // Update the preview
+    updateImagePreviewFromArray();
+    
+    // Clear the file input so it can be used again
+    fileInput.value = '';
+}
+
+// Update file input with all selected images
+function updateFileInput() {
+    const fileInput = document.getElementById('equipmentPhotos');
+    const dt = new DataTransfer();
+    
+    selectedImages.forEach(file => {
+        dt.items.add(file);
+    });
+    
+    fileInput.files = dt.files;
+    console.log('File input updated with', selectedImages.length, 'images');
+}
+
+// Update preview from the global array
+function updateImagePreviewFromArray() {
+    const previewContainer = document.getElementById('imagePreviewContainer');
+    const previewGrid = document.getElementById('imagePreviewGrid');
+    const imageCount = document.getElementById('imageCount');
+    const processingIndicator = document.getElementById('imageProcessingIndicator');
+    
+    console.log('Updating preview with', selectedImages.length, 'images');
+    
+    if (selectedImages.length > 0) {
+        previewContainer.classList.remove('d-none');
+        previewGrid.innerHTML = '';
+        processingIndicator.classList.remove('d-none');
+        
+        let processedCount = 0;
+        
+        selectedImages.forEach((file, index) => {
+            console.log('Processing image:', index, file.name);
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const previewItem = document.createElement('div');
+                previewItem.className = 'image-preview-item';
+                previewItem.innerHTML = 
+                    '<img src="' + e.target.result + '" alt="Preview ' + (index + 1) + '">' +
+                    '<div class="image-preview-overlay">' +
+                        '<button type="button" class="btn btn-danger btn-sm" onclick="removeImagePreview(' + index + ')">' +
+                            '<i class="fas fa-times"></i>' +
+                        '</button>' +
+                    '</div>';
+                previewGrid.appendChild(previewItem);
+                processedCount++;
+                console.log('Added preview for image:', index + 1, 'Total processed:', processedCount);
+                
+                // Hide processing indicator when all images are loaded
+                if (processedCount === selectedImages.length) {
+                    processingIndicator.classList.add('d-none');
+                    console.log('All images processed. Total:', selectedImages.length);
+                }
+            };
+            reader.readAsDataURL(file);
+        });
+        
+        imageCount.textContent = selectedImages.length;
+    } else {
+        previewContainer.classList.add('d-none');
+        processingIndicator.classList.add('d-none');
+    }
+}
+
 // Image preview functionality
 function updateImagePreview() {
     const fileInput = document.getElementById('equipmentPhotos');
     const previewContainer = document.getElementById('imagePreviewContainer');
     const previewGrid = document.getElementById('imagePreviewGrid');
     const imageCount = document.getElementById('imageCount');
+    const processingIndicator = document.getElementById('imageProcessingIndicator');
     
     const files = fileInput.files;
+    
+    console.log('Selected files:', files.length); // Debug log
     
     if (files.length > 0) {
         previewContainer.classList.remove('d-none');
         previewGrid.innerHTML = '';
+        processingIndicator.classList.remove('d-none');
         
+        let processedCount = 0;
+        const totalImages = Array.from(files).filter(file => file.type.startsWith('image/')).length;
+        
+        // Process all files sequentially
         Array.from(files).forEach((file, index) => {
+            console.log('Processing file:', index, file.name, file.type); // Debug log
+            
             if (file.type.startsWith('image/')) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
@@ -1267,30 +1376,44 @@ function updateImagePreview() {
                             '</button>' +
                         '</div>';
                     previewGrid.appendChild(previewItem);
+                    processedCount++;
+                    console.log('Added preview for image:', index + 1, 'Total processed:', processedCount); // Debug log
+                    
+                    // Hide processing indicator when all images are loaded
+                    if (processedCount === totalImages) {
+                        processingIndicator.classList.add('d-none');
+                        console.log('All images processed. Total:', totalImages); // Debug log
+                    }
                 };
                 reader.readAsDataURL(file);
+            } else {
+                console.log('Skipped non-image file:', file.name); // Debug log
             }
         });
         
-        imageCount.textContent = files.length;
+        imageCount.textContent = totalImages;
+        console.log('Total images to display:', totalImages); // Debug log
     } else {
         previewContainer.classList.add('d-none');
+        processingIndicator.classList.add('d-none');
+        console.log('No files selected'); // Debug log
     }
 }
 
 // Remove individual image preview
 function removeImagePreview(index) {
-    const fileInput = document.getElementById('equipmentPhotos');
-    const dt = new DataTransfer();
+    console.log('Removing image at index:', index);
     
-    Array.from(fileInput.files).forEach((file, i) => {
-        if (i !== index) {
-            dt.items.add(file);
-        }
-    });
+    // Remove from global array
+    selectedImages.splice(index, 1);
     
-    fileInput.files = dt.files;
-    updateImagePreview();
+    // Update file input
+    updateFileInput();
+    
+    // Update preview
+    updateImagePreviewFromArray();
+    
+    console.log('Remaining images:', selectedImages.length);
 }
 
 function showAddEquipmentModal() {
@@ -1298,6 +1421,21 @@ function showAddEquipmentModal() {
     document.querySelector('.modal-subtitle').textContent = 'Remplissez les informations de votre équipement';
     document.getElementById('equipmentForm').reset();
     document.getElementById('equipmentId').value = '';
+    
+    // Clear selected images array
+    selectedImages = [];
+    
+    // Hide preview container
+    const previewContainer = document.getElementById('imagePreviewContainer');
+    if (previewContainer) {
+        previewContainer.classList.add('d-none');
+    }
+    
+    // Reset image count
+    const imageCount = document.getElementById('imageCount');
+    if (imageCount) {
+        imageCount.textContent = '0';
+    }
     
     // Reset preview
     document.getElementById('previewTitle').textContent = 'Nom du matériel';
