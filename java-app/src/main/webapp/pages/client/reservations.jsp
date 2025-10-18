@@ -576,6 +576,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let currentReservationId = '';
     let currentEquipmentName = '';
+    let currentNotification = null;
     
     cancelButtons.forEach(button => {
         button.addEventListener('click', function(e) {
@@ -588,34 +589,62 @@ document.addEventListener('DOMContentLoaded', function() {
             modalReservationId.textContent = currentReservationId;
             modalEquipmentName.textContent = currentEquipmentName;
             
-            // Show modal
+            // Show modal (no notification yet)
             confirmModal.show();
         });
     });
     
+    // Add notification when user dismisses the modal (clicks "Annuler")
+    const cancelModalBtn = document.querySelector('[data-bs-dismiss="modal"]');
+    if (cancelModalBtn) {
+        cancelModalBtn.addEventListener('click', function() {
+            // No notification when user cancels the cancellation process
+        });
+    }
+    
+    // Handle modal close events (ESC key, clicking outside, etc.)
+    const modalElement = document.getElementById('confirmCancelModal');
+    if (modalElement) {
+        modalElement.addEventListener('hidden.bs.modal', function() {
+            // No notification when user cancels the cancellation process
+        });
+    }
+    
+    // Add notification for "Voir" button clicks
+    const viewButtons = document.querySelectorAll('a[href*="equipment/detail.jsp"]');
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Show info notification when user views equipment details
+            notificationSystem.info('Ouverture des détails de l\'équipement...', 2000);
+        });
+    });
+    
     confirmCancelBtn.addEventListener('click', function() {
+        // Hide modal immediately
+        confirmModal.hide();
+        
         // Here you would typically make an AJAX call to cancel the reservation
         // For now, we'll just show a success message and hide the reservation card
         
         // Find and hide the reservation card
-        const reservationCard = document.querySelector(`[data-reservation-id="${currentReservationId}"]`).closest('.col-lg-6');
-        if (reservationCard) {
-            // Add a fade-out animation
-            reservationCard.style.transition = 'all 0.5s ease';
-            reservationCard.style.opacity = '0';
-            reservationCard.style.transform = 'scale(0.95)';
-            
-            setTimeout(() => {
-                reservationCard.style.display = 'none';
-                // Update the stats
-                updateReservationStats();
-            }, 500);
+        const reservationButton = document.querySelector(`[data-reservation-id="${currentReservationId}"]`);
+        if (reservationButton) {
+            const reservationCard = reservationButton.closest('.col-lg-6');
+            if (reservationCard) {
+                // Add a fade-out animation
+                reservationCard.style.transition = 'all 0.5s ease';
+                reservationCard.style.opacity = '0';
+                reservationCard.style.transform = 'scale(0.95)';
+                
+                setTimeout(() => {
+                    reservationCard.style.display = 'none';
+                    // Update the stats
+                    updateReservationStats();
+                }, 500);
+            }
         }
         
-        // Hide modal
-        confirmModal.hide();
-        
-        // Show success message
+        // Show success message immediately
         showSuccessMessage(`Réservation ${currentReservationId} annulée avec succès !`);
     });
     
@@ -631,37 +660,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function showSuccessMessage(message) {
-        // Create and show a success toast
-        const toastContainer = document.createElement('div');
-        toastContainer.className = 'position-fixed top-0 end-0 p-3';
-        toastContainer.style.zIndex = '9999';
-        
-        const toast = document.createElement('div');
-        toast.className = 'toast align-items-center text-white bg-success border-0';
-        toast.setAttribute('role', 'alert');
-        toast.setAttribute('aria-live', 'assertive');
-        toast.setAttribute('aria-atomic', 'true');
-        
-        toast.innerHTML = `
-            <div class="d-flex">
-                <div class="toast-body">
-                    <i class="fas fa-check-circle me-2"></i>
-                    ${message}
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        `;
-        
-        toastContainer.appendChild(toast);
-        document.body.appendChild(toastContainer);
-        
-        const bsToast = new bootstrap.Toast(toast);
-        bsToast.show();
-        
-        // Remove the toast container after it's hidden
-        toast.addEventListener('hidden.bs.toast', () => {
-            document.body.removeChild(toastContainer);
-        });
+        // Use the centralized notification system
+        notificationSystem.success(message);
     }
 });
 </script>
@@ -813,13 +813,13 @@ document.addEventListener('DOMContentLoaded', function() {
             <!-- Footer -->
             <div class="modal-footer border-0 p-4" style="background: white;">
                 <div class="d-flex gap-3 w-100">
-                    <button type="button" class="btn flex-fill" data-bs-dismiss="modal" style="background: linear-gradient(135deg, #f8fafc, #e2e8f0); color: var(--gray-700); border: 1px solid rgba(226, 232, 240, 0.8); border-radius: 1rem; font-weight: 600; padding: 0.875rem 1.5rem; transition: all 0.3s ease; box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.05);">
-                        <i class="fas fa-arrow-left me-2" style="font-size: 0.875rem;"></i>
-                        Garder la réservation
+                    <button type="button" class="btn flex-fill" data-bs-dismiss="modal" style="background: linear-gradient(135deg, #f8fafc, #e2e8f0); color: var(--gray-700); border: 1px solid rgba(226, 232, 240, 0.8); border-radius: 1rem; font-weight: 600; padding: 0.875rem 1.5rem; transition: all 0.3s ease; box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.05);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px -2px rgba(0, 0, 0, 0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px -2px rgba(0, 0, 0, 0.05)'">
+                        <i class="fas fa-times me-2" style="font-size: 0.875rem;"></i>
+                        Annuler
                     </button>
-                    <button type="button" class="btn flex-fill" id="confirmCancelBtn" style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white; border: none; border-radius: 1rem; font-weight: 600; padding: 0.875rem 1.5rem; transition: all 0.3s ease; box-shadow: 0 4px 20px -2px rgba(239, 68, 68, 0.4);">
+                    <button type="button" class="btn flex-fill" id="confirmCancelBtn" style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white; border: none; border-radius: 1rem; font-weight: 600; padding: 0.875rem 1.5rem; transition: all 0.3s ease; box-shadow: 0 4px 20px -2px rgba(239, 68, 68, 0.4);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 25px -2px rgba(239, 68, 68, 0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px -2px rgba(239, 68, 68, 0.4)'">
                         <i class="fas fa-check me-2" style="font-size: 0.875rem;"></i>
-                        Confirmer l'annulation
+                        Confirmer
                     </button>
                 </div>
             </div>

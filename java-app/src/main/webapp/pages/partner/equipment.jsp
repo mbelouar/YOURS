@@ -1941,6 +1941,8 @@ function saveEquipment() {
         console.log('Saving equipment...');
         equipmentModal.hide();
         loadEquipment();
+        // Show success notification
+        notificationSystem.success('Équipement ajouté avec succès !');
     } else {
         form.reportValidity();
     }
@@ -1951,6 +1953,8 @@ function deleteEquipment(id) {
         // Delete equipment - replace with actual API call
         console.log('Deleting equipment:', id);
         loadEquipment();
+        // Show success notification
+        notificationSystem.success('Équipement supprimé avec succès !');
     }
 }
 

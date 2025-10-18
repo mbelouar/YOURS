@@ -395,6 +395,33 @@ const YOURS = {
     
     // Show toast notification
     showToast: function(message, type = 'info', duration = 5000) {
+        // Use the centralized notification system
+        if (window.notificationSystem) {
+            switch(type) {
+                case 'success':
+                    notificationSystem.success(message, duration);
+                    break;
+                case 'danger':
+                case 'error':
+                    notificationSystem.error(message, duration);
+                    break;
+                case 'warning':
+                    notificationSystem.warning(message, duration);
+                    break;
+                case 'info':
+                default:
+                    notificationSystem.info(message, duration);
+                    break;
+            }
+        } else {
+            // Fallback to old system if notification system not loaded
+            console.warn('Notification system not loaded, using fallback');
+            this.showToastFallback(message, type, duration);
+        }
+    },
+    
+    // Fallback toast method (old implementation)
+    showToastFallback: function(message, type = 'info', duration = 5000) {
         const toastContainer = document.querySelector('.toast-container') || this.createToastContainer();
         
         const toastId = 'toast-' + Date.now();

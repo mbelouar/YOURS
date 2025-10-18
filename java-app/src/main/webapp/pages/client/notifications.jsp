@@ -406,43 +406,19 @@
         }
         
         function showToast(message, type) {
-            // Create toast element
-            var toast = document.createElement('div');
-            toast.className = 'toast align-items-center text-white bg-' + (type === 'success' ? 'success' : type === 'error' ? 'danger' : 'info') + ' border-0';
-            toast.setAttribute('role', 'alert');
-            toast.setAttribute('aria-live', 'assertive');
-            toast.setAttribute('aria-atomic', 'true');
-            
-            var iconClass = type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle';
-            toast.innerHTML = '<div class="d-flex">' +
-                '<div class="toast-body">' +
-                    '<i class="fas fa-' + iconClass + ' me-2"></i>' +
-                    message +
-                '</div>' +
-                '<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>' +
-            '</div>';
-            
-            // Add to page
-            var toastContainer = document.getElementById('toastContainer') || createToastContainer();
-            toastContainer.appendChild(toast);
-            
-            // Show toast
-            var bsToast = new bootstrap.Toast(toast);
-            bsToast.show();
-            
-            // Remove from DOM after hiding
-            toast.addEventListener('hidden.bs.toast', function() {
-                toast.remove();
-            });
-        }
-        
-        function createToastContainer() {
-            var container = document.createElement('div');
-            container.id = 'toastContainer';
-            container.className = 'toast-container position-fixed top-0 end-0 p-3';
-            container.style.zIndex = '9999';
-            document.body.appendChild(container);
-            return container;
+            // Use the centralized notification system
+            switch(type) {
+                case 'success':
+                    notificationSystem.success(message);
+                    break;
+                case 'error':
+                    notificationSystem.error(message);
+                    break;
+                case 'info':
+                default:
+                    notificationSystem.info(message);
+                    break;
+            }
         }
         
         // Add hover effects

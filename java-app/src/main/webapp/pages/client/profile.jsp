@@ -345,40 +345,31 @@ function changePassword() {
 }
 
 function showSuccessMessage(message) {
-    showToast(message, 'success');
+    notificationSystem.success(message);
 }
 
 function showInfoMessage(message) {
-    showToast(message, 'info', 2000);
+    notificationSystem.info(message, 2000);
 }
 
 function showErrorMessage(message) {
-    showToast(message, 'danger', 4000);
+    notificationSystem.error(message, 4000);
 }
 
+// Legacy function for backward compatibility
 function showToast(message, type = 'info', duration = 3000) {
-    // Create toast element
-    const toast = document.createElement('div');
-    toast.className = `alert alert-${type} position-fixed`;
-    toast.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px; max-width: 400px;';
-    
-    const icon = type === 'success' ? 'check-circle' : type === 'danger' ? 'exclamation-triangle' : 'info-circle';
-    toast.innerHTML = `
-        <div class="d-flex align-items-center">
-            <i class="bi bi-${icon} me-2"></i>
-            ${message}
-            <button type="button" class="btn-close ms-auto" onclick="this.parentElement.parentElement.remove()"></button>
-        </div>
-    `;
-    
-    document.body.appendChild(toast);
-    
-    // Auto remove
-    setTimeout(() => {
-        if (toast.parentElement) {
-            toast.remove();
-        }
-    }, duration);
+    switch(type) {
+        case 'success':
+            notificationSystem.success(message, duration);
+            break;
+        case 'danger':
+            notificationSystem.error(message, duration);
+            break;
+        case 'info':
+        default:
+            notificationSystem.info(message, duration);
+            break;
+    }
 }
 </script>
 

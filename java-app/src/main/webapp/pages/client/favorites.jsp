@@ -486,60 +486,19 @@ function confirmRemoveFavorite(equipmentId) {
 function showRemoveFavoriteToast(message, type = 'info', duration = 3000) {
     console.log('showRemoveFavoriteToast called with:', message, type, duration);
     
-    // Simple colors based on type
-    let backgroundColor = '#3b82f6';
-    if (type === 'success') {
-        backgroundColor = '#10b981';
-    } else if (type === 'danger') {
-        backgroundColor = '#ef4444';
+    // Use the centralized notification system
+    switch(type) {
+        case 'success':
+            notificationSystem.success(message, duration);
+            break;
+        case 'danger':
+            notificationSystem.error(message, duration);
+            break;
+        case 'info':
+        default:
+            notificationSystem.info(message, duration);
+            break;
     }
-    
-    // Create toast container
-    const toast = document.createElement('div');
-    toast.style.position = 'fixed';
-    toast.style.top = '20px';
-    toast.style.right = '20px';
-    toast.style.background = backgroundColor;
-    toast.style.color = '#ffffff';
-    toast.style.borderRadius = '8px';
-    toast.style.padding = '16px 20px';
-    toast.style.zIndex = '99999';
-    toast.style.minWidth = '280px';
-    toast.style.maxWidth = '400px';
-    toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-    toast.style.fontFamily = 'system-ui, -apple-system, sans-serif';
-    toast.style.fontSize = '14px';
-    toast.style.fontWeight = '500';
-    toast.style.transform = 'translateX(100%)';
-    toast.style.opacity = '0';
-    toast.style.transition = 'all 0.3s ease';
-    
-    // Create message
-    toast.textContent = message;
-    
-    // Add to body
-    document.body.appendChild(toast);
-    console.log('Toast added to body');
-    
-    // Trigger animation
-    setTimeout(() => {
-        toast.style.transform = 'translateX(0)';
-        toast.style.opacity = '1';
-        console.log('Toast animated in');
-    }, 10);
-    
-    // Auto remove
-    setTimeout(() => {
-        toast.style.transform = 'translateX(100%)';
-        toast.style.opacity = '0';
-        console.log('Toast animating out');
-        setTimeout(() => {
-            if (toast.parentElement) {
-                toast.parentElement.removeChild(toast);
-                console.log('Toast removed');
-            }
-        }, 300);
-    }, duration);
 }
 
 function updateFavoriteStats() {
