@@ -11,20 +11,20 @@
 <%@ include file="../../layouts/navbar.jsp" %>
 
 <!-- Page Header -->
-<section class="py-5" style="background: linear-gradient(135deg, #059669 0%, #047857 50%, #065f46 100%); margin-top: -80px; padding-top: calc(80px + 6rem) !important; padding-bottom: 6rem !important; min-height: 400px; position: relative; overflow: hidden;">
-    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.15) 0%, transparent 50%); opacity: 1;"></div>
+<section class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); margin-top: -80px; padding-top: calc(80px + 6rem) !important; padding-bottom: 6rem !important; min-height: 400px; position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%); opacity: 1;"></div>
     <div class="container" style="position: relative; z-index: 2;">
         <div class="row">
             <div class="col-lg-10 mx-auto text-center">
                 <!-- Badge -->
                 <div class="d-inline-flex align-items-center mb-4" style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(20px); border-radius: 50px; padding: 0.75rem 1.5rem; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
-                    <i class="fas fa-handshake me-2" style="color: #34d399; font-size: 1rem;"></i>
+                    <i class="fas fa-handshake me-2" style="color: #fbbf24; font-size: 1rem;"></i>
                     <span style="color: white; font-weight: 600; font-size: 0.875rem; letter-spacing: 0.5px;">TABLEAU DE BORD PARTENAIRE</span>
                 </div>
                 
                 <!-- Main Title -->
                 <h1 class="display-2 fw-bold mb-4" style="color: white; text-shadow: 0 4px 20px rgba(0,0,0,0.3); letter-spacing: -0.03em; line-height: 1.1;">
-                    Bonjour <span id="partnerName" style="background: linear-gradient(135deg, #34d399, #10b981); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Partenaire</span> !
+                    Bonjour <span id="partnerName" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Partenaire</span> !
                 </h1>
                 
                 <!-- Subtitle -->
@@ -40,7 +40,7 @@
                 <!-- Decorative Elements -->
                 <div class="d-flex justify-content-center align-items-center gap-3 mt-4">
                     <div style="width: 60px; height: 2px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); border-radius: 1px;"></div>
-                    <div style="width: 8px; height: 8px; background: rgba(52, 211, 153, 0.8); border-radius: 50%; box-shadow: 0 0 20px rgba(52, 211, 153, 0.5);"></div>
+                    <div style="width: 8px; height: 8px; background: rgba(251, 191, 36, 0.8); border-radius: 50%; box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);"></div>
                     <div style="width: 60px; height: 2px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); border-radius: 1px;"></div>
                 </div>
             </div>

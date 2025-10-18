@@ -143,13 +143,13 @@
 }
 
 .navbar-partner-dashboard .nav-link-partner.active {
-    background-color: #dcfce7 !important;
-    color: #059669 !important;
+    background-color: #dbeafe !important;
+    color: #1e40af !important;
     font-weight: 600 !important;
 }
 
 .navbar-partner-dashboard .nav-link-partner.active:hover {
-    background-color: #059669 !important;
+    background-color: #1e40af !important;
     color: white !important;
 }
 
@@ -157,7 +157,7 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #10b981, #059669);
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -170,7 +170,7 @@
 
 .navbar-partner-dashboard .nav-link-partner:hover .user-avatar {
     transform: scale(1.05);
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
 }
 
 /* Partner Dropdown menu */
@@ -199,13 +199,13 @@
 }
 
 #partnerDropdownMenu .dropdown-item.active {
-    background-color: #dcfce7 !important;
-    color: #059669 !important;
+    background-color: #dbeafe !important;
+    color: #1e40af !important;
     font-weight: 600 !important;
 }
 
 #partnerDropdownMenu .dropdown-item.active:hover {
-    background-color: #059669 !important;
+    background-color: #1e40af !important;
     color: white !important;
 }
 
@@ -756,13 +756,13 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="container-fluid px-4">
         <!-- Brand -->
         <a class="navbar-brand fw-bold d-flex align-items-center" href="${pageContext.request.contextPath}/pages/partner/dashboard.jsp">
-            <i class="fas fa-handshake me-2" style="font-size: 1.5rem; color: #10b981;"></i>
-            <span style="background: linear-gradient(135deg, #10b981, #059669); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">YOURS</span>
+            <i class="fas fa-handshake me-2 text-primary" style="font-size: 1.5rem;"></i>
+            <span style="background: linear-gradient(135deg, var(--primary-600), var(--primary-800)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">YOURS</span>
         </a>
 
         <!-- Mobile toggle -->
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPartnerNav">
-            <i class="fas fa-bars" style="color: #10b981;"></i>
+            <i class="fas fa-bars text-primary"></i>
         </button>
 
         <!-- Navigation items -->

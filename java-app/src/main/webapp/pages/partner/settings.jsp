@@ -7,7 +7,7 @@
 <%@ include file="../../layouts/navbar.jsp" %>
 
 <!-- Page Header -->
-<section class="py-4" style="background: linear-gradient(135deg, #059669 0%, #047857 50%, #065f46 100%); margin-top: -80px; padding-top: calc(80px + 3rem) !important; padding-bottom: 3rem !important;">
+<section class="py-4" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); margin-top: -80px; padding-top: calc(80px + 3rem) !important; padding-bottom: 3rem !important;">
     <div class="container">
         <h1 class="display-6 fw-bold mb-2" style="color: white;">
             <i class="fas fa-cog me-3"></i>Paramètres
