@@ -1373,6 +1373,11 @@ function updateImagePreviewFromArray() {
                 processedCount++;
                 console.log('Added preview for image:', index + 1, 'Total processed:', processedCount);
                 
+                // Update the main preview card with the first image
+                if (index === 0) {
+                    updateMainPreviewImage(e.target.result);
+                }
+                
                 // Hide processing indicator when all images are loaded
                 if (processedCount === selectedImages.length) {
                     processingIndicator.classList.add('d-none');
@@ -1386,6 +1391,28 @@ function updateImagePreviewFromArray() {
     } else {
         previewContainer.classList.add('d-none');
         processingIndicator.classList.add('d-none');
+        // Reset main preview to placeholder
+        resetMainPreviewImage();
+    }
+}
+
+// Update the main preview card with the first image
+function updateMainPreviewImage(imageSrc) {
+    const previewImageContainer = document.querySelector('.preview-image-container');
+    if (previewImageContainer) {
+        previewImageContainer.innerHTML = '<img src="' + imageSrc + '" alt="Equipment Preview" class="preview-image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.5rem;">';
+    }
+}
+
+// Reset the main preview card to placeholder
+function resetMainPreviewImage() {
+    const previewImageContainer = document.querySelector('.preview-image-container');
+    if (previewImageContainer) {
+        previewImageContainer.innerHTML = 
+            '<div class="preview-placeholder">' +
+                '<i class="fas fa-camera"></i>' +
+                '<span>Aperçu</span>' +
+            '</div>';
     }
 }
 
@@ -1486,6 +1513,9 @@ function showAddEquipmentModal() {
     if (imageCount) {
         imageCount.textContent = '0';
     }
+    
+    // Reset main preview image
+    resetMainPreviewImage();
     
     // Reset preview
     document.getElementById('previewTitle').textContent = 'Nom du matériel';
