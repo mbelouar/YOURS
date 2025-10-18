@@ -1144,6 +1144,35 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    // Add fallback dropdown functionality for partner notifications
+    const partnerNotificationDropdown = document.getElementById('partnerNotificationDropdown');
+    const partnerNotificationMenu = document.getElementById('partnerNotificationDropdownMenu');
+    
+    if (partnerNotificationDropdown && partnerNotificationMenu) {
+        partnerNotificationDropdown.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Partner notification dropdown clicked');
+            
+            // Toggle dropdown visibility
+            if (partnerNotificationMenu.style.display === 'block') {
+                partnerNotificationMenu.style.display = 'none';
+            } else {
+                partnerNotificationMenu.style.display = 'block';
+                partnerNotificationMenu.style.position = 'absolute';
+                partnerNotificationMenu.style.top = '100%';
+                partnerNotificationMenu.style.right = '0';
+                partnerNotificationMenu.style.zIndex = '1000';
+            }
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!partnerNotificationDropdown.contains(e.target) && !partnerNotificationMenu.contains(e.target)) {
+                partnerNotificationMenu.style.display = 'none';
+            }
+        });
+    }
 });
 
 // Notification Management Functions
@@ -1224,6 +1253,76 @@ function clearAllNotifications() {
         '</div>';
     
     const notificationBadge = document.getElementById('notificationBadge');
+    notificationBadge.style.display = 'none';
+}
+
+// Partner Notification Management Functions
+function addPartnerNotification(title, message, type = 'info') {
+    const notificationList = document.getElementById('partnerNotificationList');
+    const notificationBadge = document.getElementById('partnerNotificationBadge');
+    
+    // Remove empty state if it exists
+    const emptyState = notificationList.querySelector('.text-center');
+    if (emptyState) {
+        emptyState.remove();
+    }
+    
+    // Create notification item
+    const notificationItem = document.createElement('div');
+    notificationItem.className = 'notification-item unread p-3 border-bottom';
+    notificationItem.innerHTML = 
+        '<div class="d-flex justify-content-between align-items-start">' +
+            '<div class="flex-grow-1">' +
+                '<h6 class="mb-1 fw-semibold">' + title + '</h6>' +
+                '<p class="mb-2 text-muted small">' + message + '</p>' +
+                '<small class="text-muted">' + new Date().toLocaleTimeString() + '</small>' +
+            '</div>' +
+            '<button class="btn btn-sm btn-outline-secondary ms-2" onclick="markPartnerAsRead(this)">Marquer lu</button>' +
+        '</div>';
+    
+    notificationList.insertBefore(notificationItem, notificationList.firstChild);
+    
+    // Show badge
+    notificationBadge.style.display = 'flex';
+    notificationBadge.textContent = getPartnerUnreadCount();
+    
+    // Show dropdown briefly
+    const notificationDropdown = document.getElementById('partnerNotificationDropdown');
+    const notificationMenu = document.getElementById('partnerNotificationDropdownMenu');
+    notificationMenu.style.display = 'block';
+    setTimeout(() => {
+        notificationMenu.style.display = 'none';
+    }, 3000);
+}
+
+function markPartnerAsRead(button) {
+    const notificationItem = button.closest('.notification-item');
+    notificationItem.classList.remove('unread');
+    button.remove();
+    
+    // Update badge
+    const notificationBadge = document.getElementById('partnerNotificationBadge');
+    const unreadCount = getPartnerUnreadCount();
+    if (unreadCount === 0) {
+        notificationBadge.style.display = 'none';
+    } else {
+        notificationBadge.textContent = unreadCount;
+    }
+}
+
+function getPartnerUnreadCount() {
+    return document.querySelectorAll('.notification-item.unread').length;
+}
+
+function clearAllPartnerNotifications() {
+    const notificationList = document.getElementById('partnerNotificationList');
+    notificationList.innerHTML = 
+        '<div class="text-center text-muted py-3">' +
+            '<i class="bi bi-bell-slash fs-4 mb-2"></i>' +
+            '<p class="mb-0">Aucune notification</p>' +
+        '</div>';
+    
+    const notificationBadge = document.getElementById('partnerNotificationBadge');
     notificationBadge.style.display = 'none';
 }
 
@@ -1503,6 +1602,27 @@ function openMaps() {
 
             <!-- Right Navigation -->
             <ul class="navbar-nav ms-auto align-items-center">
+                <!-- Notifications Dropdown -->
+                <li class="nav-item dropdown me-3">
+                    <a class="nav-link nav-link-partner d-flex align-items-center position-relative" href="#" role="button" id="partnerNotificationDropdown">
+                        <i class="bi bi-bell fs-5"></i>
+                        <span class="notification-badge" id="partnerNotificationBadge" style="display: none;">1</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end notification-dropdown shadow-lg border-0" id="partnerNotificationDropdownMenu" style="min-width: 350px;">
+                        <div class="dropdown-header d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">Notifications</h6>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="clearAllPartnerNotifications()">Tout effacer</button>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div id="partnerNotificationList">
+                            <div class="text-center text-muted py-3">
+                                <i class="bi bi-bell-slash fs-4 mb-2"></i>
+                                <p class="mb-0">Aucune notification</p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
                 <!-- Profile Dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link nav-link-partner d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" id="partnerProfileDropdown">
