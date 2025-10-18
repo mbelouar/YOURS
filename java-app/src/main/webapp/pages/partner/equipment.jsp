@@ -209,16 +209,19 @@
 }
 
 .equipment-modal-body {
-    padding: 1rem !important;
+    padding: 0.75rem !important;
     background: #f8fafc !important;
+    max-height: 70vh !important;
+    overflow-y: auto !important;
 }
 
 .equipment-preview-section {
     background: white !important;
     border-radius: 0.75rem !important;
-    padding: 0.75rem !important;
+    padding: 0.5rem !important;
     box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1) !important;
     border: 1px solid rgba(226, 232, 240, 0.8) !important;
+    margin-bottom: 0.75rem !important;
 }
 
 .preview-card {
@@ -395,26 +398,37 @@
 .image-preview-container {
     border: 1px solid var(--gray-200) !important;
     border-radius: 0.5rem !important;
-    padding: 1rem !important;
+    padding: 0.75rem !important;
     background: var(--gray-50) !important;
+    margin-top: 0.75rem !important;
 }
 
 .image-preview-grid {
     display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important;
-    gap: 0.75rem !important;
-    max-height: 200px !important;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)) !important;
+    gap: 0.5rem !important;
+    max-height: 120px !important;
     overflow-y: auto !important;
-    padding: 0.5rem !important;
+    padding: 0.25rem !important;
+    background: white !important;
+    border-radius: 0.375rem !important;
+    border: 1px solid var(--gray-100) !important;
 }
 
 .image-preview-item {
     position: relative !important;
-    border-radius: 0.375rem !important;
+    border-radius: 0.25rem !important;
     overflow: hidden !important;
     background: white !important;
     border: 1px solid var(--gray-200) !important;
     aspect-ratio: 1 !important;
+    transition: all 0.2s ease !important;
+}
+
+.image-preview-item:hover {
+    border-color: var(--primary-400) !important;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15) !important;
+    transform: scale(1.02) !important;
 }
 
 .image-preview-item img {
@@ -430,12 +444,12 @@
     left: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
-    background: rgba(0, 0, 0, 0.5) !important;
+    background: rgba(0, 0, 0, 0.6) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     opacity: 0 !important;
-    transition: opacity 0.3s ease !important;
+    transition: opacity 0.2s ease !important;
 }
 
 .image-preview-item:hover .image-preview-overlay {
@@ -443,23 +457,59 @@
 }
 
 .image-preview-overlay .btn {
-    padding: 0.25rem 0.5rem !important;
-    font-size: 0.75rem !important;
+    padding: 0.125rem 0.375rem !important;
+    font-size: 0.625rem !important;
     border-radius: 0.25rem !important;
+    background: rgba(220, 38, 38, 0.9) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.image-preview-overlay .btn:hover {
+    background: rgba(220, 38, 38, 1) !important;
+    transform: scale(1.1) !important;
 }
 
 .image-preview-info {
-    text-align: center !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
     padding-top: 0.5rem !important;
     border-top: 1px solid var(--gray-200) !important;
+    margin-top: 0.5rem !important;
 }
 
 .image-preview-info .text-success {
     font-weight: 600 !important;
+    font-size: 0.75rem !important;
 }
 
 .image-preview-info i {
     margin-right: 0.25rem !important;
+}
+
+.image-preview-info .text-info {
+    font-size: 0.75rem !important;
+}
+
+/* Scrollbar styling for image grid */
+.image-preview-grid::-webkit-scrollbar {
+    width: 4px !important;
+    height: 4px !important;
+}
+
+.image-preview-grid::-webkit-scrollbar-track {
+    background: var(--gray-100) !important;
+    border-radius: 2px !important;
+}
+
+.image-preview-grid::-webkit-scrollbar-thumb {
+    background: var(--gray-300) !important;
+    border-radius: 2px !important;
+}
+
+.image-preview-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--gray-400) !important;
 }
 
 .equipment-modal-footer {
@@ -802,17 +852,17 @@
                         <input type="file" class="d-none" id="equipmentPhotos" multiple accept="image/*" onchange="addImagesToPreview()">
                         
                         <!-- Image Preview Container -->
-                        <div id="imagePreviewContainer" class="image-preview-container mt-3 d-none">
+                        <div id="imagePreviewContainer" class="image-preview-container d-none">
                             <div class="image-preview-grid" id="imagePreviewGrid">
                                 <!-- Preview images will be added here -->
                             </div>
-                            <div class="image-preview-info mt-2">
+                            <div class="image-preview-info">
                                 <small class="text-success">
-                                    <i class="fas fa-check-circle"></i> <span id="imageCount">0</span> image(s) sélectionnée(s)
+                                    <i class="fas fa-check-circle"></i> <span id="imageCount">0</span> image(s)
                                 </small>
-                                <div id="imageProcessingIndicator" class="d-none mt-2">
+                                <div id="imageProcessingIndicator" class="d-none">
                                     <small class="text-info">
-                                        <i class="fas fa-spinner fa-spin"></i> Traitement des images...
+                                        <i class="fas fa-spinner fa-spin"></i> Chargement...
                                     </small>
                                 </div>
                             </div>
