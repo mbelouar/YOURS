@@ -335,6 +335,7 @@
     font-size: 0.875rem !important;
     transition: all 0.3s ease !important;
     background: white !important;
+    color: var(--gray-900) !important;
 }
 
 .form-control-modern:focus,
@@ -342,6 +343,12 @@
     border-color: var(--primary-500) !important;
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
     outline: none !important;
+    color: var(--gray-900) !important;
+}
+
+.form-control-modern::placeholder {
+    color: var(--gray-500) !important;
+    opacity: 1 !important;
 }
 
 .form-hint {
