@@ -391,6 +391,74 @@
     font-size: 0.75rem !important;
 }
 
+/* Image Preview Styles */
+.image-preview-container {
+    border: 1px solid var(--gray-200) !important;
+    border-radius: 0.5rem !important;
+    padding: 1rem !important;
+    background: var(--gray-50) !important;
+}
+
+.image-preview-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)) !important;
+    gap: 0.75rem !important;
+}
+
+.image-preview-item {
+    position: relative !important;
+    border-radius: 0.375rem !important;
+    overflow: hidden !important;
+    background: white !important;
+    border: 1px solid var(--gray-200) !important;
+    aspect-ratio: 1 !important;
+}
+
+.image-preview-item img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+.image-preview-overlay {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.image-preview-item:hover .image-preview-overlay {
+    opacity: 1 !important;
+}
+
+.image-preview-overlay .btn {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.75rem !important;
+    border-radius: 0.25rem !important;
+}
+
+.image-preview-info {
+    text-align: center !important;
+    padding-top: 0.5rem !important;
+    border-top: 1px solid var(--gray-200) !important;
+}
+
+.image-preview-info .text-success {
+    font-weight: 600 !important;
+}
+
+.image-preview-info i {
+    margin-right: 0.25rem !important;
+}
+
 .equipment-modal-footer {
     background: white !important;
     border: none !important;
@@ -728,7 +796,19 @@
                             <p class="mb-1">Cliquez pour ajouter des photos</p>
                             <small>JPG, PNG, GIF (max 10MB)</small>
                         </div>
-                        <input type="file" class="d-none" id="equipmentPhotos" multiple accept="image/*">
+                        <input type="file" class="d-none" id="equipmentPhotos" multiple accept="image/*" onchange="updateImagePreview()">
+                        
+                        <!-- Image Preview Container -->
+                        <div id="imagePreviewContainer" class="image-preview-container mt-3 d-none">
+                            <div class="image-preview-grid" id="imagePreviewGrid">
+                                <!-- Preview images will be added here -->
+                            </div>
+                            <div class="image-preview-info mt-2">
+                                <small class="text-success">
+                                    <i class="fas fa-check-circle"></i> <span id="imageCount">0</span> image(s) sélectionnée(s)
+                                </small>
+                            </div>
+                        </div>
                         <div class="form-hint">Ajoutez jusqu'à 5 photos de qualité</div>
                     </div>
                 </form>
@@ -1158,6 +1238,59 @@ function setupPreviewUpdates() {
             previewCategory.textContent = selectedOption.text || 'Catégorie';
         });
     }
+}
+
+// Image preview functionality
+function updateImagePreview() {
+    const fileInput = document.getElementById('equipmentPhotos');
+    const previewContainer = document.getElementById('imagePreviewContainer');
+    const previewGrid = document.getElementById('imagePreviewGrid');
+    const imageCount = document.getElementById('imageCount');
+    
+    const files = fileInput.files;
+    
+    if (files.length > 0) {
+        previewContainer.classList.remove('d-none');
+        previewGrid.innerHTML = '';
+        
+        Array.from(files).forEach((file, index) => {
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const previewItem = document.createElement('div');
+                    previewItem.className = 'image-preview-item';
+                    previewItem.innerHTML = 
+                        '<img src="' + e.target.result + '" alt="Preview ' + (index + 1) + '">' +
+                        '<div class="image-preview-overlay">' +
+                            '<button type="button" class="btn btn-danger btn-sm" onclick="removeImagePreview(' + index + ')">' +
+                                '<i class="fas fa-times"></i>' +
+                            '</button>' +
+                        '</div>';
+                    previewGrid.appendChild(previewItem);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        imageCount.textContent = files.length;
+    } else {
+        previewContainer.classList.add('d-none');
+    }
+}
+
+// Remove individual image preview
+function removeImagePreview(index) {
+    const fileInput = document.getElementById('equipmentPhotos');
+    const dt = new DataTransfer();
+    
+    Array.from(fileInput.files).forEach((file, i) => {
+        if (i !== index) {
+            dt.items.add(file);
+        }
+    });
+    
+    fileInput.files = dt.files;
+    updateImagePreview();
 }
 
 function showAddEquipmentModal() {
