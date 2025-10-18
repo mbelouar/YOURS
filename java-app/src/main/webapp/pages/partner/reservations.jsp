@@ -908,7 +908,7 @@ function confirmAcceptReservation() {
         console.log('Accepting reservation:', currentReservationId);
         acceptModal.hide();
         loadReservations();
-        showSuccessMessage('Réservation acceptée avec succès !');
+        notificationSystem.success('Réservation acceptée avec succès !');
     }
 }
 
@@ -918,7 +918,7 @@ function confirmDeclineReservation() {
         console.log('Declining reservation:', currentReservationId);
         declineModal.hide();
         loadReservations();
-        showSuccessMessage('Réservation refusée avec succès !');
+        notificationSystem.success('Réservation refusée avec succès !');
     }
 }
 

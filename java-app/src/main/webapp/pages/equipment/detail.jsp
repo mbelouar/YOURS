@@ -902,20 +902,45 @@ function calculateTotal() {
 }
 
 function handleBooking() {
-    var user = JSON.parse(sessionStorage.getItem('yours_user') || 'null');
-    
-    if (!user) {
-        alert('Veuillez vous connecter pour reserver du materiel');
-        setTimeout(function() {
-            window.location.href = '../../pages/auth/login.jsp';
-        }, 1500);
-        return;
-    }
-    
     var startDate = document.getElementById('startDate').value;
     var endDate = document.getElementById('endDate').value;
     
-    window.location.href = '../booking/form.jsp?equipment=' + currentEquipment.idMateriel + '&start=' + startDate + '&end=' + endDate;
+    if (!startDate || !endDate) {
+        notificationSystem.error('Veuillez sélectionner les dates de début et de fin.');
+        return;
+    }
+    
+    // Calculate duration
+    var start = new Date(startDate);
+    var end = new Date(endDate);
+    var duration = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+    
+    if (duration <= 0) {
+        notificationSystem.error('La date de fin doit être après la date de début.');
+        return;
+    }
+    
+    // Show success notification immediately
+    notificationSystem.success('Réservation envoyée au partenaire avec succès !');
+    
+    // Simulate partner processing (for demo purposes)
+    setTimeout(() => {
+        simulatePartnerAcceptance();
+    }, 5000);
+}
+
+function simulatePartnerAcceptance() {
+    // Show notification
+    notificationSystem.success('Réservation acceptée par le partenaire !');
+    
+    // Add pickup notification to navbar
+    if (typeof addPickupNotification === 'function') {
+        addPickupNotification(
+            currentEquipment.nom || 'Équipement',
+            '123 Avenue Mohammed V, Casablanca 20000',
+            '+212 6XX XXX XXX'
+        );
+    }
 }
 
 function generateStars(rating) {

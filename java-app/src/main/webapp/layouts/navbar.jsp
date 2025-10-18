@@ -12,6 +12,500 @@
 <style>
 /* Clean, minimal hover effects */
 
+/* Notification Badge */
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ef4444;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Notification Dropdown */
+.notification-dropdown {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    padding: 1rem;
+    border-bottom: 1px solid #f3f4f6;
+    transition: background-color 0.2s ease;
+}
+
+.notification-item:hover {
+    background-color: #f8fafc;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-item.unread {
+    background-color: #eff6ff;
+    border-left: 3px solid #3b82f6;
+}
+
+/* Simple Pickup Notification (One Line) */
+.pickup-notification-simple {
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+    border: none;
+    border-left: 3px solid #10b981 !important;
+    border-radius: 8px;
+    padding: 0.75rem 1rem !important;
+    transition: all 0.3s ease;
+}
+
+.pickup-notification-simple:hover {
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+    transform: translateX(2px);
+}
+
+.pickup-simple-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.pickup-simple-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.pickup-simple-icon i {
+    color: white;
+    font-size: 1.125rem;
+}
+
+.pickup-simple-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.pickup-simple-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #065f46;
+    margin-bottom: 0.125rem;
+}
+
+.pickup-simple-desc {
+    font-size: 0.8125rem;
+    color: #047857;
+    margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.btn-pickup-view {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.btn-pickup-view:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+    transform: translateY(-1px);
+    color: white;
+}
+
+.btn-pickup-view i {
+    font-size: 0.875rem;
+}
+
+/* Enhanced Pickup Details Modal */
+.pickup-modal-content {
+    border: none;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.95);
+    position: relative;
+}
+
+.pickup-modal-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(5, 150, 105, 0.02) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.pickup-modal-content > * {
+    position: relative;
+    z-index: 1;
+}
+
+.pickup-modal-header {
+    background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+    color: white;
+    padding: 1.25rem 1.5rem 1rem;
+    border-bottom: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.pickup-modal-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+.pickup-modal-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pickup-modal-icon i {
+    font-size: 1.25rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.pickup-modal-header .modal-title {
+    color: white;
+    font-weight: 700;
+    font-size: 1.125rem;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pickup-modal-body {
+    padding: 1.25rem;
+    background: transparent;
+}
+
+.pickup-modal-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+}
+
+.pickup-modal-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.8) 100%);
+    border-radius: 12px;
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    box-shadow: 0 2px 12px rgba(16, 185, 129, 0.08);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.pickup-modal-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(135deg, #10b981, #059669);
+    border-radius: 0 2px 2px 0;
+}
+
+.pickup-modal-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.25);
+}
+
+.pickup-modal-item-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    position: relative;
+}
+
+.pickup-modal-item-icon::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(5, 150, 105, 0.3));
+    border-radius: 14px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.pickup-modal-item:hover .pickup-modal-item-icon::after {
+    opacity: 1;
+}
+
+.pickup-modal-item-icon i {
+    color: white;
+    font-size: 1rem;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+.pickup-modal-item-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.pickup-modal-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #047857;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+}
+
+.pickup-modal-value {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #064e3b;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.pickup-modal-footer {
+    padding: 1rem 1.25rem;
+    background: linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(241, 245, 249, 0.6) 100%);
+    border-top: 1px solid rgba(16, 185, 129, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.pickup-modal-footer .btn-primary {
+    background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+    border: none;
+    padding: 0.625rem 1.25rem;
+    font-weight: 600;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.pickup-modal-footer .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.pickup-modal-footer .btn-primary:hover::before {
+    left: 100%;
+}
+
+.pickup-modal-footer .btn-primary:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 50%, #065f46 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+}
+
+.pickup-modal-footer .btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Modal Subtitle */
+.pickup-modal-subtitle {
+    font-size: 0.875rem;
+    opacity: 0.9;
+    font-weight: 500;
+    margin-top: 0.25rem;
+}
+
+/* Instructions Section */
+.pickup-modal-instructions {
+    margin-top: 1.25rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(37, 99, 235, 0.02) 100%);
+    border-radius: 12px;
+    border: 1px solid rgba(59, 130, 246, 0.15);
+}
+
+.pickup-instructions-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    gap: 0.5rem;
+}
+
+.pickup-instructions-header i {
+    color: #3b82f6;
+    font-size: 1rem;
+}
+
+.pickup-instructions-header h6 {
+    margin: 0;
+    font-weight: 600;
+    color: #1e40af;
+    font-size: 0.875rem;
+}
+
+.pickup-instructions-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    list-style: none;
+}
+
+.pickup-instructions-list li {
+    position: relative;
+    margin-bottom: 0.5rem;
+    color: #374151;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.pickup-instructions-list li::before {
+    content: '✓';
+    position: absolute;
+    left: -1.25rem;
+    color: #10b981;
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+
+.pickup-instructions-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* Enhanced Footer Buttons */
+.pickup-modal-footer .btn-outline-secondary {
+    border: 2px solid #e5e7eb;
+    color: #6b7280;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 0.625rem 1rem;
+    transition: all 0.3s ease;
+    font-size: 0.8125rem;
+}
+
+.pickup-modal-footer .btn-outline-secondary:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+    color: #374151;
+    transform: translateY(-1px);
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+    .pickup-modal-content {
+        margin: 1rem;
+        border-radius: 20px;
+    }
+    
+    .pickup-modal-header {
+        padding: 1.5rem 1.5rem 1rem;
+    }
+    
+    .pickup-modal-body {
+        padding: 1.5rem;
+    }
+    
+    .pickup-modal-item {
+        padding: 1.25rem;
+    }
+    
+    .pickup-modal-instructions {
+        padding: 1.25rem;
+    }
+    
+    .pickup-modal-footer {
+        padding: 1.25rem 1.5rem;
+    }
+    
+    .pickup-modal-footer .d-flex {
+        flex-direction: column;
+        gap: 0.75rem !important;
+    }
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .pickup-simple-desc {
+        font-size: 0.75rem;
+    }
+    
+    .btn-pickup-view span {
+        display: none;
+    }
+    
+    .btn-pickup-view {
+        padding: 0.375rem 0.5rem;
+    }
+}
+
 /* Dropdown menu items */
 #clientDropdownMenu .dropdown-item {
     padding: 0.75rem 1rem !important;
@@ -653,6 +1147,198 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Notification Management Functions
+function addPickupNotification(equipmentName, partnerAddress, partnerPhone) {
+    const notificationList = document.getElementById('notificationList');
+    const notificationBadge = document.getElementById('notificationBadge');
+    
+    // Remove empty state if it exists
+    const emptyState = notificationList.querySelector('.text-center');
+    if (emptyState) {
+        emptyState.remove();
+    }
+    
+    // Create notification item
+    const notificationItem = document.createElement('div');
+    notificationItem.className = 'notification-item unread pickup-notification-simple';
+    notificationItem.innerHTML = 
+        '<div class="pickup-simple-content">' +
+            '<div class="pickup-simple-icon">' +
+                '<i class="bi bi-check-circle-fill"></i>' +
+            '</div>' +
+            '<div class="pickup-simple-text">' +
+                '<h6 class="pickup-simple-title">Réservation Acceptée !</h6>' +
+                '<p class="pickup-simple-desc">Votre équipement est prêt à être récupéré</p>' +
+            '</div>' +
+            '<button class="btn btn-pickup-view" onclick="showPickupDetailsModal(\'' + equipmentName + '\', \'' + partnerAddress + '\', \'' + partnerPhone + '\')">' +
+                '<i class="bi bi-eye"></i>' +
+                '<span>Voir</span>' +
+            '</button>' +
+        '</div>';
+    
+    // Store data for modal
+    notificationItem.dataset.equipment = equipmentName;
+    notificationItem.dataset.address = partnerAddress;
+    notificationItem.dataset.phone = partnerPhone;
+    
+    // Add to top of list
+    notificationList.insertBefore(notificationItem, notificationList.firstChild);
+    
+    // Show badge
+    notificationBadge.style.display = 'flex';
+    notificationBadge.textContent = getUnreadCount();
+    
+    // Show dropdown briefly
+    const notificationDropdown = document.getElementById('notificationDropdown');
+    const notificationMenu = document.getElementById('notificationDropdownMenu');
+    notificationMenu.style.display = 'block';
+    setTimeout(() => {
+        notificationMenu.style.display = 'none';
+    }, 3000);
+}
+
+function markAsRead(button) {
+    const notificationItem = button.closest('.notification-item');
+    notificationItem.classList.remove('unread');
+    button.remove();
+    
+    // Update badge
+    const notificationBadge = document.getElementById('notificationBadge');
+    const unreadCount = getUnreadCount();
+    if (unreadCount === 0) {
+        notificationBadge.style.display = 'none';
+    } else {
+        notificationBadge.textContent = unreadCount;
+    }
+}
+
+function getUnreadCount() {
+    return document.querySelectorAll('.notification-item.unread').length;
+}
+
+function clearAllNotifications() {
+    const notificationList = document.getElementById('notificationList');
+    notificationList.innerHTML = 
+        '<div class="text-center text-muted py-3">' +
+            '<i class="bi bi-bell-slash fs-4 mb-2"></i>' +
+            '<p class="mb-0">Aucune notification</p>' +
+        '</div>';
+    
+    const notificationBadge = document.getElementById('notificationBadge');
+    notificationBadge.style.display = 'none';
+}
+
+// Show pickup details modal
+function showPickupDetailsModal(equipmentName, partnerAddress, partnerPhone) {
+    // Create modal if it doesn't exist
+    let modal = document.getElementById('pickupDetailsModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'pickupDetailsModal';
+        modal.className = 'modal fade';
+        modal.setAttribute('tabindex', '-1');
+        modal.innerHTML = 
+            '<div class="modal-dialog modal-dialog-centered">' +
+                '<div class="modal-content pickup-modal-content">' +
+                    '<div class="modal-header pickup-modal-header">' +
+                        '<div class="d-flex align-items-center">' +
+                            '<div class="pickup-modal-icon">' +
+                                '<i class="bi bi-check-circle-fill"></i>' +
+                            '</div>' +
+                            '<div>' +
+                                '<h5 class="modal-title">Réservation Confirmée</h5>' +
+                                '<p class="mb-0 pickup-modal-subtitle">Votre équipement est prêt à être récupéré</p>' +
+                            '</div>' +
+                        '</div>' +
+                        '<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>' +
+                    '</div>' +
+                    '<div class="modal-body pickup-modal-body">' +
+                        '<div class="pickup-modal-details">' +
+                            '<div class="pickup-modal-item">' +
+                                '<div class="pickup-modal-item-icon">' +
+                                    '<i class="bi bi-box-seam"></i>' +
+                                '</div>' +
+                                '<div class="pickup-modal-item-content">' +
+                                    '<span class="pickup-modal-label">Équipement réservé</span>' +
+                                    '<span class="pickup-modal-value" id="modalEquipmentName"></span>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="pickup-modal-item">' +
+                                '<div class="pickup-modal-item-icon">' +
+                                    '<i class="bi bi-geo-alt-fill"></i>' +
+                                '</div>' +
+                                '<div class="pickup-modal-item-content">' +
+                                    '<span class="pickup-modal-label">Point de récupération</span>' +
+                                    '<span class="pickup-modal-value" id="modalPartnerAddress"></span>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="pickup-modal-item">' +
+                                '<div class="pickup-modal-item-icon">' +
+                                    '<i class="bi bi-telephone-fill"></i>' +
+                                '</div>' +
+                                '<div class="pickup-modal-item-content">' +
+                                    '<span class="pickup-modal-label">Contact partenaire</span>' +
+                                    '<span class="pickup-modal-value" id="modalPartnerPhone"></span>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="pickup-modal-item">' +
+                                '<div class="pickup-modal-item-icon">' +
+                                    '<i class="bi bi-clock-fill"></i>' +
+                                '</div>' +
+                                '<div class="pickup-modal-item-content">' +
+                                    '<span class="pickup-modal-label">Heures d\'ouverture</span>' +
+                                    '<span class="pickup-modal-value">Lun-Ven: 9h00-18h00<br>Sam: 9h00-16h00</span>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="pickup-modal-instructions">' +
+                            '<div class="pickup-instructions-header">' +
+                                '<i class="bi bi-info-circle-fill"></i>' +
+                                '<h6>Instructions importantes</h6>' +
+                            '</div>' +
+                            '<ul class="pickup-instructions-list">' +
+                                '<li>Présentez-vous avec une pièce d\'identité valide</li>' +
+                                '<li>Vérifiez l\'état de l\'équipement avant de partir</li>' +
+                                '<li>Contactez le partenaire en cas de retard</li>' +
+                            '</ul>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="modal-footer pickup-modal-footer">' +
+                        '<div class="d-flex gap-2 w-100">' +
+                            '<button type="button" class="btn btn-outline-secondary flex-fill" data-bs-dismiss="modal">' +
+                                '<i class="bi bi-x-circle me-2"></i>Fermer' +
+                            '</button>' +
+                            '<button type="button" class="btn btn-primary flex-fill" onclick="openMaps()">' +
+                                '<i class="bi bi-geo-alt me-2"></i>Ouvrir dans Maps' +
+                            '</button>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+        document.body.appendChild(modal);
+    }
+    
+    // Update modal content
+    document.getElementById('modalEquipmentName').textContent = equipmentName;
+    document.getElementById('modalPartnerAddress').textContent = partnerAddress;
+    document.getElementById('modalPartnerPhone').textContent = partnerPhone;
+    
+    // Show modal
+    const bsModal = new bootstrap.Modal(modal);
+    bsModal.show();
+}
+
+// Global function to add pickup notification (called from product details page)
+window.addPickupNotification = addPickupNotification;
+
+// Function to open maps with partner address
+function openMaps() {
+    const address = document.getElementById('modalPartnerAddress').textContent;
+    const encodedAddress = encodeURIComponent(address);
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+    window.open(mapsUrl, '_blank');
+}
 </script>
 
 <!-- Client Dashboard Navigation -->
@@ -692,6 +1378,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 <!-- Right Navigation -->
                 <ul class="navbar-nav ms-auto align-items-center">
+
+                    <!-- Notifications Dropdown -->
+                    <li class="nav-item dropdown me-3">
+                        <a class="nav-link nav-link-client d-flex align-items-center position-relative" href="#" role="button" id="notificationDropdown">
+                            <i class="bi bi-bell fs-5"></i>
+                            <span class="notification-badge" id="notificationBadge" style="display: none;">1</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end notification-dropdown shadow-lg border-0" id="notificationDropdownMenu" style="min-width: 350px;">
+                            <div class="dropdown-header d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0">Notifications</h6>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="clearAllNotifications()">Tout effacer</button>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div id="notificationList">
+                                <div class="text-center text-muted py-3">
+                                    <i class="bi bi-bell-slash fs-4 mb-2"></i>
+                                    <p class="mb-0">Aucune notification</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
 
                     <!-- Profile Dropdown -->
                     <li class="nav-item dropdown">
