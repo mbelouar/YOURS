@@ -85,33 +85,6 @@
     gap: 0.125rem !important;
 }
 
-/* Pagination Styling */
-.pagination-modern .page-link {
-    border: none !important;
-    color: var(--gray-600) !important;
-    padding: 0.75rem 1rem !important;
-    margin: 0 0.25rem !important;
-    border-radius: 0.5rem !important;
-    transition: all 0.3s ease !important;
-    font-weight: 500 !important;
-}
-
-.pagination-modern .page-link:hover {
-    background: var(--primary-50) !important;
-    color: var(--primary-600) !important;
-    transform: translateY(-1px) !important;
-}
-
-.pagination-modern .page-item.active .page-link {
-    background: linear-gradient(135deg, var(--primary-600), var(--primary-700)) !important;
-    color: white !important;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
-}
-
-.pagination-modern .page-item.disabled .page-link {
-    color: var(--gray-400) !important;
-    cursor: not-allowed !important;
-}
 
 /* Search and Filter Enhancements */
 .form-control:focus,
