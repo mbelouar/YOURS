@@ -157,71 +157,117 @@
 .equipment-modal-content {
     border: none !important;
     border-radius: 1.5rem !important;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(20px) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
     overflow: hidden !important;
 }
 
 .equipment-modal-header {
     background: linear-gradient(135deg, var(--primary-600), var(--primary-700)) !important;
     border: none !important;
-    padding: 1rem !important;
+    padding: 1.5rem !important;
     position: relative !important;
+    overflow: hidden !important;
 }
 
 .equipment-modal-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-    pointer-events: none;
+    content: '' !important;
+    position: absolute !important;
+    top: -50% !important;
+    left: -50% !important;
+    width: 200% !important;
+    height: 200% !important;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%) !important;
+    animation: shimmer 3s ease-in-out infinite !important;
+    pointer-events: none !important;
+}
+
+@keyframes shimmer {
+    0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+    50% { transform: translateX(100%) translateY(100%) rotate(30deg); }
 }
 
 .modal-icon-container {
-    width: 40px !important;
-    height: 40px !important;
-    background: rgba(255, 255, 255, 0.2) !important;
+    width: 50px !important;
+    height: 50px !important;
+    background: rgba(255, 255, 255, 0.15) !important;
     border-radius: 50% !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     backdrop-filter: blur(10px) !important;
-    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s ease !important;
+}
+
+.modal-icon-container:hover {
+    transform: scale(1.05) !important;
+    background: rgba(255, 255, 255, 0.25) !important;
 }
 
 .modal-icon-container i {
-    font-size: 1rem !important;
+    font-size: 1.5rem !important;
     color: white !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
 }
 
 .modal-title {
     color: white !important;
-    font-size: 1.25rem !important;
-    font-weight: 700 !important;
+    font-size: 1.5rem !important;
+    font-weight: 800 !important;
+    margin: 0 !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    letter-spacing: -0.025em !important;
 }
 
 .modal-subtitle {
-    color: rgba(255, 255, 255, 0.8) !important;
-    font-size: 0.875rem !important;
-    font-weight: 400 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+    margin-top: 0.25rem !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
 }
 
 .equipment-modal-body {
-    padding: 0.75rem !important;
-    background: #f8fafc !important;
+    padding: 1.5rem !important;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
     max-height: 70vh !important;
     overflow-y: auto !important;
+    position: relative !important;
+}
+
+.equipment-modal-body::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 50%) !important;
+    pointer-events: none !important;
 }
 
 .equipment-preview-section {
     background: white !important;
-    border-radius: 0.75rem !important;
-    padding: 0.5rem !important;
-    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1) !important;
-    border: 1px solid rgba(226, 232, 240, 0.8) !important;
-    margin-bottom: 0.75rem !important;
+    border-radius: 1rem !important;
+    padding: 1rem !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    margin-bottom: 1rem !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.equipment-preview-section::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 3px !important;
+    background: linear-gradient(90deg, var(--primary-600), var(--primary-700)) !important;
 }
 
 .preview-card {
@@ -313,40 +359,65 @@
 }
 
 .form-group {
-    margin-bottom: 1rem !important;
+    margin-bottom: 1.25rem !important;
+    position: relative !important;
+}
+
+.form-group::before {
+    content: '' !important;
+    position: absolute !important;
+    left: -0.5rem !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 3px !important;
+    background: linear-gradient(180deg, var(--primary-600), var(--primary-700)) !important;
+    border-radius: 0 2px 2px 0 !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.form-group:focus-within::before {
+    opacity: 1 !important;
 }
 
 .form-label {
-    font-size: 0.75rem !important;
+    font-size: 0.875rem !important;
     font-weight: 600 !important;
     color: var(--gray-700) !important;
-    margin-bottom: 0.375rem !important;
+    margin-bottom: 0.5rem !important;
     display: flex !important;
     align-items: center !important;
+    gap: 0.5rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
 }
 
 .form-label i {
     color: var(--primary-600) !important;
-    font-size: 0.75rem !important;
+    font-size: 0.875rem !important;
+    width: 16px !important;
+    text-align: center !important;
 }
 
 .form-control-modern,
 .form-select-modern {
-    border: 1px solid var(--gray-200) !important;
-    border-radius: 0.5rem !important;
-    padding: 0.5rem 0.75rem !important;
+    border: 2px solid var(--gray-200) !important;
+    border-radius: 0.75rem !important;
+    padding: 0.75rem 1rem !important;
     font-size: 0.875rem !important;
     transition: all 0.3s ease !important;
     background: white !important;
     color: var(--gray-900) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
 }
 
 .form-control-modern:focus,
 .form-select-modern:focus {
     border-color: var(--primary-500) !important;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1), 0 4px 12px rgba(37, 99, 235, 0.15) !important;
     outline: none !important;
     color: var(--gray-900) !important;
+    transform: translateY(-1px) !important;
 }
 
 .form-control-modern::placeholder {
@@ -357,35 +428,68 @@
 .form-hint {
     font-size: 0.75rem !important;
     color: var(--gray-500) !important;
-    margin-top: 0.375rem !important;
+    margin-top: 0.5rem !important;
     font-style: italic !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.25rem !important;
+}
+
+.form-hint::before {
+    content: '💡' !important;
+    font-size: 0.75rem !important;
 }
 
 .file-upload-area {
-    border: 2px dashed var(--gray-300) !important;
-    border-radius: 0.5rem !important;
-    padding: 1rem 0.75rem !important;
+    border: 2px dashed var(--primary-400) !important;
+    border-radius: 1rem !important;
+    padding: 2rem 1rem !important;
     text-align: center !important;
     cursor: pointer !important;
     transition: all 0.3s ease !important;
-    background: var(--gray-50) !important;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(29, 78, 216, 0.05) 100%) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.file-upload-area::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.1), transparent) !important;
+    transition: left 0.5s ease !important;
+}
+
+.file-upload-area:hover::before {
+    left: 100% !important;
 }
 
 .file-upload-area:hover {
-    border-color: var(--primary-400) !important;
-    background: var(--primary-50) !important;
+    border-color: var(--primary-600) !important;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(29, 78, 216, 0.1) 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.15) !important;
 }
 
 .file-upload-area i {
-    font-size: 1.5rem !important;
-    color: var(--primary-500) !important;
-    margin-bottom: 0.5rem !important;
+    font-size: 2rem !important;
+    color: var(--primary-600) !important;
+    margin-bottom: 0.75rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.file-upload-area:hover i {
+    transform: scale(1.1) !important;
+    color: var(--primary-700) !important;
 }
 
 .file-upload-area p {
     font-weight: 600 !important;
     color: var(--gray-700) !important;
-    margin-bottom: 0.125rem !important;
+    margin-bottom: 0.25rem !important;
     font-size: 0.875rem !important;
 }
 
@@ -513,41 +617,74 @@
 }
 
 .equipment-modal-footer {
-    background: white !important;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
     border: none !important;
-    padding: 1rem !important;
-    border-top: 1px solid var(--gray-200) !important;
+    padding: 1.5rem !important;
+    border-top: 1px solid rgba(37, 99, 235, 0.1) !important;
+    position: relative !important;
+}
+
+.equipment-modal-footer::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 1px !important;
+    background: linear-gradient(90deg, transparent, var(--primary-600), transparent) !important;
 }
 
 .equipment-modal-footer .btn {
-    border-radius: 0.5rem !important;
-    padding: 0.5rem 1rem !important;
+    border-radius: 0.75rem !important;
+    padding: 0.75rem 1.5rem !important;
     font-weight: 600 !important;
     font-size: 0.875rem !important;
     transition: all 0.3s ease !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.equipment-modal-footer .btn::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+    transition: left 0.5s ease !important;
+}
+
+.equipment-modal-footer .btn:hover::before {
+    left: 100% !important;
 }
 
 .equipment-modal-footer .btn-primary {
     background: linear-gradient(135deg, var(--primary-600), var(--primary-700)) !important;
     border: none !important;
-    box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.4) !important;
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3) !important;
+    color: white !important;
 }
 
 .equipment-modal-footer .btn-primary:hover {
     background: linear-gradient(135deg, var(--primary-700), var(--primary-800)) !important;
     transform: translateY(-2px) !important;
-    box-shadow: 0 8px 20px -2px rgba(37, 99, 235, 0.5) !important;
+    box-shadow: 0 12px 35px rgba(37, 99, 235, 0.4) !important;
 }
 
 .equipment-modal-footer .btn-outline-secondary {
     border: 2px solid var(--gray-300) !important;
     color: var(--gray-600) !important;
+    background: white !important;
 }
 
 .equipment-modal-footer .btn-outline-secondary:hover {
-    background: var(--gray-100) !important;
+    background: var(--gray-50) !important;
     border-color: var(--gray-400) !important;
     color: var(--gray-700) !important;
+    transform: translateY(-1px) !important;
 }
 
 /* Animation for slide down */
