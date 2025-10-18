@@ -595,13 +595,114 @@
     </div>
 </div>
 
+<!-- Accept Reservation Modal -->
+<div class="modal fade" id="acceptModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content modal-content-modern">
+            <div class="modal-header modal-header-modern">
+                <h5 class="modal-title modal-title-modern">
+                    <i class="fas fa-check-circle me-2"></i>Accepter la réservation
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body modal-body-modern">
+                <div class="text-center mb-4">
+                    <div class="mb-3">
+                        <i class="fas fa-question-circle text-warning" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="mb-3">Confirmer l'acceptation</h5>
+                    <p class="text-muted mb-4">Êtes-vous sûr de vouloir accepter cette réservation ? Cette action confirmera la location du matériel.</p>
+                </div>
+                <div class="card border-0 bg-light">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="text-primary mb-2"><i class="fas fa-user me-2"></i>Client</h6>
+                                <p class="mb-1 fw-semibold" id="acceptClientName">-</p>
+                                <p class="text-muted small mb-0" id="acceptClientContact">-</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="text-primary mb-2"><i class="fas fa-box me-2"></i>Matériel</h6>
+                                <p class="mb-1 fw-semibold" id="acceptEquipment">-</p>
+                                <p class="text-muted small mb-0" id="acceptDuration">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer modal-footer-modern">
+                <button type="button" class="action-btn action-btn-outline" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Annuler
+                </button>
+                <button type="button" class="action-btn action-btn-primary" onclick="confirmAcceptReservation()">
+                    <i class="fas fa-check me-2"></i>Accepter
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Decline Reservation Modal -->
+<div class="modal fade" id="declineModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content modal-content-modern">
+            <div class="modal-header modal-header-modern">
+                <h5 class="modal-title modal-title-modern">
+                    <i class="fas fa-times-circle me-2"></i>Refuser la réservation
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body modal-body-modern">
+                <div class="text-center mb-4">
+                    <div class="mb-3">
+                        <i class="fas fa-exclamation-triangle text-danger" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="mb-3">Confirmer le refus</h5>
+                    <p class="text-muted mb-4">Êtes-vous sûr de vouloir refuser cette réservation ? Cette action annulera définitivement la demande.</p>
+                </div>
+                <div class="card border-0 bg-light">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="text-primary mb-2"><i class="fas fa-user me-2"></i>Client</h6>
+                                <p class="mb-1 fw-semibold" id="declineClientName">-</p>
+                                <p class="text-muted small mb-0" id="declineClientContact">-</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="text-primary mb-2"><i class="fas fa-box me-2"></i>Matériel</h6>
+                                <p class="mb-1 fw-semibold" id="declineEquipment">-</p>
+                                <p class="text-muted small mb-0" id="declineDuration">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-warning mt-3">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Attention:</strong> Cette action est irréversible. Le client sera notifié du refus.
+                </div>
+            </div>
+            <div class="modal-footer modal-footer-modern">
+                <button type="button" class="action-btn action-btn-outline" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Annuler
+                </button>
+                <button type="button" class="action-btn action-btn-primary" onclick="confirmDeclineReservation()">
+                    <i class="fas fa-times-circle me-2"></i>Refuser
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
 let currentFilter = 'all';
-let detailModal;
+let detailModal, acceptModal, declineModal;
+let currentReservationId = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     detailModal = new bootstrap.Modal(document.getElementById('detailModal'));
+    acceptModal = new bootstrap.Modal(document.getElementById('acceptModal'));
+    declineModal = new bootstrap.Modal(document.getElementById('declineModal'));
     loadReservations();
     
     document.getElementById('searchInput').addEventListener('input', loadReservations);
@@ -718,17 +819,12 @@ function displayReservations(reservations) {
                 '</td>' +
                 '<td>' +
                     '<div class="d-flex gap-2">' +
-                        '<button class="action-btn action-btn-primary" onclick="viewReservationDetails(\'' + res.id + '\')" title="Voir détails">' +
-                            '<i class="fas fa-eye"></i>' +
+                        '<button class="action-btn action-btn-primary" onclick="showAcceptModal(\'' + res.id + '\')" title="Accepter">' +
+                            '<i class="fas fa-check"></i>' +
                         '</button>' +
-                        (res.status === 'pending' ? 
-                            '<button class="action-btn action-btn-outline" onclick="acceptReservation(\'' + res.id + '\')" title="Accepter">' +
-                                '<i class="fas fa-check"></i>' +
-                            '</button>' : '') +
-                        (res.status === 'active' ? 
-                            '<button class="action-btn action-btn-outline" onclick="completeReservation(\'' + res.id + '\')" title="Marquer comme terminé">' +
-                                '<i class="fas fa-flag-checkered"></i>' +
-                            '</button>' : '') +
+                        '<button class="action-btn action-btn-outline" onclick="showDeclineModal(\'' + res.id + '\')" title="Refuser">' +
+                            '<i class="fas fa-times"></i>' +
+                        '</button>' +
                     '</div>' +
                 '</td>' +
             '</tr>';
@@ -778,20 +874,96 @@ function viewReservationDetails(id) {
     detailModal.show();
 }
 
-function acceptReservation(id) {
-    if (confirm('Êtes-vous sûr de vouloir accepter cette réservation ?')) {
-        // Accept reservation - replace with actual API call
-        console.log('Accepting reservation:', id);
-        loadReservations();
+function showAcceptModal(id) {
+    currentReservationId = id;
+    const reservation = getReservationById(id);
+    if (reservation) {
+        document.getElementById('acceptClientName').textContent = reservation.client.name;
+        document.getElementById('acceptClientContact').textContent = reservation.client.phone + ' • ' + reservation.client.email;
+        document.getElementById('acceptEquipment').textContent = reservation.equipment;
+        document.getElementById('acceptDuration').textContent = reservation.days + ' jours • ' + reservation.pricePerDay + ' MAD/jour';
+        acceptModal.show();
     }
 }
 
-function completeReservation(id) {
-    if (confirm('Marquer cette réservation comme terminée ?')) {
-        // Complete reservation - replace with actual API call
-        console.log('Completing reservation:', id);
-        loadReservations();
+function showDeclineModal(id) {
+    currentReservationId = id;
+    const reservation = getReservationById(id);
+    if (reservation) {
+        document.getElementById('declineClientName').textContent = reservation.client.name;
+        document.getElementById('declineClientContact').textContent = reservation.client.phone + ' • ' + reservation.client.email;
+        document.getElementById('declineEquipment').textContent = reservation.equipment;
+        document.getElementById('declineDuration').textContent = reservation.days + ' jours • ' + reservation.pricePerDay + ' MAD/jour';
+        declineModal.show();
     }
+}
+
+function confirmAcceptReservation() {
+    if (currentReservationId) {
+        // Accept reservation - replace with actual API call
+        console.log('Accepting reservation:', currentReservationId);
+        acceptModal.hide();
+        loadReservations();
+        showSuccessMessage('Réservation acceptée avec succès !');
+    }
+}
+
+function confirmDeclineReservation() {
+    if (currentReservationId) {
+        // Decline reservation - replace with actual API call
+        console.log('Declining reservation:', currentReservationId);
+        declineModal.hide();
+        loadReservations();
+        showSuccessMessage('Réservation refusée avec succès !');
+    }
+}
+
+function getReservationById(id) {
+    // Mock data - replace with actual API call
+    const reservations = [
+        {
+            id: 'RES-001',
+            client: { name: 'Ahmed Ben Ali', phone: '+212 6 12 34 56 78', email: 'ahmed@email.com' },
+            equipment: 'Canon EOS R5',
+            startDate: '2024-01-15',
+            endDate: '2024-01-18',
+            days: 3,
+            pricePerDay: '400 MAD',
+            totalPrice: '1,200 MAD',
+            status: 'pending'
+        },
+        {
+            id: 'RES-002',
+            client: { name: 'Fatima Alami', phone: '+212 6 98 76 54 32', email: 'fatima@email.com' },
+            equipment: 'MacBook Pro M3',
+            startDate: '2024-01-20',
+            endDate: '2024-01-25',
+            days: 5,
+            pricePerDay: '200 MAD',
+            totalPrice: '1,000 MAD',
+            status: 'active'
+        }
+    ];
+    return reservations.find(r => r.id === id);
+}
+
+function showSuccessMessage(message) {
+    // Create a temporary success message
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'alert alert-success alert-dismissible fade show position-fixed';
+    alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+    alertDiv.innerHTML = `
+        <i class="fas fa-check-circle me-2"></i>${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    document.body.appendChild(alertDiv);
+    
+    // Auto-remove after 3 seconds
+    setTimeout(() => {
+        if (alertDiv.parentNode) {
+            alertDiv.parentNode.removeChild(alertDiv);
+        }
+    }, 3000);
 }
 
 function exportReservations() {
