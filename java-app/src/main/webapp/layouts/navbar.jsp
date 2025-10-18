@@ -580,17 +580,20 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #dbeafe;
     color: white;
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-right: 0.5rem;
     transition: all 0.2s ease;
 }
 
 .navbar-client-dashboard .nav-link-client:hover .user-avatar {
-    background-color: #1e40af;
-    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
 }
 
 /* Dropdown menu */
@@ -600,15 +603,10 @@
     border-radius: 0.5rem !important;
     padding: 0.5rem !important;
     margin-top: 0.5rem !important;
-    min-width: 200px !important;
+    min-width: 300px !important;
 }
 
-#clientDropdownMenu .dropdown-header {
-    padding: 0.75rem 1rem !important;
-    background-color: #f9fafb !important;
-    margin-bottom: 0.25rem !important;
-    border-radius: 0.375rem !important;
-}
+/* Client dropdown header styling moved to CSS for consistency */
 
 #clientDropdownMenu .dropdown-divider {
     margin: 0.5rem 0 !important;
@@ -674,7 +672,7 @@
     border-radius: 0.5rem !important;
     padding: 0.5rem !important;
     margin-top: 0.5rem !important;
-    min-width: 200px !important;
+    min-width: 300px !important;
 }
 
 #partnerDropdownMenu .dropdown-item {
@@ -1463,7 +1461,7 @@ function openMaps() {
     <div class="container-fluid px-4">
         <!-- Brand -->
         <a class="navbar-brand fw-bold d-flex align-items-center" href="${pageContext.request.contextPath}/pages/partner/dashboard.jsp">
-            <i class="fas fa-handshake me-2 text-primary" style="font-size: 1.5rem;"></i>
+            <i class="fas fa-camera-retro me-2 text-primary" style="font-size: 1.5rem;"></i>
             <span style="background: linear-gradient(135deg, var(--primary-600), var(--primary-800)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">YOURS</span>
         </a>
 
@@ -1478,27 +1476,27 @@ function openMaps() {
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link nav-link-partner d-flex align-items-center" href="${pageContext.request.contextPath}/pages/partner/dashboard.jsp">
-                        <i class="fas fa-tachometer-alt me-2"></i>Tableau de bord
+                        <i class="bi bi-speedometer2 me-2"></i>Tableau de bord
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-partner d-flex align-items-center" href="${pageContext.request.contextPath}/pages/partner/equipment.jsp">
-                        <i class="fas fa-boxes me-2"></i>Mon Matériel
+                        <i class="bi bi-box-seam me-2"></i>Mon Matériel
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-partner d-flex align-items-center" href="${pageContext.request.contextPath}/pages/partner/reservations.jsp">
-                        <i class="fas fa-calendar-check me-2"></i>Réservations
+                        <i class="bi bi-calendar-check me-2"></i>Réservations
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-partner d-flex align-items-center" href="${pageContext.request.contextPath}/pages/partner/earnings.jsp">
-                        <i class="fas fa-wallet me-2"></i>Mes Gains
+                        <i class="bi bi-wallet2 me-2"></i>Mes Gains
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-partner d-flex align-items-center" href="${pageContext.request.contextPath}/pages/partner/analytics.jsp">
-                        <i class="fas fa-chart-bar me-2"></i>Analytiques
+                        <i class="bi bi-bar-chart me-2"></i>Analytiques
                     </a>
                 </li>
             </ul>
@@ -1509,41 +1507,51 @@ function openMaps() {
                 <li class="nav-item dropdown">
                     <a class="nav-link nav-link-partner d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" id="partnerProfileDropdown">
                         <div class="user-avatar me-2">
-                            <i class="fas fa-user"></i>
+                            <i class="bi bi-person-circle"></i>
                         </div>
                         <div class="user-info d-none d-lg-block">
                             <div class="user-name" id="partnerUserName">Partenaire</div>
                             <small class="user-role">Partenaire</small>
                         </div>
-                        <i class="fas fa-chevron-down ms-2"></i>
+                        <i class="bi bi-chevron-down ms-2"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0" id="partnerDropdownMenu">
+                    <ul class="dropdown-menu dropdown-menu-end partner-dropdown shadow-lg border-0" id="partnerDropdownMenu">
                         <li class="dropdown-header">
                             <div class="d-flex align-items-center">
-                                <div class="user-avatar me-2">
-                                    <i class="fas fa-user"></i>
+                                <div class="user-avatar-large me-3">
+                                    <i class="bi bi-person-circle"></i>
                                 </div>
                                 <div>
-                                    <div class="fw-semibold" id="partnerDropdownName">Partenaire</div>
-                                    <small class="text-muted">partenaire@demo.com</small>
+                                    <h6 class="mb-0" id="partnerUserFullName">Partenaire Name</h6>
+                                    <small class="text-muted" id="partnerUserEmail">partenaire@email.com</small>
                                 </div>
                             </div>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/pages/partner/profile.jsp">
-                                <i class="fas fa-user-circle me-2"></i>Mon Profil
+                            <a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/partner/profile.jsp">
+                                <i class="bi bi-person me-2 text-primary"></i>Mon Profil
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/pages/partner/settings.jsp">
-                                <i class="fas fa-cog me-2"></i>Paramètres
+                            <a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/partner/settings.jsp">
+                                <i class="bi bi-gear me-2 text-primary"></i>Paramètres
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/partner/equipment.jsp">
+                                <i class="bi bi-box-seam me-2 text-warning"></i>Mon Matériel
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/partner/earnings.jsp">
+                                <i class="bi bi-wallet2 me-2 text-success"></i>Mes Gains
                             </a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
-                            <a class="dropdown-item text-danger" href="${pageContext.request.contextPath}/pages/auth/logout.jsp">
-                                <i class="fas fa-sign-out-alt me-2"></i>Se déconnecter
+                            <a class="dropdown-item rounded text-danger" href="${pageContext.request.contextPath}/pages/auth/logout.jsp">
+                                <i class="bi bi-box-arrow-right me-2"></i>Déconnexion
                             </a>
                         </li>
                     </ul>
