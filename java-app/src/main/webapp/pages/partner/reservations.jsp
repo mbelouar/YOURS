@@ -175,6 +175,21 @@
     max-width: 180px !important;
 }
 
+/* Duration column - ensure text visibility */
+.table-modern td:nth-child(6) {
+    color: #1f2937 !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    white-space: nowrap !important;
+    max-width: 120px !important;
+}
+
+.table-modern td:nth-child(6) div {
+    color: #1f2937 !important;
+    font-weight: 400 !important;
+    font-size: 1rem !important;
+}
+
 .table-modern thead th {
     background: linear-gradient(135deg, var(--primary-50), var(--primary-100)) !important;
     border: none !important;
@@ -536,10 +551,10 @@
                         <th><i class="fas fa-hashtag me-2"></i>ID</th>
                         <th><i class="fas fa-user me-2"></i>Client</th>
                         <th><i class="fas fa-box me-2"></i>Matériel</th>
-                        <th><i class="fas fa-calendar-start me-2"></i>Date début</th>
-                        <th><i class="fas fa-calendar-end me-2"></i>Date fin</th>
-                        <th><i class="fas fa-clock me-2"></i>Durée</th>
-                        <th><i class="fas fa-dollar-sign me-2"></i>Prix total</th>
+                        <th><i class="fas fa-calendar-alt me-2"></i>Début</th>
+                        <th><i class="fas fa-calendar-check me-2"></i>Fin</th>
+                        <th style="width: 120px;"><i class="fas fa-clock me-2"></i>Durée</th>
+                        <th><i class="fas fa-dollar-sign me-2"></i>Total</th>
                         <th style="width: 180px;"><i class="fas fa-info-circle me-2"></i>Statut</th>
                         <th><i class="fas fa-cogs me-2"></i>Actions</th>
                     </tr>
@@ -654,7 +669,7 @@ function displayReservations(reservations) {
         tableBody.innerHTML = '<tr>' +
             '<td colspan="9" class="empty-state">' +
                 '<i class="fas fa-inbox"></i>' +
-                '<h4>Aucune réservation trouvée</h4>' +
+                '<h4><i class="fas fa-search me-2"></i>Aucune réservation trouvée</h4>' +
                 '<p>Commencez par accepter des demandes de réservation</p>' +
             '</td>' +
         '</tr>';
@@ -691,7 +706,7 @@ function displayReservations(reservations) {
                     '<small class="text-muted">' + new Date(res.endDate).toLocaleTimeString('fr-FR', {hour: '2-digit', minute: '2-digit'}) + '</small>' +
                 '</td>' +
                 '<td>' +
-                    '<span class="badge bg-info text-white px-3 py-2">' + res.days + ' jours</span>' +
+                    '<div class="text-dark fs-6">' + res.days + ' jours</div>' +
                 '</td>' +
                 '<td>' +
                     '<div class="fw-bold text-success fs-6">' + res.totalPrice + ' MAD</div>' +
