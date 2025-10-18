@@ -698,6 +698,181 @@
         transform: translateY(0);
     }
 }
+
+/* Add Equipment Floating Button Styling */
+.add-equipment-floating-btn {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700)) !important;
+    border: none !important;
+    border-radius: 1rem !important;
+    padding: 1.25rem 2.5rem !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.25), 0 4px 15px rgba(37, 99, 235, 0.15) !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    z-index: 2 !important;
+    color: white !important;
+    min-width: 220px !important;
+}
+
+.add-equipment-floating-btn::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent) !important;
+    transition: left 0.8s ease !important;
+}
+
+.add-equipment-floating-btn::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    transition: all 0.6s ease !important;
+}
+
+.add-equipment-floating-btn:hover::before {
+    left: 100% !important;
+}
+
+.add-equipment-floating-btn:hover::after {
+    width: 300px !important;
+    height: 300px !important;
+}
+
+.add-equipment-floating-btn:hover {
+    background: linear-gradient(135deg, var(--primary-700), var(--primary-800)) !important;
+    transform: translateY(-4px) scale(1.02) !important;
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.3), 0 8px 25px rgba(37, 99, 235, 0.2) !important;
+}
+
+.add-equipment-floating-btn:active {
+    transform: translateY(-2px) scale(1.01) !important;
+    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.25), 0 6px 20px rgba(37, 99, 235, 0.15) !important;
+}
+
+.add-equipment-floating-btn i {
+    transition: all 0.3s ease !important;
+    font-size: 1.2rem !important;
+    margin-right: 0.75rem !important;
+}
+
+.add-equipment-floating-btn:hover i {
+    transform: rotate(90deg) scale(1.1) !important;
+}
+
+/* Enhanced Glow Effect */
+.add-btn-glow {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    width: 140% !important;
+    height: 140% !important;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, rgba(37, 99, 235, 0.05) 50%, transparent 70%) !important;
+    border-radius: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 1 !important;
+    animation: pulse-glow-enhanced 3s ease-in-out infinite !important;
+}
+
+@keyframes pulse-glow-enhanced {
+    0%, 100% {
+        opacity: 0.4;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translate(-50%, -50%) scale(1.15);
+    }
+}
+
+/* Button Container Enhancement */
+.add-material-container {
+    position: relative !important;
+    display: inline-block !important;
+    margin: 1rem 0 !important;
+}
+
+.add-material-container::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 80px !important;
+    height: 2px !important;
+    background: linear-gradient(90deg, transparent, var(--primary-500), transparent) !important;
+    border-radius: 1px !important;
+    opacity: 0.6 !important;
+}
+
+.add-material-container::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: -20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 60px !important;
+    height: 1px !important;
+    background: linear-gradient(90deg, transparent, var(--primary-400), transparent) !important;
+    border-radius: 1px !important;
+    opacity: 0.4 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .add-equipment-floating-btn {
+        padding: 1rem 2rem !important;
+        font-size: 1rem !important;
+        border-radius: 0.875rem !important;
+        min-width: 200px !important;
+    }
+    
+    .add-btn-glow {
+        width: 130% !important;
+        height: 130% !important;
+    }
+    
+    .add-material-container {
+        margin: 0.75rem 0 !important;
+    }
+    
+    .add-material-container::before {
+        width: 60px !important;
+        height: 1.5px !important;
+        top: -15px !important;
+    }
+    
+    .add-material-container::after {
+        width: 40px !important;
+        height: 1px !important;
+        bottom: -15px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .add-equipment-floating-btn {
+        padding: 0.875rem 1.5rem !important;
+        font-size: 0.95rem !important;
+        min-width: 180px !important;
+    }
+    
+    .add-equipment-floating-btn i {
+        font-size: 1.1rem !important;
+        margin-right: 0.5rem !important;
+    }
+}
 </style>
 
 <!-- Page Header -->
@@ -742,6 +917,16 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-12">
+            <!-- Add Material Button Section -->
+            <div class="text-center mb-3">
+                <div class="add-material-container">
+                    <button onclick="showAddEquipmentModal()" class="btn btn-primary btn-lg add-equipment-floating-btn" title="Ajouter du matériel">
+                        <i class="fas fa-plus"></i>Ajouter du matériel
+                    </button>
+                    <div class="add-btn-glow"></div>
+                </div>
+            </div>
+            
             <!-- Enhanced Search & Filter Section -->
             <div class="mb-4">
                 <!-- Main Search Bar -->
@@ -795,11 +980,64 @@
                             </select>
                         </div>
                         
-                        <!-- Add Equipment Button -->
+                        <!-- Advanced Filter Button -->
                         <div class="col-lg-1">
                             <label class="form-label mb-2" style="font-size: 0.875rem; opacity: 0;">_</label>
-                            <button onclick="showAddEquipmentModal()" class="btn w-100" style="background: linear-gradient(135deg, var(--primary-600), var(--primary-700)); color: white; border: none; border-radius: 0.875rem; height: 48px; box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.4); transition: all 0.3s ease;" title="Ajouter du matériel">
-                                <i class="fas fa-plus"></i>
+                            <button id="advancedFilterToggle" class="btn w-100" style="background: linear-gradient(135deg, var(--primary-600), var(--primary-700)); color: white; border: none; border-radius: 0.875rem; height: 48px; box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.4); transition: all 0.3s ease;" title="Filtres avancés">
+                                <i class="fas fa-sliders-h"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Advanced Filters Panel (Hidden by default) -->
+                <div id="advancedFiltersPanel" class="mt-3 mb-4" style="display: none; animation: slideDown 0.3s ease;">
+                    <div class="p-4" style="background: white; border-radius: 1rem; border: 1px solid var(--gray-200); box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="mb-0" style="color: var(--gray-800); font-weight: 600;">
+                                <i class="fas fa-filter me-2" style="color: var(--primary-600);"></i>
+                                Filtres Avancés
+                            </h6>
+                            <button id="closeAdvancedFilters" class="btn btn-sm" style="color: var(--gray-500); padding: 0.25rem 0.5rem;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="row g-3">
+                            <!-- Price Range -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold mb-2" style="color: var(--gray-700); font-size: 0.875rem;">
+                                    <i class="fas fa-tag me-1" style="color: var(--primary-600); font-size: 0.75rem;"></i>
+                                    Fourchette de Prix
+                                </label>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <input type="number" id="priceMin" class="form-control form-control-sm" placeholder="Min" style="border-radius: 0.5rem;" min="0">
+                                    <span style="color: var(--gray-400);">—</span>
+                                    <input type="number" id="priceMax" class="form-control form-control-sm" placeholder="Max" style="border-radius: 0.5rem;" min="0">
+                                </div>
+                            </div>
+                            
+                            <!-- Availability -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold mb-2" style="color: var(--gray-700); font-size: 0.875rem;">
+                                    <i class="fas fa-calendar-check me-1" style="color: var(--primary-600); font-size: 0.75rem;"></i>
+                                    Disponibilité
+                                </label>
+                                <select id="availabilityFilter" class="form-select form-select-sm" style="border-radius: 0.5rem;">
+                                    <option value="">Tous</option>
+                                    <option value="1">Disponible</option>
+                                    <option value="0">Non disponible</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="d-flex gap-2 justify-content-end mt-3 pt-3" style="border-top: 1px solid var(--gray-200);">
+                            <button class="btn btn-sm btn-outline-secondary" id="resetFilters" style="border-radius: 0.5rem; padding: 0.5rem 1rem;">
+                                <i class="fas fa-redo me-1"></i>Réinitialiser
+                            </button>
+                            <button id="applyFilters" class="btn btn-sm btn-primary" style="border-radius: 0.5rem; padding: 0.5rem 1rem;">
+                                <i class="fas fa-check me-1"></i>Appliquer
                             </button>
                         </div>
                     </div>
@@ -1255,6 +1493,60 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    
+    // Advanced filter panel toggle
+    const advancedFilterToggle = document.getElementById('advancedFilterToggle');
+    const advancedFiltersPanel = document.getElementById('advancedFiltersPanel');
+    const closeAdvancedFilters = document.getElementById('closeAdvancedFilters');
+    const resetFilters = document.getElementById('resetFilters');
+    
+    if (advancedFilterToggle && advancedFiltersPanel) {
+        // Toggle panel
+        advancedFilterToggle.addEventListener('click', function() {
+            if (advancedFiltersPanel.style.display === 'none') {
+                advancedFiltersPanel.style.display = 'block';
+                advancedFiltersPanel.style.animation = 'slideDown 0.3s ease';
+                this.style.background = 'linear-gradient(135deg, var(--primary-700), var(--primary-800))';
+            } else {
+                advancedFiltersPanel.style.display = 'none';
+                this.style.background = 'linear-gradient(135deg, var(--primary-600), var(--primary-700))';
+            }
+        });
+        
+        // Close panel
+        if (closeAdvancedFilters) {
+            closeAdvancedFilters.addEventListener('click', function() {
+                advancedFiltersPanel.style.display = 'none';
+                advancedFilterToggle.style.background = 'linear-gradient(135deg, var(--primary-600), var(--primary-700))';
+            });
+        }
+        
+        // Reset filters
+        if (resetFilters) {
+            resetFilters.addEventListener('click', function() {
+                // Reset all form inputs in the advanced filter panel
+                const inputs = advancedFiltersPanel.querySelectorAll('input, select');
+                inputs.forEach(input => {
+                    if (input.tagName === 'SELECT') {
+                        input.selectedIndex = 0;
+                    } else {
+                        input.value = '';
+                    }
+                });
+            });
+        }
+        
+        // Hover effect
+        advancedFilterToggle.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+            this.style.boxShadow = '0 6px 20px -2px rgba(37, 99, 235, 0.5)';
+        });
+        
+        advancedFilterToggle.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 4px 12px -2px rgba(37, 99, 235, 0.4)';
+        });
+    }
 });
 
 function loadEquipment() {
