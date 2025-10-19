@@ -697,27 +697,62 @@
 .action-buttons {
     display: flex !important;
     flex-wrap: wrap !important;
-    gap: 0.75rem !important;
+    gap: 1.5rem !important;
     justify-content: center !important;
-    padding: 1rem !important;
-    background: rgba(255, 255, 255, 0.8) !important;
-    border-radius: 1rem !important;
-    backdrop-filter: blur(10px) !important;
+    padding: 1.5rem !important;
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9) !important;
+    border-radius: 1.25rem !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
 }
 
 .action-buttons .btn {
-    padding: 0.4rem 0.8rem !important;
-    border-radius: 0.4rem !important;
-    font-weight: 600 !important;
-    font-size: 0.8rem !important;
+    padding: 0.875rem 2rem !important;
+    border-radius: 0.875rem !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
     transition: all 0.3s ease !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-    min-width: 100px !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12) !important;
+    min-width: 220px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    border: none !important;
 }
 
 .action-buttons .btn:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+    transform: translateY(-4px) !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2) !important;
+}
+
+.action-buttons .btn-success {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+}
+
+.action-buttons .btn-success:hover {
+    background: linear-gradient(135deg, #059669, #047857) !important;
+}
+
+.action-buttons .btn-danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+}
+
+.action-buttons .btn-danger:hover {
+    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+}
+
+/* Right-aligned Action Buttons */
+.action-buttons-right {
+    display: flex !important;
+    gap: 0.75rem !important;
+    justify-content: flex-end !important;
+    padding: 1rem 0 !important;
+}
+
+.action-buttons-right .action-btn {
+    min-width: 120px !important;
+    font-size: 0.9rem !important;
+    padding: 0.6rem 1.25rem !important;
+    border-radius: 1rem !important;
 }
 
 /* Responsive Design */
@@ -761,11 +796,31 @@
     .action-buttons {
         flex-direction: column !important;
         align-items: center !important;
+        gap: 1rem !important;
+        padding: 1rem !important;
     }
     
     .action-buttons .btn {
         width: 100% !important;
-        max-width: 300px !important;
+        max-width: 280px !important;
+        min-width: auto !important;
+        padding: 0.75rem 1.5rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .action-buttons-right {
+        justify-content: center !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0.75rem !important;
+    }
+    
+    .action-buttons-right .action-btn {
+        width: 100% !important;
+        max-width: 200px !important;
+        min-width: auto !important;
+        padding: 0.6rem 1rem !important;
+        font-size: 0.85rem !important;
     }
 }
 
@@ -1198,10 +1253,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show notification that detail card will appear
         showDetailCardNotification();
         
-        // Then show specific reservation details after 2 seconds
-        setTimeout(() => {
-            showReservationDetailCard(reservationId);
-        }, 2000);
+              // Then show specific reservation details after 1 second
+              setTimeout(() => {
+                  showReservationDetailCard(reservationId);
+              }, 1500);
     } else {
         // Load all reservations
         loadReservations();
@@ -1672,26 +1727,19 @@ function createReservationDetailCard(reservationId) {
                                 '</div>' +
                             '</div>' +
                         '</div>' +
-                        '<!-- Action Buttons -->' +
-                        '<div class="row mt-3">' +
-                            '<div class="col-12">' +
-                                '<div class="action-buttons">' +
-                                    (reservation.status === 'pending' ? 
-                                        '<button class="btn btn-success btn-sm me-2" onclick="showAcceptModal(\'' + reservation.id + '\')">' +
-                                            '<i class="fas fa-check me-1"></i>Accepter' +
-                                        '</button>' +
-                                        '<button class="btn btn-danger btn-sm me-2" onclick="showDeclineModal(\'' + reservation.id + '\')">' +
-                                            '<i class="fas fa-times me-1"></i>Refuser' +
-                                        '</button>' : '') +
-                                    '<button class="btn btn-primary btn-sm me-2" onclick="contactClient(\'' + reservation.client.email + '\')">' +
-                                        '<i class="fas fa-envelope me-1"></i>Contacter' +
-                                    '</button>' +
-                                    '<button class="btn btn-outline-secondary btn-sm" onclick="printReservation(\'' + reservation.id + '\')">' +
-                                        '<i class="fas fa-print me-1"></i>Imprimer' +
-                                    '</button>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>' +
+                              '<!-- Action Buttons -->' +
+                              '<div class="row mt-3">' +
+                                  '<div class="col-12">' +
+                                      '<div class="action-buttons-right">' +
+                                          '<button class="action-btn action-btn-primary me-2" onclick="showAcceptModal(\'' + reservation.id + '\')">' +
+                                              '<i class="fas fa-check me-1"></i>Accepter' +
+                                          '</button>' +
+                                          '<button class="action-btn action-btn-outline" onclick="showDeclineModal(\'' + reservation.id + '\')">' +
+                                              '<i class="fas fa-times me-1"></i>Refuser' +
+                                          '</button>' +
+                                      '</div>' +
+                                  '</div>' +
+                              '</div>' +
                     '</div>' +
                 '</div>' +
             '</div>' +

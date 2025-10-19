@@ -1,0 +1,10 @@
+com/yours/model/Categorie.class
+com/yours/model/Reservation.class
+com/yours/model/Client.class
+com/yours/model/Admin.class
+com/yours/model/Partenaire.class
+com/yours/model/Facture.class
+com/yours/model/Ia.class
+com/yours/model/Photo.class
+com/yours/model/Photo$PhotoType.class
+com/yours/model/Materiel.class
