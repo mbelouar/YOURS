@@ -45,35 +45,15 @@
 </section>
 
 <!-- Analytics Content -->
-<div class="container py-4">
+<div class="container py-5">
     <!-- Key Metrics -->
     <div class="row g-4 mb-4">
-        <div class="col-lg-3 col-md-6">
-            <div class="card border-0 shadow-sm h-100 occupancy-metric-container">
-                <div class="card-header occupancy-metric-header border-0 py-3">
-                    <div class="d-flex align-items-center">
-                        <div class="metric-icon me-3">
-                            <i class="fas fa-percentage"></i>
-                        </div>
-                        <div>
-                            <h6 class="mb-0 fw-bold text-white">Taux d'occupation</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
-                    <div class="text-center">
-                        <h2 class="h3 fw-bold mb-2 text-primary">78%</h2>
-                        <small class="text-success"><i class="fas fa-arrow-up me-1"></i>+5% vs mois dernier</small>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="col-lg-3 col-md-6">
             <div class="card border-0 shadow-sm h-100 revenue-metric-container">
                 <div class="card-header revenue-metric-header border-0 py-3">
                     <div class="d-flex align-items-center">
                         <div class="metric-icon me-3">
-                            <i class="fas fa-chart-line"></i>
+                            <i class="fas fa-dollar-sign"></i>
                         </div>
                         <div>
                             <h6 class="mb-0 fw-bold text-white">Revenus moyens</h6>
@@ -83,17 +63,37 @@
                 <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
                     <div class="text-center">
                         <h2 class="h3 fw-bold mb-2 text-success">485 MAD</h2>
-                        <small class="text-success"><i class="fas fa-arrow-up me-1"></i>+12% vs mois dernier</small>
+                        <small class="text-muted"><i class="fas fa-arrow-up me-1"></i>+12% vs mois dernier</small>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="card border-0 shadow-sm h-100 rating-metric-container">
-                <div class="card-header rating-metric-header border-0 py-3">
+            <div class="card border-0 shadow-sm h-100 equipment-metric-container">
+                <div class="card-header equipment-metric-header border-0 py-3">
                     <div class="d-flex align-items-center">
                         <div class="metric-icon me-3">
-                            <i class="fas fa-star"></i>
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold text-white">Taux d'occupation</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
+                    <div class="text-center">
+                        <h2 class="h3 fw-bold mb-2 text-primary">78%</h2>
+                        <small class="text-muted"><i class="fas fa-arrow-up me-1"></i>+5% vs mois dernier</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100 bookings-metric-container">
+                <div class="card-header bookings-metric-header border-0 py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="metric-icon me-3">
+                            <i class="fas fa-calendar-alt"></i>
                         </div>
                         <div>
                             <h6 class="mb-0 fw-bold text-white">Note client</h6>
@@ -109,8 +109,8 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="card border-0 shadow-sm h-100 response-metric-container">
-                <div class="card-header response-metric-header border-0 py-3">
+            <div class="card border-0 shadow-sm h-100 rating-metric-container">
+                <div class="card-header rating-metric-header border-0 py-3">
                     <div class="d-flex align-items-center">
                         <div class="metric-icon me-3">
                             <i class="fas fa-comments"></i>
@@ -123,7 +123,7 @@
                 <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
                     <div class="text-center">
                         <h2 class="h3 fw-bold mb-2 text-info">95%</h2>
-                        <small class="text-success">Excellent</small>
+                        <small class="text-muted">Excellent</small>
                     </div>
                 </div>
             </div>
@@ -389,17 +389,6 @@ function initCategoriesChart() {
 
 <style>
 /* Analytics Page Container Styles - Matching Dashboard */
-.occupancy-metric-container {
-    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
-    border-radius: 1rem;
-    overflow: hidden;
-}
-
-.occupancy-metric-header {
-    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
-    border: none;
-}
-
 .revenue-metric-container {
     background: linear-gradient(135deg, var(--success-color), var(--success-dark));
     border-radius: 1rem;
@@ -411,25 +400,36 @@ function initCategoriesChart() {
     border: none;
 }
 
-.rating-metric-container {
+.equipment-metric-container {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.equipment-metric-header {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border: none;
+}
+
+.bookings-metric-container {
     background: linear-gradient(135deg, var(--warning-color), #d97706);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.bookings-metric-header {
+    background: linear-gradient(135deg, var(--warning-color), #d97706);
+    border: none;
+}
+
+.rating-metric-container {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
     border-radius: 1rem;
     overflow: hidden;
 }
 
 .rating-metric-header {
-    background: linear-gradient(135deg, var(--warning-color), #d97706);
-    border: none;
-}
-
-.response-metric-container {
-    background: linear-gradient(135deg, var(--info-color), #0891b2);
-    border-radius: 1rem;
-    overflow: hidden;
-}
-
-.response-metric-header {
-    background: linear-gradient(135deg, var(--info-color), #0891b2);
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
     border: none;
 }
 

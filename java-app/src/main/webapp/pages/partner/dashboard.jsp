@@ -52,75 +52,83 @@
 <div class="container py-5">
 
     <!-- Quick Stats -->
-    <div class="row g-4 mb-5">
+    <div class="row g-4 mb-4">
         <div class="col-lg-3 col-md-6">
-            <div class="d-flex align-items-center bg-white px-4 py-3 rounded-3 shadow-sm border-0" style="border-left: 4px solid #10b981 !important; transition: all 0.3s ease;">
-                <div class="me-3">
-                    <div class="rounded-2 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: #10b981;">
-                        <i class="fas fa-dollar-sign text-white" style="font-size: 1.125rem;"></i>
+            <div class="card border-0 shadow-sm h-100 revenue-stats-container">
+                <div class="card-header revenue-stats-header border-0 py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="metric-icon me-3">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold text-white">Revenus totaux</h6>
+                        </div>
                     </div>
                 </div>
-                <div class="flex-grow-1">
-                    <div class="h4 mb-0 text-dark fw-bold" id="totalRevenue">0 MAD</div>
-                    <small class="text-muted fw-medium">Revenus totaux</small>
-                    <div class="mt-1">
-                        <small class="text-success fw-medium">
-                            <i class="fas fa-arrow-up me-1"></i>23% ce mois
-                        </small>
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
+                    <div class="text-center">
+                        <h2 class="h3 fw-bold mb-2 text-success" id="totalRevenue">0 MAD</h2>
+                        <small class="text-muted"><i class="fas fa-arrow-up me-1"></i>23% ce mois</small>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="d-flex align-items-center bg-white px-4 py-3 rounded-3 shadow-sm border-0" style="border-left: 4px solid var(--primary-600) !important; transition: all 0.3s ease;">
-                <div class="me-3">
-                    <div class="bg-primary rounded-2 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
-                        <i class="fas fa-box text-white" style="font-size: 1.125rem;"></i>
+            <div class="card border-0 shadow-sm h-100 equipment-stats-container">
+                <div class="card-header equipment-stats-header border-0 py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="metric-icon me-3">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold text-white">Matériel disponible</h6>
+                        </div>
                     </div>
                 </div>
-                <div class="flex-grow-1">
-                    <div class="h4 mb-0 text-dark fw-bold" id="totalEquipment">0</div>
-                    <small class="text-muted fw-medium">Matériel disponible</small>
-                    <div class="mt-1">
-                        <small class="text-primary fw-medium">
-                            <i class="fas fa-check-circle me-1"></i>Actif
-                        </small>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="d-flex align-items-center bg-white px-4 py-3 rounded-3 shadow-sm border-0" style="border-left: 4px solid #f59e0b !important; transition: all 0.3s ease;">
-                <div class="me-3">
-                    <div class="rounded-2 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: #f59e0b;">
-                        <i class="fas fa-calendar-alt text-white" style="font-size: 1.125rem;"></i>
-                    </div>
-                </div>
-                <div class="flex-grow-1">
-                    <div class="h4 mb-0 text-dark fw-bold" id="activeBookings">0</div>
-                    <small class="text-muted fw-medium">Réservations actives</small>
-                    <div class="mt-1">
-                        <small class="text-muted fw-medium">
-                            <i class="fas fa-clock me-1"></i>En cours
-                        </small>
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
+                    <div class="text-center">
+                        <h2 class="h3 fw-bold mb-2 text-primary" id="totalEquipment">0</h2>
+                        <small class="text-muted"><i class="fas fa-check-circle me-1"></i>Actif</small>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="d-flex align-items-center bg-white px-4 py-3 rounded-3 shadow-sm border-0" style="border-left: 4px solid #8b5cf6 !important; transition: all 0.3s ease;">
-                <div class="me-3">
-                    <div class="rounded-2 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: #8b5cf6;">
-                        <i class="fas fa-star text-white" style="font-size: 1.125rem;"></i>
+            <div class="card border-0 shadow-sm h-100 bookings-stats-container">
+                <div class="card-header bookings-stats-header border-0 py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="metric-icon me-3">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold text-white">Réservations actives</h6>
+                        </div>
                     </div>
                 </div>
-                <div class="flex-grow-1">
-                    <div class="h4 mb-0 text-dark fw-bold" id="rating">4.8</div>
-                    <small class="text-muted fw-medium">Note moyenne</small>
-                    <div class="mt-1">
-                        <small class="text-warning fw-medium">
-                            <i class="fas fa-star me-1"></i>Excellent
-                        </small>
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
+                    <div class="text-center">
+                        <h2 class="h3 fw-bold mb-2 text-warning" id="activeBookings">0</h2>
+                        <small class="text-muted"><i class="fas fa-clock me-1"></i>En cours</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100 rating-stats-container">
+                <div class="card-header rating-stats-header border-0 py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="metric-icon me-3">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold text-white">Note moyenne</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
+                    <div class="text-center">
+                        <h2 class="h3 fw-bold mb-2 text-warning" id="rating">4.8</h2>
+                        <small class="text-muted"><i class="fas fa-star me-1"></i>Excellent</small>
                     </div>
                 </div>
             </div>
@@ -644,6 +652,63 @@ function showAIModels() {
 
 .bg-info-gradient {
     background: linear-gradient(135deg, var(--info-color), #0891b2) !important;
+}
+
+/* Dashboard Stats Container Styles - Matching Analytics */
+.revenue-stats-container {
+    background: linear-gradient(135deg, var(--success-color), var(--success-dark));
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.revenue-stats-header {
+    background: linear-gradient(135deg, var(--success-color), var(--success-dark));
+    border: none;
+}
+
+.equipment-stats-container {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.equipment-stats-header {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border: none;
+}
+
+.bookings-stats-container {
+    background: linear-gradient(135deg, var(--warning-color), #d97706);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.bookings-stats-header {
+    background: linear-gradient(135deg, var(--warning-color), #d97706);
+    border: none;
+}
+
+.rating-stats-container {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.rating-stats-header {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    border: none;
+}
+
+.metric-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: white;
 }
 </style>
 
