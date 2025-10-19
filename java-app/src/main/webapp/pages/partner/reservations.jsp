@@ -399,6 +399,320 @@
     background: linear-gradient(90deg, transparent, var(--primary-600), transparent) !important;
 }
 
+/* Reservation Detail Card Styling */
+.reservation-detail-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    overflow-y: auto;
+    padding: 2rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(8px);
+    }
+}
+
+.reservation-detail-card {
+    background: white !important;
+    border-radius: 1.5rem !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(20px) !important;
+    overflow: hidden !important;
+}
+
+.reservation-detail-header {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700)) !important;
+    border: none !important;
+    padding: 2rem !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.reservation-detail-header::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -50% !important;
+    left: -50% !important;
+    width: 200% !important;
+    height: 200% !important;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%) !important;
+    animation: shimmer 3s ease-in-out infinite !important;
+    pointer-events: none !important;
+}
+
+.reservation-icon {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.5rem !important;
+    color: white !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+}
+
+.reservation-detail-body {
+    padding: 2.5rem !important;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+    position: relative !important;
+}
+
+.reservation-detail-body::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 50%) !important;
+    pointer-events: none !important;
+}
+
+/* Equipment Card */
+.equipment-card {
+    background: white !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden !important;
+    transition: all 0.3s ease !important;
+    height: 100% !important;
+}
+
+.equipment-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
+}
+
+.equipment-image {
+    position: relative !important;
+    height: 200px !important;
+    overflow: hidden !important;
+}
+
+.equipment-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    transition: transform 0.3s ease !important;
+}
+
+.equipment-card:hover .equipment-image img {
+    transform: scale(1.05) !important;
+}
+
+.equipment-overlay {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1)) !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    padding: 1rem !important;
+}
+
+.equipment-price {
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: var(--primary-700) !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 0.5rem !important;
+    font-weight: 700 !important;
+    font-size: 0.875rem !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.equipment-info {
+    padding: 1.5rem !important;
+}
+
+.equipment-name {
+    color: var(--gray-800) !important;
+    font-weight: 700 !important;
+    font-size: 1.25rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+.equipment-description {
+    color: var(--gray-600) !important;
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 1rem !important;
+}
+
+.equipment-location {
+    color: var(--gray-500) !important;
+    font-size: 0.875rem !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* Info Cards */
+.info-card {
+    background: white !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden !important;
+    transition: all 0.3s ease !important;
+    height: 100% !important;
+}
+
+.info-card:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+.info-card-header {
+    background: linear-gradient(135deg, var(--primary-50), var(--primary-100)) !important;
+    padding: 1.25rem !important;
+    border-bottom: 1px solid var(--primary-200) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+}
+
+.info-card-header i {
+    color: var(--primary-600) !important;
+    font-size: 1.1rem !important;
+}
+
+.info-card-header h6 {
+    color: var(--primary-800) !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    font-size: 0.95rem !important;
+}
+
+.info-card-body {
+    padding: 1.5rem !important;
+}
+
+.info-item {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 0.75rem 0 !important;
+    border-bottom: 1px solid var(--gray-100) !important;
+}
+
+.info-item:last-child {
+    border-bottom: none !important;
+}
+
+.info-item label {
+    color: var(--gray-600) !important;
+    font-weight: 600 !important;
+    font-size: 0.875rem !important;
+    margin: 0 !important;
+}
+
+.info-item span {
+    color: var(--gray-800) !important;
+    font-weight: 500 !important;
+    text-align: right !important;
+}
+
+.info-item a {
+    color: var(--primary-600) !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+.info-item a:hover {
+    color: var(--primary-700) !important;
+    text-decoration: underline !important;
+}
+
+.total-price {
+    color: var(--success-600) !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+}
+
+/* Notes Card */
+.notes-card {
+    background: white !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden !important;
+}
+
+.notes-header {
+    background: linear-gradient(135deg, var(--warning-50), var(--warning-100)) !important;
+    padding: 1.25rem !important;
+    border-bottom: 1px solid var(--warning-200) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+}
+
+.notes-header i {
+    color: var(--warning-600) !important;
+    font-size: 1.1rem !important;
+}
+
+.notes-header h6 {
+    color: var(--warning-800) !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    font-size: 0.95rem !important;
+}
+
+.notes-body {
+    padding: 1.5rem !important;
+}
+
+.notes-body p {
+    color: var(--gray-700) !important;
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+    font-style: italic !important;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+    justify-content: center !important;
+    padding: 1.5rem !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+    border-radius: 1rem !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.action-buttons .btn {
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 0.75rem !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.action-buttons .btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .status-filter-card {
@@ -419,6 +733,98 @@
         width: 48px !important;
         height: 48px !important;
         font-size: 1.25rem !important;
+    }
+    
+    .reservation-detail-overlay {
+        padding: 1rem 0 !important;
+    }
+    
+    .reservation-detail-header {
+        padding: 1.5rem !important;
+    }
+    
+    .reservation-detail-body {
+        padding: 1.5rem !important;
+    }
+    
+    .equipment-image {
+        height: 150px !important;
+    }
+    
+    .action-buttons {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    .action-buttons .btn {
+        width: 100% !important;
+        max-width: 300px !important;
+    }
+}
+
+/* Detail Card Notification */
+.detail-card-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    color: white;
+    border-radius: 1rem;
+    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.3);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: slideInRight 0.5s ease-out;
+    max-width: 350px;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+}
+
+.notification-icon {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.notification-text {
+    flex: 1;
+}
+
+.notification-text h6 {
+    margin: 0 0 0.25rem 0;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.notification-text p {
+    margin: 0;
+    font-size: 0.8rem;
+    opacity: 0.9;
+    line-height: 1.3;
+}
+
+.notification-spinner {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
     }
 }
 </style>
@@ -707,7 +1113,26 @@ document.addEventListener('DOMContentLoaded', function() {
     detailModal = new bootstrap.Modal(document.getElementById('detailModal'));
     acceptModal = new bootstrap.Modal(document.getElementById('acceptModal'));
     declineModal = new bootstrap.Modal(document.getElementById('declineModal'));
-    loadReservations();
+    
+    // Check if we have a specific reservation ID in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const reservationId = urlParams.get('id');
+    
+    if (reservationId) {
+        // Load all reservations first
+        loadReservations();
+        
+        // Show notification that detail card will appear
+        showDetailCardNotification();
+        
+        // Then show specific reservation details after 2 seconds
+        setTimeout(() => {
+            showReservationDetailCard(reservationId);
+        }, 2000);
+    } else {
+        // Load all reservations
+        loadReservations();
+    }
     
     document.getElementById('searchInput').addEventListener('input', loadReservations);
 });
@@ -927,25 +1352,63 @@ function getReservationById(id) {
     const reservations = [
         {
             id: 'RES-001',
-            client: { name: 'Ahmed Ben Ali', phone: '+212 6 12 34 56 78', email: 'ahmed@email.com' },
+            client: { name: 'Ahmed Ben Ali', phone: '+212 6 12 34 56 78', email: 'ahmed.benali@email.com' },
             equipment: 'Canon EOS R5',
             startDate: '2024-01-15',
-            endDate: '2024-01-18',
-            days: 3,
-            pricePerDay: '400 MAD',
-            totalPrice: '1,200 MAD',
-            status: 'pending'
+            endDate: '2024-01-20',
+            days: 5,
+            pricePerDay: 240,
+            totalPrice: 1200,
+            status: 'active',
+            equipmentImage: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80',
+            description: 'Appareil photo professionnel 45MP avec stabilisation intégrée',
+            location: 'Casablanca, Maroc',
+            notes: 'Client préfère récupération le matin avant 9h'
         },
         {
             id: 'RES-002',
-            client: { name: 'Fatima Alami', phone: '+212 6 98 76 54 32', email: 'fatima@email.com' },
-            equipment: 'MacBook Pro M3',
+            client: { name: 'Sara Bennani', phone: '+212 6 87 65 43 21', email: 'sara.bennani@email.com' },
+            equipment: 'MacBook Pro 16"',
+            startDate: '2024-01-18',
+            endDate: '2024-01-22',
+            days: 4,
+            pricePerDay: 150,
+            totalPrice: 600,
+            status: 'active',
+            equipmentImage: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80',
+            description: 'Ordinateur portable professionnel avec processeur M3',
+            location: 'Rabat, Maroc',
+            notes: 'Besoin d\'un adaptateur HDMI'
+        },
+        {
+            id: 'RES-003',
+            client: { name: 'Omar Khalil', phone: '+212 6 11 22 33 44', email: 'omar.khalil@email.com' },
+            equipment: 'Sony A7 III',
             startDate: '2024-01-20',
             endDate: '2024-01-25',
             days: 5,
-            pricePerDay: '200 MAD',
-            totalPrice: '1,000 MAD',
-            status: 'active'
+            pricePerDay: 175,
+            totalPrice: 875,
+            status: 'pending',
+            equipmentImage: 'https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=600&auto=format&fit=crop&q=80',
+            description: 'Appareil photo hybride 24MP avec objectif 24-70mm',
+            location: 'Marrakech, Maroc',
+            notes: 'Réservation pour shooting mariage'
+        },
+        {
+            id: 'RES-004',
+            client: { name: 'Fatima Zahra', phone: '+212 6 55 66 77 88', email: 'fatima.zahra@email.com' },
+            equipment: 'DJI Mavic Pro',
+            startDate: '2024-01-10',
+            endDate: '2024-01-12',
+            days: 2,
+            pricePerDay: 300,
+            totalPrice: 600,
+            status: 'completed',
+            equipmentImage: 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&auto=format&fit=crop&q=80',
+            description: 'Drone professionnel 4K avec stabilisation 3 axes',
+            location: 'Agadir, Maroc',
+            notes: 'Utilisé pour tournage aérien'
         }
     ];
     return reservations.find(r => r.id === id);
@@ -957,6 +1420,235 @@ function exportReservations() {
     // Export reservations - replace with actual API call
     console.log('Exporting reservations...');
     alert('Fonctionnalité d\'export en cours de développement');
+}
+
+function showReservationDetailCard(reservationId) {
+    // Create and show the detail card as an overlay
+    const detailCard = createReservationDetailCard(reservationId);
+    document.body.appendChild(detailCard);
+    
+    // Add back button functionality
+    document.getElementById('backToReservations').addEventListener('click', function() {
+        detailCard.remove();
+        // Remove the ID from URL
+        const url = new URL(window.location);
+        url.searchParams.delete('id');
+        window.history.replaceState({}, '', url);
+    });
+}
+
+function createReservationDetailCard(reservationId) {
+    // Get reservation data - replace with actual API call
+    const reservation = getReservationById(reservationId) || {
+        id: reservationId,
+        client: { name: 'Ahmed Ben Ali', phone: '+212 6 12 34 56 78', email: 'ahmed@email.com' },
+        equipment: 'Canon EOS R5',
+        startDate: '2024-01-15',
+        endDate: '2024-01-20',
+        days: 5,
+        pricePerDay: 240,
+        totalPrice: 1200,
+        status: 'active',
+        equipmentImage: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80',
+        description: 'Appareil photo professionnel 45MP avec stabilisation intégrée',
+        location: 'Casablanca, Maroc',
+        notes: 'Client préfère récupération le matin avant 9h'
+    };
+    
+    const statusConfig = {
+        active: { class: 'status-active', text: 'Actif', icon: 'fas fa-check-circle', color: '#10b981' },
+        pending: { class: 'status-pending', text: 'En attente', icon: 'fas fa-clock', color: '#f59e0b' },
+        completed: { class: 'status-completed', text: 'Terminé', icon: 'fas fa-archive', color: '#6b7280' },
+        cancelled: { class: 'status-cancelled', text: 'Annulé', icon: 'fas fa-times-circle', color: '#ef4444' }
+    };
+    const status = statusConfig[reservation.status] || statusConfig.pending;
+    
+    const detailCard = document.createElement('div');
+    detailCard.className = 'reservation-detail-overlay';
+    detailCard.innerHTML = '<div class="container py-5">' +
+        '<div class="row justify-content-center">' +
+            '<div class="col-lg-10">' +
+                '<!-- Back Button -->' +
+                '<div class="mb-4">' +
+                    '<button id="backToReservations" class="btn btn-outline-light">' +
+                        '<i class="fas fa-arrow-left me-2"></i>Retour aux réservations' +
+                    '</button>' +
+                '</div>' +
+                '<!-- Main Detail Card -->' +
+                '<div class="card border-0 shadow-lg reservation-detail-card">' +
+                    '<div class="card-header reservation-detail-header">' +
+                        '<div class="row align-items-center">' +
+                            '<div class="col-md-8">' +
+                                '<div class="d-flex align-items-center">' +
+                                    '<div class="reservation-icon me-3" style="background: ' + status.color + ';">' +
+                                        '<i class="' + status.icon + '"></i>' +
+                                    '</div>' +
+                                    '<div>' +
+                                        '<h4 class="mb-1 text-white">Réservation ' + reservation.id + '</h4>' +
+                                        '<p class="mb-0 text-white-50">Détails complets de la réservation</p>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="col-md-4 text-md-end">' +
+                                '<span class="status-badge ' + status.class + '">' +
+                                    '<i class="' + status.icon + ' me-1"></i>' + status.text +
+                                '</span>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="card-body reservation-detail-body">' +
+                        '<div class="row g-4">' +
+                            '<!-- Equipment Info -->' +
+                            '<div class="col-lg-4">' +
+                                '<div class="equipment-card">' +
+                                    '<div class="equipment-image">' +
+                                        '<img src="' + reservation.equipmentImage + '" alt="' + reservation.equipment + '" class="img-fluid">' +
+                                        '<div class="equipment-overlay">' +
+                                            '<div class="equipment-price">' + reservation.pricePerDay + ' MAD/jour</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                    '<div class="equipment-info">' +
+                                        '<h5 class="equipment-name">' + reservation.equipment + '</h5>' +
+                                        '<p class="equipment-description">' + reservation.description + '</p>' +
+                                        '<div class="equipment-location">' +
+                                            '<i class="fas fa-map-marker-alt me-2"></i>' + reservation.location +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                            '<!-- Client Info -->' +
+                            '<div class="col-lg-4">' +
+                                '<div class="info-card">' +
+                                    '<div class="info-card-header">' +
+                                        '<i class="fas fa-user"></i>' +
+                                        '<h6>Informations Client</h6>' +
+                                    '</div>' +
+                                    '<div class="info-card-body">' +
+                                        '<div class="info-item">' +
+                                            '<label>Nom complet</label>' +
+                                            '<span>' + reservation.client.name + '</span>' +
+                                        '</div>' +
+                                        '<div class="info-item">' +
+                                            '<label>Téléphone</label>' +
+                                            '<span><a href="tel:' + reservation.client.phone + '">' + reservation.client.phone + '</a></span>' +
+                                        '</div>' +
+                                        '<div class="info-item">' +
+                                            '<label>Email</label>' +
+                                            '<span><a href="mailto:' + reservation.client.email + '">' + reservation.client.email + '</a></span>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                            '<!-- Reservation Info -->' +
+                            '<div class="col-lg-4">' +
+                                '<div class="info-card">' +
+                                    '<div class="info-card-header">' +
+                                        '<i class="fas fa-calendar-check"></i>' +
+                                        '<h6>Détails Réservation</h6>' +
+                                    '</div>' +
+                                    '<div class="info-card-body">' +
+                                        '<div class="info-item">' +
+                                            '<label>Date de début</label>' +
+                                            '<span>' + new Date(reservation.startDate).toLocaleDateString('fr-FR') + '</span>' +
+                                        '</div>' +
+                                        '<div class="info-item">' +
+                                            '<label>Date de fin</label>' +
+                                            '<span>' + new Date(reservation.endDate).toLocaleDateString('fr-FR') + '</span>' +
+                                        '</div>' +
+                                        '<div class="info-item">' +
+                                            '<label>Durée</label>' +
+                                            '<span>' + reservation.days + ' jours</span>' +
+                                        '</div>' +
+                                        '<div class="info-item">' +
+                                            '<label>Prix total</label>' +
+                                            '<span class="total-price">' + reservation.totalPrice + ' MAD</span>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                        (reservation.notes ? 
+                            '<!-- Notes Section -->' +
+                            '<div class="row mt-4">' +
+                                '<div class="col-12">' +
+                                    '<div class="notes-card">' +
+                                        '<div class="notes-header">' +
+                                            '<i class="fas fa-sticky-note"></i>' +
+                                            '<h6>Notes spéciales</h6>' +
+                                        '</div>' +
+                                        '<div class="notes-body">' +
+                                            '<p>' + reservation.notes + '</p>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' : '') +
+                        '<!-- Action Buttons -->' +
+                        '<div class="row mt-4">' +
+                            '<div class="col-12">' +
+                                '<div class="action-buttons">' +
+                                    (reservation.status === 'pending' ? 
+                                        '<button class="btn btn-success me-3" onclick="showAcceptModal(\'' + reservation.id + '\')">' +
+                                            '<i class="fas fa-check me-2"></i>Accepter' +
+                                        '</button>' +
+                                        '<button class="btn btn-danger me-3" onclick="showDeclineModal(\'' + reservation.id + '\')">' +
+                                            '<i class="fas fa-times me-2"></i>Refuser' +
+                                        '</button>' : '') +
+                                    '<button class="btn btn-primary me-3" onclick="contactClient(\'' + reservation.client.email + '\')">' +
+                                        '<i class="fas fa-envelope me-2"></i>Contacter' +
+                                    '</button>' +
+                                    '<button class="btn btn-outline-secondary" onclick="printReservation(\'' + reservation.id + '\')">' +
+                                        '<i class="fas fa-print me-2"></i>Imprimer' +
+                                    '</button>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>' +
+    '</div>';
+    
+    return detailCard;
+}
+
+function contactClient(email) {
+    window.location.href = `mailto:${email}`;
+}
+
+function printReservation(reservationId) {
+    window.print();
+}
+
+function showDetailCardNotification() {
+    // Create a beautiful notification
+    const notification = document.createElement('div');
+    notification.className = 'detail-card-notification';
+    notification.innerHTML = `
+        <div class="notification-content">
+            <div class="notification-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <div class="notification-text">
+                <h6>Chargement des détails...</h6>
+                <p>Les détails de la réservation s'afficheront dans quelques instants</p>
+            </div>
+            <div class="notification-spinner">
+                <div class="spinner-border spinner-border-sm" role="status">
+                    <span class="visually-hidden">Chargement...</span>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Auto-remove after 3 seconds
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+        }
+    }, 3000);
 }
 </script>
 

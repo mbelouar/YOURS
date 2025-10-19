@@ -140,17 +140,6 @@
                             <p class="mb-0 text-white-50 small">Dernières activités de location</p>
                         </div>
                         <div class="d-flex gap-2">
-                            <div class="dropdown">
-                                <button class="btn btn-sm btn-glass dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                    <i class="fas fa-filter me-1"></i>Filtrer
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#" onclick="filterBookings('all')">Toutes</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="filterBookings('active')">Actives</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="filterBookings('pending')">En attente</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="filterBookings('completed')">Terminées</a></li>
-                                </ul>
-                            </div>
                             <a href="${pageContext.request.contextPath}/pages/partner/reservations.jsp" class="btn btn-sm btn-gradient">
                                 <i class="fas fa-external-link-alt me-1"></i>Voir tout
                             </a>
@@ -329,7 +318,6 @@ function loadPartnerDashboardData() {
 
 // Global bookings data
 let allBookings = [];
-let currentFilter = 'all';
 
 function loadRecentBookings() {
     // Show loading state
@@ -341,7 +329,7 @@ function loadRecentBookings() {
     setTimeout(() => {
         allBookings = [
             { 
-                id: 1,
+                id: 'RES-001',
                 client: 'Ahmed Ben Ali', 
                 clientEmail: 'ahmed.benali@email.com',
                 equipment: 'Canon EOS R5', 
@@ -356,7 +344,7 @@ function loadRecentBookings() {
                 rating: 4.8
             },
             { 
-                id: 2,
+                id: 'RES-002',
                 client: 'Sara Bennani', 
                 clientEmail: 'sara.bennani@email.com',
                 equipment: 'MacBook Pro 16"', 
@@ -371,7 +359,7 @@ function loadRecentBookings() {
                 rating: 4.9
             },
             { 
-                id: 3,
+                id: 'RES-003',
                 client: 'Omar Khalil', 
                 clientEmail: 'omar.khalil@email.com',
                 equipment: 'Sony A7 III', 
@@ -386,7 +374,7 @@ function loadRecentBookings() {
                 rating: 4.7
             },
             { 
-                id: 4,
+                id: 'RES-004',
                 client: 'Fatima Zahra', 
                 clientEmail: 'fatima.zahra@email.com',
                 equipment: 'DJI Mavic Pro', 
@@ -409,13 +397,12 @@ function loadRecentBookings() {
 }
 
 function renderBookings() {
-    const filteredBookings = currentFilter === 'all' ? allBookings : 
-        allBookings.filter(booking => booking.status === currentFilter);
-    
     const container = document.getElementById('bookingsCards');
     const emptyState = document.getElementById('bookingsEmpty');
     
-    if (filteredBookings.length === 0) {
+    console.log('Rendering bookings, count:', allBookings.length);
+    
+    if (allBookings.length === 0) {
         container.style.display = 'none';
         emptyState.style.display = 'block';
         return;
@@ -424,7 +411,9 @@ function renderBookings() {
     emptyState.style.display = 'none';
     container.style.display = 'block';
     
-    container.innerHTML = filteredBookings.map(booking => createBookingCard(booking)).join('');
+    const cardsHtml = allBookings.map(booking => createBookingCard(booking)).join('');
+    console.log('Generated cards HTML:', cardsHtml.substring(0, 200) + '...');
+    container.innerHTML = cardsHtml;
 }
 
 function createBookingCard(booking) {
@@ -444,7 +433,7 @@ function createBookingCard(booking) {
         '<div class="card border-0 shadow-sm h-100 booking-card" style="transition: all 0.3s ease; cursor: pointer;" ' +
         'onmouseover="this.style.transform=\'translateY(-2px)\'; this.style.boxShadow=\'0 8px 25px rgba(0,0,0,0.15)\'" ' +
         'onmouseout="this.style.transform=\'translateY(0)\'; this.style.boxShadow=\'0 4px 6px rgba(0,0,0,0.1)\'" ' +
-        'onclick="viewBookingDetails(' + booking.id + ')">' +
+        'onclick="viewBookingDetails(\'' + booking.id + '\')">' +
         '<div class="card-body p-4">' +
         '<div class="row align-items-center">' +
         '<div class="col-auto">' +
@@ -530,14 +519,15 @@ function getTimeAgo(dateString) {
     return date.toLocaleDateString('fr-FR');
 }
 
-function filterBookings(filter) {
-    currentFilter = filter;
-    renderBookings();
-}
-
 function viewBookingDetails(bookingId) {
-    // Navigate to booking details page
-    window.location.href = `${window.location.origin}${window.location.pathname.replace('/pages/partner/dashboard.jsp', '/pages/partner/reservations.jsp')}?id=${bookingId}`;
+    console.log('Navigating to reservation details for ID:', bookingId);
+    // Navigate to reservations page with booking ID
+    const baseUrl = window.location.origin;
+    const currentPath = window.location.pathname;
+    const newPath = currentPath.replace('/pages/partner/dashboard.jsp', '/pages/partner/reservations.jsp');
+    const fullUrl = baseUrl + newPath + '?id=' + bookingId;
+    console.log('Navigating to:', fullUrl);
+    window.location.href = fullUrl;
 }
 
 function contactClient(email) {

@@ -1011,31 +1011,27 @@ html {
     z-index: 2;
 }
 
-/* Glass button styling */
-.btn-glass {
-    background: rgba(255, 255, 255, 0.15) !important;
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    color: white !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.btn-glass:hover {
-    background: rgba(255, 255, 255, 0.25) !important;
-    border-color: rgba(255, 255, 255, 0.3) !important;
-    color: white !important;
-    transform: translateY(-1px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-}
 
 /* Gradient button styling */
-.btn-gradient {
+.btn-gradient,
+.btn.btn-sm.btn-gradient {
     background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent-color) 100%) !important;
     border: none !important;
     color: white !important;
     box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
     transition: all 0.3s ease;
+    font-size: 0.875rem !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    min-height: 36px !important;
+    height: auto !important;
 }
 
 .btn-gradient:hover {
@@ -1190,37 +1186,6 @@ html {
     border: 2px solid var(--gray-200);
 }
 
-/* Filter Dropdown */
-.dropdown-menu {
-    border: none;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    padding: 0.5rem 0;
-    margin-top: 0.5rem;
-    background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%);
-    backdrop-filter: blur(20px);
-}
-
-.dropdown-item {
-    padding: 0.75rem 1rem;
-    font-size: 0.875rem;
-    transition: all 0.2s ease;
-    border-radius: 0;
-    color: var(--gray-700);
-}
-
-.dropdown-item:hover {
-    background: linear-gradient(135deg, var(--primary-50), var(--primary-100));
-    color: var(--primary-800);
-    transform: translateX(4px);
-    font-weight: 500;
-}
-
-.dropdown-item.active {
-    background: linear-gradient(135deg, var(--primary-100), var(--primary-200));
-    color: var(--primary-900);
-    font-weight: 600;
-}
 
 /* Responsive adjustments for booking cards */
 @media (max-width: 768px) {
