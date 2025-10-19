@@ -1663,16 +1663,6 @@ function openMaps() {
                                 <i class="bi bi-gear me-2 text-primary"></i>Paramètres
                             </a>
                         </li>
-                        <li>
-                            <a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/partner/equipment.jsp">
-                                <i class="bi bi-box-seam me-2 text-warning"></i>Mon Matériel
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/partner/earnings.jsp">
-                                <i class="bi bi-wallet2 me-2 text-success"></i>Mes Gains
-                            </a>
-                        </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <a class="dropdown-item rounded text-danger" href="${pageContext.request.contextPath}/pages/auth/logout.jsp">
