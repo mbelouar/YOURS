@@ -7,7 +7,7 @@
 <%@ include file="../../layouts/navbar.jsp" %>
 
 <!-- Page Header -->
-<section class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); margin-top: -80px; padding-top: calc(80px + 6rem) !important; padding-bottom: 6rem !important; min-height: 400px; position: relative; overflow: hidden;">
+<section class="py-5" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%); margin-top: -80px; padding-top: calc(80px + 6rem) !important; padding-bottom: 6rem !important; min-height: 500px; height: 500px; position: relative; overflow: hidden;">
     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%); opacity: 1;"></div>
     <div class="container" style="position: relative; z-index: 2;">
         <div class="row">
@@ -20,7 +20,7 @@
                 
                 <!-- Main Title -->
                 <h1 class="display-2 fw-bold mb-4" style="color: white; text-shadow: 0 4px 20px rgba(0,0,0,0.3); letter-spacing: -0.03em; line-height: 1.1;">
-                    Mes <span style="background: linear-gradient(135deg, #fbbf24, #f59e0b); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Gains</span>
+                    <span style="background: linear-gradient(135deg, #fbbf24, #f59e0b); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Mes Gains</span>
                 </h1>
                 
                 <!-- Subtitle -->
@@ -29,7 +29,7 @@
                         Suivez vos revenus et transactions
                     </p>
                     <p class="mb-0" style="color: rgba(255, 255, 255, 0.8); font-size: 1.1rem; font-weight: 300; line-height: 1.7;">
-                        Analysez vos revenus • Suivez les paiements • Optimisez vos prix
+                        Analysez vos performances financières • Gérez vos paiements • Optimisez vos revenus
                     </p>
                 </div>
                 
@@ -48,55 +48,84 @@
 <div class="container py-5">
     
     <!-- Summary Cards -->
-    <div class="row g-4 mb-5">
+    <div class="row g-4 mb-4">
         <div class="col-lg-3 col-md-6">
-            <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #10b981, #059669);">
-                <div class="card-body text-white">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div>
-                            <p class="mb-1 opacity-75">Revenus Totaux</p>
-                            <h2 class="h3 mb-0 fw-bold" id="totalEarnings">0 MAD</h2>
-                        </div>
-                        <div class="icon-box-lg bg-white bg-opacity-25">
+            <div class="card border-0 shadow-sm h-100 total-earnings-container">
+                <div class="card-header total-earnings-header border-0 py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="metric-icon me-3">
                             <i class="fas fa-coins"></i>
                         </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold text-white">Revenus Totaux</h6>
+                        </div>
                     </div>
-                    <small class="opacity-75">
-                        <i class="fas fa-arrow-up me-1"></i>+23% ce mois
-                    </small>
+                </div>
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
+                    <div class="text-center">
+                        <h2 class="h3 fw-bold mb-2 text-success" id="totalEarnings">0 MAD</h2>
+                        <small class="text-muted"><i class="fas fa-arrow-up me-1"></i>+23% ce mois</small>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <p class="text-muted mb-1">Ce Mois</p>
-                    <h3 class="h4 mb-3 fw-bold text-primary" id="monthlyEarnings">0 MAD</h3>
-                    <small class="text-success">
-                        <i class="fas fa-check-circle me-1"></i>En progression
-                    </small>
+            <div class="card border-0 shadow-sm h-100 monthly-earnings-container">
+                <div class="card-header monthly-earnings-header border-0 py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="metric-icon me-3">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold text-white">Ce Mois</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
+                    <div class="text-center">
+                        <h2 class="h3 fw-bold mb-2 text-primary" id="monthlyEarnings">0 MAD</h2>
+                        <small class="text-muted"><i class="fas fa-check-circle me-1"></i>En progression</small>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <p class="text-muted mb-1">En Attente</p>
-                    <h3 class="h4 mb-3 fw-bold text-warning" id="pendingEarnings">0 MAD</h3>
-                    <small class="text-muted">
-                        <i class="fas fa-clock me-1"></i>À recevoir
-                    </small>
+            <div class="card border-0 shadow-sm h-100 pending-earnings-container">
+                <div class="card-header pending-earnings-header border-0 py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="metric-icon me-3">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold text-white">En Attente</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
+                    <div class="text-center">
+                        <h2 class="h3 fw-bold mb-2 text-warning" id="pendingEarnings">0 MAD</h2>
+                        <small class="text-muted"><i class="fas fa-clock me-1"></i>À recevoir</small>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <p class="text-muted mb-1">Revenus Moyens</p>
-                    <h3 class="h4 mb-3 fw-bold text-info" id="averageEarnings">0 MAD</h3>
-                    <small class="text-muted">
-                        <i class="fas fa-chart-line me-1"></i>Par location
-                    </small>
+            <div class="card border-0 shadow-sm h-100 average-earnings-container">
+                <div class="card-header average-earnings-header border-0 py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="metric-icon me-3">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold text-white">Revenus Moyens</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
+                    <div class="text-center">
+                        <h2 class="h3 fw-bold mb-2 text-info" id="averageEarnings">0 MAD</h2>
+                        <small class="text-muted"><i class="fas fa-chart-line me-1"></i>Par location</small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -105,32 +134,36 @@
     <div class="row g-4">
         <!-- Earnings Chart -->
         <div class="col-lg-8">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white border-0 py-3">
+            <div class="card border-0 shadow-sm earnings-chart-container">
+                <div class="card-header earnings-chart-header border-0 py-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0 fw-bold">
-                            <i class="fas fa-chart-line me-2 text-primary"></i>Évolution des Revenus
-                        </h5>
-                        <select class="form-select form-select-sm w-auto" id="chartPeriod">
-                            <option value="week">7 derniers jours</option>
-                            <option value="month" selected>30 derniers jours</option>
-                            <option value="year">12 derniers mois</option>
+                        <div>
+                            <h5 class="mb-1 fw-bold text-white">
+                                <i class="fas fa-chart-line me-2" style="color: var(--accent-light);"></i>Évolution des Revenus
+                            </h5>
+                            <p class="mb-0 text-white-50 small">Analyse des revenus sur différentes périodes</p>
+                        </div>
+                        <select class="form-select form-select-sm w-auto" id="chartPeriod" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white;">
+                            <option value="week" style="background: #1e40af; color: white;">7 derniers jours</option>
+                            <option value="month" selected style="background: #1e40af; color: white;">30 derniers jours</option>
+                            <option value="year" style="background: #1e40af; color: white;">12 derniers mois</option>
                         </select>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
                     <canvas id="earningsChart" height="80"></canvas>
                 </div>
             </div>
 
             <!-- Recent Transactions -->
-            <div class="card border-0 shadow-sm mt-4">
-                <div class="card-header bg-white border-0 py-3">
-                    <h5 class="mb-0 fw-bold">
-                        <i class="fas fa-receipt me-2 text-success"></i>Transactions Récentes
+            <div class="card border-0 shadow-sm mt-4 transactions-container">
+                <div class="card-header transactions-header border-0 py-4">
+                    <h5 class="mb-1 fw-bold text-white">
+                        <i class="fas fa-receipt me-2" style="color: var(--accent-light);"></i>Transactions Récentes
                     </h5>
+                    <p class="mb-0 text-white-50 small">Historique des dernières transactions</p>
                 </div>
-                <div class="card-body p-0">
+                <div class="card-body p-0" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
                     <div class="table-responsive">
                         <table class="table table-hover mb-0">
                             <thead class="bg-light">
@@ -158,13 +191,14 @@
         <!-- Side Panel -->
         <div class="col-lg-4">
             <!-- Payment Method -->
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white border-0 py-3">
-                    <h5 class="mb-0 fw-bold">
-                        <i class="fas fa-credit-card me-2 text-primary"></i>Méthode de Paiement
+            <div class="card border-0 shadow-sm mb-4 payment-method-container">
+                <div class="card-header payment-method-header border-0 py-4">
+                    <h5 class="mb-1 fw-bold text-white">
+                        <i class="fas fa-credit-card me-2" style="color: var(--accent-light);"></i>Méthode de Paiement
                     </h5>
+                    <p class="mb-0 text-white-50 small">Configurez votre méthode de paiement</p>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
                     <div class="alert alert-info mb-3">
                         <i class="fas fa-info-circle me-2"></i>
                         <small>Configurez votre méthode de paiement pour recevoir vos gains</small>
@@ -176,13 +210,14 @@
             </div>
 
             <!-- Top Equipment -->
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white border-0 py-3">
-                    <h5 class="mb-0 fw-bold">
-                        <i class="fas fa-trophy me-2 text-warning"></i>Matériel le plus rentable
+            <div class="card border-0 shadow-sm top-equipment-container">
+                <div class="card-header top-equipment-header border-0 py-4">
+                    <h5 class="mb-1 fw-bold text-white">
+                        <i class="fas fa-trophy me-2" style="color: var(--accent-light);"></i>Matériel le plus rentable
                     </h5>
+                    <p class="mb-0 text-white-50 small">Équipements générant le plus de revenus</p>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
                     <div class="mb-3 pb-3 border-bottom" id="topEquipmentList">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="fw-medium">Canon EOS R5</span>
@@ -220,6 +255,107 @@
 </div>
 
 <style>
+/* Earnings Page Container Styles - Matching Other Pages */
+.total-earnings-container {
+    background: linear-gradient(135deg, var(--success-color), var(--success-dark));
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.total-earnings-header {
+    background: linear-gradient(135deg, var(--success-color), var(--success-dark));
+    border: none;
+}
+
+.monthly-earnings-container {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.monthly-earnings-header {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border: none;
+}
+
+.pending-earnings-container {
+    background: linear-gradient(135deg, var(--warning-color), #d97706);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.pending-earnings-header {
+    background: linear-gradient(135deg, var(--warning-color), #d97706);
+    border: none;
+}
+
+.average-earnings-container {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.average-earnings-header {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    border: none;
+}
+
+.earnings-chart-container {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.earnings-chart-header {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border: none;
+}
+
+.transactions-container {
+    background: linear-gradient(135deg, var(--success-color), var(--success-dark));
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.transactions-header {
+    background: linear-gradient(135deg, var(--success-color), var(--success-dark));
+    border: none;
+}
+
+.payment-method-container {
+    background: linear-gradient(135deg, var(--info-color), #0891b2);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.payment-method-header {
+    background: linear-gradient(135deg, var(--info-color), #0891b2);
+    border: none;
+}
+
+.top-equipment-container {
+    background: linear-gradient(135deg, var(--warning-color), #d97706);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.top-equipment-header {
+    background: linear-gradient(135deg, var(--warning-color), #d97706);
+    border: none;
+}
+
+.metric-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: white;
+}
+
 .icon-box-lg {
     width: 56px;
     height: 56px;
@@ -228,6 +364,91 @@
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
+}
+
+/* Transactions Table Styling */
+.transactions-container .card-body {
+    background: white !important;
+}
+
+.transactions-container .table-responsive {
+    background: white !important;
+}
+
+.transactions-container .table {
+    background: white !important;
+    border: none !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+
+.transactions-container .table thead {
+    background: #f8f9fa !important;
+}
+
+.transactions-container .table thead th {
+    background: #f8f9fa !important;
+    color: #333 !important;
+    border: none !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    padding: 1rem 0.75rem !important;
+    font-weight: 600 !important;
+}
+
+.transactions-container .table tbody {
+    background: white !important;
+}
+
+.transactions-container .table tbody tr {
+    background: white !important;
+    color: #333 !important;
+    border: none !important;
+}
+
+.transactions-container .table tbody tr td {
+    background: white !important;
+    color: #333 !important;
+    border: none !important;
+    border-bottom: 1px solid #f8f9fa !important;
+    padding: 1rem 0.75rem !important;
+}
+
+.transactions-container .table tbody tr:hover {
+    background: #f8f9fa !important;
+}
+
+.transactions-container .table tbody tr:hover td {
+    background: #f8f9fa !important;
+    color: #333 !important;
+}
+
+.transactions-container .table tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* Remove all borders and lines */
+.transactions-container .table,
+.transactions-container .table * {
+    background-color: white !important;
+    color: #333 !important;
+}
+
+.transactions-container .table thead,
+.transactions-container .table thead * {
+    background-color: #f8f9fa !important;
+    color: #333 !important;
+}
+
+/* Ensure no white lines appear */
+.transactions-container .table th,
+.transactions-container .table td {
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+}
+
+.transactions-container .table tbody tr:not(:last-child) td {
+    border-bottom: 1px solid #f8f9fa !important;
 }
 </style>
 
