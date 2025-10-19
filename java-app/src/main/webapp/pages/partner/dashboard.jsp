@@ -177,6 +177,48 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- AI Models Container -->
+            <div class="card border-0 shadow-sm mt-4 ai-models-container">
+                <div class="card-header ai-models-header border-0 py-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-1 fw-bold text-white">
+                                <i class="fas fa-robot me-2" style="color: var(--accent-light);"></i>Modèles IA
+                            </h5>
+                            <p class="mb-0 text-white-50 small">Intelligence artificielle pour optimiser vos locations</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-gradient" onclick="showAIModels()">
+                                <i class="fas fa-cog me-1"></i>Configurer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div id="aiModelsContainer" class="p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
+                        <!-- AI Models Content -->
+                        <div class="text-center py-5">
+                            <div class="ai-icon mb-3">
+                                <i class="fas fa-brain text-primary" style="font-size: 3rem; opacity: 0.7;"></i>
+                            </div>
+                            <h6 class="text-muted mb-2">Modèles IA en développement</h6>
+                            <p class="text-muted small mb-3">Prédiction de demande, optimisation des prix et recommandations intelligentes</p>
+                            <div class="d-flex justify-content-center gap-2">
+                                <span class="badge bg-primary-gradient me-2">
+                                    <i class="fas fa-chart-line me-1"></i>Prédiction
+                                </span>
+                                <span class="badge bg-success-gradient me-2">
+                                    <i class="fas fa-dollar-sign me-1"></i>Pricing
+                                </span>
+                                <span class="badge bg-info-gradient">
+                                    <i class="fas fa-lightbulb me-1"></i>Recommandations
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Quick Actions -->
@@ -411,7 +453,9 @@ function renderBookings() {
     emptyState.style.display = 'none';
     container.style.display = 'block';
     
-    const cardsHtml = allBookings.map(booking => createBookingCard(booking)).join('');
+    // Show only the first 2 bookings
+    const recentBookings = allBookings.slice(0, 2);
+    const cardsHtml = recentBookings.map(booking => createBookingCard(booking)).join('');
     console.log('Generated cards HTML:', cardsHtml.substring(0, 200) + '...');
     container.innerHTML = cardsHtml;
 }
@@ -559,7 +603,49 @@ function rejectBooking(bookingId) {
         }
     }
 }
+
+function showAIModels() {
+    // Placeholder function for AI models configuration
+    console.log('Opening AI models configuration...');
+    alert('Configuration des modèles IA - Fonctionnalité en développement');
+}
 </script>
+
+<style>
+/* AI Models Container */
+.ai-models-container {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.ai-models-header {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border: none;
+}
+
+.ai-icon {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.bg-primary-gradient {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700)) !important;
+}
+
+.bg-success-gradient {
+    background: linear-gradient(135deg, var(--success-color), var(--success-dark)) !important;
+}
+
+.bg-info-gradient {
+    background: linear-gradient(135deg, var(--info-color), #0891b2) !important;
+}
+</style>
 
 <%@ include file="../../layouts/footer.jsp" %>
 
