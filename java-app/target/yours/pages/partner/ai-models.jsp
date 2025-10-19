@@ -71,19 +71,19 @@
     <div class="row g-4 mb-4">
         <!-- Demand Prediction Model -->
         <div class="col-lg-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-header bg-gradient-primary text-white border-0 py-4">
+            <div class="card border-0 shadow-sm h-100 demand-prediction-container">
+                <div class="card-header demand-prediction-header border-0 py-4">
                     <div class="d-flex align-items-center">
                         <div class="ai-model-icon me-3">
                             <i class="fas fa-chart-line"></i>
                         </div>
                         <div>
-                            <h5 class="mb-1 fw-bold">Prédiction de Demande</h5>
-                            <p class="mb-0 opacity-75">Analyse prédictive des réservations</p>
+                            <h5 class="mb-1 fw-bold text-white">Prédiction de Demande</h5>
+                            <p class="mb-0 text-white-50 small">Analyse prédictive des réservations</p>
                         </div>
                     </div>
                 </div>
-                <div class="card-body p-4">
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
                     <div class="mb-4">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <span class="text-muted">Précision du modèle</span>
@@ -121,19 +121,19 @@
 
         <!-- Price Optimization Model -->
         <div class="col-lg-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-header bg-gradient-success text-white border-0 py-4">
+            <div class="card border-0 shadow-sm h-100 price-optimization-container">
+                <div class="card-header price-optimization-header border-0 py-4">
                     <div class="d-flex align-items-center">
                         <div class="ai-model-icon me-3">
                             <i class="fas fa-dollar-sign"></i>
                         </div>
                         <div>
-                            <h5 class="mb-1 fw-bold">Optimisation des Prix</h5>
-                            <p class="mb-0 opacity-75">Tarification dynamique intelligente</p>
+                            <h5 class="mb-1 fw-bold text-white">Optimisation des Prix</h5>
+                            <p class="mb-0 text-white-50 small">Tarification dynamique intelligente</p>
                         </div>
                     </div>
                 </div>
-                <div class="card-body p-4">
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
                     <div class="mb-4">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <span class="text-muted">Revenus optimisés</span>
@@ -171,19 +171,19 @@
 
         <!-- Smart Recommendations -->
         <div class="col-lg-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-header bg-gradient-info text-white border-0 py-4">
+            <div class="card border-0 shadow-sm h-100 recommendations-container">
+                <div class="card-header recommendations-header border-0 py-4">
                     <div class="d-flex align-items-center">
                         <div class="ai-model-icon me-3">
                             <i class="fas fa-lightbulb"></i>
                         </div>
                         <div>
-                            <h5 class="mb-1 fw-bold">Recommandations</h5>
-                            <p class="mb-0 opacity-75">Suggestions intelligentes</p>
+                            <h5 class="mb-1 fw-bold text-white">Recommandations</h5>
+                            <p class="mb-0 text-white-50 small">Suggestions intelligentes</p>
                         </div>
                     </div>
                 </div>
-                <div class="card-body p-4">
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
                     <div class="mb-4">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <span class="text-muted">Taux d'adoption</span>
@@ -224,14 +224,14 @@
     <div class="row g-4">
         <!-- Performance Metrics -->
         <div class="col-lg-8">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white border-0 py-4">
-                    <h5 class="mb-1 fw-bold text-gray-900">
-                        <i class="fas fa-chart-line text-primary me-2"></i>Performance des Modèles IA
+            <div class="card border-0 shadow-sm performance-metrics-container">
+                <div class="card-header performance-metrics-header border-0 py-4">
+                    <h5 class="mb-1 fw-bold text-white">
+                        <i class="fas fa-chart-line me-2" style="color: var(--accent-light);"></i>Performance des Modèles IA
                     </h5>
-                    <p class="mb-0 text-muted">Métriques de performance en temps réel</p>
+                    <p class="mb-0 text-white-50 small">Métriques de performance en temps réel</p>
                 </div>
-                <div class="card-body p-4">
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
                     <div class="row g-4">
                         <div class="col-md-3">
                             <div class="text-center">
@@ -276,40 +276,40 @@
 
         <!-- AI Status -->
         <div class="col-lg-4">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white border-0 py-4">
-                    <h5 class="mb-1 fw-bold text-gray-900">
-                        <i class="fas fa-server text-primary me-2"></i>Statut des Services IA
+            <div class="card border-0 shadow-sm ai-status-container">
+                <div class="card-header ai-status-header border-0 py-4">
+                    <h5 class="mb-1 fw-bold text-white">
+                        <i class="fas fa-server me-2" style="color: var(--accent-light);"></i>Statut des Services IA
                     </h5>
-                    <p class="mb-0 text-muted">État des modèles en temps réel</p>
+                    <p class="mb-0 text-white-50 small">État des modèles en temps réel</p>
                 </div>
-                <div class="card-body p-4">
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
                     <div class="d-flex align-items-center mb-3">
                         <div class="status-indicator bg-success me-3"></div>
                         <div>
-                            <div class="fw-semibold">Prédiction de Demande</div>
-                            <small class="text-muted">Opérationnel</small>
+                            <div class="fw-semibold text-gray-900">Prédiction de Demande</div>
+                            <small class="text-gray-600">Opérationnel</small>
                         </div>
                     </div>
                     <div class="d-flex align-items-center mb-3">
                         <div class="status-indicator bg-success me-3"></div>
                         <div>
-                            <div class="fw-semibold">Optimisation des Prix</div>
-                            <small class="text-muted">Opérationnel</small>
+                            <div class="fw-semibold text-gray-900">Optimisation des Prix</div>
+                            <small class="text-gray-600">Opérationnel</small>
                         </div>
                     </div>
                     <div class="d-flex align-items-center mb-3">
                         <div class="status-indicator bg-success me-3"></div>
                         <div>
-                            <div class="fw-semibold">Recommandations</div>
-                            <small class="text-muted">Opérationnel</small>
+                            <div class="fw-semibold text-gray-900">Recommandations</div>
+                            <small class="text-gray-600">Opérationnel</small>
                         </div>
                     </div>
                     <div class="d-flex align-items-center">
                         <div class="status-indicator bg-warning me-3"></div>
                         <div>
-                            <div class="fw-semibold">Analyse de Sentiment</div>
-                            <small class="text-muted">En développement</small>
+                            <div class="fw-semibold text-gray-900">Analyse de Sentiment</div>
+                            <small class="text-gray-600">En développement</small>
                         </div>
                     </div>
                 </div>
@@ -457,6 +457,23 @@ function configureRecommendationModel() {
     width: 12px;
     height: 12px;
     border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* AI Status Content Visibility */
+.ai-status-container .card-body {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+}
+
+.ai-status-container .fw-semibold {
+    color: #1f2937 !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+}
+
+.ai-status-container small {
+    color: #6b7280 !important;
+    font-size: 0.8rem !important;
 }
 
 .bg-gradient-primary {
@@ -485,6 +502,62 @@ function configureRecommendationModel() {
 
 .bg-warning-gradient {
     background: linear-gradient(135deg, var(--warning-color), #d97706) !important;
+}
+
+/* AI Container Styles - Matching Dashboard */
+.demand-prediction-container {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.demand-prediction-header {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border: none;
+}
+
+.price-optimization-container {
+    background: linear-gradient(135deg, var(--success-color), var(--success-dark));
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.price-optimization-header {
+    background: linear-gradient(135deg, var(--success-color), var(--success-dark));
+    border: none;
+}
+
+.recommendations-container {
+    background: linear-gradient(135deg, var(--info-color), #0891b2);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.recommendations-header {
+    background: linear-gradient(135deg, var(--info-color), #0891b2);
+    border: none;
+}
+
+.performance-metrics-container {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.performance-metrics-header {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border: none;
+}
+
+.ai-status-container {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.ai-status-header {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border: none;
 }
 </style>
 
