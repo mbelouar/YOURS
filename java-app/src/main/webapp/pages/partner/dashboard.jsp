@@ -130,38 +130,61 @@
     <div class="row g-4">
         <!-- Recent Bookings -->
         <div class="col-lg-8">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white border-0 py-3">
+            <div class="card border-0 shadow-sm recent-bookings-container">
+                <div class="card-header recent-bookings-header border-0 py-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0 fw-bold text-dark">
-                            <i class="fas fa-calendar-check me-2 text-primary"></i>Réservations récentes
-                        </h5>
-                        <a href="${pageContext.request.contextPath}/pages/partner/reservations.jsp" class="btn btn-sm btn-outline-primary">
-                            Voir tout
-                        </a>
+                        <div>
+                            <h5 class="mb-1 fw-bold text-white">
+                                <i class="fas fa-calendar-check me-2" style="color: var(--accent-light);"></i>Réservations récentes
+                            </h5>
+                            <p class="mb-0 text-white-50 small">Dernières activités de location</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-glass dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-filter me-1"></i>Filtrer
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" onclick="filterBookings('all')">Toutes</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="filterBookings('active')">Actives</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="filterBookings('pending')">En attente</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="filterBookings('completed')">Terminées</a></li>
+                                </ul>
+                            </div>
+                            <a href="${pageContext.request.contextPath}/pages/partner/reservations.jsp" class="btn btn-sm btn-gradient">
+                                <i class="fas fa-external-link-alt me-1"></i>Voir tout
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead class="bg-light">
-                                <tr>
-                                    <th class="border-0 fw-semibold text-muted" style="font-size: 0.875rem;">Client</th>
-                                    <th class="border-0 fw-semibold text-muted" style="font-size: 0.875rem;">Matériel</th>
-                                    <th class="border-0 fw-semibold text-muted" style="font-size: 0.875rem;">Période</th>
-                                    <th class="border-0 fw-semibold text-muted" style="font-size: 0.875rem;">Prix</th>
-                                    <th class="border-0 fw-semibold text-muted" style="font-size: 0.875rem;">Statut</th>
-                                </tr>
-                            </thead>
-                            <tbody id="recentBookingsTable">
-                                <tr>
-                                    <td colspan="5" class="text-center py-5 text-muted">
-                                        <i class="fas fa-inbox fa-3x mb-3 d-block" style="opacity: 0.3;"></i>
-                                        Aucune réservation pour le moment
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div id="recentBookingsContainer" class="p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
+                        <!-- Loading state -->
+                        <div id="bookingsLoading" class="text-center py-5" style="display: none;">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Chargement...</span>
+                            </div>
+                            <p class="mt-3 text-muted">Chargement des réservations...</p>
+                        </div>
+                        
+                        <!-- Empty state -->
+                        <div id="bookingsEmpty" class="text-center py-5">
+                            <div class="mb-4">
+                                <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-gradient-primary" style="width: 80px; height: 80px;">
+                                    <i class="fas fa-calendar-plus fa-2x text-white"></i>
+                                </div>
+                            </div>
+                            <h6 class="text-muted mb-2">Aucune réservation récente</h6>
+                            <p class="text-muted small mb-3">Vos nouvelles réservations apparaîtront ici</p>
+                            <a href="${pageContext.request.contextPath}/pages/partner/equipment.jsp" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-plus me-1"></i>Ajouter du matériel
+                            </a>
+                        </div>
+                        
+                        <!-- Bookings cards -->
+                        <div id="bookingsCards" class="row g-3" style="display: none;">
+                            <!-- Cards will be dynamically inserted here -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -263,31 +286,246 @@ function loadPartnerDashboardData() {
     }, 500);
 }
 
+// Global bookings data
+let allBookings = [];
+let currentFilter = 'all';
+
 function loadRecentBookings() {
-    // Mock data - replace with actual API call
-    const bookings = [
-        { client: 'Ahmed Ben Ali', equipment: 'Canon EOS R5', period: '15-20 Jan', price: '1,200 MAD', status: 'active' },
-        { client: 'Sara Bennani', equipment: 'MacBook Pro 16"', period: '18-22 Jan', price: '750 MAD', status: 'active' },
-        { client: 'Omar Khalil', equipment: 'Sony A7 III', period: '20-25 Jan', price: '1,050 MAD', status: 'pending' }
-    ];
+    // Show loading state
+    document.getElementById('bookingsLoading').style.display = 'block';
+    document.getElementById('bookingsEmpty').style.display = 'none';
+    document.getElementById('bookingsCards').style.display = 'none';
     
-    const tableBody = document.getElementById('recentBookingsTable');
-    if (bookings.length > 0) {
-        tableBody.innerHTML = bookings.map(booking => {
-            const statusClass = booking.status === 'active' ? 'bg-success' : 'bg-warning';
-            const statusText = booking.status === 'active' ? 'Actif' : 'En attente';
-            return '<tr>' +
-                '<td class="fw-medium">' + booking.client + '</td>' +
-                '<td>' + booking.equipment + '</td>' +
-                '<td><small class="text-muted">' + booking.period + '</small></td>' +
-                '<td class="fw-bold text-success">' + booking.price + '</td>' +
-                '<td>' +
-                    '<span class="badge ' + statusClass + '">' +
-                        statusText +
-                    '</span>' +
-                '</td>' +
-            '</tr>';
-        }).join('');
+    // Mock data - replace with actual API call
+    setTimeout(() => {
+        allBookings = [
+            { 
+                id: 1,
+                client: 'Ahmed Ben Ali', 
+                clientEmail: 'ahmed.benali@email.com',
+                equipment: 'Canon EOS R5', 
+                equipmentImage: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&auto=format&fit=crop&q=80',
+                period: '15-20 Jan', 
+                startDate: '2024-01-15',
+                endDate: '2024-01-20',
+                price: '1,200 MAD',
+                totalPrice: 1200,
+                status: 'active',
+                createdAt: '2024-01-10T10:30:00Z',
+                rating: 4.8
+            },
+            { 
+                id: 2,
+                client: 'Sara Bennani', 
+                clientEmail: 'sara.bennani@email.com',
+                equipment: 'MacBook Pro 16"', 
+                equipmentImage: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300&auto=format&fit=crop&q=80',
+                period: '18-22 Jan', 
+                startDate: '2024-01-18',
+                endDate: '2024-01-22',
+                price: '750 MAD',
+                totalPrice: 750,
+                status: 'active',
+                createdAt: '2024-01-12T14:20:00Z',
+                rating: 4.9
+            },
+            { 
+                id: 3,
+                client: 'Omar Khalil', 
+                clientEmail: 'omar.khalil@email.com',
+                equipment: 'Sony A7 III', 
+                equipmentImage: 'https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=300&auto=format&fit=crop&q=80',
+                period: '20-25 Jan', 
+                startDate: '2024-01-20',
+                endDate: '2024-01-25',
+                price: '1,050 MAD',
+                totalPrice: 1050,
+                status: 'pending',
+                createdAt: '2024-01-14T09:15:00Z',
+                rating: 4.7
+            },
+            { 
+                id: 4,
+                client: 'Fatima Zahra', 
+                clientEmail: 'fatima.zahra@email.com',
+                equipment: 'DJI Mavic Pro', 
+                equipmentImage: 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=300&auto=format&fit=crop&q=80',
+                period: '10-12 Jan', 
+                startDate: '2024-01-10',
+                endDate: '2024-01-12',
+                price: '600 MAD',
+                totalPrice: 600,
+                status: 'completed',
+                createdAt: '2024-01-08T16:45:00Z',
+                rating: 4.9
+            }
+        ];
+        
+        // Hide loading and render bookings
+        document.getElementById('bookingsLoading').style.display = 'none';
+        renderBookings();
+    }, 1000);
+}
+
+function renderBookings() {
+    const filteredBookings = currentFilter === 'all' ? allBookings : 
+        allBookings.filter(booking => booking.status === currentFilter);
+    
+    const container = document.getElementById('bookingsCards');
+    const emptyState = document.getElementById('bookingsEmpty');
+    
+    if (filteredBookings.length === 0) {
+        container.style.display = 'none';
+        emptyState.style.display = 'block';
+        return;
+    }
+    
+    emptyState.style.display = 'none';
+    container.style.display = 'block';
+    
+    container.innerHTML = filteredBookings.map(booking => createBookingCard(booking)).join('');
+}
+
+function createBookingCard(booking) {
+    const statusConfig = getStatusConfig(booking.status);
+    const timeAgo = getTimeAgo(booking.createdAt);
+    
+    let pendingActions = '';
+    if (booking.status === 'pending') {
+        pendingActions = '<li><hr class="dropdown-divider"></li>' +
+                        '<li><a class="dropdown-item text-success" href="#" onclick="approveBooking(' + booking.id + ')">' +
+                        '<i class="fas fa-check me-2"></i>Approuver</a></li>' +
+                        '<li><a class="dropdown-item text-danger" href="#" onclick="rejectBooking(' + booking.id + ')">' +
+                        '<i class="fas fa-times me-2"></i>Rejeter</a></li>';
+    }
+    
+    return '<div class="col-12">' +
+        '<div class="card border-0 shadow-sm h-100 booking-card" style="transition: all 0.3s ease; cursor: pointer;" ' +
+        'onmouseover="this.style.transform=\'translateY(-2px)\'; this.style.boxShadow=\'0 8px 25px rgba(0,0,0,0.15)\'" ' +
+        'onmouseout="this.style.transform=\'translateY(0)\'; this.style.boxShadow=\'0 4px 6px rgba(0,0,0,0.1)\'" ' +
+        'onclick="viewBookingDetails(' + booking.id + ')">' +
+        '<div class="card-body p-4">' +
+        '<div class="row align-items-center">' +
+        '<div class="col-auto">' +
+        '<div class="position-relative">' +
+        '<img src="' + booking.equipmentImage + '" ' +
+        'alt="' + booking.equipment + '" ' +
+        'class="rounded-3" ' +
+        'style="width: 80px; height: 80px; object-fit: cover;">' +
+        '<div class="position-absolute top-0 end-0 translate-middle">' +
+        '<span class="badge ' + statusConfig.badgeClass + ' px-2 py-1" style="font-size: 0.75rem;">' +
+        '<i class="' + statusConfig.icon + ' me-1"></i>' + statusConfig.text +
+        '</span>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '<div class="col">' +
+        '<div class="d-flex justify-content-between align-items-start mb-2">' +
+        '<div>' +
+        '<h6 class="mb-1 fw-bold text-dark">' + booking.equipment + '</h6>' +
+        '<p class="mb-0 text-muted small">' +
+        '<i class="fas fa-user me-1"></i>' + booking.client +
+        '</p>' +
+        '</div>' +
+        '<div class="text-end">' +
+        '<div class="h5 mb-0 fw-bold text-success">' + booking.price + '</div>' +
+        '<small class="text-muted">' + timeAgo + '</small>' +
+        '</div>' +
+        '</div>' +
+        '<div class="row g-2">' +
+        '<div class="col-md-6">' +
+        '<div class="d-flex align-items-center text-muted small">' +
+        '<i class="fas fa-calendar-alt me-2 text-primary"></i>' +
+        '<span>' + booking.period + '</span>' +
+        '</div>' +
+        '</div>' +
+        '<div class="col-md-6">' +
+        '<div class="d-flex align-items-center text-muted small">' +
+        '<i class="fas fa-star me-2 text-warning"></i>' +
+        '<span>' + booking.rating + '/5</span>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '<div class="col-auto">' +
+        '<div class="dropdown">' +
+        '<button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="dropdown" onclick="event.stopPropagation()">' +
+        '<i class="fas fa-ellipsis-v"></i>' +
+        '</button>' +
+        '<ul class="dropdown-menu">' +
+        '<li><a class="dropdown-item" href="#" onclick="viewBookingDetails(' + booking.id + ')">' +
+        '<i class="fas fa-eye me-2"></i>Voir détails</a></li>' +
+        '<li><a class="dropdown-item" href="#" onclick="contactClient(\'' + booking.clientEmail + '\')">' +
+        '<i class="fas fa-envelope me-2"></i>Contacter</a></li>' +
+        pendingActions +
+        '</ul>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
+}
+
+function getStatusConfig(status) {
+    const configs = {
+        'active': { text: 'Actif', badgeClass: 'bg-success', icon: 'fas fa-check-circle' },
+        'pending': { text: 'En attente', badgeClass: 'bg-warning', icon: 'fas fa-clock' },
+        'completed': { text: 'Terminé', badgeClass: 'bg-info', icon: 'fas fa-check-double' },
+        'cancelled': { text: 'Annulé', badgeClass: 'bg-danger', icon: 'fas fa-times-circle' }
+    };
+    return configs[status] || configs['pending'];
+}
+
+function getTimeAgo(dateString) {
+    const now = new Date();
+    const date = new Date(dateString);
+    const diffInHours = Math.floor((now - date) / (1000 * 60 * 60));
+    
+    if (diffInHours < 1) return 'Il y a moins d\'une heure';
+    if (diffInHours < 24) return `Il y a ${diffInHours}h`;
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays < 7) return `Il y a ${diffInDays}j`;
+    return date.toLocaleDateString('fr-FR');
+}
+
+function filterBookings(filter) {
+    currentFilter = filter;
+    renderBookings();
+}
+
+function viewBookingDetails(bookingId) {
+    // Navigate to booking details page
+    window.location.href = `${window.location.origin}${window.location.pathname.replace('/pages/partner/dashboard.jsp', '/pages/partner/reservations.jsp')}?id=${bookingId}`;
+}
+
+function contactClient(email) {
+    window.location.href = `mailto:${email}`;
+}
+
+function approveBooking(bookingId) {
+    if (confirm('Êtes-vous sûr de vouloir approuver cette réservation ?')) {
+        // API call to approve booking
+        console.log('Approving booking:', bookingId);
+        // Update UI
+        const booking = allBookings.find(b => b.id === bookingId);
+        if (booking) {
+            booking.status = 'active';
+            renderBookings();
+        }
+    }
+}
+
+function rejectBooking(bookingId) {
+    if (confirm('Êtes-vous sûr de vouloir rejeter cette réservation ?')) {
+        // API call to reject booking
+        console.log('Rejecting booking:', bookingId);
+        // Update UI
+        const booking = allBookings.find(b => b.id === bookingId);
+        if (booking) {
+            booking.status = 'cancelled';
+            renderBookings();
+        }
     }
 }
 </script>
