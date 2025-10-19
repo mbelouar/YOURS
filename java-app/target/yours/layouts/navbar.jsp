@@ -630,8 +630,8 @@
 }
 
 .navbar-partner-dashboard .nav-link-partner[data-bs-toggle="dropdown"]:hover {
-    background-color: #374151 !important;
-    color: white !important;
+    background-color: #dbeafe !important;
+    color: #1e40af !important;
 }
 
 .navbar-partner-dashboard .nav-link-partner.active {
