@@ -1731,10 +1731,10 @@ function createReservationDetailCard(reservationId) {
                               '<div class="row mt-3">' +
                                   '<div class="col-12">' +
                                       '<div class="action-buttons-right">' +
-                                          '<button class="action-btn action-btn-primary me-2" onclick="showAcceptModal(\'' + reservation.id + '\')">' +
+                                          '<button class="action-btn action-btn-primary me-2" onclick="acceptReservationDirectly(\'' + reservation.id + '\')">' +
                                               '<i class="fas fa-check me-1"></i>Accepter' +
                                           '</button>' +
-                                          '<button class="action-btn action-btn-outline" onclick="showDeclineModal(\'' + reservation.id + '\')">' +
+                                          '<button class="action-btn action-btn-outline" onclick="declineReservationDirectly(\'' + reservation.id + '\')">' +
                                               '<i class="fas fa-times me-1"></i>Refuser' +
                                           '</button>' +
                                       '</div>' +
@@ -1755,6 +1755,54 @@ function contactClient(email) {
 
 function printReservation(reservationId) {
     window.print();
+}
+
+function acceptReservationDirectly(reservationId) {
+    // Accept reservation directly without confirmation modal
+    console.log('Accepting reservation:', reservationId);
+    
+    // Replace with actual API call
+    // fetch('/api/reservations/' + reservationId + '/accept', { method: 'POST' })
+    
+    // Show success notification
+    notificationSystem.success('Réservation acceptée avec succès !');
+    
+    // Close the detail modal
+    const overlay = document.querySelector('.reservation-detail-overlay');
+    if (overlay) {
+        overlay.remove();
+        // Remove the ID from URL
+        const url = new URL(window.location);
+        url.searchParams.delete('id');
+        window.history.replaceState({}, '', url);
+    }
+    
+    // Reload reservations list
+    loadReservations();
+}
+
+function declineReservationDirectly(reservationId) {
+    // Decline reservation directly without confirmation modal
+    console.log('Declining reservation:', reservationId);
+    
+    // Replace with actual API call
+    // fetch('/api/reservations/' + reservationId + '/decline', { method: 'POST' })
+    
+    // Show success notification
+    notificationSystem.success('Réservation refusée avec succès !');
+    
+    // Close the detail modal
+    const overlay = document.querySelector('.reservation-detail-overlay');
+    if (overlay) {
+        overlay.remove();
+        // Remove the ID from URL
+        const url = new URL(window.location);
+        url.searchParams.delete('id');
+        window.history.replaceState({}, '', url);
+    }
+    
+    // Reload reservations list
+    loadReservations();
 }
 
 function showDetailCardNotification() {
