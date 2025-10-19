@@ -978,6 +978,31 @@ function highlightActiveDropdownItem() {
     });
 }
 
+// Function to highlight active partner dropdown menu item
+function highlightActivePartnerDropdownItem() {
+    const currentPath = window.location.pathname;
+    const dropdownItems = document.querySelectorAll('#partnerDropdownMenu .dropdown-item');
+    
+    // Clear all active states first
+    dropdownItems.forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    // Check each dropdown item
+    dropdownItems.forEach(item => {
+        const href = item.getAttribute('href');
+        if (href) {
+            // Extract the page name from href
+            const pageName = href.split('/').pop().replace('.jsp', '');
+            
+            // Check if current path contains this page
+            if (currentPath.includes(pageName)) {
+                item.classList.add('active');
+            }
+        }
+    });
+}
+
 // Function to highlight active main navigation item
 function highlightActiveMainNavItem() {
     const currentPath = window.location.pathname;
@@ -1077,6 +1102,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Highlight active dropdown menu item based on current page
     highlightActiveDropdownItem();
+    
+    // Highlight active partner dropdown menu item based on current page
+    highlightActivePartnerDropdownItem();
     
     // Highlight active main navigation item based on current page
     highlightActiveMainNavItem();
