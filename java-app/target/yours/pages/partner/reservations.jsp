@@ -824,6 +824,21 @@
     }
 }
 
+/* Table Row Hover Effects */
+.reservation-row {
+    transition: all 0.2s ease !important;
+}
+
+.reservation-row:hover {
+    background-color: rgba(37, 99, 235, 0.05) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.reservation-row:hover td {
+    border-color: rgba(37, 99, 235, 0.2) !important;
+}
+
 /* Enhanced Detail Boxes */
 .detail-box {
     background: white !important;
@@ -1344,7 +1359,7 @@ function displayReservations(reservations) {
         };
         const status = statusConfig[res.status] || statusConfig.pending;
         
-        return '<tr>' +
+        return '<tr class="reservation-row" style="cursor: pointer;" onclick="showReservationDetailModal(\'' + res.id + '\')">' +
                 '<td class="fw-bold text-primary">' + res.id + '</td>' +
                 '<td>' +
                     '<div class="fw-semibold text-gray-900">' + res.client.name + '</div>' +
@@ -1376,10 +1391,10 @@ function displayReservations(reservations) {
                 '</td>' +
                 '<td>' +
                     '<div class="d-flex gap-2">' +
-                        '<button class="action-btn action-btn-primary" onclick="showAcceptModal(\'' + res.id + '\')" title="Accepter">' +
+                        '<button class="action-btn action-btn-primary" onclick="event.stopPropagation(); showAcceptModal(\'' + res.id + '\')" title="Accepter">' +
                             '<i class="fas fa-check"></i>' +
                         '</button>' +
-                        '<button class="action-btn action-btn-outline" onclick="showDeclineModal(\'' + res.id + '\')" title="Refuser">' +
+                        '<button class="action-btn action-btn-outline" onclick="event.stopPropagation(); showDeclineModal(\'' + res.id + '\')" title="Refuser">' +
                             '<i class="fas fa-times"></i>' +
                         '</button>' +
                     '</div>' +
@@ -1803,6 +1818,11 @@ function declineReservationDirectly(reservationId) {
     
     // Reload reservations list
     loadReservations();
+}
+
+function showReservationDetailModal(reservationId) {
+    // Show the same modal as when coming from dashboard
+    showReservationDetailCard(reservationId);
 }
 
 function showDetailCardNotification() {
