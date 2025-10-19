@@ -192,61 +192,102 @@
 
         <!-- Quick Actions -->
         <div class="col-lg-4">
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white border-0 py-3">
-                    <h5 class="mb-0 fw-bold text-dark">
-                        <i class="fas fa-bolt me-2 text-warning"></i>Actions rapides
+            <div class="card border-0 shadow-sm mb-4 quick-actions-container">
+                <div class="card-header quick-actions-header border-0 py-4">
+                    <h5 class="mb-1 fw-bold text-white">
+                        <i class="fas fa-bolt me-2" style="color: var(--accent-light);"></i>Actions rapides
                     </h5>
+                    <p class="mb-0 text-white-50 small">Gérez votre activité rapidement</p>
                 </div>
-                <div class="card-body">
-                    <a href="${pageContext.request.contextPath}/pages/partner/equipment.jsp?action=add" class="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center">
+                <div class="card-body" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
+                    <a href="${pageContext.request.contextPath}/pages/partner/equipment.jsp?action=add" class="btn btn-gradient-primary w-100 mb-3 d-flex align-items-center justify-content-center">
                         <i class="fas fa-plus-circle me-2"></i>Ajouter du matériel
                     </a>
-                    <a href="${pageContext.request.contextPath}/pages/partner/equipment.jsp" class="btn btn-outline-primary w-100 mb-2 d-flex align-items-center justify-content-center">
+                    <a href="${pageContext.request.contextPath}/pages/partner/equipment.jsp" class="btn btn-outline-gradient w-100 mb-3 d-flex align-items-center justify-content-center">
                         <i class="fas fa-boxes me-2"></i>Gérer mon matériel
                     </a>
-                    <a href="${pageContext.request.contextPath}/pages/partner/analytics.jsp" class="btn btn-outline-success w-100 mb-2 d-flex align-items-center justify-content-center">
+                    <a href="${pageContext.request.contextPath}/pages/partner/analytics.jsp" class="btn btn-outline-gradient-success w-100 mb-3 d-flex align-items-center justify-content-center">
                         <i class="fas fa-chart-line me-2"></i>Voir les statistiques
                     </a>
-                    <a href="${pageContext.request.contextPath}/pages/partner/earnings.jsp" class="btn btn-outline-info w-100 d-flex align-items-center justify-content-center">
+                    <a href="${pageContext.request.contextPath}/pages/partner/earnings.jsp" class="btn btn-outline-gradient-info w-100 d-flex align-items-center justify-content-center">
                         <i class="fas fa-wallet me-2"></i>Mes gains
                     </a>
                 </div>
             </div>
 
             <!-- Performance Summary -->
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white border-0 py-3">
-                    <h5 class="mb-0 fw-bold text-dark">
-                        <i class="fas fa-chart-pie me-2 text-info"></i>Performance
+            <div class="card border-0 shadow-sm performance-container">
+                <div class="card-header performance-header border-0 py-4">
+                    <h5 class="mb-1 fw-bold text-white">
+                        <i class="fas fa-chart-pie me-2" style="color: var(--accent-light);"></i>Performance
                     </h5>
+                    <p class="mb-0 text-white-50 small">Indicateurs clés de performance</p>
                 </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between mb-2">
-                            <small class="text-muted fw-medium">Taux d'occupation</small>
-                            <small class="fw-bold text-dark">78%</small>
+                <div class="card-body" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="performance-icon bg-primary-gradient me-3">
+                                    <i class="fas fa-chart-bar text-white"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted fw-medium d-block">Taux d'occupation</small>
+                                    <small class="text-muted">Équipements actifs</small>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <div class="h5 mb-0 fw-bold text-primary">78%</div>
+                                <small class="text-success">
+                                    <i class="fas fa-arrow-up me-1"></i>+5%
+                                </small>
+                            </div>
                         </div>
-                        <div class="progress" style="height: 8px;">
-                            <div class="progress-bar bg-primary" style="width: 78%"></div>
+                        <div class="progress performance-progress">
+                            <div class="progress-bar bg-gradient-primary" style="width: 78%"></div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between mb-2">
-                            <small class="text-muted fw-medium">Satisfaction client</small>
-                            <small class="fw-bold text-dark">92%</small>
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="performance-icon bg-success-gradient me-3">
+                                    <i class="fas fa-smile text-white"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted fw-medium d-block">Satisfaction client</small>
+                                    <small class="text-muted">Note moyenne</small>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <div class="h5 mb-0 fw-bold text-success">92%</div>
+                                <small class="text-success">
+                                    <i class="fas fa-arrow-up me-1"></i>+2%
+                                </small>
+                            </div>
                         </div>
-                        <div class="progress" style="height: 8px;">
-                            <div class="progress-bar bg-success" style="width: 92%"></div>
+                        <div class="progress performance-progress">
+                            <div class="progress-bar bg-gradient-success" style="width: 92%"></div>
                         </div>
                     </div>
                     <div>
-                        <div class="d-flex justify-content-between mb-2">
-                            <small class="text-muted fw-medium">Taux de réponse</small>
-                            <small class="fw-bold text-dark">95%</small>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="performance-icon bg-warning-gradient me-3">
+                                    <i class="fas fa-reply text-white"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted fw-medium d-block">Taux de réponse</small>
+                                    <small class="text-muted">Messages traités</small>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <div class="h5 mb-0 fw-bold text-warning">95%</div>
+                                <small class="text-success">
+                                    <i class="fas fa-arrow-up me-1"></i>+1%
+                                </small>
+                            </div>
                         </div>
-                        <div class="progress" style="height: 8px;">
-                            <div class="progress-bar bg-warning" style="width: 95%"></div>
+                        <div class="progress performance-progress">
+                            <div class="progress-bar bg-gradient-warning" style="width: 95%"></div>
                         </div>
                     </div>
                 </div>
