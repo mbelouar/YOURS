@@ -45,54 +45,86 @@
 </section>
 
 <!-- Analytics Content -->
-<div class="container py-5">
+<div class="container-fluid py-4">
     <!-- Key Metrics -->
-    <div class="row g-4 mb-5">
+    <div class="row g-4 mb-4">
         <div class="col-lg-3 col-md-6">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <small class="text-muted">Taux d'occupation</small>
-                        <i class="fas fa-percentage text-primary"></i>
+            <div class="card border-0 shadow-sm h-100 occupancy-metric-container">
+                <div class="card-header occupancy-metric-header border-0 py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="metric-icon me-3">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold text-white">Taux d'occupation</h6>
+                        </div>
                     </div>
-                    <h2 class="h3 fw-bold mb-1">78%</h2>
-                    <small class="text-success"><i class="fas fa-arrow-up me-1"></i>+5% vs mois dernier</small>
+                </div>
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
+                    <div class="text-center">
+                        <h2 class="h3 fw-bold mb-2 text-primary">78%</h2>
+                        <small class="text-success"><i class="fas fa-arrow-up me-1"></i>+5% vs mois dernier</small>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <small class="text-muted">Revenus moyens</small>
-                        <i class="fas fa-chart-line text-success"></i>
+            <div class="card border-0 shadow-sm h-100 revenue-metric-container">
+                <div class="card-header revenue-metric-header border-0 py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="metric-icon me-3">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold text-white">Revenus moyens</h6>
+                        </div>
                     </div>
-                    <h2 class="h3 fw-bold mb-1">485 MAD</h2>
-                    <small class="text-success"><i class="fas fa-arrow-up me-1"></i>+12% vs mois dernier</small>
+                </div>
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
+                    <div class="text-center">
+                        <h2 class="h3 fw-bold mb-2 text-success">485 MAD</h2>
+                        <small class="text-success"><i class="fas fa-arrow-up me-1"></i>+12% vs mois dernier</small>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <small class="text-muted">Note client</small>
-                        <i class="fas fa-star text-warning"></i>
+            <div class="card border-0 shadow-sm h-100 rating-metric-container">
+                <div class="card-header rating-metric-header border-0 py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="metric-icon me-3">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold text-white">Note client</h6>
+                        </div>
                     </div>
-                    <h2 class="h3 fw-bold mb-1">4.8/5</h2>
-                    <small class="text-muted">42 avis</small>
+                </div>
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
+                    <div class="text-center">
+                        <h2 class="h3 fw-bold mb-2 text-warning">4.8/5</h2>
+                        <small class="text-muted">42 avis</small>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <small class="text-muted">Taux de réponse</small>
-                        <i class="fas fa-comments text-info"></i>
+            <div class="card border-0 shadow-sm h-100 response-metric-container">
+                <div class="card-header response-metric-header border-0 py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="metric-icon me-3">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold text-white">Taux de réponse</h6>
+                        </div>
                     </div>
-                    <h2 class="h3 fw-bold mb-1">95%</h2>
-                    <small class="text-success">Excellent</small>
+                </div>
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
+                    <div class="text-center">
+                        <h2 class="h3 fw-bold mb-2 text-info">95%</h2>
+                        <small class="text-success">Excellent</small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -101,21 +133,27 @@
     <!-- Charts -->
     <div class="row g-4">
         <div class="col-lg-8">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white border-0 py-3">
-                    <h5 class="mb-0 fw-bold">Réservations par mois</h5>
+            <div class="card border-0 shadow-sm bookings-chart-container">
+                <div class="card-header bookings-chart-header border-0 py-4">
+                    <h5 class="mb-1 fw-bold text-white">
+                        <i class="fas fa-chart-line me-2" style="color: var(--accent-light);"></i>Réservations par mois
+                    </h5>
+                    <p class="mb-0 text-white-50 small">Évolution des réservations sur 12 mois</p>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
                     <canvas id="bookingsChart" height="80"></canvas>
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white border-0 py-3">
-                    <h5 class="mb-0 fw-bold">Catégories populaires</h5>
+            <div class="card border-0 shadow-sm categories-chart-container">
+                <div class="card-header categories-chart-header border-0 py-4">
+                    <h5 class="mb-1 fw-bold text-white">
+                        <i class="fas fa-chart-pie me-2" style="color: var(--accent-light);"></i>Catégories populaires
+                    </h5>
+                    <p class="mb-0 text-white-50 small">Répartition par type d'équipement</p>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
                     <canvas id="categoriesChart"></canvas>
                 </div>
             </div>
@@ -167,6 +205,87 @@ function initCategoriesChart() {
     });
 }
 </script>
+
+<style>
+/* Analytics Page Container Styles - Matching Dashboard */
+.occupancy-metric-container {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.occupancy-metric-header {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border: none;
+}
+
+.revenue-metric-container {
+    background: linear-gradient(135deg, var(--success-color), var(--success-dark));
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.revenue-metric-header {
+    background: linear-gradient(135deg, var(--success-color), var(--success-dark));
+    border: none;
+}
+
+.rating-metric-container {
+    background: linear-gradient(135deg, var(--warning-color), #d97706);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.rating-metric-header {
+    background: linear-gradient(135deg, var(--warning-color), #d97706);
+    border: none;
+}
+
+.response-metric-container {
+    background: linear-gradient(135deg, var(--info-color), #0891b2);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.response-metric-header {
+    background: linear-gradient(135deg, var(--info-color), #0891b2);
+    border: none;
+}
+
+.bookings-chart-container {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.bookings-chart-header {
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border: none;
+}
+
+.categories-chart-container {
+    background: linear-gradient(135deg, var(--success-color), var(--success-dark));
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.categories-chart-header {
+    background: linear-gradient(135deg, var(--success-color), var(--success-dark));
+    border: none;
+}
+
+.metric-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: white;
+}
+</style>
 
 <%@ include file="../../layouts/footer.jsp" %>
 
