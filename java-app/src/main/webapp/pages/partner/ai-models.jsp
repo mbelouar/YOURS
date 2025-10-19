@@ -28,7 +28,7 @@
                 
                 <!-- Main Title -->
                 <h1 class="display-2 fw-bold mb-4" style="color: white; text-shadow: 0 4px 20px rgba(0,0,0,0.3); letter-spacing: -0.03em; line-height: 1.1;">
-                    <span style="background: linear-gradient(135deg, #fbbf24, #f59e0b); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Modèles IA</span>
+                    Modèles <span style="background: linear-gradient(135deg, #fbbf24, #f59e0b); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">IA</span>
                 </h1>
                 
                 <!-- Subtitle -->
@@ -44,7 +44,7 @@
                 <!-- Decorative Elements -->
                 <div class="d-flex justify-content-center align-items-center gap-3 mt-4">
                     <div style="width: 60px; height: 2px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); border-radius: 1px;"></div>
-                    <div style="width: 8px; height: 8px; background: rgba(255,255,255,0.6); border-radius: 50%;"></div>
+                    <div style="width: 8px; height: 8px; background: rgba(251, 191, 36, 0.8); border-radius: 50%; box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);"></div>
                     <div style="width: 60px; height: 2px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); border-radius: 1px;"></div>
                 </div>
             </div>
@@ -87,22 +87,22 @@
                     <div class="mb-4">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <span class="text-muted">Précision du modèle</span>
-                            <span class="fw-bold text-success">87.3%</span>
+                            <span class="fw-bold text-primary">87.3%</span>
                         </div>
                         <div class="progress mb-3" style="height: 8px;">
-                            <div class="progress-bar bg-success" style="width: 87.3%"></div>
+                            <div class="progress-bar bg-warning" style="width: 87.3%"></div>
                         </div>
                         <div class="row text-center">
                             <div class="col-4">
-                                <div class="fw-bold text-primary">+12%</div>
+                                <div class="fw-bold text-warning">+12%</div>
                                 <small class="text-muted">vs mois dernier</small>
                             </div>
                             <div class="col-4">
-                                <div class="fw-bold text-success">156</div>
+                                <div class="fw-bold text-warning">156</div>
                                 <small class="text-muted">prédictions/jour</small>
                             </div>
                             <div class="col-4">
-                                <div class="fw-bold text-info">92%</div>
+                                <div class="fw-bold text-warning">92%</div>
                                 <small class="text-muted">taux de confiance</small>
                             </div>
                         </div>
@@ -140,19 +140,19 @@
                             <span class="fw-bold text-success">+23%</span>
                         </div>
                         <div class="progress mb-3" style="height: 8px;">
-                            <div class="progress-bar bg-success" style="width: 75%"></div>
+                            <div class="progress-bar bg-warning" style="width: 75%"></div>
                         </div>
                         <div class="row text-center">
                             <div class="col-4">
-                                <div class="fw-bold text-success">+23%</div>
+                                <div class="fw-bold text-warning">+23%</div>
                                 <small class="text-muted">revenus</small>
                             </div>
                             <div class="col-4">
-                                <div class="fw-bold text-primary">45</div>
+                                <div class="fw-bold text-warning">45</div>
                                 <small class="text-muted">ajustements/jour</small>
                             </div>
                             <div class="col-4">
-                                <div class="fw-bold text-info">89%</div>
+                                <div class="fw-bold text-warning">89%</div>
                                 <small class="text-muted">efficacité</small>
                             </div>
                         </div>
@@ -187,31 +187,31 @@
                     <div class="mb-4">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <span class="text-muted">Taux d'adoption</span>
-                            <span class="fw-bold text-info">76%</span>
+                            <span class="fw-bold" style="color: #8b5cf6;">76%</span>
                         </div>
                         <div class="progress mb-3" style="height: 8px;">
-                            <div class="progress-bar bg-info" style="width: 76%"></div>
+                            <div class="progress-bar bg-warning" style="width: 76%"></div>
                         </div>
                         <div class="row text-center">
                             <div class="col-4">
-                                <div class="fw-bold text-info">76%</div>
+                                <div class="fw-bold text-warning">76%</div>
                                 <small class="text-muted">adoption</small>
                             </div>
                             <div class="col-4">
-                                <div class="fw-bold text-primary">28</div>
+                                <div class="fw-bold text-warning">28</div>
                                 <small class="text-muted">suggestions/jour</small>
                             </div>
                             <div class="col-4">
-                                <div class="fw-bold text-success">94%</div>
+                                <div class="fw-bold text-warning">94%</div>
                                 <small class="text-muted">pertinence</small>
                             </div>
                         </div>
                     </div>
                     <div class="d-flex gap-2">
-                        <button class="btn btn-outline-info btn-sm flex-fill" onclick="viewRecommendations()">
+                        <button class="btn btn-sm flex-fill" style="background-color: transparent !important; border-color: #8b5cf6 !important; color: #8b5cf6 !important;" onclick="viewRecommendations()">
                             <i class="fas fa-list me-1"></i>Voir suggestions
                         </button>
-                        <button class="btn btn-info btn-sm flex-fill" onclick="configureRecommendationModel()">
+                        <button class="btn btn-sm flex-fill" style="background-color: #8b5cf6; border-color: #8b5cf6; color: white;" onclick="configureRecommendationModel()">
                             <i class="fas fa-cog me-1"></i>Configurer
                         </button>
                     </div>
@@ -253,10 +253,10 @@
                         </div>
                         <div class="col-md-3">
                             <div class="text-center">
-                                <div class="ai-metric-icon bg-info-gradient mb-3">
+                                <div class="ai-metric-icon mb-3" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
                                     <i class="fas fa-sync-alt text-white"></i>
                                 </div>
-                                <h4 class="fw-bold text-info mb-1">24/7</h4>
+                                <h4 class="fw-bold mb-1" style="color: #8b5cf6;">24/7</h4>
                                 <p class="text-muted mb-0">Disponibilité</p>
                             </div>
                         </div>
@@ -497,11 +497,30 @@ function configureRecommendationModel() {
 }
 
 .bg-info-gradient {
-    background: linear-gradient(135deg, var(--info-color), #0891b2) !important;
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed) !important;
 }
 
 .bg-warning-gradient {
     background: linear-gradient(135deg, var(--warning-color), #d97706) !important;
+}
+
+/* Force purple styling for recommendation buttons */
+.recommendations-container .btn {
+    border: 2px solid #8b5cf6 !important;
+    color: #8b5cf6 !important;
+    background-color: transparent !important;
+}
+
+.recommendations-container .btn:hover {
+    background-color: #8b5cf6 !important;
+    color: white !important;
+    border-color: #8b5cf6 !important;
+}
+
+.recommendations-container .btn[style*="background-color: #8b5cf6"] {
+    background-color: #8b5cf6 !important;
+    color: white !important;
+    border-color: #8b5cf6 !important;
 }
 
 /* AI Container Styles - Matching Dashboard */
@@ -528,13 +547,13 @@ function configureRecommendationModel() {
 }
 
 .recommendations-container {
-    background: linear-gradient(135deg, var(--info-color), #0891b2);
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
     border-radius: 1rem;
     overflow: hidden;
 }
 
 .recommendations-header {
-    background: linear-gradient(135deg, var(--info-color), #0891b2);
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
     border: none;
 }
 

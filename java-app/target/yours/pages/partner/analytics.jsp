@@ -122,7 +122,7 @@
                 </div>
                 <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
                     <div class="text-center">
-                        <h2 class="h3 fw-bold mb-2 text-info">95%</h2>
+                        <h2 class="h3 fw-bold mb-2" style="color: #8b5cf6;">95%</h2>
                         <small class="text-muted">Excellent</small>
                     </div>
                 </div>

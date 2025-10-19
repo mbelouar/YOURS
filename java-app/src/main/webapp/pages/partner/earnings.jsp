@@ -20,7 +20,7 @@
                 
                 <!-- Main Title -->
                 <h1 class="display-2 fw-bold mb-4" style="color: white; text-shadow: 0 4px 20px rgba(0,0,0,0.3); letter-spacing: -0.03em; line-height: 1.1;">
-                    <span style="background: linear-gradient(135deg, #fbbf24, #f59e0b); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Mes Gains</span>
+                    Mes <span style="background: linear-gradient(135deg, #fbbf24, #f59e0b); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Gains</span>
                 </h1>
                 
                 <!-- Subtitle -->
@@ -123,7 +123,7 @@
                 </div>
                 <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
                     <div class="text-center">
-                        <h2 class="h3 fw-bold mb-2 text-info" id="averageEarnings">0 MAD</h2>
+                        <h2 class="h3 fw-bold mb-2" style="color: #8b5cf6;" id="averageEarnings">0 MAD</h2>
                         <small class="text-muted"><i class="fas fa-chart-line me-1"></i>Par location</small>
                     </div>
                 </div>
@@ -199,11 +199,11 @@
                     <p class="mb-0 text-white-50 small">Configurez votre méthode de paiement</p>
                 </div>
                 <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
-                    <div class="alert alert-info mb-3">
-                        <i class="fas fa-info-circle me-2"></i>
-                        <small>Configurez votre méthode de paiement pour recevoir vos gains</small>
+                    <div class="alert alert-info mb-3" style="background-color: #f8fafc; border-color: #334155; color: #334155;">
+                        <i class="fas fa-info-circle me-2" style="color: #334155;"></i>
+                        <small style="color: #334155;">Configurez votre méthode de paiement pour recevoir vos gains</small>
                     </div>
-                    <button class="btn btn-primary w-100">
+                    <button class="btn w-100" style="background-color: #334155; border-color: #334155; color: white;" onclick="showComingSoonNotification()">
                         <i class="fas fa-plus-circle me-2"></i>Ajouter une méthode
                     </button>
                 </div>
@@ -221,30 +221,30 @@
                     <div class="mb-3 pb-3 border-bottom" id="topEquipmentList">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="fw-medium">Canon EOS R5</span>
-                            <span class="badge bg-success">2,880 MAD</span>
+                            <span class="badge" style="background-color: #334155;">2,880 MAD</span>
                         </div>
                         <div class="progress" style="height: 6px;">
-                            <div class="progress-bar bg-success" style="width: 85%"></div>
+                            <div class="progress-bar" style="width: 85%; background-color: #334155;"></div>
                         </div>
                         <small class="text-muted">12 locations</small>
                     </div>
                     <div class="mb-3 pb-3 border-bottom">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="fw-medium">Sony A7 III</span>
-                            <span class="badge bg-primary">2,625 MAD</span>
+                            <span class="badge" style="background-color: #334155;">2,625 MAD</span>
                         </div>
                         <div class="progress" style="height: 6px;">
-                            <div class="progress-bar bg-primary" style="width: 75%"></div>
+                            <div class="progress-bar" style="width: 75%; background-color: #334155;"></div>
                         </div>
                         <small class="text-muted">15 locations</small>
                     </div>
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="fw-medium">MacBook Pro 16"</span>
-                            <span class="badge bg-info">1,200 MAD</span>
+                            <span class="badge" style="background-color: #334155;">1,200 MAD</span>
                         </div>
                         <div class="progress" style="height: 6px;">
-                            <div class="progress-bar bg-info" style="width: 45%"></div>
+                            <div class="progress-bar" style="width: 45%; background-color: #334155;"></div>
                         </div>
                         <small class="text-muted">8 locations</small>
                     </div>
@@ -323,13 +323,13 @@
 }
 
 .payment-method-container {
-    background: linear-gradient(135deg, var(--info-color), #0891b2);
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
     border-radius: 1rem;
     overflow: hidden;
 }
 
 .payment-method-header {
-    background: linear-gradient(135deg, var(--info-color), #0891b2);
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
     border: none;
 }
 
@@ -342,6 +342,32 @@
 .top-equipment-header {
     background: linear-gradient(135deg, var(--warning-color), #d97706);
     border: none;
+}
+
+.top-equipment-container .card-body {
+    background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%) !important;
+}
+
+.top-equipment-container .fw-medium {
+    color: #333 !important;
+    font-weight: 600 !important;
+}
+
+.top-equipment-container .text-muted {
+    color: #6b7280 !important;
+}
+
+.top-equipment-container .badge {
+    font-weight: 600 !important;
+}
+
+/* Payment Method Button Hover Effect */
+.payment-method-container .btn:hover {
+    background-color: #1e293b !important;
+    border-color: #1e293b !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(51, 65, 85, 0.3);
+    transition: all 0.3s ease;
 }
 
 .metric-icon {
@@ -540,6 +566,17 @@ function loadTransactions() {
             '</td>' +
         '</tr>';
     }).join('');
+}
+
+// Function to show coming soon notification
+function showComingSoonNotification() {
+    // Check if notificationSystem is available
+    if (typeof notificationSystem !== 'undefined') {
+        notificationSystem.info('Fonctionnalité bientôt disponible !', 3000);
+    } else {
+        // Fallback notification if notificationSystem is not available
+        alert('Fonctionnalité bientôt disponible !');
+    }
 }
 </script>
 

@@ -127,7 +127,7 @@
                 </div>
                 <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
                     <div class="text-center">
-                        <h2 class="h3 fw-bold mb-2 text-warning" id="rating">4.8</h2>
+                        <h2 class="h3 fw-bold mb-2" style="color: #8b5cf6;" id="rating">4.8</h2>
                         <small class="text-muted"><i class="fas fa-star me-1"></i>Excellent</small>
                     </div>
                 </div>
