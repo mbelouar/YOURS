@@ -189,9 +189,9 @@
                             <p class="mb-0 text-white-50 small">Intelligence artificielle pour optimiser vos locations</p>
                         </div>
                         <div class="d-flex gap-2">
-                            <button class="btn btn-sm btn-gradient" onclick="showAIModels()">
-                                <i class="fas fa-cog me-1"></i>Configurer
-                            </button>
+                            <a href="${pageContext.request.contextPath}/pages/partner/ai-models.jsp" class="btn btn-sm btn-gradient">
+                                <i class="fas fa-external-link-alt me-1"></i>Voir tout
+                            </a>
                         </div>
                     </div>
                 </div>

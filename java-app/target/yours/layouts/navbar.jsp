@@ -1598,6 +1598,11 @@ function openMaps() {
                         <i class="bi bi-bar-chart me-2"></i>Analytiques
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-partner d-flex align-items-center" href="${pageContext.request.contextPath}/pages/partner/ai-models.jsp">
+                        <i class="bi bi-robot me-2"></i>Modèles IA
+                    </a>
+                </li>
             </ul>
 
             <!-- Right Navigation -->
