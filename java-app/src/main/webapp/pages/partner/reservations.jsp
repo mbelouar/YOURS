@@ -769,72 +769,6 @@
     }
 }
 
-/* Detail Card Notification */
-.detail-card-notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 10000;
-    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
-    color: white;
-    border-radius: 1rem;
-    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.3);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    animation: slideInRight 0.5s ease-out;
-    max-width: 350px;
-}
-
-.notification-content {
-    display: flex;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    gap: 1rem;
-}
-
-.notification-icon {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-}
-
-.notification-text {
-    flex: 1;
-}
-
-.notification-text h6 {
-    margin: 0 0 0.25rem 0;
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-
-.notification-text p {
-    margin: 0;
-    font-size: 0.8rem;
-    opacity: 0.9;
-    line-height: 1.3;
-}
-
-.notification-spinner {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-@keyframes slideInRight {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
 /* Enhanced Detail Boxes */
 .detail-box {
     background: white !important;
@@ -1776,35 +1710,8 @@ function printReservation(reservationId) {
 }
 
 function showDetailCardNotification() {
-    // Create a beautiful notification
-    const notification = document.createElement('div');
-    notification.className = 'detail-card-notification';
-    notification.innerHTML = `
-        <div class="notification-content">
-            <div class="notification-icon">
-                <i class="fas fa-info-circle"></i>
-            </div>
-            <div class="notification-text">
-                <h6>Chargement des détails...</h6>
-                <p>Les détails de la réservation s'afficheront dans quelques instants</p>
-            </div>
-            <div class="notification-spinner">
-                <div class="spinner-border spinner-border-sm" role="status">
-                    <span class="visually-hidden">Chargement...</span>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    // Add to page
-    document.body.appendChild(notification);
-    
-    // Auto-remove after 3 seconds
-    setTimeout(() => {
-        if (notification.parentNode) {
-            notification.parentNode.removeChild(notification);
-        }
-    }, 3000);
+    // Use the standard notification system
+    notificationSystem.info('Les détails de la réservation s\'afficheront dans quelques instants', 2000);
 }
 </script>
 
