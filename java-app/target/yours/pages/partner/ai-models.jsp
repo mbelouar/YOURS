@@ -52,7 +52,7 @@
     </div>
 </section>
 
-<div class="container-fluid py-4">
+<div class="container py-4">
     <!-- Action Buttons -->
     <div class="row mb-4">
         <div class="col-12">

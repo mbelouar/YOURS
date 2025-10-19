@@ -45,7 +45,7 @@
 </section>
 
 <!-- Analytics Content -->
-<div class="container-fluid py-4">
+<div class="container py-4">
     <!-- Key Metrics -->
     <div class="row g-4 mb-4">
         <div class="col-lg-3 col-md-6">
@@ -135,10 +135,27 @@
         <div class="col-lg-8">
             <div class="card border-0 shadow-sm bookings-chart-container">
                 <div class="card-header bookings-chart-header border-0 py-4">
-                    <h5 class="mb-1 fw-bold text-white">
-                        <i class="fas fa-chart-line me-2" style="color: var(--accent-light);"></i>Réservations par mois
-                    </h5>
-                    <p class="mb-0 text-white-50 small">Évolution des réservations sur 12 mois</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-1 fw-bold text-white">
+                                <i class="fas fa-chart-line me-2" style="color: var(--accent-light);"></i>Réservations par mois
+                            </h5>
+                            <p class="mb-0 text-white-50 small">Évolution des réservations et revenus sur 12 mois</p>
+                        </div>
+                        <div class="text-end">
+                            <div class="d-flex align-items-center mb-1">
+                                <div class="chart-legend-item me-3">
+                                    <div class="legend-color" style="background: #3b82f6;"></div>
+                                    <span class="text-white-50 small">Réservations</span>
+                                </div>
+                                <div class="chart-legend-item">
+                                    <div class="legend-color" style="background: #10b981;"></div>
+                                    <span class="text-white-50 small">Revenus</span>
+                                </div>
+                            </div>
+                            <small class="text-white-50">Données en temps réel</small>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
                     <canvas id="bookingsChart" height="80"></canvas>
@@ -154,7 +171,9 @@
                     <p class="mb-0 text-white-50 small">Répartition par type d'équipement</p>
                 </div>
                 <div class="card-body p-4" style="background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);">
-                    <canvas id="categoriesChart"></canvas>
+                    <div class="chart-container-small">
+                        <canvas id="categoriesChart" height="280"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -171,18 +190,147 @@ document.addEventListener('DOMContentLoaded', function() {
 function initBookingsChart() {
     const ctx = document.getElementById('bookingsChart').getContext('2d');
     new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
-            labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
+            labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'],
             datasets: [{
                 label: 'Réservations',
-                data: [12, 15, 10, 18, 14, 20],
-                backgroundColor: '#10b981'
+                data: [45, 52, 38, 67, 58, 72, 89, 95, 78, 65, 48, 42],
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#3b82f6',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                pointHoverRadius: 8
+            }, {
+                label: 'Revenus (K MAD)',
+                data: [12.5, 14.2, 10.8, 18.5, 16.2, 20.1, 24.8, 26.5, 21.8, 18.2, 13.5, 11.8],
+                borderColor: '#10b981',
+                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#10b981',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                pointHoverRadius: 8,
+                yAxisID: 'y1'
             }]
         },
         options: {
             responsive: true,
-            maintainAspectRatio: true
+            maintainAspectRatio: true,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        usePointStyle: true,
+                        padding: 20,
+                        font: {
+                            size: 12,
+                            weight: '500'
+                        }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleColor: '#ffffff',
+                    bodyColor: '#ffffff',
+                    borderColor: '#3b82f6',
+                    borderWidth: 1,
+                    cornerRadius: 8,
+                    displayColors: true,
+                    callbacks: {
+                        title: function(context) {
+                            return `Mois: ${context[0].label}`;
+                        },
+                        label: function(context) {
+                            if (context.datasetIndex === 0) {
+                                return `Réservations: ${context.parsed.y}`;
+                            } else {
+                                return `Revenus: ${context.parsed.y}K MAD`;
+                            }
+                        },
+                        footer: function(context) {
+                            const reservations = context.find(item => item.datasetIndex === 0)?.parsed.y || 0;
+                            const revenue = context.find(item => item.datasetIndex === 1)?.parsed.y || 0;
+                            const avgRevenue = reservations > 0 ? (revenue * 1000 / reservations).toFixed(0) : 0;
+                            return `Revenu moyen: ${avgRevenue} MAD/réservation`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        font: {
+                            size: 11,
+                            weight: '500'
+                        },
+                        color: '#6b7280'
+                    }
+                },
+                y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'Nombre de réservations',
+                        color: '#3b82f6',
+                        font: {
+                            size: 12,
+                            weight: '600'
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(107, 114, 128, 0.1)'
+                    },
+                    ticks: {
+                        font: {
+                            size: 11,
+                            weight: '500'
+                        },
+                        color: '#6b7280'
+                    }
+                },
+                y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'Revenus (K MAD)',
+                        color: '#10b981',
+                        font: {
+                            size: 12,
+                            weight: '600'
+                        }
+                    },
+                    grid: {
+                        drawOnChartArea: false,
+                    },
+                    ticks: {
+                        font: {
+                            size: 11,
+                            weight: '500'
+                        },
+                        color: '#6b7280'
+                    }
+                }
+            }
         }
     });
 }
@@ -192,15 +340,48 @@ function initCategoriesChart() {
     new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: ['Photo', 'Vidéo', 'Audio', 'Info'],
+            labels: ['Photographie', 'Vidéo', 'Audio', 'Gaming', 'Informatique', 'Éclairage'],
             datasets: [{
-                data: [35, 25, 20, 20],
-                backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#8b5cf6']
+                data: [28, 22, 18, 12, 15, 5],
+                backgroundColor: [
+                    '#10b981', // Green for Photographie
+                    '#3b82f6', // Blue for Vidéo
+                    '#f59e0b', // Orange for Audio
+                    '#8b5cf6', // Purple for Gaming
+                    '#ef4444', // Red for Informatique
+                    '#fbbf24'  // Yellow for Éclairage
+                ],
+                borderWidth: 2,
+                borderColor: '#ffffff'
             }]
         },
         options: {
             responsive: true,
-            maintainAspectRatio: true
+            maintainAspectRatio: true,
+            cutout: '75%',
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 15,
+                        usePointStyle: true,
+                        font: {
+                            size: 11
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.parsed;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((value / total) * 100).toFixed(1);
+                            return `${label}: ${value}% (${percentage}%)`;
+                        }
+                    }
+                }
+            }
         }
     });
 }
@@ -284,6 +465,35 @@ function initCategoriesChart() {
     justify-content: center;
     font-size: 1.2rem;
     color: white;
+}
+
+/* Chart Legend Styles */
+.chart-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Small Chart Container */
+.chart-container-small {
+    max-width: 320px;
+    max-height: 320px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chart-container-small canvas {
+    max-width: 280px !important;
+    max-height: 280px !important;
 }
 </style>
 
