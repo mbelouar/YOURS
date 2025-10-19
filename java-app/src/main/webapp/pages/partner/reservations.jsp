@@ -410,7 +410,7 @@
     backdrop-filter: blur(8px);
     z-index: 9999;
     overflow-y: auto;
-    padding: 2rem 0;
+    padding: 1rem 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -434,12 +434,13 @@
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
     backdrop-filter: blur(20px) !important;
     overflow: hidden !important;
+    position: relative !important;
 }
 
 .reservation-detail-header {
     background: linear-gradient(135deg, var(--primary-600), var(--primary-700)) !important;
     border: none !important;
-    padding: 2rem !important;
+    padding: 1.25rem !important;
     position: relative !important;
     overflow: hidden !important;
 }
@@ -469,7 +470,7 @@
 }
 
 .reservation-detail-body {
-    padding: 2.5rem !important;
+    padding: 1.5rem !important;
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
     position: relative !important;
 }
@@ -502,7 +503,7 @@
 
 .equipment-image {
     position: relative !important;
-    height: 200px !important;
+    height: 150px !important;
     overflow: hidden !important;
 }
 
@@ -540,26 +541,27 @@
 }
 
 .equipment-info {
-    padding: 1.5rem !important;
+    padding: 1rem !important;
 }
 
 .equipment-name {
     color: var(--gray-800) !important;
     font-weight: 700 !important;
-    font-size: 1.25rem !important;
-    margin-bottom: 0.75rem !important;
+    font-size: 1.1rem !important;
+    margin-bottom: 0.5rem !important;
+    line-height: 1.3 !important;
 }
 
 .equipment-description {
     color: var(--gray-600) !important;
-    font-size: 0.9rem !important;
-    line-height: 1.5 !important;
-    margin-bottom: 1rem !important;
+    font-size: 0.8rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0.75rem !important;
 }
 
 .equipment-location {
     color: var(--gray-500) !important;
-    font-size: 0.875rem !important;
+    font-size: 0.75rem !important;
     display: flex !important;
     align-items: center !important;
 }
@@ -581,7 +583,7 @@
 
 .info-card-header {
     background: linear-gradient(135deg, var(--primary-50), var(--primary-100)) !important;
-    padding: 1.25rem !important;
+    padding: 1rem !important;
     border-bottom: 1px solid var(--primary-200) !important;
     display: flex !important;
     align-items: center !important;
@@ -601,15 +603,16 @@
 }
 
 .info-card-body {
-    padding: 1.5rem !important;
+    padding: 1rem !important;
 }
 
 .info-item {
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
-    padding: 0.75rem 0 !important;
+    padding: 0.5rem 0 !important;
     border-bottom: 1px solid var(--gray-100) !important;
+    min-height: 2.5rem !important;
 }
 
 .info-item:last-child {
@@ -619,14 +622,17 @@
 .info-item label {
     color: var(--gray-600) !important;
     font-weight: 600 !important;
-    font-size: 0.875rem !important;
+    font-size: 0.8rem !important;
     margin: 0 !important;
+    flex: 0 0 40% !important;
 }
 
 .info-item span {
     color: var(--gray-800) !important;
     font-weight: 500 !important;
     text-align: right !important;
+    flex: 1 !important;
+    font-size: 0.85rem !important;
 }
 
 .info-item a {
@@ -691,21 +697,22 @@
 .action-buttons {
     display: flex !important;
     flex-wrap: wrap !important;
-    gap: 1rem !important;
+    gap: 0.75rem !important;
     justify-content: center !important;
-    padding: 1.5rem !important;
+    padding: 1rem !important;
     background: rgba(255, 255, 255, 0.8) !important;
     border-radius: 1rem !important;
     backdrop-filter: blur(10px) !important;
 }
 
 .action-buttons .btn {
-    padding: 0.75rem 1.5rem !important;
-    border-radius: 0.75rem !important;
+    padding: 0.4rem 0.8rem !important;
+    border-radius: 0.4rem !important;
     font-weight: 600 !important;
-    font-size: 0.9rem !important;
+    font-size: 0.8rem !important;
     transition: all 0.3s ease !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    min-width: 100px !important;
 }
 
 .action-buttons .btn:hover {
@@ -826,6 +833,138 @@
         transform: translateX(0);
         opacity: 1;
     }
+}
+
+/* Enhanced Detail Boxes */
+.detail-box {
+    background: white !important;
+    border-radius: 0.75rem !important;
+    padding: 1rem !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08) !important;
+    transition: all 0.3s ease !important;
+    border: 2px solid transparent !important;
+    position: relative !important;
+    overflow: hidden !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+
+.detail-box:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
+}
+
+.detail-box::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 4px !important;
+    background: linear-gradient(90deg, var(--primary-500), var(--primary-600)) !important;
+}
+
+.detail-icon {
+    width: 45px !important;
+    height: 45px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.2rem !important;
+    margin-bottom: 0.75rem !important;
+    color: white !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.detail-content {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+
+.detail-label {
+    font-size: 0.7rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 0.4rem !important;
+    opacity: 0.8 !important;
+}
+
+.detail-value {
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+}
+
+/* Color Variants */
+.detail-box-primary .detail-icon {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+}
+
+.detail-box-primary::before {
+    background: linear-gradient(90deg, #3b82f6, #1d4ed8) !important;
+}
+
+.detail-box-primary .detail-label {
+    color: #1d4ed8 !important;
+}
+
+.detail-box-primary .detail-value {
+    color: #1e40af !important;
+}
+
+.detail-box-info .detail-icon {
+    background: linear-gradient(135deg, #06b6d4, #0891b2) !important;
+}
+
+.detail-box-info::before {
+    background: linear-gradient(90deg, #06b6d4, #0891b2) !important;
+}
+
+.detail-box-info .detail-label {
+    color: #0891b2 !important;
+}
+
+.detail-box-info .detail-value {
+    color: #0e7490 !important;
+}
+
+.detail-box-warning .detail-icon {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+}
+
+.detail-box-warning::before {
+    background: linear-gradient(90deg, #f59e0b, #d97706) !important;
+}
+
+.detail-box-warning .detail-label {
+    color: #d97706 !important;
+}
+
+.detail-box-warning .detail-value {
+    color: #b45309 !important;
+}
+
+.detail-box-success .detail-icon {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+}
+
+.detail-box-success::before {
+    background: linear-gradient(90deg, #10b981, #059669) !important;
+}
+
+.detail-box-success .detail-label {
+    color: #059669 !important;
+}
+
+.detail-box-success .detail-value {
+    color: #047857 !important;
 }
 </style>
 
@@ -1427,13 +1566,18 @@ function showReservationDetailCard(reservationId) {
     const detailCard = createReservationDetailCard(reservationId);
     document.body.appendChild(detailCard);
     
-    // Add back button functionality
-    document.getElementById('backToReservations').addEventListener('click', function() {
-        detailCard.remove();
-        // Remove the ID from URL
-        const url = new URL(window.location);
-        url.searchParams.delete('id');
-        window.history.replaceState({}, '', url);
+    // Add click-outside-to-close functionality
+    detailCard.addEventListener('click', function(e) {
+        // Check if the click is on the overlay background or any of its direct children
+        // that are not the actual card content
+        const cardElement = detailCard.querySelector('.reservation-detail-card');
+        if (e.target === detailCard || !cardElement.contains(e.target)) {
+            detailCard.remove();
+            // Remove the ID from URL
+            const url = new URL(window.location);
+            url.searchParams.delete('id');
+            window.history.replaceState({}, '', url);
+        }
     });
 }
 
@@ -1465,15 +1609,9 @@ function createReservationDetailCard(reservationId) {
     
     const detailCard = document.createElement('div');
     detailCard.className = 'reservation-detail-overlay';
-    detailCard.innerHTML = '<div class="container py-5">' +
+    detailCard.innerHTML = '<div class="container py-3">' +
         '<div class="row justify-content-center">' +
-            '<div class="col-lg-10">' +
-                '<!-- Back Button -->' +
-                '<div class="mb-4">' +
-                    '<button id="backToReservations" class="btn btn-outline-light">' +
-                        '<i class="fas fa-arrow-left me-2"></i>Retour aux réservations' +
-                    '</button>' +
-                '</div>' +
+            '<div class="col-lg-8 col-xl-7">' +
                 '<!-- Main Detail Card -->' +
                 '<div class="card border-0 shadow-lg reservation-detail-card">' +
                     '<div class="card-header reservation-detail-header">' +
@@ -1497,10 +1635,10 @@ function createReservationDetailCard(reservationId) {
                         '</div>' +
                     '</div>' +
                     '<div class="card-body reservation-detail-body">' +
-                        '<div class="row g-4">' +
+                        '<div class="row g-3">' +
                             '<!-- Equipment Info -->' +
-                            '<div class="col-lg-4">' +
-                                '<div class="equipment-card">' +
+                            '<div class="col-lg-6">' +
+                                '<div class="equipment-card h-100">' +
                                     '<div class="equipment-image">' +
                                         '<img src="' + reservation.equipmentImage + '" alt="' + reservation.equipment + '" class="img-fluid">' +
                                         '<div class="equipment-overlay">' +
@@ -1508,96 +1646,114 @@ function createReservationDetailCard(reservationId) {
                                         '</div>' +
                                     '</div>' +
                                     '<div class="equipment-info">' +
-                                        '<h5 class="equipment-name">' + reservation.equipment + '</h5>' +
-                                        '<p class="equipment-description">' + reservation.description + '</p>' +
+                                        '<h5 class="equipment-name mb-2">' + reservation.equipment + '</h5>' +
+                                        '<p class="equipment-description mb-3">' + reservation.description + '</p>' +
                                         '<div class="equipment-location">' +
-                                            '<i class="fas fa-map-marker-alt me-2"></i>' + reservation.location +
+                                            '<i class="fas fa-map-marker-alt me-2 text-primary"></i>' +
+                                            '<span class="text-muted">' + reservation.location + '</span>' +
                                         '</div>' +
                                     '</div>' +
                                 '</div>' +
                             '</div>' +
                             '<!-- Client Info -->' +
-                            '<div class="col-lg-4">' +
-                                '<div class="info-card">' +
+                            '<div class="col-lg-6">' +
+                                '<div class="info-card h-100">' +
                                     '<div class="info-card-header">' +
-                                        '<i class="fas fa-user"></i>' +
-                                        '<h6>Informations Client</h6>' +
+                                        '<i class="fas fa-user-circle"></i>' +
+                                        '<h6 class="mb-0">Informations Client</h6>' +
                                     '</div>' +
                                     '<div class="info-card-body">' +
                                         '<div class="info-item">' +
-                                            '<label>Nom complet</label>' +
-                                            '<span>' + reservation.client.name + '</span>' +
+                                            '<label class="fw-semibold">Nom complet</label>' +
+                                            '<span class="text-dark">' + reservation.client.name + '</span>' +
                                         '</div>' +
                                         '<div class="info-item">' +
-                                            '<label>Téléphone</label>' +
-                                            '<span><a href="tel:' + reservation.client.phone + '">' + reservation.client.phone + '</a></span>' +
+                                            '<label class="fw-semibold">Téléphone</label>' +
+                                            '<span><a href="tel:' + reservation.client.phone + '" class="text-primary text-decoration-none">' + reservation.client.phone + '</a></span>' +
                                         '</div>' +
                                         '<div class="info-item">' +
-                                            '<label>Email</label>' +
-                                            '<span><a href="mailto:' + reservation.client.email + '">' + reservation.client.email + '</a></span>' +
-                                        '</div>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>' +
-                            '<!-- Reservation Info -->' +
-                            '<div class="col-lg-4">' +
-                                '<div class="info-card">' +
-                                    '<div class="info-card-header">' +
-                                        '<i class="fas fa-calendar-check"></i>' +
-                                        '<h6>Détails Réservation</h6>' +
-                                    '</div>' +
-                                    '<div class="info-card-body">' +
-                                        '<div class="info-item">' +
-                                            '<label>Date de début</label>' +
-                                            '<span>' + new Date(reservation.startDate).toLocaleDateString('fr-FR') + '</span>' +
-                                        '</div>' +
-                                        '<div class="info-item">' +
-                                            '<label>Date de fin</label>' +
-                                            '<span>' + new Date(reservation.endDate).toLocaleDateString('fr-FR') + '</span>' +
-                                        '</div>' +
-                                        '<div class="info-item">' +
-                                            '<label>Durée</label>' +
-                                            '<span>' + reservation.days + ' jours</span>' +
-                                        '</div>' +
-                                        '<div class="info-item">' +
-                                            '<label>Prix total</label>' +
-                                            '<span class="total-price">' + reservation.totalPrice + ' MAD</span>' +
+                                            '<label class="fw-semibold">Email</label>' +
+                                            '<span><a href="mailto:' + reservation.client.email + '" class="text-primary text-decoration-none">' + reservation.client.email + '</a></span>' +
                                         '</div>' +
                                     '</div>' +
                                 '</div>' +
                             '</div>' +
                         '</div>' +
-                        (reservation.notes ? 
-                            '<!-- Notes Section -->' +
-                            '<div class="row mt-4">' +
-                                '<div class="col-12">' +
-                                    '<div class="notes-card">' +
-                                        '<div class="notes-header">' +
-                                            '<i class="fas fa-sticky-note"></i>' +
-                                            '<h6>Notes spéciales</h6>' +
-                                        '</div>' +
-                                        '<div class="notes-body">' +
-                                            '<p>' + reservation.notes + '</p>' +
+                        '<!-- Reservation Details -->' +
+                        '<div class="row mt-3">' +
+                            '<div class="col-12">' +
+                                '<div class="info-card">' +
+                                    '<div class="info-card-header">' +
+                                        '<i class="fas fa-calendar-check"></i>' +
+                                        '<h6 class="mb-0">Détails Réservation</h6>' +
+                                    '</div>' +
+                                    '<div class="info-card-body">' +
+                                        '<div class="row g-3">' +
+                                            '<div class="col-md-3">' +
+                                                '<div class="detail-box detail-box-primary">' +
+                                                    '<div class="detail-icon">' +
+                                                        '<i class="fas fa-calendar-plus"></i>' +
+                                                    '</div>' +
+                                                    '<div class="detail-content">' +
+                                                        '<div class="detail-label">Date de début</div>' +
+                                                        '<div class="detail-value">' + new Date(reservation.startDate).toLocaleDateString('fr-FR') + '</div>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="col-md-3">' +
+                                                '<div class="detail-box detail-box-info">' +
+                                                    '<div class="detail-icon">' +
+                                                        '<i class="fas fa-calendar-minus"></i>' +
+                                                    '</div>' +
+                                                    '<div class="detail-content">' +
+                                                        '<div class="detail-label">Date de fin</div>' +
+                                                        '<div class="detail-value">' + new Date(reservation.endDate).toLocaleDateString('fr-FR') + '</div>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="col-md-3">' +
+                                                '<div class="detail-box detail-box-warning">' +
+                                                    '<div class="detail-icon">' +
+                                                        '<i class="fas fa-clock"></i>' +
+                                                    '</div>' +
+                                                    '<div class="detail-content">' +
+                                                        '<div class="detail-label">Durée</div>' +
+                                                        '<div class="detail-value">' + reservation.days + ' jours</div>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="col-md-3">' +
+                                                '<div class="detail-box detail-box-success">' +
+                                                    '<div class="detail-icon">' +
+                                                        '<i class="fas fa-money-bill-wave"></i>' +
+                                                    '</div>' +
+                                                    '<div class="detail-content">' +
+                                                        '<div class="detail-label">Prix total</div>' +
+                                                        '<div class="detail-value">' + reservation.totalPrice + ' MAD</div>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' +
                                         '</div>' +
                                     '</div>' +
                                 '</div>' +
-                            '</div>' : '') +
+                            '</div>' +
+                        '</div>' +
                         '<!-- Action Buttons -->' +
-                        '<div class="row mt-4">' +
+                        '<div class="row mt-3">' +
                             '<div class="col-12">' +
                                 '<div class="action-buttons">' +
                                     (reservation.status === 'pending' ? 
-                                        '<button class="btn btn-success me-3" onclick="showAcceptModal(\'' + reservation.id + '\')">' +
-                                            '<i class="fas fa-check me-2"></i>Accepter' +
+                                        '<button class="btn btn-success btn-sm me-2" onclick="showAcceptModal(\'' + reservation.id + '\')">' +
+                                            '<i class="fas fa-check me-1"></i>Accepter' +
                                         '</button>' +
-                                        '<button class="btn btn-danger me-3" onclick="showDeclineModal(\'' + reservation.id + '\')">' +
-                                            '<i class="fas fa-times me-2"></i>Refuser' +
+                                        '<button class="btn btn-danger btn-sm me-2" onclick="showDeclineModal(\'' + reservation.id + '\')">' +
+                                            '<i class="fas fa-times me-1"></i>Refuser' +
                                         '</button>' : '') +
-                                    '<button class="btn btn-primary me-3" onclick="contactClient(\'' + reservation.client.email + '\')">' +
-                                        '<i class="fas fa-envelope me-2"></i>Contacter' +
+                                    '<button class="btn btn-primary btn-sm me-2" onclick="contactClient(\'' + reservation.client.email + '\')">' +
+                                        '<i class="fas fa-envelope me-1"></i>Contacter' +
                                     '</button>' +
-                                    '<button class="btn btn-outline-secondary" onclick="printReservation(\'' + reservation.id + '\')">' +
-                                        '<i class="fas fa-print me-2"></i>Imprimer' +
+                                    '<button class="btn btn-outline-secondary btn-sm" onclick="printReservation(\'' + reservation.id + '\')">' +
+                                        '<i class="fas fa-print me-1"></i>Imprimer' +
                                     '</button>' +
                                 '</div>' +
                             '</div>' +
