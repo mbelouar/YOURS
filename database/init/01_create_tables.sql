@@ -11,6 +11,13 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+-- Create additional user for compatibility
+-- This ensures both 'yours_user' and 'your_user' exist for phpMyAdmin access
+DROP USER IF EXISTS 'your_user'@'%';
+CREATE USER 'your_user'@'%' IDENTIFIED BY 'your_secure_password_here';
+GRANT ALL PRIVILEGES ON yours.* TO 'your_user'@'%';
+FLUSH PRIVILEGES;
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
