@@ -129,12 +129,7 @@ public class RegisterServlet extends HttpServlet {
             if (success) {
                 logger.info("Client registered successfully: " + mail + " (ID: " + client.getIdClient() + ")");
 
-                // Set success message in session
-                HttpSession session = request.getSession();
-                session.setAttribute("registrationSuccess",
-                        "Votre compte a été créé avec succès ! Vous pouvez maintenant vous connecter.");
-
-                // Redirect to login page with success message
+                // Redirect to login page with success parameter
                 response.sendRedirect(request.getContextPath() + "/pages/auth/login.jsp?success=registered");
 
             } else {

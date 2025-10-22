@@ -685,30 +685,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Show error message
+// Show error message using notification system
 function showError(message) {
-    const errorAlert = document.getElementById('errorAlert');
-    const errorMessage = document.getElementById('errorMessage');
-    
-    errorMessage.textContent = message;
-    errorAlert.classList.remove('d-none');
-    
-    // Scroll to error message
-    errorAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    
-    // Hide error message after 10 seconds
-    setTimeout(() => {
-        errorAlert.classList.add('d-none');
-    }, 10000);
+    // Show toggle notification for errors
+    if (window.notificationSystem) {
+        notificationSystem.error(message || 'Une erreur est survenue lors de la création du compte. Veuillez réessayer.', 6000);
+    }
 }
 
-// Show success message
+// Show success message using notification system
 function showSuccess() {
-    const successAlert = document.getElementById('successAlert');
-    successAlert.classList.remove('d-none');
-    
-    // Scroll to success message
-    successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Show toggle notification
+    notificationSystem.success('Votre compte a été créé avec succès ! Vous allez être redirigé vers la page de connexion.', 5000);
     
     // Redirect to login page after 3 seconds
     setTimeout(() => {

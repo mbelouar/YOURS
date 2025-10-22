@@ -495,32 +495,20 @@ function showError(message) {
     }, 8000);
 }
 
-// Show success message
+// Show success message using notification system
 function showSuccess() {
-    const successAlert = document.getElementById('successAlert');
-    successAlert.classList.remove('d-none');
-    
-    // Scroll to success message
-    successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    
-    // Hide success message after 5 seconds
-    setTimeout(() => {
-        successAlert.classList.add('d-none');
-    }, 5000);
+    // Show toggle notification
+    if (window.notificationSystem) {
+        notificationSystem.success('Votre compte a été créé avec succès ! Vous pouvez maintenant vous connecter.', 5000);
+    }
 }
 
-// Show logout message
+// Show logout message using notification system
 function showLogout() {
-    const logoutAlert = document.getElementById('logoutAlert');
-    logoutAlert.classList.remove('d-none');
-    
-    // Scroll to logout message
-    logoutAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    
-    // Hide logout message after 5 seconds
-    setTimeout(() => {
-        logoutAlert.classList.add('d-none');
-    }, 5000);
+    // Show toggle notification
+    if (window.notificationSystem) {
+        notificationSystem.info('Vous avez été déconnecté avec succès.', 4000);
+    }
 }
 
 // Update navbar links to redirect to homepage sections
