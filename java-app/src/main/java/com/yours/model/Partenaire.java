@@ -1,22 +1,22 @@
 package com.yours.model;
 
 /**
- * Partenaire entity representing the partenaire table
+ * Simplified Partenaire entity representing only the fields used in
+ * registration
  */
 public class Partenaire {
     private int idPartenaire;
     private String nom;
     private String prenom;
     private String mail;
-    private String adresse;
     private String numTelephone;
-    private String cinRECTO;
-    private String cinVERSO;
     private String motDepasse;
-    private String photoPerso;
     private String nomEntreprise;
     private String typeActivite;
-    private String numeroSiret;
+    private String adresse;
+    private String cinRECTO;
+    private String cinVERSO;
+    private String photoPerso;
 
     // Constructors
     public Partenaire() {
@@ -29,22 +29,16 @@ public class Partenaire {
         this.motDepasse = motDepasse;
     }
 
-    public Partenaire(int idPartenaire, String nom, String prenom, String mail, String adresse,
-            String numTelephone, String cinRECTO, String cinVERSO, String motDepasse,
-            String photoPerso, String nomEntreprise, String typeActivite, String numeroSiret) {
+    public Partenaire(int idPartenaire, String nom, String prenom, String mail, String numTelephone,
+            String motDepasse, String nomEntreprise, String typeActivite) {
         this.idPartenaire = idPartenaire;
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
-        this.adresse = adresse;
         this.numTelephone = numTelephone;
-        this.cinRECTO = cinRECTO;
-        this.cinVERSO = cinVERSO;
         this.motDepasse = motDepasse;
-        this.photoPerso = photoPerso;
         this.nomEntreprise = nomEntreprise;
         this.typeActivite = typeActivite;
-        this.numeroSiret = numeroSiret;
     }
 
     // Getters and Setters
@@ -80,14 +74,6 @@ public class Partenaire {
         this.mail = mail;
     }
 
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
-
     public String getNumTelephone() {
         return numTelephone;
     }
@@ -96,36 +82,12 @@ public class Partenaire {
         this.numTelephone = numTelephone;
     }
 
-    public String getCinRECTO() {
-        return cinRECTO;
-    }
-
-    public void setCinRECTO(String cinRECTO) {
-        this.cinRECTO = cinRECTO;
-    }
-
-    public String getCinVERSO() {
-        return cinVERSO;
-    }
-
-    public void setCinVERSO(String cinVERSO) {
-        this.cinVERSO = cinVERSO;
-    }
-
     public String getMotDepasse() {
         return motDepasse;
     }
 
     public void setMotDepasse(String motDepasse) {
         this.motDepasse = motDepasse;
-    }
-
-    public String getPhotoPerso() {
-        return photoPerso;
-    }
-
-    public void setPhotoPerso(String photoPerso) {
-        this.photoPerso = photoPerso;
     }
 
     public String getNomEntreprise() {
@@ -144,12 +106,36 @@ public class Partenaire {
         this.typeActivite = typeActivite;
     }
 
-    public String getNumeroSiret() {
-        return numeroSiret;
+    public String getAdresse() {
+        return adresse;
     }
 
-    public void setNumeroSiret(String numeroSiret) {
-        this.numeroSiret = numeroSiret;
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getCinRECTO() {
+        return cinRECTO;
+    }
+
+    public void setCinRECTO(String cinRECTO) {
+        this.cinRECTO = cinRECTO;
+    }
+
+    public String getCinVERSO() {
+        return cinVERSO;
+    }
+
+    public void setCinVERSO(String cinVERSO) {
+        this.cinVERSO = cinVERSO;
+    }
+
+    public String getPhotoPerso() {
+        return photoPerso;
+    }
+
+    public void setPhotoPerso(String photoPerso) {
+        this.photoPerso = photoPerso;
     }
 
     @Override
@@ -159,15 +145,14 @@ public class Partenaire {
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", mail='" + mail + '\'' +
-                ", adresse='" + adresse + '\'' +
                 ", numTelephone='" + numTelephone + '\'' +
-                ", cinRECTO='" + cinRECTO + '\'' +
-                ", cinVERSO='" + cinVERSO + '\'' +
                 ", motDepasse='" + motDepasse + '\'' +
-                ", photoPerso='" + photoPerso + '\'' +
                 ", nomEntreprise='" + nomEntreprise + '\'' +
                 ", typeActivite='" + typeActivite + '\'' +
-                ", numeroSiret='" + numeroSiret + '\'' +
+                ", adresse='" + adresse + '\'' +
+                ", cinRECTO='" + cinRECTO + '\'' +
+                ", cinVERSO='" + cinVERSO + '\'' +
+                ", photoPerso='" + photoPerso + '\'' +
                 '}';
     }
 }

@@ -58,17 +58,14 @@ CREATE TABLE `categorie` (
 --
 
 CREATE TABLE `client` (
-  `idClient` int(11) NOT NULL,
+  `idClient` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(100) NOT NULL,
   `prenom` varchar(100) NOT NULL,
   `mail` varchar(100) NOT NULL,
-  `adresse` varchar(150) DEFAULT NULL,
   `numTelephone` varchar(20) DEFAULT NULL,
-  `cinRECTO` varchar(50) DEFAULT NULL,
-  `cinVERSO` varchar(50) DEFAULT NULL,
   `motDepasse` varchar(100) NOT NULL,
-  `dateNaissance` date DEFAULT NULL,
-  `photoPerso` varchar(255) DEFAULT NULL
+  PRIMARY KEY (`idClient`),
+  UNIQUE KEY `mail` (`mail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -118,16 +115,20 @@ CREATE TABLE `materiel` (
 --
 
 CREATE TABLE `partenaire` (
-  `idPartenaire` int(11) NOT NULL,
+  `idPartenaire` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(100) NOT NULL,
   `prenom` varchar(100) NOT NULL,
   `mail` varchar(100) NOT NULL,
-  `adresse` varchar(150) DEFAULT NULL,
   `numTelephone` varchar(20) DEFAULT NULL,
-  `cinRECTO` varchar(50) DEFAULT NULL,
-  `cinVERSO` varchar(50) DEFAULT NULL,
   `motDepasse` varchar(100) NOT NULL,
-  `photoPerso` varchar(255) DEFAULT NULL
+  `nomEntreprise` varchar(150) NOT NULL,
+  `typeActivite` varchar(100) NOT NULL,
+  `adresse` text DEFAULT NULL,
+  `cinRECTO` varchar(255) DEFAULT NULL,
+  `cinVERSO` varchar(255) DEFAULT NULL,
+  `photoPerso` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`idPartenaire`),
+  UNIQUE KEY `mail` (`mail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

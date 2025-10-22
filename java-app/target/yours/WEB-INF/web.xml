@@ -53,6 +53,12 @@
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>com.yours.servlet.RegisterServlet</servlet-class>
+        <multipart-config>
+            <location>/tmp</location>
+            <max-file-size>10485760</max-file-size>
+            <max-request-size>52428800</max-request-size>
+            <file-size-threshold>2097152</file-size-threshold>
+        </multipart-config>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>

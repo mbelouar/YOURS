@@ -59,7 +59,7 @@
                         </div>
 
                         <!-- Registration Form -->
-                        <form id="registerForm" class="needs-validation" action="${pageContext.request.contextPath}/register" method="POST">
+                        <form id="registerForm" class="needs-validation" action="${pageContext.request.contextPath}/register" method="POST" enctype="multipart/form-data">
                             <input type="hidden" id="accountType" name="accountType" value="client">
                             
                             <!-- Client-specific fields -->
@@ -146,6 +146,15 @@
 
                             <!-- Partner-specific fields (hidden by default) -->
                             <div id="partnerFields" style="display: none;">
+                                <!-- Personal Information Section Title -->
+                                <div class="row mb-3">
+                                    <div class="col-12">
+                                        <h6 class="fw-bold mb-3" style="color: var(--gray-800); font-size: 0.95rem;">
+                                            <i class="fas fa-user me-2 text-primary"></i>Informations personnelles
+                                        </h6>
+                                    </div>
+                                </div>
+                                
                                 <div class="row">
                                     <!-- Partner Personal Information -->
                                     <div class="col-md-6">
@@ -185,7 +194,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <!-- Left Column - Business Info -->
+                                    <!-- Left Column - Business Name -->
                                     <div class="col-md-6">
                                         <!-- Business Name -->
                                         <div class="mb-3">
@@ -197,7 +206,51 @@
                                                    placeholder="Nom de votre entreprise" style="height: 2.75rem; font-size: 0.9rem;">
                                             <div class="invalid-feedback">Le nom de l'entreprise est requis.</div>
                                         </div>
+                                    </div>
 
+                                    <!-- Right Column - Business Type -->
+                                    <div class="col-md-6">
+                                        <!-- Business Type -->
+                                        <div class="mb-3">
+                                            <label for="businessType" class="form-label fw-semibold" style="font-size: 0.9rem;">
+                                                <i class="fas fa-tag me-1 text-primary" style="font-size: 0.8rem;"></i>
+                                                Type d'activit&eacute; *
+                                            </label>
+                                            <select class="form-select partner-required" id="businessType" name="partnerBusinessType" style="height: 2.75rem; font-size: 0.9rem;">
+                                                <option value="">S&eacute;lectionnez votre activit&eacute;</option>
+                                                <option value="photo-video">Photographie/Vid&eacute;ographie</option>
+                                                <option value="event">&Eacute;v&eacute;nementiel</option>
+                                                <option value="production">Production audiovisuelle</option>
+                                                <option value="rental">Location d'&eacute;quipement</option>
+                                                <option value="studio">Studio de production</option>
+                                                <option value="freelance">Freelance</option>
+                                                <option value="other">Autre</option>
+                                            </select>
+                                            <div class="invalid-feedback">Veuillez s&eacute;lectionner votre type d'activit&eacute;.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Address Field - Full Width Row -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- Address -->
+                                        <div class="mb-3">
+                                            <label for="adresse" class="form-label fw-semibold" style="font-size: 0.9rem;">
+                                                <i class="fas fa-map-marker-alt me-1 text-primary" style="font-size: 0.8rem;"></i>
+                                                Adresse de l'entreprise *
+                                            </label>
+                                            <textarea class="form-control partner-required" id="adresse" name="adresse" 
+                                                      rows="3" placeholder="Adresse complète de votre entreprise" 
+                                                      style="font-size: 0.9rem; resize: vertical;"></textarea>
+                                            <div class="invalid-feedback">L'adresse de l'entreprise est requise.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Password Fields Row -->
+                                <div class="row">
+                                    <div class="col-md-6">
                                         <!-- Password -->
                                         <div class="mb-3">
                                             <label for="motDepasse" class="form-label fw-semibold" style="font-size: 0.9rem;">
@@ -219,28 +272,7 @@
                                             <div class="invalid-feedback">Le mot de passe doit contenir au moins 8 caract&egrave;res.</div>
                                         </div>
                                     </div>
-
-                                    <!-- Right Column - Business Info -->
                                     <div class="col-md-6">
-                                        <!-- Business Type -->
-                                        <div class="mb-3">
-                                            <label for="businessType" class="form-label fw-semibold" style="font-size: 0.9rem;">
-                                                <i class="fas fa-tag me-1 text-primary" style="font-size: 0.8rem;"></i>
-                                                Type d'activit&eacute; *
-                                            </label>
-                                            <select class="form-select partner-required" id="businessType" name="partnerBusinessType" style="height: 2.75rem; font-size: 0.9rem;">
-                                                <option value="">S&eacute;lectionnez votre activit&eacute;</option>
-                                                <option value="photo-video">Photographie/Vid&eacute;ographie</option>
-                                                <option value="event">&Eacute;v&eacute;nementiel</option>
-                                                <option value="production">Production audiovisuelle</option>
-                                                <option value="rental">Location d'&eacute;quipement</option>
-                                                <option value="studio">Studio de production</option>
-                                                <option value="freelance">Freelance</option>
-                                                <option value="other">Autre</option>
-                                            </select>
-                                            <div class="invalid-feedback">Veuillez s&eacute;lectionner votre type d'activit&eacute;.</div>
-                                        </div>
-
                                         <!-- Confirm Password -->
                                         <div class="mb-3">
                                             <label for="confirmPassword" class="form-label fw-semibold" style="font-size: 0.9rem;">Confirmer le mot de passe *</label>

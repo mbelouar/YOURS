@@ -16,8 +16,8 @@ public class PartnerDAO {
     private static final Logger logger = Logger.getLogger(PartnerDAO.class.getName());
 
     // SQL queries
-    private static final String INSERT_PARTNER = "INSERT INTO partenaire (nom, prenom, mail, adresse, numTelephone, cinRECTO, cinVERSO, motDepasse, photoPerso, nomEntreprise, typeActivite, numeroSiret) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SELECT_PARTNER_BY_EMAIL = "SELECT idPartenaire, nom, prenom, mail, adresse, numTelephone, cinRECTO, cinVERSO, motDepasse, photoPerso, nomEntreprise, typeActivite, numeroSiret FROM partenaire WHERE mail = ?";
+    private static final String INSERT_PARTNER = "INSERT INTO partenaire (nom, prenom, mail, numTelephone, motDepasse, nomEntreprise, typeActivite, adresse, cinRECTO, cinVERSO, photoPerso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SELECT_PARTNER_BY_EMAIL = "SELECT idPartenaire, nom, prenom, mail, numTelephone, motDepasse, nomEntreprise, typeActivite, adresse, cinRECTO, cinVERSO, photoPerso FROM partenaire WHERE mail = ?";
     private static final String CHECK_EMAIL_REGISTERED = "SELECT COUNT(*) FROM partenaire WHERE mail = ?";
 
     /**
@@ -34,20 +34,19 @@ public class PartnerDAO {
             pstmt.setString(1, partner.getNom());
             pstmt.setString(2, partner.getPrenom());
             pstmt.setString(3, partner.getMail());
-            pstmt.setString(4, partner.getAdresse());
-            pstmt.setString(5, partner.getNumTelephone());
-            pstmt.setString(6, partner.getCinRECTO());
-            pstmt.setString(7, partner.getCinVERSO());
+            pstmt.setString(4, partner.getNumTelephone());
 
             // Hash password with salt and store as "hash:salt"
             String[] passwordData = PasswordUtil.hashPasswordWithSalt(partner.getMotDepasse());
             String hashedPassword = passwordData[0] + ":" + passwordData[1]; // Store hash:salt
-            pstmt.setString(8, hashedPassword);
+            pstmt.setString(5, hashedPassword);
 
-            pstmt.setString(9, partner.getPhotoPerso());
-            pstmt.setString(10, partner.getNomEntreprise());
-            pstmt.setString(11, partner.getTypeActivite());
-            pstmt.setString(12, partner.getNumeroSiret());
+            pstmt.setString(6, partner.getNomEntreprise());
+            pstmt.setString(7, partner.getTypeActivite());
+            pstmt.setString(8, partner.getAdresse());
+            pstmt.setString(9, partner.getCinRECTO());
+            pstmt.setString(10, partner.getCinVERSO());
+            pstmt.setString(11, partner.getPhotoPerso());
 
             int affectedRows = pstmt.executeUpdate();
 
@@ -85,15 +84,14 @@ public class PartnerDAO {
                 partner.setNom(rs.getString("nom"));
                 partner.setPrenom(rs.getString("prenom"));
                 partner.setMail(rs.getString("mail"));
-                partner.setAdresse(rs.getString("adresse"));
                 partner.setNumTelephone(rs.getString("numTelephone"));
-                partner.setCinRECTO(rs.getString("cinRECTO"));
-                partner.setCinVERSO(rs.getString("cinVERSO"));
                 partner.setMotDepasse(rs.getString("motDepasse")); // Hashed password from DB (hash:salt)
-                partner.setPhotoPerso(rs.getString("photoPerso"));
                 partner.setNomEntreprise(rs.getString("nomEntreprise"));
                 partner.setTypeActivite(rs.getString("typeActivite"));
-                partner.setNumeroSiret(rs.getString("numeroSiret"));
+                partner.setAdresse(rs.getString("adresse"));
+                partner.setCinRECTO(rs.getString("cinRECTO"));
+                partner.setCinVERSO(rs.getString("cinVERSO"));
+                partner.setPhotoPerso(rs.getString("photoPerso"));
                 return partner;
             }
         } catch (SQLException ex) {
@@ -149,5 +147,70 @@ public class PartnerDAO {
 
         logger.log(Level.WARNING, "Authentication failed for email: {0}", email);
         return null;
+    }
+
+    /**
+     * Retrieves a partner by their ID.
+     *
+     * @param partnerId The ID of the partner to retrieve.
+     * @return The partner object if found, otherwise null.
+     */
+    public Partenaire getPartnerById(int partnerId) {
+        String query = "SELECT idPartenaire, nom, prenom, mail, numTelephone, motDepasse, nomEntreprise, typeActivite, adresse, cinRECTO, cinVERSO, photoPerso FROM partenaire WHERE idPartenaire = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setInt(1, partnerId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                Partenaire partner = new Partenaire();
+                partner.setIdPartenaire(rs.getInt("idPartenaire"));
+                partner.setNom(rs.getString("nom"));
+                partner.setPrenom(rs.getString("prenom"));
+                partner.setMail(rs.getString("mail"));
+                partner.setNumTelephone(rs.getString("numTelephone"));
+                partner.setMotDepasse(rs.getString("motDepasse")); // Hashed password from DB (hash:salt)
+                partner.setNomEntreprise(rs.getString("nomEntreprise"));
+                partner.setTypeActivite(rs.getString("typeActivite"));
+                partner.setAdresse(rs.getString("adresse"));
+                partner.setCinRECTO(rs.getString("cinRECTO"));
+                partner.setCinVERSO(rs.getString("cinVERSO"));
+                partner.setPhotoPerso(rs.getString("photoPerso"));
+                return partner;
+            }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "Error retrieving partner by ID: " + ex.getMessage(), ex);
+        }
+        return null;
+    }
+
+    /**
+     * Updates partner image paths in the database.
+     *
+     * @param partnerId      The ID of the partner to update.
+     * @param cinRectoPath   Path to CIN recto image.
+     * @param cinVersoPath   Path to CIN verso image.
+     * @param photoPersoPath Path to profile photo.
+     * @return true if update successful, false otherwise.
+     */
+    public boolean updatePartnerImages(int partnerId, String cinRectoPath, String cinVersoPath, String photoPersoPath) {
+        String query = "UPDATE partenaire SET cinRECTO = ?, cinVERSO = ?, photoPerso = ? WHERE idPartenaire = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, cinRectoPath);
+            pstmt.setString(2, cinVersoPath);
+            pstmt.setString(3, photoPersoPath);
+            pstmt.setInt(4, partnerId);
+
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "Error updating partner images: " + ex.getMessage(), ex);
+        }
+        return false;
     }
 }

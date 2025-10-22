@@ -10,8 +10,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.logging.Logger;
 
 /**
@@ -48,14 +54,19 @@ public class RegisterServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
 
-        try {
-            // Get form parameters
-            String accountType = request.getParameter("accountType");
+        logger.info("=== REGISTRATION REQUEST START ===");
+        logger.info("Content-Type: " + request.getContentType());
+        logger.info("Method: " + request.getMethod());
+        logger.info("Request URI: " + request.getRequestURI());
 
-            String nom = request.getParameter("nom");
-            String prenom = request.getParameter("prenom");
-            String mail = request.getParameter("mail");
-            String numTelephone = request.getParameter("numTelephone");
+        try {
+            // Get form parameters - handle both regular and multipart requests
+            String accountType = getParameterValue(request, "accountType");
+
+            String nom = getParameterValue(request, "nom");
+            String prenom = getParameterValue(request, "prenom");
+            String mail = getParameterValue(request, "mail");
+            String numTelephone = getParameterValue(request, "numTelephone");
 
             // Debug: Log received parameters
             logger.info("Received parameters - AccountType: '" + accountType + "', Nom: '" + nom + "', Prenom: '"
@@ -63,35 +74,36 @@ public class RegisterServlet extends HttpServlet {
 
             // Check if this is partner registration and get partner personal info fields
             if ("partner".equals(accountType)) {
-                String partnerNom = request.getParameter("partnerNom");
-                String partnerPrenom = request.getParameter("partnerPrenom");
-                String partnerMail = request.getParameter("partnerMail");
-                String partnerNumTelephone = request.getParameter("partnerNumTelephone");
+                String partnerNom = getParameterValue(request, "partnerNom");
+                String partnerPrenom = getParameterValue(request, "partnerPrenom");
+                String partnerMail = getParameterValue(request, "partnerMail");
+                String partnerNumTelephone = getParameterValue(request, "partnerNumTelephone");
 
-                if (partnerNom != null)
+                if (partnerNom != null && !partnerNom.trim().isEmpty())
                     nom = partnerNom;
-                if (partnerPrenom != null)
+                if (partnerPrenom != null && !partnerPrenom.trim().isEmpty())
                     prenom = partnerPrenom;
-                if (partnerMail != null)
+                if (partnerMail != null && !partnerMail.trim().isEmpty())
                     mail = partnerMail;
-                if (partnerNumTelephone != null)
+                if (partnerNumTelephone != null && !partnerNumTelephone.trim().isEmpty())
                     numTelephone = partnerNumTelephone;
             }
-            String motDepasse = request.getParameter("motDepasseClient"); // Default to client password
-            String confirmPassword = request.getParameter("confirmPassword"); // Default to client confirm password
+            String motDepasse = getParameterValue(request, "motDepasseClient"); // Default to client password
+            String confirmPassword = getParameterValue(request, "confirmPassword"); // Default to client confirm
+                                                                                    // password
 
             // Check if this is partner registration and get partner password fields
             if ("partner".equals(accountType)) {
-                String partnerMotDepasse = request.getParameter("partnerMotDepasse");
-                String partnerConfirmPassword = request.getParameter("partnerConfirmPassword");
-                if (partnerMotDepasse != null) {
+                String partnerMotDepasse = getParameterValue(request, "partnerMotDepasse");
+                String partnerConfirmPassword = getParameterValue(request, "partnerConfirmPassword");
+                if (partnerMotDepasse != null && !partnerMotDepasse.trim().isEmpty()) {
                     motDepasse = partnerMotDepasse;
                 }
-                if (partnerConfirmPassword != null) {
+                if (partnerConfirmPassword != null && !partnerConfirmPassword.trim().isEmpty()) {
                     confirmPassword = partnerConfirmPassword;
                 }
             }
-            String acceptTerms = request.getParameter("acceptTerms");
+            String acceptTerms = getParameterValue(request, "acceptTerms");
 
             // Validate required fields
             if (!validateRegistrationData(request, response, accountType, nom, prenom, mail,
@@ -132,6 +144,53 @@ public class RegisterServlet extends HttpServlet {
             request.setAttribute("error", "Une erreur inattendue est survenue. Veuillez réessayer.");
             request.getRequestDispatcher("/pages/auth/register-client.jsp").forward(request, response);
         }
+    }
+
+    /**
+     * Helper method to get parameter value from both regular and multipart requests
+     */
+    private String getParameterValue(HttpServletRequest request, String parameterName) {
+        logger.info("Getting parameter: " + parameterName);
+
+        // First try regular parameter
+        String value = request.getParameter(parameterName);
+        logger.info("Regular parameter " + parameterName + " = " + value);
+
+        // If not found and this is a multipart request, try to get from parts
+        if (value == null && request.getContentType() != null &&
+                request.getContentType().toLowerCase().contains("multipart/form-data")) {
+            logger.info("Trying to get " + parameterName + " from multipart");
+            try {
+                Part part = request.getPart(parameterName);
+                logger.info("Part " + parameterName + " found: " + (part != null));
+                if (part != null) {
+                    // Check if this is a file part or a form field
+                    String contentType = part.getContentType();
+                    logger.info("Part " + parameterName + " content type: " + contentType);
+                    if (contentType == null || contentType.isEmpty()) {
+                        // This is a form field, read the value
+                        try (java.io.InputStream inputStream = part.getInputStream()) {
+                            byte[] buffer = new byte[1024];
+                            int bytesRead = inputStream.read(buffer);
+                            if (bytesRead > 0) {
+                                value = new String(buffer, 0, bytesRead, "UTF-8").trim();
+                                logger.info("Read " + parameterName + " from multipart: " + value);
+                            }
+                        }
+                    } else {
+                        // This is a file part, return null for now
+                        logger.info("Part " + parameterName + " is a file part, returning null");
+                        return null;
+                    }
+                }
+            } catch (Exception e) {
+                logger.warning("Error getting part " + parameterName + ": " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        logger.info("Final value for " + parameterName + " = " + value);
+        return value;
     }
 
     /**
@@ -262,6 +321,133 @@ public class RegisterServlet extends HttpServlet {
     }
 
     /**
+     * Handles file upload and returns the file path
+     */
+    private String handleFileUpload(Part filePart, String fieldName, HttpServletRequest request) throws IOException {
+        logger.info("handleFileUpload called for field: " + fieldName);
+
+        if (filePart == null || filePart.getSize() == 0) {
+            logger.info("File part is null or empty for field: " + fieldName);
+            return null;
+        }
+
+        logger.info("File part exists for field: " + fieldName + ", size: " + filePart.getSize());
+
+        // Validate file type
+        String contentType = filePart.getContentType();
+        if (contentType == null || !contentType.startsWith("image/")) {
+            logger.warning("Invalid file type for field " + fieldName + ": " + contentType);
+            throw new IOException("Seuls les fichiers image sont autorisés pour " + fieldName);
+        }
+
+        // Validate file size (max 5MB)
+        long maxSize = 5 * 1024 * 1024; // 5MB
+        if (filePart.getSize() > maxSize) {
+            logger.warning("File too large for field " + fieldName + ": " + filePart.getSize() + " bytes");
+            throw new IOException("Le fichier " + fieldName + " est trop volumineux (max 5MB)");
+        }
+
+        // Get upload directory - use a more reliable path
+        String uploadDir;
+        try {
+            // Try to get the real path first
+            uploadDir = request.getServletContext().getRealPath("/uploads");
+            if (uploadDir == null) {
+                // Fallback to a system temp directory with uploads subfolder
+                uploadDir = System.getProperty("java.io.tmpdir") + File.separator + "yours_uploads";
+            }
+        } catch (Exception e) {
+            // Fallback to system temp directory
+            uploadDir = System.getProperty("java.io.tmpdir") + File.separator + "yours_uploads";
+        }
+
+        logger.info("Upload directory path: " + uploadDir);
+
+        File uploadDirFile = new File(uploadDir);
+        if (!uploadDirFile.exists()) {
+            boolean created = uploadDirFile.mkdirs();
+            if (!created) {
+                logger.severe("Failed to create upload directory: " + uploadDir);
+                throw new IOException("Impossible de créer le répertoire d'upload");
+            }
+            logger.info("Created upload directory: " + uploadDir);
+        }
+
+        // Generate unique filename with proper extension
+        String originalFileName = filePart.getSubmittedFileName();
+        String fileExtension = "";
+        if (originalFileName != null && originalFileName.contains(".")) {
+            fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+        }
+
+        String fileName = fieldName + "_" + System.currentTimeMillis() + "_" +
+                System.nanoTime() + fileExtension;
+        String filePath = uploadDir + File.separator + fileName;
+
+        logger.info("Generated filename: " + fileName + ", full path: " + filePath);
+
+        // Save file with proper error handling
+        try (InputStream fileContent = filePart.getInputStream()) {
+            Files.copy(fileContent, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
+
+            // Verify file was actually saved
+            File savedFile = new File(filePath);
+            if (!savedFile.exists() || savedFile.length() == 0) {
+                logger.severe("File was not saved properly: " + filePath);
+                throw new IOException("Échec de l'enregistrement du fichier " + fieldName);
+            }
+
+            logger.info("File saved successfully: " + filePath + " (size: " + savedFile.length() + " bytes)");
+        } catch (IOException e) {
+            logger.severe("Error saving file " + fieldName + ": " + e.getMessage());
+            throw new IOException("Erreur lors de l'enregistrement du fichier " + fieldName + ": " + e.getMessage());
+        }
+
+        // Return relative path for database storage
+        String relativePath = "uploads/" + fileName;
+        logger.info("Returning relative path: " + relativePath);
+        return relativePath;
+    }
+
+    /**
+     * Clean up uploaded file if it exists
+     */
+    private void cleanupUploadedFile(String filePath, HttpServletRequest request) {
+        if (filePath == null || filePath.trim().isEmpty()) {
+            return;
+        }
+
+        try {
+            // Convert relative path to absolute path
+            String uploadDir;
+            try {
+                uploadDir = request.getServletContext().getRealPath("/uploads");
+                if (uploadDir == null) {
+                    uploadDir = System.getProperty("java.io.tmpdir") + File.separator + "yours_uploads";
+                }
+            } catch (Exception e) {
+                uploadDir = System.getProperty("java.io.tmpdir") + File.separator + "yours_uploads";
+            }
+
+            // Extract filename from relative path
+            String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
+            String fullPath = uploadDir + File.separator + fileName;
+
+            File file = new File(fullPath);
+            if (file.exists()) {
+                boolean deleted = file.delete();
+                if (deleted) {
+                    logger.info("Cleaned up uploaded file: " + fullPath);
+                } else {
+                    logger.warning("Failed to delete uploaded file: " + fullPath);
+                }
+            }
+        } catch (Exception e) {
+            logger.warning("Error cleaning up uploaded file " + filePath + ": " + e.getMessage());
+        }
+    }
+
+    /**
      * Handle partner registration
      */
     private void handlePartnerRegistration(HttpServletRequest request, HttpServletResponse response,
@@ -269,10 +455,9 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
 
         // Get partner-specific parameters
-        String businessName = request.getParameter("partnerBusinessName");
-        String businessType = request.getParameter("partnerBusinessType");
-        String numeroSiret = request.getParameter("numeroSiret");
-        String adresse = request.getParameter("adresse");
+        String businessName = getParameterValue(request, "partnerBusinessName");
+        String businessType = getParameterValue(request, "partnerBusinessType");
+        String adresse = getParameterValue(request, "adresse");
 
         // Validate partner-specific required fields
         if (businessName == null || businessName.trim().isEmpty()) {
@@ -289,6 +474,13 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
+        if (adresse == null || adresse.trim().isEmpty()) {
+            request.setAttribute("error", "L'adresse de l'entreprise est requise.");
+            request.setAttribute("formData", request.getParameterMap());
+            request.getRequestDispatcher("/pages/auth/register-client.jsp").forward(request, response);
+            return;
+        }
+
         // Create new partner
         Partenaire partner = new Partenaire();
         partner.setNom(nom.trim());
@@ -298,24 +490,135 @@ public class RegisterServlet extends HttpServlet {
         partner.setMotDepasse(motDepasse); // Password will be hashed in DAO
         partner.setNomEntreprise(businessName.trim());
         partner.setTypeActivite(businessType.trim());
-        partner.setNumeroSiret(numeroSiret != null ? numeroSiret.trim() : null);
-        partner.setAdresse(adresse != null ? adresse.trim() : null);
+        partner.setAdresse(adresse.trim());
 
-        // Note: File uploads (CIN, photo) would need to be handled separately
-        // For now, we'll store null values for these fields
-        partner.setCinRECTO(null);
-        partner.setCinVERSO(null);
-        partner.setPhotoPerso(null);
+        // Handle file uploads with proper error handling and cleanup
+        String cinRectoPath = null;
+        String cinVersoPath = null;
+        String photoPersoPath = null;
+
+        try {
+            logger.info("Starting file upload handling...");
+
+            // Debug: Log all parts
+            logger.info("=== DEBUG: All request parts ===");
+            try {
+                for (Part part : request.getParts()) {
+                    logger.info("Part name: " + part.getName() + ", size: " + part.getSize() + ", content type: "
+                            + part.getContentType());
+                }
+            } catch (Exception e) {
+                logger.warning("Error listing parts: " + e.getMessage());
+            }
+            logger.info("=== END DEBUG ===");
+
+            Part cinRectoPart = request.getPart("cinRECTO");
+            Part cinVersoPart = request.getPart("cinVERSO");
+            Part photoPersoPart = request.getPart("photoPerso");
+
+            logger.info("File parts retrieved - CIN Recto: " + (cinRectoPart != null ? "exists" : "null") +
+                    ", CIN Verso: " + (cinVersoPart != null ? "exists" : "null") +
+                    ", Photo: " + (photoPersoPart != null ? "exists" : "null"));
+
+            // Upload CIN Recto (required for partners)
+            if (cinRectoPart != null && cinRectoPart.getSize() > 0) {
+                cinRectoPath = handleFileUpload(cinRectoPart, "cinRECTO", request);
+                logger.info("CIN Recto uploaded successfully: " + cinRectoPath);
+            } else {
+                logger.warning("CIN Recto is required but not provided");
+                request.setAttribute("error", "La pièce d'identité (recto) est requise pour les partenaires.");
+                request.setAttribute("formData", request.getParameterMap());
+                request.getRequestDispatcher("/pages/auth/register-client.jsp").forward(request, response);
+                return;
+            }
+
+            // Upload CIN Verso (required for partners)
+            if (cinVersoPart != null && cinVersoPart.getSize() > 0) {
+                cinVersoPath = handleFileUpload(cinVersoPart, "cinVERSO", request);
+                logger.info("CIN Verso uploaded successfully: " + cinVersoPath);
+            } else {
+                logger.warning("CIN Verso is required but not provided");
+                // Clean up uploaded files if one fails
+                cleanupUploadedFile(cinRectoPath, request);
+                request.setAttribute("error", "La pièce d'identité (verso) est requise pour les partenaires.");
+                request.setAttribute("formData", request.getParameterMap());
+                request.getRequestDispatcher("/pages/auth/register-client.jsp").forward(request, response);
+                return;
+            }
+
+            // Upload Profile Photo (optional)
+            if (photoPersoPart != null && photoPersoPart.getSize() > 0) {
+                photoPersoPath = handleFileUpload(photoPersoPart, "photoPerso", request);
+                logger.info("Profile photo uploaded successfully: " + photoPersoPath);
+            }
+
+            partner.setCinRECTO(cinRectoPath);
+            partner.setCinVERSO(cinVersoPath);
+            partner.setPhotoPerso(photoPersoPath);
+
+            logger.info("All file uploads completed successfully");
+        } catch (IOException e) {
+            logger.severe("Error handling file uploads: " + e.getMessage());
+            // Clean up any uploaded files
+            cleanupUploadedFile(cinRectoPath, request);
+            cleanupUploadedFile(cinVersoPath, request);
+            cleanupUploadedFile(photoPersoPath, request);
+
+            request.setAttribute("error", "Erreur lors de l'upload des fichiers: " + e.getMessage());
+            request.setAttribute("formData", request.getParameterMap());
+            request.getRequestDispatcher("/pages/auth/register-client.jsp").forward(request, response);
+            return;
+        } catch (Exception e) {
+            logger.severe("Unexpected error handling file uploads: " + e.getMessage());
+            e.printStackTrace();
+            // Clean up any uploaded files
+            cleanupUploadedFile(cinRectoPath, request);
+            cleanupUploadedFile(cinVersoPath, request);
+            cleanupUploadedFile(photoPersoPath, request);
+
+            request.setAttribute("error", "Une erreur inattendue est survenue lors de l'upload des fichiers.");
+            request.setAttribute("formData", request.getParameterMap());
+            request.getRequestDispatcher("/pages/auth/register-client.jsp").forward(request, response);
+            return;
+        }
 
         // Save partner to database
         Partenaire createdPartner = partnerDAO.createPartner(partner);
 
         if (createdPartner != null) {
             logger.info("Partner registered successfully: " + mail + " (ID: " + createdPartner.getIdPartenaire() + ")");
+
+            // DEBUG: Verify what was actually saved to database
+            logger.info("=== DATABASE VERIFICATION DEBUG ===");
+            logger.info("Partner ID: " + createdPartner.getIdPartenaire());
+            logger.info("CIN Recto saved: " + createdPartner.getCinRECTO());
+            logger.info("CIN Verso saved: " + createdPartner.getCinVERSO());
+            logger.info("Photo saved: " + createdPartner.getPhotoPerso());
+
+            // Additional verification by querying the database directly
+            try {
+                Partenaire verifyPartner = partnerDAO.getPartnerByEmail(mail);
+                if (verifyPartner != null) {
+                    logger.info("=== DATABASE QUERY VERIFICATION ===");
+                    logger.info("Verified CIN Recto: " + verifyPartner.getCinRECTO());
+                    logger.info("Verified CIN Verso: " + verifyPartner.getCinVERSO());
+                    logger.info("Verified Photo: " + verifyPartner.getPhotoPerso());
+                } else {
+                    logger.warning("Could not verify partner data - partner not found in database");
+                }
+            } catch (Exception e) {
+                logger.severe("Error verifying partner data: " + e.getMessage());
+            }
+
             // Redirect to login page with success parameter
             response.sendRedirect(request.getContextPath() + "/pages/auth/login.jsp?success=registered");
         } else {
             logger.severe("Failed to create partner account for email: " + mail);
+            // Clean up uploaded files since database save failed
+            cleanupUploadedFile(cinRectoPath, request);
+            cleanupUploadedFile(cinVersoPath, request);
+            cleanupUploadedFile(photoPersoPath, request);
+
             request.setAttribute("error", "Une erreur est survenue lors de la création du compte. Veuillez réessayer.");
             request.setAttribute("formData", request.getParameterMap());
             request.getRequestDispatcher("/pages/auth/register-client.jsp").forward(request, response);
