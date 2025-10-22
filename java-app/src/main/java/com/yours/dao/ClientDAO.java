@@ -2,350 +2,141 @@ package com.yours.dao;
 
 import com.yours.model.Client;
 import com.yours.util.DatabaseConnection;
+import com.yours.util.PasswordUtil;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Data Access Object for Client entity
- * Handles all database operations related to clients
+ * Simplified Data Access Object for Client entity
+ * Handles database operations for clients with only registration fields
  */
 public class ClientDAO {
     private static final Logger logger = Logger.getLogger(ClientDAO.class.getName());
 
-    // SQL queries
-    private static final String INSERT_CLIENT = "INSERT INTO client (nom, prenom, mail, adresse, numTelephone, cinRECTO, cinVERSO, motDepasse, dateNaissance, photoPerso) "
-            +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-    private static final String SELECT_CLIENT_BY_ID = "SELECT * FROM client WHERE idClient = ?";
-
-    private static final String SELECT_CLIENT_BY_EMAIL = "SELECT * FROM client WHERE mail = ?";
-
-    private static final String SELECT_ALL_CLIENTS = "SELECT * FROM client ORDER BY nom, prenom";
-
-    private static final String UPDATE_CLIENT = "UPDATE client SET nom = ?, prenom = ?, mail = ?, adresse = ?, numTelephone = ?, "
-            +
-            "cinRECTO = ?, cinVERSO = ?, motDepasse = ?, dateNaissance = ?, photoPerso = ? " +
-            "WHERE idClient = ?";
-
-    private static final String DELETE_CLIENT = "DELETE FROM client WHERE idClient = ?";
-
-    private static final String CHECK_EMAIL_EXISTS = "SELECT COUNT(*) FROM client WHERE mail = ?";
-
     /**
-     * Create a new client in the database
-     * 
-     * @param client Client object to insert
-     * @return true if successful, false otherwise
+     * Creates a new client in the database with only registration fields.
+     *
+     * @param client The client object to create.
+     * @return The created client with its generated ID, or null if creation failed.
      */
-    public boolean createClient(Client client) {
-        Connection connection = null;
-        PreparedStatement statement = null;
+    public Client createClient(Client client) {
+        String SQL = "INSERT INTO client (nom, prenom, mail, numTelephone, motDepasse) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)) {
 
-        try {
-            connection = DatabaseConnection.getConnection();
-            statement = connection.prepareStatement(INSERT_CLIENT, Statement.RETURN_GENERATED_KEYS);
+            pstmt.setString(1, client.getNom());
+            pstmt.setString(2, client.getPrenom());
+            pstmt.setString(3, client.getMail());
+            pstmt.setString(4, client.getNumTelephone());
+            // Hash password with salt
+            String[] passwordData = PasswordUtil.hashPasswordWithSalt(client.getMotDepasse());
+            String hashedPassword = passwordData[0] + ":" + passwordData[1]; // Store hash:salt
+            pstmt.setString(5, hashedPassword);
 
-            // Set parameters
-            statement.setString(1, client.getNom());
-            statement.setString(2, client.getPrenom());
-            statement.setString(3, client.getMail());
-            statement.setString(4, client.getAdresse());
-            statement.setString(5, client.getNumTelephone());
-            statement.setString(6, client.getCinRECTO());
-            statement.setString(7, client.getCinVERSO());
-            statement.setString(8, client.getMotDepasse());
-            statement.setDate(9, client.getDateNaissance());
-            statement.setString(10, client.getPhotoPerso());
+            int affectedRows = pstmt.executeUpdate();
 
-            int rowsAffected = statement.executeUpdate();
-
-            if (rowsAffected > 0) {
-                // Get the generated ID
-                ResultSet generatedKeys = statement.getGeneratedKeys();
-                if (generatedKeys.next()) {
-                    client.setIdClient(generatedKeys.getInt(1));
-                    logger.info("Client created successfully with ID: " + client.getIdClient());
+            if (affectedRows > 0) {
+                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        client.setIdClient(rs.getInt(1));
+                        logger.log(Level.INFO, "Client created successfully with ID: {0}", client.getIdClient());
+                        return client;
+                    }
                 }
-                return true;
             }
-
-        } catch (SQLException e) {
-            logger.severe("Error creating client: " + e.getMessage());
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "Error creating client: " + ex.getMessage(), ex);
         } finally {
-            closeResources(connection, statement, null);
+            // Connection is closed automatically by try-with-resources
         }
-
-        return false;
-    }
-
-    /**
-     * Find client by ID
-     * 
-     * @param idClient Client ID
-     * @return Client object or null if not found
-     */
-    public Client findById(int idClient) {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = DatabaseConnection.getConnection();
-            statement = connection.prepareStatement(SELECT_CLIENT_BY_ID);
-            statement.setInt(1, idClient);
-
-            resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                return mapResultSetToClient(resultSet);
-            }
-
-        } catch (SQLException e) {
-            logger.severe("Error finding client by ID: " + e.getMessage());
-        } finally {
-            closeResources(connection, statement, resultSet);
-        }
-
         return null;
     }
 
     /**
-     * Find client by email
-     * 
-     * @param email Client email
-     * @return Client object or null if not found
+     * Retrieves a client by their email address.
+     *
+     * @param email The email of the client to retrieve.
+     * @return The client object if found, otherwise null.
      */
-    public Client findByEmail(String email) {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
+    public Client getClientByEmail(String email) {
+        String SQL = "SELECT idClient, nom, prenom, mail, numTelephone, motDepasse FROM client WHERE mail = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 
-        try {
-            connection = DatabaseConnection.getConnection();
-            statement = connection.prepareStatement(SELECT_CLIENT_BY_EMAIL);
-            statement.setString(1, email);
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
 
-            resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                return mapResultSetToClient(resultSet);
+            if (rs.next()) {
+                Client client = new Client();
+                client.setIdClient(rs.getInt("idClient"));
+                client.setNom(rs.getString("nom"));
+                client.setPrenom(rs.getString("prenom"));
+                client.setMail(rs.getString("mail"));
+                client.setNumTelephone(rs.getString("numTelephone"));
+                client.setMotDepasse(rs.getString("motDepasse")); // Hashed password from DB
+                return client;
             }
-
-        } catch (SQLException e) {
-            logger.severe("Error finding client by email: " + e.getMessage());
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "Error retrieving client by email: " + ex.getMessage(), ex);
         } finally {
-            closeResources(connection, statement, resultSet);
+            // Connection is closed automatically by try-with-resources
         }
-
         return null;
     }
 
     /**
-     * Get all clients
-     * 
-     * @return List of all clients
+     * Checks if a client with the given email already exists.
+     *
+     * @param email The email to check.
+     * @return true if a client with the email exists, false otherwise.
      */
-    public List<Client> findAll() {
-        List<Client> clients = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
+    public boolean isEmailRegistered(String email) {
+        String SQL = "SELECT COUNT(*) FROM client WHERE mail = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(SQL)) {
 
-        try {
-            connection = DatabaseConnection.getConnection();
-            statement = connection.prepareStatement(SELECT_ALL_CLIENTS);
-
-            resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                clients.add(mapResultSetToClient(resultSet));
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
             }
-
-        } catch (SQLException e) {
-            logger.severe("Error finding all clients: " + e.getMessage());
-        } finally {
-            closeResources(connection, statement, resultSet);
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "Error checking email registration: " + ex.getMessage(), ex);
         }
-
-        return clients;
-    }
-
-    /**
-     * Update client information
-     * 
-     * @param client Client object with updated information
-     * @return true if successful, false otherwise
-     */
-    public boolean updateClient(Client client) {
-        Connection connection = null;
-        PreparedStatement statement = null;
-
-        try {
-            connection = DatabaseConnection.getConnection();
-            statement = connection.prepareStatement(UPDATE_CLIENT);
-
-            // Set parameters
-            statement.setString(1, client.getNom());
-            statement.setString(2, client.getPrenom());
-            statement.setString(3, client.getMail());
-            statement.setString(4, client.getAdresse());
-            statement.setString(5, client.getNumTelephone());
-            statement.setString(6, client.getCinRECTO());
-            statement.setString(7, client.getCinVERSO());
-            statement.setString(8, client.getMotDepasse());
-            statement.setDate(9, client.getDateNaissance());
-            statement.setString(10, client.getPhotoPerso());
-            statement.setInt(11, client.getIdClient());
-
-            int rowsAffected = statement.executeUpdate();
-
-            if (rowsAffected > 0) {
-                logger.info("Client updated successfully with ID: " + client.getIdClient());
-                return true;
-            }
-
-        } catch (SQLException e) {
-            logger.severe("Error updating client: " + e.getMessage());
-        } finally {
-            closeResources(connection, statement, null);
-        }
-
         return false;
     }
 
     /**
-     * Delete client by ID
-     * 
-     * @param idClient Client ID to delete
-     * @return true if successful, false otherwise
-     */
-    public boolean deleteClient(int idClient) {
-        Connection connection = null;
-        PreparedStatement statement = null;
-
-        try {
-            connection = DatabaseConnection.getConnection();
-            statement = connection.prepareStatement(DELETE_CLIENT);
-            statement.setInt(1, idClient);
-
-            int rowsAffected = statement.executeUpdate();
-
-            if (rowsAffected > 0) {
-                logger.info("Client deleted successfully with ID: " + idClient);
-                return true;
-            }
-
-        } catch (SQLException e) {
-            logger.severe("Error deleting client: " + e.getMessage());
-        } finally {
-            closeResources(connection, statement, null);
-        }
-
-        return false;
-    }
-
-    /**
-     * Check if email already exists
-     * 
-     * @param email Email to check
-     * @return true if email exists, false otherwise
-     */
-    public boolean emailExists(String email) {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = DatabaseConnection.getConnection();
-            statement = connection.prepareStatement(CHECK_EMAIL_EXISTS);
-            statement.setString(1, email);
-
-            resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                return resultSet.getInt(1) > 0;
-            }
-
-        } catch (SQLException e) {
-            logger.severe("Error checking email existence: " + e.getMessage());
-        } finally {
-            closeResources(connection, statement, resultSet);
-        }
-
-        return false;
-    }
-
-    /**
-     * Authenticate client with email and password
-     * 
+     * Authenticate client with email and password.
+     *
      * @param email    Client email
      * @param password Client password
      * @return Client object if authentication successful, null otherwise
      */
     public Client authenticate(String email, String password) {
-        Client client = findByEmail(email);
+        Client client = getClientByEmail(email);
 
-        if (client != null && client.getMotDepasse().equals(password)) {
-            logger.info("Client authenticated successfully: " + email);
-            return client;
+        if (client != null) {
+            // Parse stored password (format: hash:salt)
+            String[] storedPasswordData = client.getMotDepasse().split(":");
+            if (storedPasswordData.length == 2) {
+                String storedHash = storedPasswordData[0];
+                String storedSalt = storedPasswordData[1];
+
+                if (PasswordUtil.verifyPassword(password, storedHash, storedSalt)) {
+                    logger.log(Level.INFO, "Client authenticated successfully: {0}", email);
+                    return client;
+                }
+            }
         }
 
-        logger.warning("Authentication failed for email: " + email);
+        logger.log(Level.WARNING, "Authentication failed for email: {0}", email);
         return null;
-    }
-
-    /**
-     * Map ResultSet to Client object
-     * 
-     * @param resultSet ResultSet from database query
-     * @return Client object
-     * @throws SQLException if mapping fails
-     */
-    private Client mapResultSetToClient(ResultSet resultSet) throws SQLException {
-        Client client = new Client();
-        client.setIdClient(resultSet.getInt("idClient"));
-        client.setNom(resultSet.getString("nom"));
-        client.setPrenom(resultSet.getString("prenom"));
-        client.setMail(resultSet.getString("mail"));
-        client.setAdresse(resultSet.getString("adresse"));
-        client.setNumTelephone(resultSet.getString("numTelephone"));
-        client.setCinRECTO(resultSet.getString("cinRECTO"));
-        client.setCinVERSO(resultSet.getString("cinVERSO"));
-        client.setMotDepasse(resultSet.getString("motDepasse"));
-        client.setDateNaissance(resultSet.getDate("dateNaissance"));
-        client.setPhotoPerso(resultSet.getString("photoPerso"));
-
-        return client;
-    }
-
-    /**
-     * Close database resources
-     * 
-     * @param connection Database connection
-     * @param statement  PreparedStatement
-     * @param resultSet  ResultSet
-     */
-    private void closeResources(Connection connection, PreparedStatement statement, ResultSet resultSet) {
-        if (resultSet != null) {
-            try {
-                resultSet.close();
-            } catch (SQLException e) {
-                logger.warning("Error closing ResultSet: " + e.getMessage());
-            }
-        }
-
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                logger.warning("Error closing PreparedStatement: " + e.getMessage());
-            }
-        }
-
-        DatabaseConnection.closeConnection(connection);
     }
 }

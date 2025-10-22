@@ -53,7 +53,6 @@ public class RegisterServlet extends HttpServlet {
             String nom = request.getParameter("nom");
             String prenom = request.getParameter("prenom");
             String mail = request.getParameter("mail");
-            String adresse = request.getParameter("adresse");
             String numTelephone = request.getParameter("numTelephone");
             String motDepasse = request.getParameter("motDepasse");
             if (motDepasse == null) {
@@ -64,10 +63,6 @@ public class RegisterServlet extends HttpServlet {
                 confirmPassword = request.getParameter("confirmPasswordClient"); // Fallback for client confirm password
                                                                                  // field
             }
-            String dateNaissanceStr = request.getParameter("dateNaissance");
-            String cinRECTO = request.getParameter("cinRECTO");
-            String cinVERSO = request.getParameter("cinVERSO");
-            String photoPerso = request.getParameter("photoPerso");
             String acceptTerms = request.getParameter("acceptTerms");
 
             // Validate required fields
@@ -77,7 +72,7 @@ public class RegisterServlet extends HttpServlet {
             }
 
             // Check if email already exists
-            if (clientDAO.emailExists(mail)) {
+            if (clientDAO.isEmailRegistered(mail)) {
                 logger.warning("Registration attempt with existing email: " + mail);
                 request.setAttribute("error", "Cette adresse email est déjà utilisée.");
                 request.setAttribute("formData", request.getParameterMap());
@@ -95,39 +90,19 @@ public class RegisterServlet extends HttpServlet {
                 return;
             }
 
-            // Create new client
+            // Create new client with only registration fields
             Client client = new Client();
             client.setNom(nom.trim());
             client.setPrenom(prenom.trim());
             client.setMail(mail.trim().toLowerCase());
-            client.setAdresse(adresse != null ? adresse.trim() : null);
             client.setNumTelephone(numTelephone != null ? numTelephone.trim() : null);
-            client.setCinRECTO(cinRECTO != null ? cinRECTO.trim() : null);
-            client.setCinVERSO(cinVERSO != null ? cinVERSO.trim() : null);
-            client.setPhotoPerso(photoPerso != null ? photoPerso.trim() : null);
-
-            // Parse date of birth if provided
-            if (dateNaissanceStr != null && !dateNaissanceStr.trim().isEmpty()) {
-                try {
-                    client.setDateNaissance(Date.valueOf(dateNaissanceStr));
-                } catch (IllegalArgumentException e) {
-                    logger.warning("Invalid date format for email: " + mail);
-                    request.setAttribute("error", "Format de date invalide.");
-                    request.setAttribute("formData", request.getParameterMap());
-                    request.getRequestDispatcher("/pages/auth/register-client.jsp").forward(request, response);
-                    return;
-                }
-            }
-
-            // Hash password with salt
-            String[] passwordData = PasswordUtil.hashPasswordWithSalt(motDepasse);
-            client.setMotDepasse(passwordData[0] + ":" + passwordData[1]); // Store hash:salt
+            client.setMotDepasse(motDepasse); // Password will be hashed in DAO
 
             // Save client to database
-            boolean success = clientDAO.createClient(client);
+            Client createdClient = clientDAO.createClient(client);
 
-            if (success) {
-                logger.info("Client registered successfully: " + mail + " (ID: " + client.getIdClient() + ")");
+            if (createdClient != null) {
+                logger.info("Client registered successfully: " + mail + " (ID: " + createdClient.getIdClient() + ")");
 
                 // Redirect to login page with success parameter
                 response.sendRedirect(request.getContextPath() + "/pages/auth/login.jsp?success=registered");
