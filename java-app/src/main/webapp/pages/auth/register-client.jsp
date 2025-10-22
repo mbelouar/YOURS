@@ -59,7 +59,7 @@
                         </div>
 
                         <!-- Registration Form -->
-                        <form id="registerForm" class="needs-validation" action="${pageContext.request.contextPath}/register" method="POST" novalidate>
+                        <form id="registerForm" class="needs-validation" action="${pageContext.request.contextPath}/register" method="POST">
                             <input type="hidden" id="accountType" name="accountType" value="client">
                             
                             <!-- Client-specific fields -->
@@ -70,7 +70,7 @@
                                     </h6>
                                 </div>
                                 <div class="row">
-                                <!-- Row 1: Prénom + Email -->
+                                <!-- Row 1: Prénom + Nom -->
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="prenom" class="form-label fw-semibold" style="font-size: 0.9rem;">Pr&eacute;nom *</label>
@@ -81,22 +81,22 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
+                                        <label for="nom" class="form-label fw-semibold" style="font-size: 0.9rem;">Nom *</label>
+                                        <input type="text" class="form-control" id="nom" name="nom" 
+                                               required placeholder="Votre nom" style="height: 2.75rem; font-size: 0.9rem;">
+                                        <div class="invalid-feedback">Le nom est requis.</div>
+                                    </div>
+                                </div>
+
+                                <!-- Row 2: Email + Téléphone -->
+                                <div class="col-md-6">
+                                    <div class="mb-3">
                                         <label for="mail" class="form-label fw-semibold" style="font-size: 0.9rem;">
                                             <span id="emailLabel">Email *</span>
                                         </label>
                                         <input type="email" class="form-control" id="mail" name="mail" 
                                                required placeholder="votre@email.com" style="height: 2.75rem; font-size: 0.9rem;">
                                         <div class="invalid-feedback">Veuillez saisir une adresse email valide.</div>
-                                    </div>
-                                </div>
-
-                                <!-- Row 2: Nom + Téléphone -->
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="nom" class="form-label fw-semibold" style="font-size: 0.9rem;">Nom *</label>
-                                        <input type="text" class="form-control" id="nom" name="nom" 
-                                               required placeholder="Votre nom" style="height: 2.75rem; font-size: 0.9rem;">
-                                        <div class="invalid-feedback">Le nom est requis.</div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -158,18 +158,18 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="partnerMail" class="form-label fw-semibold" style="font-size: 0.9rem;">Email professionnel *</label>
-                                            <input type="email" class="form-control partner-required" id="partnerMail" name="partnerMail" 
-                                                   placeholder="votre@email.com" style="height: 2.75rem; font-size: 0.9rem;">
-                                            <div class="invalid-feedback">Veuillez saisir une adresse email valide.</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
                                             <label for="partnerNom" class="form-label fw-semibold" style="font-size: 0.9rem;">Nom *</label>
                                             <input type="text" class="form-control partner-required" id="partnerNom" name="partnerNom" 
                                                    placeholder="Votre nom" style="height: 2.75rem; font-size: 0.9rem;">
                                             <div class="invalid-feedback">Le nom est requis.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="partnerMail" class="form-label fw-semibold" style="font-size: 0.9rem;">Email professionnel *</label>
+                                            <input type="email" class="form-control partner-required" id="partnerMail" name="partnerMail" 
+                                                   placeholder="votre@email.com" style="height: 2.75rem; font-size: 0.9rem;">
+                                            <div class="invalid-feedback">Veuillez saisir une adresse email valide.</div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -607,6 +607,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Hide client fields completely
                 clientFields.style.display = 'none';
                 
+                // Remove required attribute from client fields to prevent validation issues
+                const clientRequiredFields = ['prenom', 'nom', 'mail', 'numTelephone', 'motDePasseClient', 'confirmPasswordClient'];
+                clientRequiredFields.forEach(fieldName => {
+                    const field = document.getElementById(fieldName);
+                    if (field) {
+                        field.required = false;
+                        field.setCustomValidity('');
+                    }
+                });
+                
                 // Show partner fields
                 partnerFields.style.display = 'block';
                 partnerSections.style.display = 'block';
@@ -636,6 +646,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Show client fields completely
                 clientFields.style.display = 'block';
                 
+                // Restore required attribute to client fields
+                const clientRequiredFields = ['prenom', 'nom', 'mail', 'numTelephone', 'motDePasseClient', 'confirmPasswordClient'];
+                clientRequiredFields.forEach(fieldName => {
+                    const field = document.getElementById(fieldName);
+                    if (field) {
+                        field.required = true;
+                        field.setCustomValidity('');
+                    }
+                });
+                
                 // Hide partner fields
                 partnerFields.style.display = 'none';
                 partnerSections.style.display = 'none';
@@ -661,18 +681,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     partnerConfirmPassword.setCustomValidity('');
                     partnerConfirmPassword.disabled = true;
                 }
-                
-                // Make client password fields required
-                document.getElementById('motDePasseClient').required = true;
-                document.getElementById('confirmPasswordClient').required = true;
             }
         });
     });
     
     // Setup form validation
     registerForm.addEventListener('submit', function(e) {
-        e.preventDefault(); // Always prevent default first
+        // Let browser validation run first
+        if (!this.checkValidity()) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.add('was-validated');
+            return false;
+        }
         
+        // If browser validation passes, run our custom validation
         console.log('Form submission started');
         console.log('Account type:', document.getElementById('accountType').value);
         
@@ -683,6 +706,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!passwordValidation) {
             // Show error message
             showError('Veuillez vérifier que les mots de passe correspondent et sont remplis.');
+            e.preventDefault();
             return false;
         }
         
@@ -697,21 +721,25 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (!partnerNom || !partnerNom.value.trim()) {
                 showError('Le nom est requis.');
+                e.preventDefault();
                 return false;
             }
             
             if (!partnerPrenom || !partnerPrenom.value.trim()) {
                 showError('Le prénom est requis.');
+                e.preventDefault();
                 return false;
             }
             
             if (!partnerMail || !partnerMail.value.trim()) {
                 showError('L\'email professionnel est requis.');
+                e.preventDefault();
                 return false;
             }
             
             if (!partnerNumTelephone || !partnerNumTelephone.value.trim()) {
                 showError('Le numéro de téléphone est requis.');
+                e.preventDefault();
                 return false;
             }
             
@@ -724,11 +752,13 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (!businessName || !businessName.value.trim()) {
                 showError('Le nom de l\'entreprise est requis.');
+                e.preventDefault();
                 return false;
             }
             
             if (!businessType || !businessType.value.trim()) {
                 showError('Le type d\'activité est requis.');
+                e.preventDefault();
                 return false;
             }
         }
@@ -833,6 +863,16 @@ function initializeFormState() {
                 field.disabled = true;
                 field.required = false;
             }
+        }
+    });
+    
+    // Ensure client fields are required by default
+    const clientRequiredFields = ['prenom', 'nom', 'mail', 'numTelephone', 'motDePasseClient', 'confirmPasswordClient'];
+    clientRequiredFields.forEach(fieldName => {
+        const field = document.getElementById(fieldName);
+        if (field) {
+            field.required = true;
+            field.setCustomValidity('');
         }
     });
 }

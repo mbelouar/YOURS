@@ -10,10 +10,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.logging.Logger;
 
 /**
@@ -76,8 +74,7 @@ public class RegisterServlet extends HttpServlet {
                     numTelephone = partnerNumTelephone;
             }
             String motDepasse = request.getParameter("motDepasseClient"); // Default to client password
-            String confirmPassword = request.getParameter("confirmPasswordClient"); // Default to client confirm
-                                                                                    // password
+            String confirmPassword = request.getParameter("confirmPassword"); // Default to client confirm password
 
             // Check if this is partner registration and get partner password fields
             if ("partner".equals(accountType)) {
