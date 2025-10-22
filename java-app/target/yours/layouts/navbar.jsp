@@ -4,9 +4,11 @@
     boolean isClientPage = request.getRequestURI().contains("/client/");
     boolean isPartnerPage = request.getRequestURI().contains("/partner/");
     boolean isEquipmentPage = request.getRequestURI().contains("/equipment/");
-    boolean isLoggedIn = session.getAttribute("user") != null;
-    boolean showClientNav = (isClientPage || isEquipmentPage) && isLoggedIn;
-    boolean showPartnerNav = isPartnerPage && isLoggedIn;
+    boolean isClientLoggedIn = session.getAttribute("client") != null;
+    boolean isPartnerLoggedIn = session.getAttribute("partner") != null;
+    boolean isLoggedIn = isClientLoggedIn || isPartnerLoggedIn;
+    boolean showClientNav = (isClientPage || isEquipmentPage) && isClientLoggedIn;
+    boolean showPartnerNav = isPartnerPage && isPartnerLoggedIn;
 %>
 
 <style>
@@ -949,7 +951,7 @@ function checkClientSession() {
             }
         }
     } catch (error) {
-        console.error('Error checking client session:', error);
+        console.error('Error checking user session:', error);
     }
 }
 
@@ -1746,7 +1748,7 @@ function openMaps() {
             <!-- User menu -->
             <ul class="navbar-nav">
                 <!-- If user is not logged in -->
-                <% if (session.getAttribute("user") == null) { %>
+                <% if (!isLoggedIn) { %>
                     <li class="nav-item">
                         <a class="btn btn-outline-primary btn-auth-login" href="${pageContext.request.contextPath}/pages/auth/login.jsp">
                             <i class="fas fa-sign-in-alt me-2"></i>Connexion
@@ -1757,12 +1759,12 @@ function openMaps() {
                             <i class="fas fa-user-plus me-2"></i>S'inscrire
                         </a>
                     </li>
-                <% } else { %>
-                    <!-- If user is logged in -->
+                <% } else if (isClientLoggedIn) { %>
+                    <!-- If client is logged in -->
                     <li class="nav-item dropdown">
                         <a class="nav-link nav-link-modern dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                             <i class="fas fa-user-circle me-2"></i>
-                            ${sessionScope.user.prenom} ${sessionScope.user.nom}
+                            ${sessionScope.client.prenom} ${sessionScope.client.nom}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0" style="border-radius: 1rem; padding: 0.5rem;">
                             <li><a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/client/dashboard.jsp">
@@ -1772,6 +1774,32 @@ function openMaps() {
                                 <i class="fas fa-user me-2 text-primary"></i>Mon profil
                             </a></li>
                             <li><a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/client/reservations.jsp">
+                                <i class="fas fa-calendar-check me-2 text-primary"></i>Mes réservations
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item rounded text-danger" href="${pageContext.request.contextPath}/pages/auth/logout.jsp">
+                                <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
+                            </a></li>
+                        </ul>
+                    </li>
+                <% } else if (isPartnerLoggedIn) { %>
+                    <!-- If partner is logged in -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link nav-link-modern dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle me-2"></i>
+                            ${sessionScope.partner.prenom} ${sessionScope.partner.nom}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0" style="border-radius: 1rem; padding: 0.5rem;">
+                            <li><a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/partner/dashboard.jsp">
+                                <i class="fas fa-tachometer-alt me-2 text-primary"></i>Tableau de bord
+                            </a></li>
+                            <li><a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/partner/profile.jsp">
+                                <i class="fas fa-user me-2 text-primary"></i>Mon profil
+                            </a></li>
+                            <li><a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/partner/equipment.jsp">
+                                <i class="fas fa-box-seam me-2 text-primary"></i>Mon matériel
+                            </a></li>
+                            <li><a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/partner/reservations.jsp">
                                 <i class="fas fa-calendar-check me-2 text-primary"></i>Mes réservations
                             </a></li>
                             <li><hr class="dropdown-divider"></li>
