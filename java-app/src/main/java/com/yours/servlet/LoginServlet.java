@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet {
             }
 
             // Find client by email
-            Client client = clientDAO.findByEmail(email.trim().toLowerCase());
+            Client client = clientDAO.getClientByEmail(email.trim().toLowerCase());
 
             if (client == null) {
                 logger.warning("Login attempt with non-existent email: " + email);
