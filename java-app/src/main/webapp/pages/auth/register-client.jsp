@@ -209,7 +209,7 @@
                                                        placeholder="Minimum 8 caract&egrave;res" style="height: 2.75rem; font-size: 0.9rem; padding-right: 3rem;">
                                                 <button type="button" class="btn position-absolute end-0 top-50 translate-middle-y me-1" 
                                                         onclick="togglePassword('motDepasse')" style="z-index: 5; border: none; background: none; color: var(--gray-500); padding: 0.5rem;">
-                                                    <i class="fas fa-eye" id="motDePasseToggleIcon"></i>
+                                                    <i class="fas fa-eye" id="motDepasseToggleIcon"></i>
                                                 </button>
                                             </div>
                                             <div class="progress mt-1" style="height: 4px;">
