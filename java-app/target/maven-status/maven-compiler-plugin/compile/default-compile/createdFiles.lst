@@ -1,6 +1,7 @@
 com/yours/model/Categorie.class
 com/yours/model/Reservation.class
 com/yours/model/Client.class
+com/yours/dao/PartnerDAO.class
 com/yours/model/Partenaire.class
 com/yours/servlet/LogoutServlet.class
 com/yours/model/Ia.class

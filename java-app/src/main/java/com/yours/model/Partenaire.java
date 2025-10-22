@@ -14,6 +14,9 @@ public class Partenaire {
     private String cinVERSO;
     private String motDepasse;
     private String photoPerso;
+    private String nomEntreprise;
+    private String typeActivite;
+    private String numeroSiret;
 
     // Constructors
     public Partenaire() {
@@ -28,7 +31,7 @@ public class Partenaire {
 
     public Partenaire(int idPartenaire, String nom, String prenom, String mail, String adresse,
             String numTelephone, String cinRECTO, String cinVERSO, String motDepasse,
-            String photoPerso) {
+            String photoPerso, String nomEntreprise, String typeActivite, String numeroSiret) {
         this.idPartenaire = idPartenaire;
         this.nom = nom;
         this.prenom = prenom;
@@ -39,6 +42,9 @@ public class Partenaire {
         this.cinVERSO = cinVERSO;
         this.motDepasse = motDepasse;
         this.photoPerso = photoPerso;
+        this.nomEntreprise = nomEntreprise;
+        this.typeActivite = typeActivite;
+        this.numeroSiret = numeroSiret;
     }
 
     // Getters and Setters
@@ -122,6 +128,30 @@ public class Partenaire {
         this.photoPerso = photoPerso;
     }
 
+    public String getNomEntreprise() {
+        return nomEntreprise;
+    }
+
+    public void setNomEntreprise(String nomEntreprise) {
+        this.nomEntreprise = nomEntreprise;
+    }
+
+    public String getTypeActivite() {
+        return typeActivite;
+    }
+
+    public void setTypeActivite(String typeActivite) {
+        this.typeActivite = typeActivite;
+    }
+
+    public String getNumeroSiret() {
+        return numeroSiret;
+    }
+
+    public void setNumeroSiret(String numeroSiret) {
+        this.numeroSiret = numeroSiret;
+    }
+
     @Override
     public String toString() {
         return "Partenaire{" +
@@ -135,6 +165,9 @@ public class Partenaire {
                 ", cinVERSO='" + cinVERSO + '\'' +
                 ", motDepasse='" + motDepasse + '\'' +
                 ", photoPerso='" + photoPerso + '\'' +
+                ", nomEntreprise='" + nomEntreprise + '\'' +
+                ", typeActivite='" + typeActivite + '\'' +
+                ", numeroSiret='" + numeroSiret + '\'' +
                 '}';
     }
 }

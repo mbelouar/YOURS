@@ -1,7 +1,9 @@
 package com.yours.servlet;
 
 import com.yours.dao.ClientDAO;
+import com.yours.dao.PartnerDAO;
 import com.yours.model.Client;
+import com.yours.model.Partenaire;
 import com.yours.util.PasswordUtil;
 
 import jakarta.servlet.ServletException;
@@ -22,11 +24,13 @@ public class RegisterServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(RegisterServlet.class.getName());
 
     private ClientDAO clientDAO;
+    private PartnerDAO partnerDAO;
 
     @Override
     public void init() throws ServletException {
         super.init();
         clientDAO = new ClientDAO();
+        partnerDAO = new PartnerDAO();
         logger.info("RegisterServlet initialized");
     }
 
@@ -54,14 +58,37 @@ public class RegisterServlet extends HttpServlet {
             String prenom = request.getParameter("prenom");
             String mail = request.getParameter("mail");
             String numTelephone = request.getParameter("numTelephone");
-            String motDepasse = request.getParameter("motDepasse");
-            if (motDepasse == null) {
-                motDepasse = request.getParameter("motDepasseClient"); // Fallback for client password field
+
+            // Check if this is partner registration and get partner personal info fields
+            if ("partner".equals(accountType)) {
+                String partnerNom = request.getParameter("partnerNom");
+                String partnerPrenom = request.getParameter("partnerPrenom");
+                String partnerMail = request.getParameter("partnerMail");
+                String partnerNumTelephone = request.getParameter("partnerNumTelephone");
+
+                if (partnerNom != null)
+                    nom = partnerNom;
+                if (partnerPrenom != null)
+                    prenom = partnerPrenom;
+                if (partnerMail != null)
+                    mail = partnerMail;
+                if (partnerNumTelephone != null)
+                    numTelephone = partnerNumTelephone;
             }
-            String confirmPassword = request.getParameter("confirmPassword");
-            if (confirmPassword == null) {
-                confirmPassword = request.getParameter("confirmPasswordClient"); // Fallback for client confirm password
-                                                                                 // field
+            String motDepasse = request.getParameter("motDepasseClient"); // Default to client password
+            String confirmPassword = request.getParameter("confirmPasswordClient"); // Default to client confirm
+                                                                                    // password
+
+            // Check if this is partner registration and get partner password fields
+            if ("partner".equals(accountType)) {
+                String partnerMotDepasse = request.getParameter("partnerMotDepasse");
+                String partnerConfirmPassword = request.getParameter("partnerConfirmPassword");
+                if (partnerMotDepasse != null) {
+                    motDepasse = partnerMotDepasse;
+                }
+                if (partnerConfirmPassword != null) {
+                    confirmPassword = partnerConfirmPassword;
+                }
             }
             String acceptTerms = request.getParameter("acceptTerms");
 
@@ -71,8 +98,9 @@ public class RegisterServlet extends HttpServlet {
                 return;
             }
 
-            // Check if email already exists
-            if (clientDAO.isEmailRegistered(mail)) {
+            // Check if email already exists (check both client and partner tables)
+            boolean emailExists = clientDAO.isEmailRegistered(mail) || partnerDAO.isEmailRegistered(mail);
+            if (emailExists) {
                 logger.warning("Registration attempt with existing email: " + mail);
                 request.setAttribute("error", "Cette adresse email est déjà utilisée.");
                 request.setAttribute("formData", request.getParameterMap());
@@ -90,29 +118,12 @@ public class RegisterServlet extends HttpServlet {
                 return;
             }
 
-            // Create new client with only registration fields
-            Client client = new Client();
-            client.setNom(nom.trim());
-            client.setPrenom(prenom.trim());
-            client.setMail(mail.trim().toLowerCase());
-            client.setNumTelephone(numTelephone != null ? numTelephone.trim() : null);
-            client.setMotDepasse(motDepasse); // Password will be hashed in DAO
-
-            // Save client to database
-            Client createdClient = clientDAO.createClient(client);
-
-            if (createdClient != null) {
-                logger.info("Client registered successfully: " + mail + " (ID: " + createdClient.getIdClient() + ")");
-
-                // Redirect to login page with success parameter
-                response.sendRedirect(request.getContextPath() + "/pages/auth/login.jsp?success=registered");
-
+            if ("partner".equals(accountType)) {
+                // Handle partner registration
+                handlePartnerRegistration(request, response, nom, prenom, mail, numTelephone, motDepasse);
             } else {
-                logger.severe("Failed to create client account for email: " + mail);
-                request.setAttribute("error",
-                        "Une erreur est survenue lors de la création du compte. Veuillez réessayer.");
-                request.setAttribute("formData", request.getParameterMap());
-                request.getRequestDispatcher("/pages/auth/register-client.jsp").forward(request, response);
+                // Handle client registration
+                handleClientRegistration(request, response, nom, prenom, mail, numTelephone, motDepasse);
             }
 
         } catch (Exception e) {
@@ -213,5 +224,96 @@ public class RegisterServlet extends HttpServlet {
 
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         return email.matches(emailRegex);
+    }
+
+    /**
+     * Handle client registration
+     */
+    private void handleClientRegistration(HttpServletRequest request, HttpServletResponse response,
+            String nom, String prenom, String mail, String numTelephone, String motDepasse)
+            throws ServletException, IOException {
+
+        // Create new client with only registration fields
+        Client client = new Client();
+        client.setNom(nom.trim());
+        client.setPrenom(prenom.trim());
+        client.setMail(mail.trim().toLowerCase());
+        client.setNumTelephone(numTelephone != null ? numTelephone.trim() : null);
+        client.setMotDepasse(motDepasse); // Password will be hashed in DAO
+
+        // Save client to database
+        Client createdClient = clientDAO.createClient(client);
+
+        if (createdClient != null) {
+            logger.info("Client registered successfully: " + mail + " (ID: " + createdClient.getIdClient() + ")");
+            // Redirect to login page with success parameter
+            response.sendRedirect(request.getContextPath() + "/pages/auth/login.jsp?success=registered");
+        } else {
+            logger.severe("Failed to create client account for email: " + mail);
+            request.setAttribute("error", "Une erreur est survenue lors de la création du compte. Veuillez réessayer.");
+            request.setAttribute("formData", request.getParameterMap());
+            request.getRequestDispatcher("/pages/auth/register-client.jsp").forward(request, response);
+        }
+    }
+
+    /**
+     * Handle partner registration
+     */
+    private void handlePartnerRegistration(HttpServletRequest request, HttpServletResponse response,
+            String nom, String prenom, String mail, String numTelephone, String motDepasse)
+            throws ServletException, IOException {
+
+        // Get partner-specific parameters
+        String businessName = request.getParameter("partnerBusinessName");
+        String businessType = request.getParameter("partnerBusinessType");
+        String numeroSiret = request.getParameter("numeroSiret");
+        String adresse = request.getParameter("adresse");
+
+        // Validate partner-specific required fields
+        if (businessName == null || businessName.trim().isEmpty()) {
+            request.setAttribute("error", "Le nom de l'entreprise est requis.");
+            request.setAttribute("formData", request.getParameterMap());
+            request.getRequestDispatcher("/pages/auth/register-client.jsp").forward(request, response);
+            return;
+        }
+
+        if (businessType == null || businessType.trim().isEmpty()) {
+            request.setAttribute("error", "Le type d'activité est requis.");
+            request.setAttribute("formData", request.getParameterMap());
+            request.getRequestDispatcher("/pages/auth/register-client.jsp").forward(request, response);
+            return;
+        }
+
+        // Create new partner
+        Partenaire partner = new Partenaire();
+        partner.setNom(nom.trim());
+        partner.setPrenom(prenom.trim());
+        partner.setMail(mail.trim().toLowerCase());
+        partner.setNumTelephone(numTelephone != null ? numTelephone.trim() : null);
+        partner.setMotDepasse(motDepasse); // Password will be hashed in DAO
+        partner.setNomEntreprise(businessName.trim());
+        partner.setTypeActivite(businessType.trim());
+        partner.setNumeroSiret(numeroSiret != null ? numeroSiret.trim() : null);
+        partner.setAdresse(adresse != null ? adresse.trim() : null);
+
+        // Note: File uploads (CIN, photo) would need to be handled separately
+        // For now, we'll store null values for these fields
+        partner.setCinRECTO(null);
+        partner.setCinVERSO(null);
+        partner.setPhotoPerso(null);
+
+        // Save partner to database
+        Partenaire createdPartner = partnerDAO.createPartner(partner);
+
+        if (createdPartner != null) {
+            logger.info("Partner registered successfully: " + mail + " (ID: " + createdPartner.getIdPartenaire() + ")");
+            // Redirect to login page with success parameter
+            response.sendRedirect(request.getContextPath() + "/pages/auth/login.jsp?success=registered");
+        } else {
+            logger.severe("Failed to create partner account for email: " + mail);
+            request.setAttribute("error", "Une erreur est survenue lors de la création du compte. Veuillez réessayer.");
+            request.setAttribute("formData", request.getParameterMap());
+            request.getRequestDispatcher("/pages/auth/register-client.jsp").forward(request, response);
+        }
     }
 }

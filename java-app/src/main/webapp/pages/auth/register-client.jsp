@@ -59,16 +59,17 @@
                         </div>
 
                         <!-- Registration Form -->
-                        <form id="registerForm" class="needs-validation" action="${pageContext.request.contextPath}/register" method="POST">
+                        <form id="registerForm" class="needs-validation" action="${pageContext.request.contextPath}/register" method="POST" novalidate>
                             <input type="hidden" id="accountType" name="accountType" value="client">
                             
-                            <!-- Form Fields -->
-                            <div class="mb-4">
-                                <h6 class="fw-bold mb-3" style="color: var(--gray-800); font-size: 0.95rem;">
-                                    <i class="fas fa-user me-2 text-primary"></i>Informations personnelles
-                                </h6>
-                            </div>
-                            <div class="row">
+                            <!-- Client-specific fields -->
+                            <div id="clientFields">
+                                <div class="mb-4">
+                                    <h6 class="fw-bold mb-3" style="color: var(--gray-800); font-size: 0.95rem;">
+                                        <i class="fas fa-user me-2 text-primary"></i>Informations personnelles
+                                    </h6>
+                                </div>
+                                <div class="row">
                                 <!-- Row 1: Prénom + Email -->
                                 <div class="col-md-6">
                                     <div class="mb-3">
@@ -141,9 +142,48 @@
                                     </div>
                                 </div>
                             </div>
+                            </div>
 
                             <!-- Partner-specific fields (hidden by default) -->
                             <div id="partnerFields" style="display: none;">
+                                <div class="row">
+                                    <!-- Partner Personal Information -->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="partnerPrenom" class="form-label fw-semibold" style="font-size: 0.9rem;">Pr&eacute;nom *</label>
+                                            <input type="text" class="form-control partner-required" id="partnerPrenom" name="partnerPrenom" 
+                                                   placeholder="Votre pr&eacute;nom" style="height: 2.75rem; font-size: 0.9rem;">
+                                            <div class="invalid-feedback">Le pr&eacute;nom est requis.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="partnerMail" class="form-label fw-semibold" style="font-size: 0.9rem;">Email professionnel *</label>
+                                            <input type="email" class="form-control partner-required" id="partnerMail" name="partnerMail" 
+                                                   placeholder="votre@email.com" style="height: 2.75rem; font-size: 0.9rem;">
+                                            <div class="invalid-feedback">Veuillez saisir une adresse email valide.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="partnerNom" class="form-label fw-semibold" style="font-size: 0.9rem;">Nom *</label>
+                                            <input type="text" class="form-control partner-required" id="partnerNom" name="partnerNom" 
+                                                   placeholder="Votre nom" style="height: 2.75rem; font-size: 0.9rem;">
+                                            <div class="invalid-feedback">Le nom est requis.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="partnerNumTelephone" class="form-label fw-semibold" style="font-size: 0.9rem;">
+                                                <i class="fas fa-phone me-1 text-primary" style="font-size: 0.8rem;"></i>
+                                                T&eacute;l&eacute;phone *
+                                            </label>
+                                            <input type="tel" class="form-control partner-required" id="partnerNumTelephone" name="partnerNumTelephone" 
+                                                   placeholder="+212 6 12 34 56 78" style="height: 2.75rem; font-size: 0.9rem;">
+                                            <div class="invalid-feedback">Le num&eacute;ro de t&eacute;l&eacute;phone est requis.</div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <!-- Left Column - Business Info -->
                                     <div class="col-md-6">
@@ -153,7 +193,7 @@
                                                 <i class="fas fa-building me-1 text-primary" style="font-size: 0.8rem;"></i>
                                                 Nom de l'entreprise *
                                             </label>
-                                            <input type="text" class="form-control partner-required" id="businessName" name="businessName" 
+                                            <input type="text" class="form-control partner-required" id="businessName" name="partnerBusinessName" 
                                                    placeholder="Nom de votre entreprise" style="height: 2.75rem; font-size: 0.9rem;">
                                             <div class="invalid-feedback">Le nom de l'entreprise est requis.</div>
                                         </div>
@@ -165,8 +205,8 @@
                                                 Mot de passe *
                                             </label>
                                             <div class="position-relative">
-                                                <input type="password" class="form-control" id="motDepasse" name="motDepasse" 
-                                                       required minlength="8" placeholder="Minimum 8 caract&egrave;res" style="height: 2.75rem; font-size: 0.9rem; padding-right: 3rem;">
+                                                <input type="password" class="form-control" id="motDepasse" name="partnerMotDepasse" 
+                                                       placeholder="Minimum 8 caract&egrave;res" style="height: 2.75rem; font-size: 0.9rem; padding-right: 3rem;">
                                                 <button type="button" class="btn position-absolute end-0 top-50 translate-middle-y me-1" 
                                                         onclick="togglePassword('motDepasse')" style="z-index: 5; border: none; background: none; color: var(--gray-500); padding: 0.5rem;">
                                                     <i class="fas fa-eye" id="motDePasseToggleIcon"></i>
@@ -188,7 +228,7 @@
                                                 <i class="fas fa-tag me-1 text-primary" style="font-size: 0.8rem;"></i>
                                                 Type d'activit&eacute; *
                                             </label>
-                                            <select class="form-select partner-required" id="businessType" name="businessType" style="height: 2.75rem; font-size: 0.9rem;">
+                                            <select class="form-select partner-required" id="businessType" name="partnerBusinessType" style="height: 2.75rem; font-size: 0.9rem;">
                                                 <option value="">S&eacute;lectionnez votre activit&eacute;</option>
                                                 <option value="photo-video">Photographie/Vid&eacute;ographie</option>
                                                 <option value="event">&Eacute;v&eacute;nementiel</option>
@@ -204,8 +244,8 @@
                                         <!-- Confirm Password -->
                                         <div class="mb-3">
                                             <label for="confirmPassword" class="form-label fw-semibold" style="font-size: 0.9rem;">Confirmer le mot de passe *</label>
-                                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" 
-                                                   required placeholder="Confirmez votre mot de passe" style="height: 2.75rem; font-size: 0.9rem;">
+                                            <input type="password" class="form-control" id="confirmPassword" name="partnerConfirmPassword" 
+                                                   placeholder="Confirmez votre mot de passe" style="height: 2.75rem; font-size: 0.9rem;">
                                             <div class="invalid-feedback">Les mots de passe ne correspondent pas.</div>
                                         </div>
                                     </div>
@@ -557,21 +597,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // User type toggle handler
     const partnerFields = document.getElementById('partnerFields');
     const partnerSections = document.getElementById('partnerSections');
+    const clientFields = document.getElementById('clientFields');
     const clientPasswordField = document.getElementById('clientPasswordField');
     const clientConfirmPasswordField = document.getElementById('clientConfirmPasswordField');
     
     userTypeRadios.forEach(radio => {
         radio.addEventListener('change', function() {
             if (this.value === 'partner') {
+                // Hide client fields completely
+                clientFields.style.display = 'none';
+                
                 // Show partner fields
                 partnerFields.style.display = 'block';
                 partnerSections.style.display = 'block';
                 emailLabel.textContent = 'Email professionnel *';
                 accountTypeInput.value = 'partner';
-                
-                // Hide client password fields
-                clientPasswordField.style.display = 'none';
-                clientConfirmPasswordField.style.display = 'none';
                 
                 // Make partner fields required and clear validation
                 document.querySelectorAll('.partner-required').forEach(field => {
@@ -592,28 +632,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     partnerConfirmPassword.setCustomValidity('');
                     partnerConfirmPassword.removeAttribute('disabled');
                 }
-                
-                // Make client password fields not required and clear validation
-                const clientPassword = document.getElementById('motDePasseClient');
-                const clientConfirmPassword = document.getElementById('confirmPasswordClient');
-                if (clientPassword) {
-                    clientPassword.required = false;
-                    clientPassword.setCustomValidity('');
-                }
-                if (clientConfirmPassword) {
-                    clientConfirmPassword.required = false;
-                    clientConfirmPassword.setCustomValidity('');
-                }
             } else {
+                // Show client fields completely
+                clientFields.style.display = 'block';
+                
                 // Hide partner fields
                 partnerFields.style.display = 'none';
                 partnerSections.style.display = 'none';
                 emailLabel.textContent = 'Email *';
                 accountTypeInput.value = 'client';
-                
-                // Show client password fields
-                clientPasswordField.style.display = 'block';
-                clientConfirmPasswordField.style.display = 'block';
                 
                 // Make partner fields not required and clear validation
                 document.querySelectorAll('.partner-required').forEach(field => {
@@ -644,7 +671,71 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Setup form validation
     registerForm.addEventListener('submit', function(e) {
-        // Show loading state immediately
+        e.preventDefault(); // Always prevent default first
+        
+        console.log('Form submission started');
+        console.log('Account type:', document.getElementById('accountType').value);
+        
+        // Validate passwords before submission
+        const passwordValidation = validatePasswords();
+        console.log('Password validation result:', passwordValidation);
+        
+        if (!passwordValidation) {
+            // Show error message
+            showError('Veuillez vérifier que les mots de passe correspondent et sont remplis.');
+            return false;
+        }
+        
+        // Validate required fields based on account type
+        const accountType = document.getElementById('accountType').value;
+        if (accountType === 'partner') {
+            // Validate partner personal info
+            const partnerNom = document.getElementById('partnerNom');
+            const partnerPrenom = document.getElementById('partnerPrenom');
+            const partnerMail = document.getElementById('partnerMail');
+            const partnerNumTelephone = document.getElementById('partnerNumTelephone');
+            
+            if (!partnerNom || !partnerNom.value.trim()) {
+                showError('Le nom est requis.');
+                return false;
+            }
+            
+            if (!partnerPrenom || !partnerPrenom.value.trim()) {
+                showError('Le prénom est requis.');
+                return false;
+            }
+            
+            if (!partnerMail || !partnerMail.value.trim()) {
+                showError('L\'email professionnel est requis.');
+                return false;
+            }
+            
+            if (!partnerNumTelephone || !partnerNumTelephone.value.trim()) {
+                showError('Le numéro de téléphone est requis.');
+                return false;
+            }
+            
+            // Validate partner business info
+            const businessName = document.getElementById('businessName');
+            const businessType = document.getElementById('businessType');
+            
+            console.log('Business name value:', businessName ? businessName.value : 'null');
+            console.log('Business type value:', businessType ? businessType.value : 'null');
+            
+            if (!businessName || !businessName.value.trim()) {
+                showError('Le nom de l\'entreprise est requis.');
+                return false;
+            }
+            
+            if (!businessType || !businessType.value.trim()) {
+                showError('Le type d\'activité est requis.');
+                return false;
+            }
+        }
+        
+        console.log('All validations passed, submitting form');
+        
+        // Show loading state
         const submitBtn = registerForm.querySelector('button[type="submit"]');
         const buttonText = submitBtn.querySelector('.button-text');
         const spinner = submitBtn.querySelector('.spinner-border');
@@ -656,7 +747,8 @@ document.addEventListener('DOMContentLoaded', function() {
         spinner.classList.remove('d-none');
         icon.style.display = 'none';
         
-        // Let the form submit normally - server will handle validation
+        // Submit the form
+        this.submit();
     });
     
     // Password strength indicator for partner
@@ -842,19 +934,43 @@ function updatePasswordStrengthPartner() {
 // Validate password confirmation
 function validatePasswords() {
     const accountType = document.getElementById('accountType').value;
+    console.log('Validating passwords for account type:', accountType);
     
     if (accountType === 'partner') {
         const password = document.getElementById('motDepasse');
         const confirmPassword = document.getElementById('confirmPassword');
         
+        console.log('Partner password fields found:', password !== null, confirmPassword !== null);
+        console.log('Password value:', password ? password.value : 'null');
+        console.log('Confirm password value:', confirmPassword ? confirmPassword.value : 'null');
+        
         if (!password || !confirmPassword) {
+            console.log('Partner password fields not found');
             return true; // Skip validation if elements don't exist
         }
         
+        // Clear any existing validation
+        password.setCustomValidity('');
+        confirmPassword.setCustomValidity('');
+        
+        if (password.value.trim() === '') {
+            console.log('Password is empty');
+            password.setCustomValidity('Le mot de passe est requis');
+            return false;
+        }
+        
+        if (confirmPassword.value.trim() === '') {
+            console.log('Confirm password is empty');
+            confirmPassword.setCustomValidity('La confirmation du mot de passe est requise');
+            return false;
+        }
+        
         if (password.value !== confirmPassword.value) {
+            console.log('Passwords do not match');
             confirmPassword.setCustomValidity('Les mots de passe ne correspondent pas');
             return false;
         } else {
+            console.log('Passwords match - validation passed');
             confirmPassword.setCustomValidity('');
             return true;
         }
@@ -862,14 +978,37 @@ function validatePasswords() {
         const password = document.getElementById('motDePasseClient');
         const confirmPassword = document.getElementById('confirmPasswordClient');
         
+        console.log('Client password fields found:', password !== null, confirmPassword !== null);
+        console.log('Password value:', password ? password.value : 'null');
+        console.log('Confirm password value:', confirmPassword ? confirmPassword.value : 'null');
+        
         if (!password || !confirmPassword) {
+            console.log('Client password fields not found');
             return true; // Skip validation if elements don't exist
         }
         
+        // Clear any existing validation
+        password.setCustomValidity('');
+        confirmPassword.setCustomValidity('');
+        
+        if (password.value.trim() === '') {
+            console.log('Password is empty');
+            password.setCustomValidity('Le mot de passe est requis');
+            return false;
+        }
+        
+        if (confirmPassword.value.trim() === '') {
+            console.log('Confirm password is empty');
+            confirmPassword.setCustomValidity('La confirmation du mot de passe est requise');
+            return false;
+        }
+        
         if (password.value !== confirmPassword.value) {
+            console.log('Passwords do not match');
             confirmPassword.setCustomValidity('Les mots de passe ne correspondent pas');
             return false;
         } else {
+            console.log('Passwords match - validation passed');
             confirmPassword.setCustomValidity('');
             return true;
         }
