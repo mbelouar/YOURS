@@ -1,6 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     request.setAttribute("pageTitle", "Connexion - YOURS");
+    
+    // Handle server-side messages
+    String error = (String) request.getAttribute("error");
+    String success = request.getParameter("success");
+    String logout = request.getParameter("logout");
 %>
 
 <%@ include file="../../layouts/header.jsp" %>
@@ -25,8 +30,22 @@
                             <p class="text-muted mb-0" style="font-size: 0.95rem;">Connectez-vous &agrave; votre compte YOURS</p>
                         </div>
 
+                        <!-- Success Message -->
+                        <div class="alert alert-success d-none mb-3" id="successAlert" role="alert" 
+                             style="border-radius: 0.875rem; border: none; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); color: #059669;">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <strong>Inscription réussie !</strong> - Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.
+                        </div>
+
+                        <!-- Logout Message -->
+                        <div class="alert alert-info d-none mb-3" id="logoutAlert" role="alert" 
+                             style="border-radius: 0.875rem; border: none; background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); color: #1d4ed8;">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Déconnexion réussie</strong> - Vous avez été déconnecté avec succès.
+                        </div>
+
                         <!-- Login Form -->
-                        <form id="loginForm" class="needs-validation" novalidate>
+                        <form id="loginForm" class="needs-validation" action="${pageContext.request.contextPath}/login" method="POST" novalidate>
                             <!-- Email -->
                             <div class="mb-3">
                                 <label for="email" class="form-label fw-semibold mb-2" style="color: var(--gray-700); font-size: 0.9rem;">
@@ -412,19 +431,41 @@ button[type="submit"] .button-text {
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
     
+    // Handle server-side messages
+    <% if (error != null) { %>
+        showError('<%= error %>');
+    <% } %>
+    
+    <% if (success != null) { %>
+        showSuccess();
+    <% } %>
+    
+    <% if (logout != null) { %>
+        showLogout();
+    <% } %>
+    
     // Update navbar links to redirect to homepage sections
     updateNavbarLinks();
     
     // Enhanced form validation and submission
     loginForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
         if (!loginForm.checkValidity()) {
+            e.preventDefault();
             loginForm.classList.add('was-validated');
             return;
         }
         
-        handleLogin();
+        // Show loading state
+        const submitBtn = loginForm.querySelector('button[type="submit"]');
+        const buttonText = submitBtn.querySelector('.button-text');
+        const icon = submitBtn.querySelector('i.fas');
+        
+        submitBtn.disabled = true;
+        submitBtn.classList.add('loading-pulse');
+        buttonText.textContent = 'Connexion en cours...';
+        icon.style.display = 'none';
+        
+        // Form will submit normally to the servlet
     });
     
     // Add focus effects to form inputs
@@ -439,6 +480,48 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Show error message
+function showError(message) {
+    const errorAlert = document.getElementById('loginError');
+    errorAlert.classList.remove('d-none');
+    
+    // Scroll to error message
+    errorAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Hide error message after 8 seconds
+    setTimeout(() => {
+        errorAlert.classList.add('d-none');
+    }, 8000);
+}
+
+// Show success message
+function showSuccess() {
+    const successAlert = document.getElementById('successAlert');
+    successAlert.classList.remove('d-none');
+    
+    // Scroll to success message
+    successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Hide success message after 5 seconds
+    setTimeout(() => {
+        successAlert.classList.add('d-none');
+    }, 5000);
+}
+
+// Show logout message
+function showLogout() {
+    const logoutAlert = document.getElementById('logoutAlert');
+    logoutAlert.classList.remove('d-none');
+    
+    // Scroll to logout message
+    logoutAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Hide logout message after 5 seconds
+    setTimeout(() => {
+        logoutAlert.classList.add('d-none');
+    }, 5000);
+}
 
 // Update navbar links to redirect to homepage sections
 function updateNavbarLinks() {
@@ -478,187 +561,7 @@ function togglePassword(inputId) {
     }, 150);
 }
 
-// Enhanced login handler with better UX
-function handleLogin() {
-    const form = document.getElementById('loginForm');
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const buttonText = submitBtn.querySelector('.button-text');
-    const icon = submitBtn.querySelector('i.fas');
-    
-    // Enhanced loading state
-    submitBtn.disabled = true;
-    submitBtn.classList.add('loading-pulse');
-    buttonText.textContent = 'Connexion en cours...';
-    icon.style.display = 'none';
-    submitBtn.style.display = 'flex';
-    submitBtn.style.alignItems = 'center';
-    submitBtn.style.justifyContent = 'center';
-    submitBtn.style.gap = '0.5rem';
-    
-    // Get form data
-    const formData = new FormData(form);
-    const email = formData.get('email');
-    const password = formData.get('password');
-    const rememberMe = formData.get('rememberMe') === 'on';
-    
-    // Get redirect URL from query parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const redirectUrl = urlParams.get('redirect');
-    
-    // Debug logging
-    console.log('Redirect URL from parameters:', redirectUrl);
-    console.log('Current URL:', window.location.href);
-    
-    // Simulate API call with enhanced feedback
-    setTimeout(() => {
-        // Mock authentication logic
-        let user = null;
-        let userType = null;
-        
-        // Demo accounts with enhanced user data
-        if (email === 'client@demo.com' && password === 'demo123') {
-            user = {
-                id: 1,
-                nom: 'Client',
-                prenom: 'Demo',
-                email: 'client@demo.com',
-                type: 'client'
-            };
-            userType = 'client';
-        } else if (email === 'partner@demo.com' && password === 'demo123') {
-            user = {
-                id: 2,
-                nom: 'Partenaire',
-                prenom: 'Demo',
-                email: 'partner@demo.com',
-                type: 'partner'
-            };
-            userType = 'partner';
-        } else if (email === 'admin@demo.com' && password === 'demo123') {
-            user = {
-                id: 3,
-                nom: 'Admin',
-                prenom: 'Demo',
-                email: 'admin@demo.com',
-                type: 'admin'
-            };
-            userType = 'admin';
-        }
-        
-        if (user) {
-            // Store user session on client-side
-            if (rememberMe) {
-                localStorage.setItem('yours_user', JSON.stringify(user));
-            } else {
-                sessionStorage.setItem('yours_user', JSON.stringify(user));
-            }
-            
-            // Show success state briefly before redirect
-            submitBtn.classList.remove('loading-pulse');
-            buttonText.textContent = 'Connexion réussie !';
-            icon.className = 'fas fa-check success-checkmark';
-            icon.style.display = 'inline';
-            icon.style.marginRight = '0.5rem';
-            icon.style.fontSize = '1rem';
-            submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-            submitBtn.style.display = 'flex';
-            submitBtn.style.alignItems = 'center';
-            submitBtn.style.justifyContent = 'center';
-            submitBtn.style.gap = '0.5rem';
-            
-            // Redirect after a brief delay to show success state
-            setTimeout(() => {
-                try {
-                    // Determine redirect destination
-                    let destination = '';
-                    
-                    if (redirectUrl && userType === 'client') {
-                        // If there's a redirect URL and user is a client, use it
-                        // Handle both relative and absolute URLs
-                        if (redirectUrl.startsWith('/')) {
-                            destination = '${pageContext.request.contextPath}' + redirectUrl;
-                        } else {
-                            destination = redirectUrl;
-                        }
-                    } else {
-                        // Default redirects based on user type
-                        switch (userType) {
-                            case 'client':
-                                destination = '${pageContext.request.contextPath}/pages/client/dashboard.jsp';
-                                break;
-                            case 'partner':
-                                destination = '${pageContext.request.contextPath}/pages/partner/dashboard.jsp';
-                                break;
-                            case 'admin':
-                                destination = '${pageContext.request.contextPath}/pages/admin/dashboard.jsp';
-                                break;
-                            default:
-                                destination = '${pageContext.request.contextPath}/';
-                        }
-                    }
-                    
-                    // Debug logging
-                    console.log('Final destination:', destination);
-                    console.log('User type:', userType);
-                    
-                    // Perform redirect
-                    window.location.replace(destination);
-               } catch (error) {
-                   console.error('Redirect error:', error);
-                   // Try alternative redirect method
-                   setTimeout(() => {
-                       try {
-                           if (userType === 'client') {
-                               if (redirectUrl) {
-                                   const fallbackDestination = redirectUrl.startsWith('/') ? 
-                                       '${pageContext.request.contextPath}' + redirectUrl : redirectUrl;
-                                   window.location.href = fallbackDestination;
-                               } else {
-                                   window.location.href = '${pageContext.request.contextPath}/pages/client/dashboard.jsp';
-                               }
-                           } else {
-                               window.location.href = '${pageContext.request.contextPath}/';
-                           }
-                       } catch (fallbackError) {
-                           console.error('Fallback redirect error:', fallbackError);
-                           // Last resort: reload page
-                           window.location.reload();
-                       }
-                   }, 1000);
-               }
-            }, 800);
-        } else {
-            // Error state - show error message instead of changing button
-            submitBtn.classList.remove('loading-pulse');
-            buttonText.textContent = 'Se connecter';
-            icon.className = 'fas fa-sign-in-alt button-icon';
-            icon.style.display = 'inline';
-            icon.style.marginRight = '0.5rem';
-            icon.style.fontSize = '1rem';
-            icon.classList.remove('success-checkmark');
-            submitBtn.disabled = false;
-            submitBtn.style.display = 'flex';
-            submitBtn.style.alignItems = 'center';
-            submitBtn.style.justifyContent = 'center';
-            submitBtn.style.gap = '0.5rem';
-            submitBtn.style.background = 'linear-gradient(135deg, var(--primary-600), var(--primary-700))';
-            
-            // Show error message
-            const errorAlert = document.getElementById('loginError');
-            errorAlert.classList.remove('d-none');
-            
-            // Hide error message after 5 seconds
-            setTimeout(() => {
-                errorAlert.classList.add('d-none');
-            }, 5000);
-            
-            // Show error toast if available
-            if (typeof showToast === 'function') {
-                showToast('Email ou mot de passe incorrect', 'danger');
-            }
-        }
-    }, 1800); // Realistic network delay
-}
+// Login is now handled by the servlet backend
 
 // Auto-fill demo account
 function fillDemoAccount(type) {

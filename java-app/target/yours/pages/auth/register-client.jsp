@@ -1,6 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     request.setAttribute("pageTitle", "Inscription - YOURS");
+    
+    // Handle server-side messages
+    String error = (String) request.getAttribute("error");
+    String success = request.getParameter("success");
 %>
 
 <%@ include file="../../layouts/header.jsp" %>
@@ -40,8 +44,22 @@
                             </div>
                         </div>
 
+                        <!-- Error Message -->
+                        <div class="alert alert-danger d-none mb-3" id="errorAlert" role="alert" 
+                             style="border-radius: 0.875rem; border: none; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); color: #dc2626;">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <strong>Erreur d'inscription</strong> - <span id="errorMessage"></span>
+                        </div>
+
+                        <!-- Success Message -->
+                        <div class="alert alert-success d-none mb-3" id="successAlert" role="alert" 
+                             style="border-radius: 0.875rem; border: none; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); color: #059669;">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <strong>Inscription réussie !</strong> - Votre compte a été créé avec succès.
+                        </div>
+
                         <!-- Registration Form -->
-                        <form id="registerForm" class="needs-validation" novalidate>
+                        <form id="registerForm" class="needs-validation" action="${pageContext.request.contextPath}/register" method="POST">
                             <input type="hidden" id="accountType" name="accountType" value="client">
                             
                             <!-- Form Fields -->
@@ -100,7 +118,7 @@
                                             Mot de passe *
                                         </label>
                                         <div class="position-relative">
-                                            <input type="password" class="form-control" id="motDePasseClient" name="motDepasse" 
+                                            <input type="password" class="form-control" id="motDePasseClient" name="motDepasseClient" 
                                                    required minlength="8" placeholder="Minimum 8 caract&egrave;res" style="height: 2.75rem; font-size: 0.9rem; padding-right: 3rem;">
                                             <button type="button" class="btn position-absolute end-0 top-50 translate-middle-y me-1" 
                                                     onclick="togglePassword('motDePasseClient')" style="z-index: 5; border: none; background: none; color: var(--gray-500); padding: 0.5rem;">
@@ -514,8 +532,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const accountTypeInput = document.getElementById('accountType');
     const emailLabel = document.getElementById('emailLabel');
     
+    // Handle server-side messages
+    <% if (error != null) { %>
+        showError('<%= error %>');
+    <% } %>
+    
+    <% if (success != null) { %>
+        showSuccess();
+    <% } %>
+    
     // Update navbar links to redirect to homepage sections
     updateNavbarLinks();
+    
+    // Initialize form state - ensure client mode is properly set
+    initializeFormState();
     
     // Check URL parameter for mode and auto-select partner if needed
     const urlParams = new URLSearchParams(window.location.search);
@@ -543,18 +573,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 clientPasswordField.style.display = 'none';
                 clientConfirmPasswordField.style.display = 'none';
                 
-                // Make partner fields required
+                // Make partner fields required and clear validation
                 document.querySelectorAll('.partner-required').forEach(field => {
                     field.required = true;
+                    field.setCustomValidity('');
                 });
                 
-                // Make partner password fields required
-                document.getElementById('motDepasse').required = true;
-                document.getElementById('confirmPassword').required = true;
+                // Make partner password fields required and clear validation
+                const partnerPassword = document.getElementById('motDepasse');
+                const partnerConfirmPassword = document.getElementById('confirmPassword');
+                if (partnerPassword) {
+                    partnerPassword.required = true;
+                    partnerPassword.setCustomValidity('');
+                    partnerPassword.removeAttribute('disabled');
+                }
+                if (partnerConfirmPassword) {
+                    partnerConfirmPassword.required = true;
+                    partnerConfirmPassword.setCustomValidity('');
+                    partnerConfirmPassword.removeAttribute('disabled');
+                }
                 
-                // Make client password fields not required
-                document.getElementById('motDePasseClient').required = false;
-                document.getElementById('confirmPasswordClient').required = false;
+                // Make client password fields not required and clear validation
+                const clientPassword = document.getElementById('motDePasseClient');
+                const clientConfirmPassword = document.getElementById('confirmPasswordClient');
+                if (clientPassword) {
+                    clientPassword.required = false;
+                    clientPassword.setCustomValidity('');
+                }
+                if (clientConfirmPassword) {
+                    clientConfirmPassword.required = false;
+                    clientConfirmPassword.setCustomValidity('');
+                }
             } else {
                 // Hide partner fields
                 partnerFields.style.display = 'none';
@@ -566,14 +615,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 clientPasswordField.style.display = 'block';
                 clientConfirmPasswordField.style.display = 'block';
                 
-                // Make partner fields not required
+                // Make partner fields not required and clear validation
                 document.querySelectorAll('.partner-required').forEach(field => {
                     field.required = false;
+                    field.setCustomValidity('');
                 });
                 
-                // Make partner password fields not required
-                document.getElementById('motDepasse').required = false;
-                document.getElementById('confirmPassword').required = false;
+                // Make partner password fields not required and clear validation
+                const partnerPassword = document.getElementById('motDepasse');
+                const partnerConfirmPassword = document.getElementById('confirmPassword');
+                if (partnerPassword) {
+                    partnerPassword.required = false;
+                    partnerPassword.setCustomValidity('');
+                    partnerPassword.disabled = true;
+                }
+                if (partnerConfirmPassword) {
+                    partnerConfirmPassword.required = false;
+                    partnerConfirmPassword.setCustomValidity('');
+                    partnerConfirmPassword.disabled = true;
+                }
                 
                 // Make client password fields required
                 document.getElementById('motDePasseClient').required = true;
@@ -584,14 +644,19 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Setup form validation
     registerForm.addEventListener('submit', function(e) {
-        e.preventDefault();
+        // Show loading state immediately
+        const submitBtn = registerForm.querySelector('button[type="submit"]');
+        const buttonText = submitBtn.querySelector('.button-text');
+        const spinner = submitBtn.querySelector('.spinner-border');
+        const icon = submitBtn.querySelector('i.fas');
         
-        if (!registerForm.checkValidity() || !validatePasswords()) {
-            registerForm.classList.add('was-validated');
-            return;
-        }
+        submitBtn.disabled = true;
+        submitBtn.classList.add('loading-pulse');
+        buttonText.textContent = 'Création du compte...';
+        spinner.classList.remove('d-none');
+        icon.style.display = 'none';
         
-        handleRegistration();
+        // Let the form submit normally - server will handle validation
     });
     
     // Password strength indicator for partner
@@ -619,6 +684,78 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Show error message
+function showError(message) {
+    const errorAlert = document.getElementById('errorAlert');
+    const errorMessage = document.getElementById('errorMessage');
+    
+    errorMessage.textContent = message;
+    errorAlert.classList.remove('d-none');
+    
+    // Scroll to error message
+    errorAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Hide error message after 10 seconds
+    setTimeout(() => {
+        errorAlert.classList.add('d-none');
+    }, 10000);
+}
+
+// Show success message
+function showSuccess() {
+    const successAlert = document.getElementById('successAlert');
+    successAlert.classList.remove('d-none');
+    
+    // Scroll to success message
+    successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Redirect to login page after 3 seconds
+    setTimeout(() => {
+        window.location.href = '${pageContext.request.contextPath}/pages/auth/login.jsp?success=registered';
+    }, 3000);
+}
+
+// Initialize form state to ensure proper validation
+function initializeFormState() {
+    // Ensure client mode is selected by default
+    const clientRadio = document.getElementById('typeClient');
+    const accountTypeInput = document.getElementById('accountType');
+    
+    if (clientRadio && !clientRadio.checked) {
+        clientRadio.checked = true;
+        if (accountTypeInput) {
+            accountTypeInput.value = 'client';
+        }
+        clientRadio.dispatchEvent(new Event('change'));
+    }
+    
+    // Ensure account type is set
+    if (accountTypeInput && !accountTypeInput.value) {
+        accountTypeInput.value = 'client';
+    }
+    
+    
+    // Clear any existing validation states
+    const form = document.getElementById('registerForm');
+    if (form) {
+        form.classList.remove('was-validated');
+    }
+    
+    // Clear custom validity on all password fields and disable partner fields
+    const passwordFields = ['motDepasse', 'confirmPassword', 'motDePasseClient', 'confirmPasswordClient'];
+    passwordFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.setCustomValidity('');
+            // Disable partner fields by default
+            if (fieldId === 'motDepasse' || fieldId === 'confirmPassword') {
+                field.disabled = true;
+                field.required = false;
+            }
+        }
+    });
+}
 
 // Update navbar links to redirect to homepage sections
 function updateNavbarLinks() {
@@ -719,73 +856,39 @@ function validatePasswords() {
     const accountType = document.getElementById('accountType').value;
     
     if (accountType === 'partner') {
-        const password = document.getElementById('motDepasse').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        const confirmInput = document.getElementById('confirmPassword');
+        const password = document.getElementById('motDepasse');
+        const confirmPassword = document.getElementById('confirmPassword');
         
-        if (password !== confirmPassword) {
-            confirmInput.setCustomValidity('Les mots de passe ne correspondent pas');
+        if (!password || !confirmPassword) {
+            return true; // Skip validation if elements don't exist
+        }
+        
+        if (password.value !== confirmPassword.value) {
+            confirmPassword.setCustomValidity('Les mots de passe ne correspondent pas');
             return false;
         } else {
-            confirmInput.setCustomValidity('');
+            confirmPassword.setCustomValidity('');
             return true;
         }
     } else {
-        const password = document.getElementById('motDePasseClient').value;
-        const confirmPassword = document.getElementById('confirmPasswordClient').value;
-        const confirmInput = document.getElementById('confirmPasswordClient');
+        const password = document.getElementById('motDePasseClient');
+        const confirmPassword = document.getElementById('confirmPasswordClient');
         
-        if (password !== confirmPassword) {
-            confirmInput.setCustomValidity('Les mots de passe ne correspondent pas');
+        if (!password || !confirmPassword) {
+            return true; // Skip validation if elements don't exist
+        }
+        
+        if (password.value !== confirmPassword.value) {
+            confirmPassword.setCustomValidity('Les mots de passe ne correspondent pas');
             return false;
         } else {
-            confirmInput.setCustomValidity('');
+            confirmPassword.setCustomValidity('');
             return true;
         }
     }
 }
 
-// Enhanced registration handler
-function handleRegistration() {
-    const form = document.getElementById('registerForm');
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const buttonText = submitBtn.querySelector('.button-text');
-    const spinner = submitBtn.querySelector('.spinner-border');
-    const icon = submitBtn.querySelector('i.fas');
-    const accountType = document.getElementById('accountType').value;
-    
-    // Enhanced loading state
-    submitBtn.disabled = true;
-    submitBtn.classList.add('loading-pulse');
-    buttonText.textContent = 'Creation du compte...';
-    spinner.classList.remove('d-none');
-    icon.style.display = 'none';
-    
-    // Get form data
-    const formData = new FormData(form);
-    
-    // Simulate API call
-    setTimeout(() => {
-        // Success state
-        submitBtn.classList.remove('loading-pulse');
-        submitBtn.classList.add('btn-success');
-        buttonText.textContent = 'Compte cree !';
-        spinner.classList.add('d-none');
-        icon.className = 'fas fa-check';
-        icon.style.display = 'inline';
-        icon.classList.add('success-checkmark');
-        
-        // Show success toast if available
-        if (typeof showToast === 'function') {
-            showToast('Compte cree avec succes ! Redirection...', 'success');
-        }
-        
-        // Redirect to login page
-        setTimeout(() => {
-            window.location.href = '${pageContext.request.contextPath}/pages/auth/login.jsp';
-        }, 2000);
-    }, 2000);
-}
+// Registration is now handled by the servlet backend
 
 // Preview uploaded image
 function previewImage(input, previewId) {
