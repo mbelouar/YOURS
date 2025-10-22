@@ -140,36 +140,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Demo Accounts Info Card -->
-                <div class="card mt-3" style="border: 2px solid var(--gray-100); border-radius: 1rem; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px);">
-                    <div class="card-body text-center p-3">
-                        <div class="d-flex align-items-center justify-content-center mb-2">
-                            <div class="d-inline-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px; background: linear-gradient(135deg, var(--success-500), var(--success-600)); border-radius: 0.5rem;">
-                                <i class="fas fa-info-circle" style="color: white; font-size: 0.9rem;"></i>
-                            </div>
-                            <h6 class="fw-bold mb-0" style="color: var(--gray-800); font-size: 0.95rem;">
-                                Comptes de d&eacute;monstration
-                            </h6>
-                        </div>
-                        <div class="row g-2">
-                            <div class="col-md-6">
-                                <div class="p-2 rounded-3" style="background: var(--gray-50); border: 1px solid var(--gray-100);">
-                                    <small class="text-muted d-block fw-semibold mb-1" style="font-size: 0.8rem;">Client</small>
-                                    <code class="d-block" style="background: none; color: var(--primary-600); font-size: 0.8rem;">client@demo.com</code>
-                                    <code class="d-block" style="background: none; color: var(--primary-600); font-size: 0.8rem;">demo123</code>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="p-2 rounded-3" style="background: var(--gray-50); border: 1px solid var(--gray-100);">
-                                    <small class="text-muted d-block fw-semibold mb-1" style="font-size: 0.8rem;">Partenaire</small>
-                                    <code class="d-block" style="background: none; color: var(--primary-600); font-size: 0.8rem;">partner@demo.com</code>
-                                    <code class="d-block" style="background: none; color: var(--primary-600); font-size: 0.8rem;">demo123</code>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
