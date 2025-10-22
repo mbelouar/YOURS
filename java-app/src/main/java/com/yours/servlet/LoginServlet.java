@@ -68,12 +68,34 @@ public class LoginServlet extends HttpServlet {
 
                 // Create session
                 HttpSession session = request.getSession(true);
+
+                // Debug: Log what we're storing in session
+                logger.info("Storing client in session - Prenom: '" + client.getPrenom() + "', Nom: '" + client.getNom()
+                        + "', Mail: '" + client.getMail() + "'");
+
                 session.setAttribute("client", client);
                 session.setAttribute("clientId", client.getIdClient());
                 session.setAttribute("clientEmail", client.getMail());
                 session.setAttribute("clientName", client.getPrenom() + " " + client.getNom());
                 session.setAttribute("userType", "client");
                 session.setAttribute("isLoggedIn", true);
+
+                // Additional debug logging
+                logger.info("Session ID: " + session.getId());
+                logger.info("Session attributes set:");
+                logger.info("  client: " + (client != null ? "Client object" : "null"));
+                logger.info("  clientId: " + client.getIdClient());
+                logger.info("  clientEmail: " + client.getMail());
+                logger.info("  clientName: " + (client.getPrenom() + " " + client.getNom()));
+                logger.info("  userType: client");
+                logger.info("  isLoggedIn: true");
+
+                // Set session timeout to 30 minutes
+                session.setMaxInactiveInterval(30 * 60);
+
+                // Debug: Verify session attributes were set
+                logger.info("Session attributes set - clientName: '" + session.getAttribute("clientName")
+                        + "', clientEmail: '" + session.getAttribute("clientEmail") + "'");
 
                 // Set session timeout based on remember me
                 if (rememberMe != null && rememberMe.equals("on")) {

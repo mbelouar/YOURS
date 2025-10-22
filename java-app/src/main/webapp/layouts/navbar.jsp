@@ -593,6 +593,23 @@
     transition: all 0.2s ease;
 }
 
+/* User avatar large for dropdown header */
+.user-avatar-large {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-right: 0.75rem;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
 .navbar-client-dashboard .nav-link-client:hover .user-avatar {
     transform: scale(1.05);
     box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
@@ -606,6 +623,15 @@
     padding: 0.5rem !important;
     margin-top: 0.5rem !important;
     min-width: 300px !important;
+}
+
+/* Dropdown header styling */
+#clientDropdownMenu .dropdown-header {
+    padding: 1rem !important;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+    border-bottom: 1px solid #e5e7eb !important;
+    border-radius: 0.5rem 0.5rem 0 0 !important;
+    margin: -0.5rem -0.5rem 0.5rem -0.5rem !important;
 }
 
 /* Client dropdown header styling moved to CSS for consistency */
@@ -675,6 +701,15 @@
     padding: 0.5rem !important;
     margin-top: 0.5rem !important;
     min-width: 300px !important;
+}
+
+/* Partner dropdown header styling */
+#partnerDropdownMenu .dropdown-header {
+    padding: 1rem !important;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+    border-bottom: 1px solid #e5e7eb !important;
+    border-radius: 0.5rem 0.5rem 0 0 !important;
+    margin: -0.5rem -0.5rem 0.5rem -0.5rem !important;
 }
 
 #partnerDropdownMenu .dropdown-item {
@@ -922,14 +957,18 @@ function checkClientSession() {
                     if (partnerNav) partnerNav.style.display = 'none';
                     clientNav.style.display = 'block';
                     
-                    // Update user info in navbar
-                    const userName = document.getElementById('clientUserName');
-                    const userFullName = document.getElementById('clientUserFullName');
-                    const userEmail = document.getElementById('clientUserEmail');
+                    // DISABLED: Let JSP handle the display completely
+                    // const userName = document.getElementById('clientUserName');
+                    // const userFullName = document.getElementById('clientUserFullName');
+                    // const userEmail = document.getElementById('clientUserEmail');
                     
-                    if (userName) userName.textContent = userData.prenom || 'Client';
-                    if (userFullName) userFullName.textContent = `${userData.prenom || ''} ${userData.nom || ''}`.trim() || 'Client';
-                    if (userEmail) userEmail.textContent = userData.email || 'client@email.com';
+                    // Only update if userData has valid values (not just localStorage fallback)
+                    // if (userData && userData.prenom && userData.nom && userData.email) {
+                    //     if (userName) userName.textContent = userData.prenom || 'Client';
+                    //     if (userFullName) userFullName.textContent = `${userData.prenom || ''} ${userData.nom || ''}`.trim() || 'Client';
+                    //     if (userEmail) userEmail.textContent = userData.email || 'client@email.com';
+                    // }
+                    // If no valid userData, leave the JSP server-side values intact
                 }
             } else if (isPartnerUser && isPartnerPage) {
                 // Force show partner navigation
@@ -941,12 +980,18 @@ function checkClientSession() {
                     if (clientNav) clientNav.style.display = 'none';
                     partnerNav.style.display = 'block';
                     
-                    // Update user info in navbar
+                    // Update user info in navbar - only if we have valid userData
                     const userName = document.getElementById('partnerUserName');
-                    const dropdownName = document.getElementById('partnerDropdownName');
+                    const userFullName = document.getElementById('partnerUserFullName');
+                    const userEmail = document.getElementById('partnerUserEmail');
                     
-                    if (userName) userName.textContent = userData.prenom || 'Partenaire';
-                    if (dropdownName) dropdownName.textContent = `${userData.prenom || ''} ${userData.nom || ''}`.trim() || 'Partenaire';
+                    // Only update if userData has valid values (not just localStorage fallback)
+                    if (userData && userData.prenom && userData.nom && userData.email) {
+                        if (userName) userName.textContent = userData.prenom || 'Partenaire';
+                        if (userFullName) userFullName.textContent = `${userData.prenom || ''} ${userData.nom || ''}`.trim() || 'Partenaire';
+                        if (userEmail) userEmail.textContent = userData.email || 'partenaire@email.com';
+                    }
+                    // If no valid userData, leave the JSP server-side values intact
                 }
             }
         }
@@ -1534,7 +1579,13 @@ function openMaps() {
                                 <i class="bi bi-person-circle"></i>
                             </div>
                             <div class="user-info d-none d-lg-block">
-                                <div class="user-name" id="clientUserName">Client</div>
+                                <%
+                                    String navbarClientName = (String) session.getAttribute("clientName");
+                                    if (navbarClientName == null || navbarClientName.isEmpty()) {
+                                        navbarClientName = "Client";
+                                    }
+                                %>
+                                <div class="user-name" id="clientUserName"><%= navbarClientName %></div>
                                 <small class="user-role">Client</small>
                             </div>
                             <i class="bi bi-chevron-down ms-2"></i>
@@ -1546,8 +1597,18 @@ function openMaps() {
                                         <i class="bi bi-person-circle"></i>
                                     </div>
                                     <div>
-                                        <h6 class="mb-0" id="clientUserFullName">Client Name</h6>
-                                        <small class="text-muted" id="clientUserEmail">client@email.com</small>
+                                    <%
+                                        String clientName = (String) session.getAttribute("clientName");
+                                        String clientEmail = (String) session.getAttribute("clientEmail");
+                                        if (clientName == null || clientName.isEmpty()) {
+                                            clientName = "Client";
+                                        }
+                                        if (clientEmail == null || clientEmail.isEmpty()) {
+                                            clientEmail = "client@email.com";
+                                        }
+                                    %>
+                                    <h6 class="mb-0" id="clientUserFullName"><%= clientName %></h6>
+                                    <small class="text-muted" id="clientUserEmail"><%= clientEmail %></small>
                                     </div>
                                 </div>
                             </li>
@@ -1665,7 +1726,13 @@ function openMaps() {
                             <i class="bi bi-person-circle"></i>
                         </div>
                         <div class="user-info d-none d-lg-block">
-                            <div class="user-name" id="partnerUserName">Partenaire</div>
+                                <%
+                                    String navbarPartnerName = (String) session.getAttribute("partnerName");
+                                    if (navbarPartnerName == null || navbarPartnerName.isEmpty()) {
+                                        navbarPartnerName = "Partenaire";
+                                    }
+                                %>
+                                <div class="user-name" id="partnerUserName"><%= navbarPartnerName %></div>
                             <small class="user-role">Partenaire</small>
                         </div>
                         <i class="bi bi-chevron-down ms-2"></i>
@@ -1677,8 +1744,18 @@ function openMaps() {
                                     <i class="bi bi-person-circle"></i>
                                 </div>
                                 <div>
-                                    <h6 class="mb-0" id="partnerUserFullName">Partenaire Name</h6>
-                                    <small class="text-muted" id="partnerUserEmail">partenaire@email.com</small>
+                                    <%
+                                        String partnerName = (String) session.getAttribute("partnerName");
+                                        String partnerEmail = (String) session.getAttribute("partnerEmail");
+                                        if (partnerName == null || partnerName.isEmpty()) {
+                                            partnerName = "Partenaire";
+                                        }
+                                        if (partnerEmail == null || partnerEmail.isEmpty()) {
+                                            partnerEmail = "partenaire@email.com";
+                                        }
+                                    %>
+                                    <h6 class="mb-0" id="partnerUserFullName"><%= partnerName %></h6>
+                                    <small class="text-muted" id="partnerUserEmail"><%= partnerEmail %></small>
                                 </div>
                             </div>
                         </li>

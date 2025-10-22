@@ -57,6 +57,10 @@ public class RegisterServlet extends HttpServlet {
             String mail = request.getParameter("mail");
             String numTelephone = request.getParameter("numTelephone");
 
+            // Debug: Log received parameters
+            logger.info("Received parameters - AccountType: '" + accountType + "', Nom: '" + nom + "', Prenom: '"
+                    + prenom + "', Mail: '" + mail + "'");
+
             // Check if this is partner registration and get partner personal info fields
             if ("partner".equals(accountType)) {
                 String partnerNom = request.getParameter("partnerNom");
@@ -237,6 +241,10 @@ public class RegisterServlet extends HttpServlet {
         client.setMail(mail.trim().toLowerCase());
         client.setNumTelephone(numTelephone != null ? numTelephone.trim() : null);
         client.setMotDepasse(motDepasse); // Password will be hashed in DAO
+
+        // Debug: Log client data before saving
+        logger.info("Creating client with data - Prenom: '" + client.getPrenom() + "', Nom: '" + client.getNom()
+                + "', Mail: '" + client.getMail() + "'");
 
         // Save client to database
         Client createdClient = clientDAO.createClient(client);

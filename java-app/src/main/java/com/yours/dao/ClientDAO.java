@@ -80,6 +80,7 @@ public class ClientDAO {
                 client.setMail(rs.getString("mail"));
                 client.setNumTelephone(rs.getString("numTelephone"));
                 client.setMotDepasse(rs.getString("motDepasse")); // Hashed password from DB
+
                 return client;
             }
         } catch (SQLException ex) {
