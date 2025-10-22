@@ -1,8 +1,9 @@
 package com.yours.servlet;
 
 import com.yours.dao.ClientDAO;
+import com.yours.dao.PartnerDAO;
 import com.yours.model.Client;
-import com.yours.util.PasswordUtil;
+import com.yours.model.Partenaire;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -14,18 +15,20 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 /**
- * Servlet for handling client login
+ * Servlet for handling client and partner login
  * Processes login form submissions and authenticates users
  */
 public class LoginServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(LoginServlet.class.getName());
 
     private ClientDAO clientDAO;
+    private PartnerDAO partnerDAO;
 
     @Override
     public void init() throws ServletException {
         super.init();
         clientDAO = new ClientDAO();
+        partnerDAO = new PartnerDAO();
         logger.info("LoginServlet initialized");
     }
 
@@ -56,69 +59,88 @@ public class LoginServlet extends HttpServlet {
                 return;
             }
 
-            // Find client by email
-            Client client = clientDAO.getClientByEmail(email.trim().toLowerCase());
+            // Try to authenticate as client first
+            Client client = clientDAO.authenticate(email.trim().toLowerCase(), password);
 
-            if (client == null) {
-                logger.warning("Login attempt with non-existent email: " + email);
-                request.setAttribute("error", "Email ou mot de passe incorrect.");
-                request.getRequestDispatcher("/pages/auth/login.jsp").forward(request, response);
-                return;
-            }
+            if (client != null) {
+                // Client login successful
+                logger.info("Client logged in successfully: " + email + " (ID: " + client.getIdClient() + ")");
 
-            // Verify password
-            String[] passwordParts = client.getMotDepasse().split(":");
-            if (passwordParts.length != 2) {
-                logger.severe("Invalid password format for client ID: " + client.getIdClient());
-                request.setAttribute("error",
-                        "Erreur de configuration du compte. Veuillez contacter l'administrateur.");
-                request.getRequestDispatcher("/pages/auth/login.jsp").forward(request, response);
-                return;
-            }
+                // Create session
+                HttpSession session = request.getSession(true);
+                session.setAttribute("client", client);
+                session.setAttribute("clientId", client.getIdClient());
+                session.setAttribute("clientEmail", client.getMail());
+                session.setAttribute("clientName", client.getPrenom() + " " + client.getNom());
+                session.setAttribute("userType", "client");
+                session.setAttribute("isLoggedIn", true);
 
-            String storedHash = passwordParts[0];
-            String storedSalt = passwordParts[1];
-
-            boolean passwordValid = PasswordUtil.verifyPassword(password, storedHash, storedSalt);
-
-            if (!passwordValid) {
-                logger.warning("Invalid password attempt for email: " + email);
-                request.setAttribute("error", "Email ou mot de passe incorrect.");
-                request.getRequestDispatcher("/pages/auth/login.jsp").forward(request, response);
-                return;
-            }
-
-            // Login successful
-            logger.info("Client logged in successfully: " + email + " (ID: " + client.getIdClient() + ")");
-
-            // Create session
-            HttpSession session = request.getSession(true);
-            session.setAttribute("client", client);
-            session.setAttribute("clientId", client.getIdClient());
-            session.setAttribute("clientEmail", client.getMail());
-            session.setAttribute("clientName", client.getPrenom() + " " + client.getNom());
-            session.setAttribute("isLoggedIn", true);
-
-            // Set session timeout based on remember me
-            if (rememberMe != null && rememberMe.equals("on")) {
-                session.setMaxInactiveInterval(30 * 24 * 60 * 60); // 30 days
-                logger.info("Remember me enabled for client: " + email);
-            } else {
-                session.setMaxInactiveInterval(30 * 60); // 30 minutes
-            }
-
-            // Get redirect URL
-            String redirectUrl = request.getParameter("redirect");
-            if (redirectUrl != null && !redirectUrl.trim().isEmpty()) {
-                // Validate redirect URL to prevent open redirect attacks
-                if (isValidRedirectUrl(redirectUrl)) {
-                    response.sendRedirect(request.getContextPath() + redirectUrl);
-                    return;
+                // Set session timeout based on remember me
+                if (rememberMe != null && rememberMe.equals("on")) {
+                    session.setMaxInactiveInterval(30 * 24 * 60 * 60); // 30 days
+                    logger.info("Remember me enabled for client: " + email);
+                } else {
+                    session.setMaxInactiveInterval(30 * 60); // 30 minutes
                 }
+
+                // Get redirect URL
+                String redirectUrl = request.getParameter("redirect");
+                if (redirectUrl != null && !redirectUrl.trim().isEmpty()) {
+                    // Validate redirect URL to prevent open redirect attacks
+                    if (isValidRedirectUrl(redirectUrl)) {
+                        response.sendRedirect(request.getContextPath() + redirectUrl);
+                        return;
+                    }
+                }
+
+                // Default redirect to client dashboard
+                response.sendRedirect(request.getContextPath() + "/pages/client/dashboard.jsp");
+                return;
             }
 
-            // Default redirect to client dashboard
-            response.sendRedirect(request.getContextPath() + "/pages/client/dashboard.jsp");
+            // Try to authenticate as partner
+            Partenaire partner = partnerDAO.authenticate(email.trim().toLowerCase(), password);
+
+            if (partner != null) {
+                // Partner login successful
+                logger.info("Partner logged in successfully: " + email + " (ID: " + partner.getIdPartenaire() + ")");
+
+                // Create session
+                HttpSession session = request.getSession(true);
+                session.setAttribute("partner", partner);
+                session.setAttribute("partnerId", partner.getIdPartenaire());
+                session.setAttribute("partnerEmail", partner.getMail());
+                session.setAttribute("partnerName", partner.getPrenom() + " " + partner.getNom());
+                session.setAttribute("userType", "partner");
+                session.setAttribute("isLoggedIn", true);
+
+                // Set session timeout based on remember me
+                if (rememberMe != null && rememberMe.equals("on")) {
+                    session.setMaxInactiveInterval(30 * 24 * 60 * 60); // 30 days
+                    logger.info("Remember me enabled for partner: " + email);
+                } else {
+                    session.setMaxInactiveInterval(30 * 60); // 30 minutes
+                }
+
+                // Get redirect URL
+                String redirectUrl = request.getParameter("redirect");
+                if (redirectUrl != null && !redirectUrl.trim().isEmpty()) {
+                    // Validate redirect URL to prevent open redirect attacks
+                    if (isValidRedirectUrl(redirectUrl)) {
+                        response.sendRedirect(request.getContextPath() + redirectUrl);
+                        return;
+                    }
+                }
+
+                // Default redirect to partner dashboard
+                response.sendRedirect(request.getContextPath() + "/pages/partner/dashboard.jsp");
+                return;
+            }
+
+            // Neither client nor partner authentication succeeded
+            logger.warning("Login attempt with invalid credentials: " + email);
+            request.setAttribute("error", "Email ou mot de passe incorrect.");
+            request.getRequestDispatcher("/pages/auth/login.jsp").forward(request, response);
 
         } catch (Exception e) {
             logger.severe("Unexpected error during login: " + e.getMessage());
