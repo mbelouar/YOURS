@@ -1,25 +1,37 @@
 # YOURS - Intelligent Equipment Rental Management System
 # Makefile for easy project management
 
-.PHONY: help build start stop restart status logs clean reset test db-connect db-clear
+.PHONY: help build start stop restart status logs clean reset test db-connect db-clear dev dev-stop dev-logs dev-restart
 
 # Default target
 help:
 	@echo "YOURS - Equipment Rental Management System"
 	@echo ""
-	@echo "Available commands:"
-	@echo "  make start     - Start all services"
-	@echo "  make stop      - Stop all services"
-	@echo "  make restart   - Restart all services"
-	@echo "  make status    - Show service status"
-	@echo "  make logs      - Show service logs"
-	@echo "  make build     - Build and start services"
-	@echo "  make build-war - Build Java WAR file only"
-	@echo "  make clean     - Stop and remove containers"
-	@echo "  make reset     - Complete reset (removes volumes)"
-	@echo "  make test      - Test AI service endpoints"
-	@echo "  make db-connect - Connect to MySQL database"
-	@echo "  make db-clear  - Clear all database data"
+	@echo "🚀 DEVELOPMENT MODE (with hot-reload):"
+	@echo "  make dev          - Start in development mode (auto-reload changes)"
+	@echo "  make dev-stop     - Stop development mode"
+	@echo "  make dev-logs     - Show development logs"
+	@echo "  make dev-restart  - Restart development services"
+	@echo ""
+	@echo "📦 PRODUCTION MODE:"
+	@echo "  make start        - Start all services"
+	@echo "  make stop         - Stop all services"
+	@echo "  make restart      - Restart all services"
+	@echo "  make build        - Build and start services"
+	@echo "  make build-war    - Build Java WAR file only"
+	@echo ""
+	@echo "🔧 UTILITIES:"
+	@echo "  make status       - Show service status"
+	@echo "  make logs         - Show service logs"
+	@echo "  make clean        - Stop and remove containers"
+	@echo "  make reset        - Complete reset (removes volumes)"
+	@echo "  make test         - Test AI service endpoints"
+	@echo ""
+	@echo "🗄️  DATABASE:"
+	@echo "  make db-connect   - Connect to MySQL database"
+	@echo "  make db-clear     - Clear all database data"
+	@echo "  make db-status    - Show database statistics"
+	@echo "  make db-backup    - Backup database"
 	@echo ""
 
 # Start all services
@@ -127,14 +139,63 @@ setup:
 	@echo "Starting services..."
 	@$(MAKE) start
 
-# Development helpers
+# ==========================================
+# DEVELOPMENT MODE (Hot-Reload)
+# ==========================================
+
+# Start in development mode with hot-reload
+dev:
+	@echo "🚀 Starting YOURS in DEVELOPMENT MODE..."
+	@echo "📦 Building initial WAR file..."
+	@cd java-app && mvn clean package -DskipTests
+	@mkdir -p target
+	@cp java-app/target/yours.war target/yours.war
+	@echo "📂 Extracting WAR for hot-reload..."
+	@mkdir -p target/yours
+	@cd target/yours && jar -xf ../yours.war
+	@echo "🐳 Starting Docker services in development mode..."
+	@docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+	@echo ""
+	@echo "✅ Development mode started!"
+	@echo "📝 You can now edit files in java-app/src/main/webapp/"
+	@echo "   Changes to JSP, CSS, and JS files will be reflected immediately!"
+	@echo ""
+	@echo "🌐 Access points:"
+	@echo "   Main App: http://localhost:8080"
+	@echo "   Database: http://localhost:8081"
+	@echo "   AI Service: http://localhost:5000"
+	@echo ""
+	@echo "💡 For Java code changes, run: make dev-rebuild"
+
+# Stop development mode
+dev-stop:
+	@echo "🛑 Stopping development mode..."
+	@docker-compose -f docker-compose.yml -f docker-compose.dev.yml down
+	@echo "✅ Development mode stopped!"
+
+# Show development logs
 dev-logs:
 	@echo "📋 Showing development logs..."
-	docker-compose logs -f tomcat ai-service
+	@docker-compose -f docker-compose.yml -f docker-compose.dev.yml logs -f tomcat ai-service
 
+# Restart development services
 dev-restart:
 	@echo "🔄 Restarting development services..."
-	docker-compose restart tomcat ai-service
+	@docker-compose -f docker-compose.yml -f docker-compose.dev.yml restart tomcat ai-service
+	@echo "✅ Services restarted!"
+
+# Rebuild WAR and restart (for Java code changes)
+dev-rebuild:
+	@echo "🔨 Rebuilding WAR file for Java changes..."
+	@cd java-app && mvn clean package -DskipTests
+	@cp java-app/target/yours.war target/yours.war
+	@echo "📂 Extracting WAR..."
+	@rm -rf target/yours
+	@mkdir -p target/yours
+	@cd target/yours && jar -xf ../yours.war
+	@echo "🔄 Restarting Tomcat..."
+	@docker-compose -f docker-compose.yml -f docker-compose.dev.yml restart tomcat
+	@echo "✅ Rebuild complete!"
 
 # Production helpers
 prod-build:

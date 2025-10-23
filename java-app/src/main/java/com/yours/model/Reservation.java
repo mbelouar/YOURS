@@ -12,6 +12,10 @@ public class Reservation {
     private boolean reserve;
     private Integer idClient;
     private Integer idMateriel;
+    
+    // Ajout des objets Client et Materiel
+    private Client client;
+    private Materiel materiel;
 
     // Constructors
     public Reservation() {
@@ -82,6 +86,29 @@ public class Reservation {
 
     public void setIdMateriel(Integer idMateriel) {
         this.idMateriel = idMateriel;
+    }
+    
+    // Méthodes pour les objets Client et Materiel (versions complètes)
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+        if (client != null) {
+            this.idClient = client.getIdClient();
+        }
+    }
+
+    public Materiel getMateriel() {
+        return materiel;
+    }
+
+    public void setMateriel(Materiel materiel) {
+        this.materiel = materiel;
+        if (materiel != null) {
+            this.idMateriel = materiel.getIdMateriel();
+        }
     }
 
     @Override

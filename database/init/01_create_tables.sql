@@ -18,6 +18,11 @@ CREATE USER 'your_user'@'%' IDENTIFIED BY 'your_secure_password_here';
 GRANT ALL PRIVILEGES ON yours.* TO 'your_user'@'%';
 FLUSH PRIVILEGES;
 
+DROP USER IF EXISTS 'yours_user'@'%';
+CREATE USER 'yours_user'@'%' IDENTIFIED BY 'yours_pass';
+GRANT ALL PRIVILEGES ON yours.* TO 'yours_user'@'%';
+FLUSH PRIVILEGES;
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;

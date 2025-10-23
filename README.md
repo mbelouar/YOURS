@@ -25,21 +25,25 @@
    # Edit .env with your credentials
    ```
 
-2. **Build and Launch Services**
+2. **Choose Your Mode**
 
+   **🔥 Development Mode (RECOMMENDED for development):**
    ```bash
-   # Option 1: Build everything (recommended for first time)
-   make build
-
-   # Option 2: Manual build
-   make build-war
-   docker-compose up -d
+   make dev
    ```
+   ✅ Hot-reload: Changes to JSP/CSS/JS are instantly visible!
+   📝 See [DEVELOPMENT.md](DEVELOPMENT.md) for details
+
+   **📦 Production Mode:**
+   ```bash
+   make build
+   ```
+   ⚠️ Requires rebuild after each change
 
 3. **Access Services**
    - **Main App:** http://localhost:8080
    - **Database UI:** http://localhost:8081 (phpMyAdmin)
-   - **AI Service:** http://localhost:5001
+   - **AI Service:** http://localhost:5000
 
 ## 📋 Services
 
@@ -116,23 +120,49 @@ Body: {"equipment_id": 1}
 
 ## 🛠️ Management
 
-**Docker Commands:**
+### Development Workflow
 
 ```bash
-# Start all services
-docker-compose up -d
+# Start development mode (hot-reload enabled)
+make dev
 
-# Stop all services
-docker-compose down
+# Edit files in java-app/src/main/webapp/
+# Changes are instantly visible! Just refresh browser (Ctrl+F5)
 
-# View logs
-docker-compose logs -f
+# For Java code changes:
+make dev-rebuild
 
-# Restart specific service
-docker-compose restart <service-name>
+# Stop development
+make dev-stop
+```
 
-# Check status
-docker-compose ps
+**📝 See [DEVELOPMENT.md](DEVELOPMENT.md) for complete guide**
+
+### Docker Commands
+
+**Development Mode:**
+```bash
+make dev          # Start with hot-reload
+make dev-stop     # Stop development mode
+make dev-logs     # View logs
+make dev-restart  # Restart services
+make dev-rebuild  # Rebuild after Java changes
+```
+
+**Production Mode:**
+```bash
+make start        # Start services
+make stop         # Stop services
+make build        # Build and start
+make logs         # View logs
+make restart      # Restart all
+```
+
+**Utilities:**
+```bash
+make status       # Check service status
+make clean        # Remove containers
+make reset        # Complete reset
 ```
 
 **Services:** `mysql`, `tomcat`, `ai-service`, `phpmyadmin`
@@ -156,26 +186,60 @@ PHPMYADMIN_PORT=8081
 
 ## 🚨 Troubleshooting
 
-**Services won't start:**
+### Modifications not showing?
+
+**✅ SOLUTION: Use Development Mode**
+
+```bash
+make dev-stop
+make dev
+# Now changes are instantly visible!
+```
+
+See [DEVELOPMENT.md](DEVELOPMENT.md) for detailed explanation.
+
+### Services won't start:
 
 ```bash
 docker-compose logs
-docker-compose up --build -d
+make build
 ```
 
-**Database connection issues:**
+### Database connection issues:
 
 ```bash
 docker-compose ps mysql
 docker exec yours-mysql mysql -u yours_user -pyours_pass yours_db -e "SELECT 1;"
 ```
 
-**Complete reset:**
+### Cache issues:
 
 ```bash
-docker-compose down -v
-docker-compose up -d
+# Clear browser cache: Ctrl + Shift + Delete
+# Or force refresh: Ctrl + F5
 ```
+
+### Complete reset:
+
+```bash
+make reset
+# Or manual:
+docker-compose down -v
+make dev
+```
+
+## 📚 Documentation
+
+- **[DEVELOPMENT.md](DEVELOPMENT.md)** - Complete development guide
+- **[TEAM_ROLES.md](TEAM_ROLES.md)** - Team structure and roles
+
+## 💡 Quick Tips
+
+- 🔥 Use `make dev` for daily development (hot-reload)
+- 📦 Use `make build` only for production testing
+- 🔄 Press `Ctrl+F5` to force refresh browser
+- 📝 Check logs with `make dev-logs`
+- ❓ Run `make help` to see all commands
 
 ---
 
