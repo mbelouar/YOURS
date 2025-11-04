@@ -171,7 +171,8 @@
 
 <!-- Custom JavaScript -->
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
-<script src="${pageContext.request.contextPath}/js/mock-data.js"></script>
+<!-- Commentez ou supprimez cette ligne -->
+<!-- <script src="${pageContext.request.contextPath}/js/mock-data.js"></script> -->
 
 <!-- Notification System -->
 <script src="${pageContext.request.contextPath}/js/notification-system.js"></script>

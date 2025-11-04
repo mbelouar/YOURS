@@ -33,25 +33,24 @@ services:
     restart: unless-stopped
     ports:
       - "${TOMCAT_PORT:-8080}:8080"
-    volumes:
-      - ./target/yours.war:/usr/local/tomcat/webapps/ROOT.war:ro
-      - tomcat_logs:/usr/local/tomcat/logs
     environment:
       - MYSQL_HOST=mysql
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - AI_SERVICE_URL=http://ai-service:5000
+      - CATALINA_OPTS=-Xmx1024m -Xms512m -Djava.security.egd=file:/dev/./urandom
     depends_on:
       mysql:
         condition: service_healthy
     networks:
       - yours-network
     healthcheck:
-      test: ["CMD", "sh", "-c", "nc -z localhost 8080"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
       interval: 30s
       timeout: 10s
-      retries: 3
+      retries: 5
+      start_period: 60s
 
   # phpMyAdmin - MySQL Web Interface
   phpmyadmin:

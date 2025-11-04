@@ -1,11 +1,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
+<%@ page import="java.net.URLEncoder" %>
+<% 
     request.setAttribute("pageTitle", "Connexion - YOURS");
     
-    // Handle server-side messages
+    // Gérer les messages côté serveur
     String error = (String) request.getAttribute("error");
     String success = request.getParameter("success");
     String logout = request.getParameter("logout");
+    String redirectUrl = request.getParameter("redirect");
+    
+    // Si l'utilisateur est déjà connecté, le rediriger
+    if (session != null && session.getAttribute("client") != null) {
+        if (redirectUrl != null && !redirectUrl.isEmpty()) {
+            response.sendRedirect(request.getContextPath() + redirectUrl);
+        } else {
+            response.sendRedirect(request.getContextPath() + "/pages/client/dashboard.jsp");
+        }
+        return;
+    }
 %>
 
 <%@ include file="../../layouts/header.jsp" %>

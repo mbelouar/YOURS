@@ -1,18 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
-<%-- Calculate counts for each status --%>
-<c:set var="totalReservations" value="${fn:length(reservations)}" />
-<c:set var="enCoursCount" value="0" />
-<c:set var="aVenirCount" value="0" />
-<c:set var="termineesCount" value="0" />
-<c:forEach var="res" items="${reservations}">
-    <c:if test="${res.statut == 'EN_COURS'}"><c:set var="enCoursCount" value="${enCoursCount + 1}" /></c:if>
-    <c:if test="${res.statut == 'A_VENIR'}"><c:set var="aVenirCount" value="${aVenirCount + 1}" /></c:if>
-    <c:if test="${res.statut == 'TERMINEE'}"><c:set var="termineesCount" value="${termineesCount + 1}" /></c:if>
-</c:forEach>
 
 <% request.setAttribute("pageTitle", "Mes Réservations - YOURS"); %>
+
+<!-- Debug des variables (à désactiver en production) -->
+<c:if test="${param.debug == 'true'}">
+    <div class="debug-info" style="background: #f8f9fa; padding: 10px; margin-bottom: 20px; border: 1px solid #dee2e6; border-radius: 4px;">
+        <h5>Debug Information</h5>
+        <p>Total: ${totalReservations}</p>
+        <p>En cours: ${enCoursCount}</p>
+        <p>À venir: ${aVenirCount}</p>
+        <p>Terminées: ${termineesCount}</p>
+    </div>
+</c:if>
+
 
 <%@ include file="../../layouts/header.jsp" %>
 <%@ include file="../../layouts/navbar.jsp" %>
@@ -110,10 +112,16 @@
                                 <p class="text-muted">Vous n'avez pas encore de réservation. Commencez par en créer une !</p>
                             </div>
                         </c:if>
-                        <c:forEach var="reservation" items="${reservations}">
+                        <c:forEach var="reservation" items="${reservations}" varStatus="loop">
                             <div class="col-lg-6">
                                 <jsp:include page="_reservation-card.jsp">
-                                    <jsp:param name="reservationId" value="${reservation.id}"/>
+                                    <jsp:param name="reservation" value="${reservation}"/>
+                                    <jsp:param name="reservationId" value="${reservation.idReservation}"/>
+                                    <jsp:param name="dateDebut" value="${reservation.dateDebut}"/>
+                                    <jsp:param name="dateFin" value="${reservation.dateFin}"/>
+                                    <jsp:param name="montantTotal" value="${reservation.montantTotal}"/>
+                                    <jsp:param name="statut" value="${reservation.statut}"/>
+                                    <jsp:param name="materielNom" value="${reservation.materiel.nom}"/>
                                 </jsp:include>
                             </div>
                         </c:forEach>
@@ -133,7 +141,13 @@
                             <c:if test="${reservation.statut == 'EN_COURS'}">
                                 <div class="col-lg-6">
                                     <jsp:include page="_reservation-card.jsp">
-                                        <jsp:param name="reservationId" value="${reservation.id}"/>
+                                        <jsp:param name="reservation" value="${reservation}"/>
+                                        <jsp:param name="reservationId" value="${reservation.idReservation}"/>
+                                        <jsp:param name="dateDebut" value="${reservation.dateDebut}"/>
+                                        <jsp:param name="dateFin" value="${reservation.dateFin}"/>
+                                        <jsp:param name="montantTotal" value="${reservation.montantTotal}"/>
+                                        <jsp:param name="statut" value="${reservation.statut}"/>
+                                        <jsp:param name="materielNom" value="${reservation.materiel.nom}"/>
                                     </jsp:include>
                                 </div>
                             </c:if>
@@ -154,7 +168,13 @@
                             <c:if test="${reservation.statut == 'A_VENIR'}">
                                 <div class="col-lg-6">
                                     <jsp:include page="_reservation-card.jsp">
-                                        <jsp:param name="reservationId" value="${reservation.id}"/>
+                                        <jsp:param name="reservation" value="${reservation}"/>
+                                        <jsp:param name="reservationId" value="${reservation.idReservation}"/>
+                                        <jsp:param name="dateDebut" value="${reservation.dateDebut}"/>
+                                        <jsp:param name="dateFin" value="${reservation.dateFin}"/>
+                                        <jsp:param name="montantTotal" value="${reservation.montantTotal}"/>
+                                        <jsp:param name="statut" value="${reservation.statut}"/>
+                                        <jsp:param name="materielNom" value="${reservation.materiel.nom}"/>
                                     </jsp:include>
                                 </div>
                             </c:if>
@@ -175,7 +195,13 @@
                             <c:if test="${reservation.statut == 'TERMINEE'}">
                                 <div class="col-lg-6">
                                     <jsp:include page="_reservation-card.jsp">
-                                        <jsp:param name="reservationId" value="${reservation.id}"/>
+                                        <jsp:param name="reservation" value="${reservation}"/>
+                                        <jsp:param name="reservationId" value="${reservation.idReservation}"/>
+                                        <jsp:param name="dateDebut" value="${reservation.dateDebut}"/>
+                                        <jsp:param name="dateFin" value="${reservation.dateFin}"/>
+                                        <jsp:param name="montantTotal" value="${reservation.montantTotal}"/>
+                                        <jsp:param name="statut" value="${reservation.statut}"/>
+                                        <jsp:param name="materielNom" value="${reservation.materiel.nom}"/>
                                     </jsp:include>
                                 </div>
                             </c:if>

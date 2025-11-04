@@ -1542,9 +1542,10 @@ function openMaps() {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-client d-flex align-items-center" href="${pageContext.request.contextPath}/pages/client/reservations.jsp">
-                            <i class="bi bi-calendar-check me-2"></i>Réservations
-                        </a>
+                       <a class="nav-link nav-link-client d-flex align-items-center" href="${pageContext.request.contextPath}/reservations">
+                       <i class="bi bi-calendar-check me-2"></i>Réservations
+                       </a>
+
                     </li>
                 </ul>
 

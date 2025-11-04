@@ -650,69 +650,101 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function loadInvoices() {
-    // Simulate loading invoices
-    allInvoices = [
-        {
-            id: 'FAC-2025-001',
-            date: '2025-10-15',
-            reservation: '#R001 - Canon EOS R5',
-            amount: 1200,
-            status: 'paid',
-            reservationId: 1
+    // Afficher un indicateur de chargement
+    const loadingHtml = '<tr><td colspan="6" class="text-center py-5">' +
+        '<div class="spinner-border text-primary" role="status">' +
+        '<span class="visually-hidden">Chargement...</span>' +
+        '</div>' +
+        '<p class="mt-3">Chargement des factures...</p>' +
+        '</td></tr>';
+    
+    // Mettre à jour tous les tableaux avec l'indicateur de chargement
+    document.getElementById('allInvoicesTable').innerHTML = loadingHtml;
+    document.getElementById('paidInvoicesTable').innerHTML = loadingHtml;
+    document.getElementById('pendingInvoicesTable').innerHTML = loadingHtml;
+    
+    // Récupérer l'année sélectionnée
+    const year = document.getElementById('filterYear').value;
+    
+    // Construire l'URL avec le paramètre d'année si nécessaire
+    let url = '${pageContext.request.contextPath}/api/factures';
+    if (year && year !== 'all') {
+        url += '?annee=' + year;
+    }
+    
+    // Effectuer la requête AJAX pour récupérer les factures
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         },
-        {
-            id: 'FAC-2025-002',
-            date: '2025-10-10',
-            reservation: '#R002 - MacBook Pro 16"',
-            amount: 2250,
-            status: 'paid',
-            reservationId: 2
-        },
-        {
-            id: 'FAC-2025-003',
-            date: '2025-09-20',
-            reservation: '#R003 - Sony A7 III',
-            amount: 900,
-            status: 'pending',
-            reservationId: 3
-        },
-        {
-            id: 'FAC-2025-004',
-            date: '2025-08-15',
-            reservation: '#R004 - DJI Mavic 3',
-            amount: 650,
-            status: 'paid',
-            reservationId: 4
-        },
-        {
-            id: 'FAC-2025-005',
-            date: '2025-07-28',
-            reservation: '#R005 - Nikon Z9',
-            amount: 1500,
-            status: 'paid',
-            reservationId: 5
+        credentials: 'same-origin'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur lors du chargement des factures');
         }
-    ];
-    
-    // Update statistics
-    updateStats();
-    
-    // Display current section
-    showSection(currentSection);
+        return response.json();
+    })
+    .then(data => {
+        // Transformer les données reçues pour correspondre au format attendu
+        allInvoices = data.map(facture => ({
+            id: 'FAC-' + facture.idFacture,
+            date: facture.dateEmission,
+            reservation: '#R' + facture.idReservation + ' - ' + facture.nomMateriel,
+            amount: facture.montant,
+            status: facture.statut.toLowerCase(),
+            reservationId: facture.idReservation,
+            dateDebut: facture.dateDebut,
+            dateFin: facture.dateFin
+        }));
+        
+        // Mettre à jour les statistiques
+        updateStats();
+        
+        // Afficher la section courante
+        showSection(currentSection);
+    })
+    .catch(error => {
+        console.error('Erreur:', error);
+        // Afficher un message d'erreur
+        const errorHtml = '<tr><td colspan="6" class="text-center py-5 text-danger">' +
+            '<i class="bi bi-exclamation-triangle me-2"></i>' +
+            'Erreur lors du chargement des factures. Veuillez réessayer.' +
+            '</td></tr>';
+        
+        document.getElementById('allInvoicesTable').innerHTML = errorHtml;
+        document.getElementById('paidInvoicesTable').innerHTML = errorHtml;
+        document.getElementById('pendingInvoicesTable').innerHTML = errorHtml;
+        
+        // Afficher une notification d'erreur
+        YOURS.showToast('Erreur lors du chargement des factures', 'error');
+    });
 }
 
 function updateStats() {
+    // Calculer le total payé
     const totalPaid = allInvoices
-        .filter(inv => inv.status === 'paid')
+        .filter(inv => inv.status === 'payée')
         .reduce((sum, inv) => sum + inv.amount, 0);
     
+    // Mettre à jour l'interface utilisateur
     document.getElementById('totalPaid').textContent = YOURS.formatCurrency(totalPaid);
     document.getElementById('invoiceCount').textContent = allInvoices.length;
     
+    // Mettre à jour la date de la dernière facture
     if (allInvoices.length > 0) {
-        const lastDate = new Date(allInvoices[0].date);
-        const options = { month: 'short', day: 'numeric' };
+        // Trier les factures par date d'émission (du plus récent au plus ancien)
+        const sortedInvoices = [...allInvoices].sort((a, b) => 
+            new Date(b.date) - new Date(a.date)
+        );
+        
+        const lastDate = new Date(sortedInvoices[0].date);
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
         document.getElementById('lastInvoice').textContent = lastDate.toLocaleDateString('fr-FR', options);
+    } else {
+        document.getElementById('lastInvoice').textContent = '-';
     }
 }
 
@@ -762,12 +794,11 @@ function showSection(sectionId) {
 
 function displayInvoices(invoices, tableId, sectionId) {
     const table = document.getElementById(tableId);
-    const emptyState = document.getElementById('emptyState');
     
     if (invoices.length === 0) {
         table.innerHTML = '<tr><td colspan="6" class="text-center py-5">' +
             '<i class="bi bi-receipt text-muted" style="font-size: 3rem; opacity: 0.2;"></i>' +
-            '<p class="text-muted mt-3">Aucune facture dans cette catégorie</p>' +
+            '<p class="text-muted mt-3">Aucune facture trouvée</p>' +
             '</td></tr>';
         return;
     }
@@ -775,6 +806,23 @@ function displayInvoices(invoices, tableId, sectionId) {
     const includeStatus = sectionId === 'all-invoices';
     
     table.innerHTML = invoices.map(function(invoice) {
+        // Formater la date de la facture
+        const invoiceDate = new Date(invoice.date);
+        const formattedDate = invoiceDate.toLocaleDateString('fr-FR', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+        
+        // Formater la période de location si disponible
+        let periodInfo = '';
+        if (invoice.dateDebut && invoice.dateFin) {
+            const startDate = new Date(invoice.dateDebut).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' });
+            const endDate = new Date(invoice.dateFin).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' });
+            periodInfo = `<div class="small text-muted">${startDate} - ${endDate}</div>`;
+        }
+        
+        // Colonne de statut (uniquement pour la vue "Toutes les factures")
         var statusColumn = '';
         if (includeStatus) {
             statusColumn = '<td>' +
@@ -782,29 +830,34 @@ function displayInvoices(invoices, tableId, sectionId) {
                 '</td>';
         }
         
+        // Construire la ligne du tableau
         return '<tr>' +
             '<td class="fw-semibold px-4">' +
                 '<i class="bi bi-file-earmark-text me-2 text-primary"></i>' + invoice.id +
             '</td>' +
             '<td>' +
-                '<small class="text-muted">' +
-                    '<i class="bi bi-calendar3 me-1"></i>' + YOURS.formatDate(invoice.date) +
-                '</small>' +
+                '<div class="d-flex flex-column">' +
+                    '<span class="text-dark fw-medium">' + formattedDate + '</span>' +
+                    periodInfo +
+                '</div>' +
             '</td>' +
             '<td>' +
-                '<span class="text-dark">' + invoice.reservation + '</span>' +
+                '<div class="d-flex flex-column">' +
+                    '<span class="text-dark fw-medium">' + invoice.reservation + '</span>' +
+                    '<small class="text-muted">Réservation #' + invoice.reservationId + '</small>' +
+                '</div>' +
             '</td>' +
             '<td class="fw-bold" style="color: #10b981;">' + YOURS.formatCurrency(invoice.amount) + '</td>' +
             statusColumn +
             '<td class="text-end pe-4">' +
                 '<div class="btn-group btn-group-sm">' +
-                    '<button class="btn btn-outline-primary" onclick="viewInvoice(\'' + invoice.id + '\')" title="Voir">' +
+                    '<button class="btn btn-outline-primary" onclick="viewInvoice(' + invoice.id.split('-')[1] + ')" title="Voir">' +
                         '<i class="bi bi-eye"></i>' +
                     '</button>' +
-                    '<button class="btn btn-outline-success" onclick="downloadInvoice(\'' + invoice.id + '\')" title="Télécharger">' +
+                    '<button class="btn btn-outline-success" onclick="downloadInvoice(' + invoice.id.split('-')[1] + ')" title="Télécharger">' +
                         '<i class="bi bi-download"></i>' +
                     '</button>' +
-                    '<button class="btn btn-outline-secondary" onclick="printInvoice(\'' + invoice.id + '\')" title="Imprimer">' +
+                    '<button class="btn btn-outline-secondary" onclick="printInvoice(' + invoice.id.split('-')[1] + ')" title="Imprimer">' +
                         '<i class="bi bi-printer"></i>' +
                     '</button>' +
                 '</div>' +
@@ -815,36 +868,82 @@ function displayInvoices(invoices, tableId, sectionId) {
 
 function getStatusClass(status) {
     const classes = {
-        'paid': 'bg-success',
+        'payée': 'bg-success',
+        'payee': 'bg-success',
+        'en attente': 'bg-warning',
         'pending': 'bg-warning',
-        'cancelled': 'bg-danger'
+        'annulée': 'bg-danger',
+        'cancelled': 'bg-danger',
+        'refusée': 'bg-danger',
+        'refusee': 'bg-danger'
     };
-    return classes[status] || 'bg-secondary';
+    return classes[status.toLowerCase()] || 'bg-secondary';
 }
 
 function getStatusText(status) {
     const texts = {
-        'paid': 'Payée',
+        'payée': 'Payée',
+        'payee': 'Payée',
+        'en attente': 'En attente',
         'pending': 'En attente',
-        'cancelled': 'Annulée'
+        'annulée': 'Annulée',
+        'cancelled': 'Annulée',
+        'refusée': 'Refusée',
+        'refusee': 'Refusée'
     };
-    return texts[status] || status;
+    return texts[status.toLowerCase()] || status;
 }
 
 function viewInvoice(id) {
-    YOURS.showToast('Ouverture de la facture ' + id, 'info');
-    // Redirect to invoice detail page
-    // window.location.href = `${pageContext.request.contextPath}/pages/client/invoice-detail.jsp?id=${id}`;
+    // Afficher une notification
+    YOURS.showToast('Ouverture de la facture FAC-' + id, 'info');
+    
+    // Rediriger vers la page de détail de la facture
+    window.location.href = `${pageContext.request.contextPath}/pages/client/invoice-detail.jsp?id=${id}`;
 }
 
 function downloadInvoice(id) {
-    YOURS.showToast('Téléchargement de la facture ' + id + '...', 'success');
-    // Implement download logic
+    // Afficher une notification
+    YOURS.showToast('Téléchargement de la facture FAC-' + id + '...', 'info');
+    
+    // Créer un formulaire pour le téléchargement
+    const form = document.createElement('form');
+    form.method = 'GET';
+    form.action = `${pageContext.request.contextPath}/api/factures/telecharger`;
+    form.style.display = 'none';
+    
+    // Ajouter l'ID de la facture comme paramètre
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'id';
+    input.value = id;
+    form.appendChild(input);
+    
+    // Ajouter le formulaire à la page et le soumettre
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
 }
 
 function printInvoice(id) {
-    YOURS.showToast('Préparation de l\'impression...', 'info');
-    // Implement print logic
+    // Afficher une notification
+    YOURS.showToast('Préparation de l\'impression de la facture FAC-' + id + '...', 'info');
+    
+    // Ouvrir une nouvelle fenêtre avec la facture au format imprimable
+    const printWindow = window.open(
+        `${pageContext.request.contextPath}/pages/client/print-invoice.jsp?id=${id}`, 
+        '_blank',
+        'width=800,height=900,top=50,left=50,toolbar=0,location=0,menubar=0'
+    );
+    
+    // Délai pour s'assurer que la page est chargée avant d'imprimer
+    if (printWindow) {
+        printWindow.onload = function() {
+            setTimeout(function() {
+                printWindow.print();
+            }, 500);
+        };
+    }
 }
 
 function exportInvoices() {

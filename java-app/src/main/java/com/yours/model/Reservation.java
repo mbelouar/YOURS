@@ -16,6 +16,10 @@ public class Reservation {
     // Ajout des objets Client et Materiel
     private Client client;
     private Materiel materiel;
+    
+    // Nouveaux champs
+    private String statut; // EN_COURS, A_VENIR, TERMINEE
+    private double montantTotal;
 
     // Constructors
     public Reservation() {
@@ -109,6 +113,27 @@ public class Reservation {
         if (materiel != null) {
             this.idMateriel = materiel.getIdMateriel();
         }
+    }
+    
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+    
+    public double getMontantTotal() {
+        return montantTotal;
+    }
+
+    public void setMontantTotal(double montantTotal) {
+        this.montantTotal = montantTotal;
+    }
+    
+    // Alias pour la JSP
+    public int getId() {
+        return idReservation;
     }
 
     @Override

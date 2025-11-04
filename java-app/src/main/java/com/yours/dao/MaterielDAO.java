@@ -69,20 +69,29 @@ public class MaterielDAO {
     
     // Méthode pour récupérer les photos d'un matériel
     private List<Photo> getPhotosByMateriel(Connection connection, int idMateriel) {
+        System.out.println("Récupération des photos pour le matériel ID: " + idMateriel);
         List<Photo> photos = new ArrayList<>();
         
         try (PreparedStatement statement = connection.prepareStatement(SELECT_PHOTOS_BY_MATERIEL)) {
+            System.out.println("Requête SQL préparée: " + SELECT_PHOTOS_BY_MATERIEL);
             statement.setInt(1, idMateriel);
             ResultSet rs = statement.executeQuery();
             
+            int count = 0;
             while (rs.next()) {
-                Photo photo = new Photo();
-                photo.setIdPhoto(rs.getInt("idPhoto"));
-                photo.setDatePrise(rs.getDate("datePrise"));
-                photo.setType(rs.getString("type"));
-                photo.setUrlPhoto(rs.getString("urlPhoto"));
-                photo.setIdMateriel(rs.getInt("idMateriel"));
-                photos.add(photo);
+                count++;
+                try {
+                    Photo photo = new Photo();
+                    photo.setIdPhoto(rs.getInt("idPhoto"));
+                    photo.setDatePrise(rs.getDate("datePrise"));
+                    photo.setType(rs.getString("type"));
+                    photo.setUrlPhoto(rs.getString("urlPhoto"));
+                    photo.setIdMateriel(rs.getInt("idMateriel"));
+                    photos.add(photo);
+                    System.out.println("Photo trouvée: " + photo.getUrlPhoto());
+                } catch (SQLException e) {
+                    System.err.println("Erreur lors de la lecture d'une photo: " + e.getMessage());
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,16 +102,19 @@ public class MaterielDAO {
     
     // Méthode pour récupérer un matériel par ID
     public Materiel getMaterielById(int idMateriel) {
+        System.out.println("Début de getMaterielById pour l'ID: " + idMateriel);
         Materiel materiel = null;
         String query = SELECT_ALL_MATERIELS + " WHERE m.idMateriel = ?";
         
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            System.out.println("Connexion à la base de données établie");
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
             
             statement.setInt(1, idMateriel);
             ResultSet rs = statement.executeQuery();
             
             if (rs.next()) {
+                System.out.println("Matériel trouvé dans la base de données");
                 materiel = new Materiel();
                 materiel.setIdMateriel(rs.getInt("idMateriel"));
                 materiel.setNom(rs.getString("nom"));
@@ -124,7 +136,12 @@ public class MaterielDAO {
                 materiel.setPhotos(getPhotosByMateriel(connection, materiel.getIdMateriel()));
             }
             
-        } catch (SQLException e) {
+            } catch (SQLException e) {
+                System.err.println("Erreur SQL dans getMaterielById: " + e.getMessage());
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            System.err.println("Erreur inattendue dans getMaterielById: " + e.getMessage());
             e.printStackTrace();
         }
         
