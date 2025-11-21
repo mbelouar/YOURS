@@ -12,6 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.stream.Collectors;
 
 public class MaterielDAO {
     
@@ -28,11 +31,12 @@ public class MaterielDAO {
     
     public List<Materiel> getAllMateriels() {
         List<Materiel> materiels = new ArrayList<>();
-        
+        Map<Integer, Materiel> materielMap = new HashMap<>();
+
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_ALL_MATERIELS);
              ResultSet rs = statement.executeQuery()) {
-            
+
             while (rs.next()) {
                 Materiel m = new Materiel();
                 m.setIdMateriel(rs.getInt("idMateriel"));
@@ -41,34 +45,68 @@ public class MaterielDAO {
                 m.setPrix(rs.getFloat("prix"));
                 m.setIdCategorie(rs.getInt("idCategorie"));
                 m.setIdPartenaire(rs.getInt("idPartenaire"));
-                
-                // Categorie
-                Categorie c = new Categorie();
-                c.setIdCategorie(rs.getInt("idCategorie"));
-                c.setNomCategorie(rs.getString("nomCategorie"));
-                m.setCategorie(c);
-                
-                // Partenaire
-                Partenaire p = new Partenaire();
-                p.setIdPartenaire(rs.getInt("idPartenaire"));
-                p.setNom(rs.getString("nomPartenaire"));
-                m.setPartenaire(p);
-                
-                // Charger les photos pour ce matériel
-                m.setPhotos(getPhotosByMateriel(connection, m.getIdMateriel()));
+                m.setPhotos(new ArrayList<>()); // Initialiser la liste des photos
+
+                if (rs.getObject("idCategorie") != null) {
+                    Categorie c = new Categorie();
+                    c.setIdCategorie(rs.getInt("idCategorie"));
+                    c.setNomCategorie(rs.getString("nomCategorie"));
+                    m.setCategorie(c);
+                }
+
+                if (rs.getObject("idPartenaire") != null) {
+                    Partenaire p = new Partenaire();
+                    p.setIdPartenaire(rs.getInt("idPartenaire"));
+                    p.setNom(rs.getString("nomPartenaire"));
+                    m.setPartenaire(p);
+                }
                 
                 materiels.add(m);
+                materielMap.put(m.getIdMateriel(), m);
             }
-            
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return materiels; // En cas d'erreur, retourner ce qui a été trouvé
+        }
+
+        // Si aucun matériel n'est trouvé, inutile d'aller plus loin
+        if (materielMap.isEmpty()) {
+            return materiels;
+        }
+
+        // Étape 2: Récupérer toutes les photos pour les matériels trouvés en une seule requête
+        String ids = materielMap.keySet().stream()
+                                .map(String::valueOf)
+                                .collect(Collectors.joining(","));
+        String photoQuery = "SELECT * FROM photo WHERE idMateriel IN (" + ids + ") ORDER BY idMateriel, type DESC";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement photoStatement = connection.prepareStatement(photoQuery);
+             ResultSet photoRs = photoStatement.executeQuery()) {
+
+            while (photoRs.next()) {
+                int materielId = photoRs.getInt("idMateriel");
+                Materiel materiel = materielMap.get(materielId);
+                if (materiel != null) {
+                    Photo photo = new Photo();
+                    photo.setIdPhoto(photoRs.getInt("idPhoto"));
+                    photo.setDatePrise(photoRs.getDate("datePrise"));
+                    photo.setType(photoRs.getString("type"));
+                    photo.setUrlPhoto(photoRs.getString("urlPhoto"));
+                    photo.setIdMateriel(materielId);
+                    materiel.getPhotos().add(photo);
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return materiels;
     }
     
     // Méthode pour récupérer les photos d'un matériel
-    private List<Photo> getPhotosByMateriel(Connection connection, int idMateriel) {
+    private List<Photo> getPhotosByMateriel(int idMateriel, Connection connection) {
         System.out.println("Récupération des photos pour le matériel ID: " + idMateriel);
         List<Photo> photos = new ArrayList<>();
         
@@ -123,17 +161,21 @@ public class MaterielDAO {
                 materiel.setIdCategorie(rs.getInt("idCategorie"));
                 materiel.setIdPartenaire(rs.getInt("idPartenaire"));
                 
-                Categorie c = new Categorie();
-                c.setIdCategorie(rs.getInt("idCategorie"));
-                c.setNomCategorie(rs.getString("nomCategorie"));
-                materiel.setCategorie(c);
+                if (rs.getObject("idCategorie") != null) {
+                    Categorie c = new Categorie();
+                    c.setIdCategorie(rs.getInt("idCategorie"));
+                    c.setNomCategorie(rs.getString("nomCategorie"));
+                    materiel.setCategorie(c);
+                }
                 
-                Partenaire p = new Partenaire();
-                p.setIdPartenaire(rs.getInt("idPartenaire"));
-                p.setNom(rs.getString("nomPartenaire"));
-                materiel.setPartenaire(p);
+                if (rs.getObject("idPartenaire") != null) {
+                    Partenaire p = new Partenaire();
+                    p.setIdPartenaire(rs.getInt("idPartenaire"));
+                    p.setNom(rs.getString("nomPartenaire"));
+                    materiel.setPartenaire(p);
+                }
                 
-                materiel.setPhotos(getPhotosByMateriel(connection, materiel.getIdMateriel()));
+                materiel.setPhotos(getPhotosByMateriel(materiel.getIdMateriel(), connection));
             }
             
             } catch (SQLException e) {

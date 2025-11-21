@@ -84,14 +84,14 @@
     </servlet-mapping>
 
     <!-- Reservation Servlet -->
-    <servlet>
+   <!--  <servlet>
         <servlet-name>ReservationNewServlet</servlet-name>
         <servlet-class>com.yours.servlet.ReservationNewServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ReservationNewServlet</servlet-name>
         <url-pattern>/reservation/new</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping> -->
 
     <servlet>
     <servlet-name>ReservationListServlet</servlet-name>

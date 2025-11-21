@@ -200,112 +200,23 @@
                             <div class="text-center py-5">
                                 <i class="fas fa-box-open" style="font-size: 4rem; color: var(--gray-300);"></i>
                                 <h4 style="color: var(--gray-600); margin-top: 1rem;">Aucun équipement trouvé</h4>
-                                <p style="color: var(--gray-500);">Aucun matériel disponible pour le moment</p>
+                                <p>Aucun équipement disponible pour le moment.</p>
                             </div>
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <c:forEach var="materiel" items="${equipments}">
-                            <div class="col-lg-4 col-md-6 equipment-card" 
-                                 data-id="${materiel.idMateriel}"
-                                 data-name="${fn:toLowerCase(materiel.nom)}"
-                                 data-category="${fn:toLowerCase(materiel.categorie.nomCategorie)}"
-                                 data-price="${materiel.prix}"
-                                 data-available="${materiel.disponibilite}">
-                                <div class="card card-modern card-equipment h-100" style="border-radius: 1rem; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); transition: all 0.3s ease; border: 1px solid var(--gray-100);">
-                                    <div class="position-relative" style="height: 250px; overflow: hidden; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
-                                        <c:choose>
-                                            <c:when test="${not empty materiel.primaryPhotoUrl}">
-                                                <img src="${pageContext.request.contextPath}${materiel.primaryPhotoUrl}" 
-                                                     class="card-img-top" 
-                                                     alt="${materiel.nom}"
-                                                     style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;"
-                                                     onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/equipment/default.jpg';">
-                                            </c:when>
-                                            <c:when test="${not empty materiel.photos && fn:length(materiel.photos) > 0}">
-                                                <img src="${pageContext.request.contextPath}${materiel.photos[0].urlPhoto}" 
-                                                     class="card-img-top" 
-                                                     alt="${materiel.nom}"
-                                                     style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;"
-                                                     onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/equipment/default.jpg';">
-                                            </c:when>
-                                            <c:otherwise>
-                                                <div class="d-flex align-items-center justify-content-center h-100" style="background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);">
-                                                    <div class="text-center">
-                                                        <i class="fas fa-image" style="font-size: 3rem; color: rgba(37, 99, 235, 0.3);"></i>
-                                                        <p class="mt-2 mb-0" style="color: rgba(37, 99, 235, 0.5); font-size: 0.875rem; font-weight: 500;">Aucune photo</p>
-                                                    </div>
-                                                </div>
-                                            </c:otherwise>
-                                        </c:choose>
-                                        
-                                        <div class="availability-badge ${materiel.disponibilite ? 'bg-success' : 'bg-danger'}" style="position: absolute; top: 1rem; right: 1rem; padding: 0.375rem 0.875rem; border-radius: 0.5rem; font-size: 0.75rem; font-weight: 600; color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
-                                            <i class="fas ${materiel.disponibilite ? 'fa-check-circle' : 'fa-times-circle'} me-1"></i>
-                                            <c:choose>
-                                                <c:when test="${materiel.disponibilite}">Disponible</c:when>
-                                                <c:otherwise>Non disponible</c:otherwise>
-                                            </c:choose>
-                                        </div>
-                                        
-                                        <c:if test="${not empty materiel.photos && fn:length(materiel.photos) > 0}">
-                                            <div class="photo-count-badge" style="position: absolute; top: 1rem; left: 1rem; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); color: white; padding: 0.375rem 0.75rem; border-radius: 0.5rem; font-size: 0.75rem; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">
-                                                <i class="fas fa-images me-1"></i>
-                                                ${fn:length(materiel.photos)}
-                                            </div>
-                                        </c:if>
-                                        <div class="price-badge" style="position: absolute; bottom: 1rem; left: 1rem; background: rgba(30, 58, 138, 0.95); backdrop-filter: blur(10px); color: white; padding: 0.5rem 1rem; border-radius: 0.75rem; font-weight: 700; font-size: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-                                            <fmt:formatNumber value="${materiel.prix}" pattern="#,##0.00"/> MAD/jour
-                                        </div>
-                                    </div>
-                                    <div class="card-body" style="padding: 1.5rem;">
-                                        <div class="mb-2">
-                                            <span class="badge" style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(37, 99, 235, 0.2)); color: var(--primary-600); font-size: 0.75rem; padding: 0.375rem 0.75rem; border-radius: 0.5rem; font-weight: 600;">
-                                                <i class="fas fa-tag me-1"></i>
-                                                ${materiel.categorie.nomCategorie}
-                                            </span>
-                                            <c:if test="${not empty materiel.partenaire && not empty materiel.partenaire.nom}">
-                                                <span class="badge ms-2" style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(251, 191, 36, 0.2)); color: #d97706; font-size: 0.75rem; padding: 0.375rem 0.75rem; border-radius: 0.5rem; font-weight: 600;">
-                                                    <i class="fas fa-handshake me-1"></i>
-                                                    ${materiel.partenaire.nom}
-                                                </span>
-                                            </c:if>
-                                        </div>
-                                        <h5 class="card-title mb-3" style="font-weight: 700; color: var(--gray-900); font-size: 1.25rem; line-height: 1.3;">${materiel.nom}</h5>
-                                        
-                                        <div class="d-flex justify-content-between align-items-center mb-3" style="padding: 0.75rem; background: var(--gray-50); border-radius: 0.5rem;">
-                                            <div>
-                                                <small class="text-muted d-block" style="font-size: 0.75rem;">ID Mat&eacute;riel</small>
-                                                <span style="font-weight: 600; color: var(--gray-700);">#${materiel.idMateriel}</span>
-                                            </div>
-                                            <div class="text-end">
-                                                <small class="text-muted d-block" style="font-size: 0.75rem;">Prix</small>
-                                                <span style="font-weight: 700; color: var(--primary-600); font-size: 1.125rem;">
-                                                    <fmt:formatNumber value="${materiel.prix}" pattern="#,##0"/> MAD
-                                                </span>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="d-flex gap-2 align-items-stretch">
-                                            <a href="${pageContext.request.contextPath}/materiel/details?id=${materiel.idMateriel}" 
-                                               class="btn btn-primary btn-sm d-flex align-items-center justify-content-center" 
-                                               style="flex: 1; padding: 0.625rem 0.875rem; white-space: nowrap; border-radius: 0.5rem; font-weight: 600;">
-                                                <i class="fas fa-eye me-2"></i>D&eacute;tails
-                                            </a>
-                                            <c:if test="${materiel.disponibilite}">
-                                                <a href="${pageContext.request.contextPath}/reservation/new?idMateriel=${materiel.idMateriel}" 
-                                                   class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center" 
-                                                   style="flex: 1; padding: 0.625rem 0.875rem; white-space: nowrap; border-radius: 0.5rem; font-weight: 600;">
-                                                    <i class="fas fa-calendar-plus me-2"></i>R&eacute;server
-                                                </a>
-                                            </c:if>
-                                            <c:if test="${!materiel.disponibilite}">
-                                                <button class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center" 
-                                                        style="flex: 1; padding: 0.625rem 0.875rem; white-space: nowrap; border-radius: 0.5rem; font-weight: 600;" 
-                                                        disabled>
-                                                    <i class="fas fa-ban me-2"></i>Indisponible
-                                                </button>
-                                            </c:if>
-                                        </div>
+                        <c:forEach var="equipment" items="${equipments}">
+                            <div class="col-lg-4 col-md-6 equipment-card" data-name="${equipment.nom}" data-category="${equipment.categorie != null && equipment.categorie.nomCategorie != null 
+                                ? fn:toLowerCase(equipment.categorie.nomCategorie) 
+                                : 'inconnue'}"
+                             data-price="${equipment.prix}" data-availability="${equipment.disponibilite}">
+                                <div class="card h-100 shadow-sm border-0 rounded-lg">
+                                    <a href="${pageContext.request.contextPath}/pages/equipment/detail.jsp?id=${equipment.idMateriel}">
+                                        <img src="${pageContext.request.contextPath}/${equipment.primaryPhotoUrl}" class="card-img-top" alt="Photo de ${equipment.nom}" style="height: 200px; object-fit: cover;">
+                                    </a>
+                                    <div class="card-body">
+                                        <h5 class="card-title">${equipment.nom}</h5>
+                                        <p class="card-text">Catégorie: ${equipment.categorie.nomCategorie}</p>
                                     </div>
                                 </div>
                             </div>

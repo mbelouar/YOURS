@@ -196,7 +196,7 @@
                         </div>
                         
                         <div class="text-center">
-                            <a href="${pageContext.request.contextPath}/pages/client/reservations.jsp" 
+                            <a href="${pageContext.request.contextPath}/reservations"
                                class="btn btn-outline-primary">
                                 <i class="fas fa-calendar-check me-2"></i>Voir toutes les réservations
                             </a>

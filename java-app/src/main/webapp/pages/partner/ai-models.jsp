@@ -581,3 +581,48 @@ function configureRecommendationModel() {
 </style>
 
 <%@ include file="../../layouts/footer.jsp" %>
+
+<script>
+    document.getElementById('price-optimization-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+    
+        const equipmentType = document.getElementById('equipment-type').value;
+        const duration = document.getElementById('duration').value;
+        const resultDiv = document.getElementById('price-result');
+    
+        resultDiv.innerHTML = 'Calcul en cours...';
+    
+        const data = {
+            type_equipement: equipmentType,
+            duree_location_jours: parseInt(duration, 10)
+        };
+    
+        fetch('/yours/api/ai-model', { // Assurez-vous que le chemin correspond à la configuration de votre servlet
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur réseau ou du serveur');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.prix_predit) {
+                resultDiv.innerHTML = `<div class="alert alert-success"><strong>Prix Suggéré:</strong> ${data.prix_predit.toFixed(2)} €</div>`;
+            } else {
+                resultDiv.innerHTML = '<div class="alert alert-danger">Erreur lors de la récupération du prix.</div>';
+            }
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            resultDiv.innerHTML = `<div class="alert alert-danger"><strong>Erreur:</strong> ${error.message}</div>`;
+        });
+    });
+    </script>
+</body>
+
+</html>

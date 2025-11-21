@@ -2,11 +2,14 @@ package com.yours.servlet;
 
 import com.yours.dao.ReservationDAO;
 import com.yours.dao.MaterielDAO;
-import com.yours.model.Reservation;
+import com.yours.dao.FactureDAO; // Importer FactureDAO
 import com.yours.model.Client;
 import com.yours.model.Materiel;
+import com.yours.model.Reservation;
+import com.yours.model.Facture; // Importer Facture
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,89 +26,22 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ReservationNewServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
     private ReservationDAO reservationDAO;
     private MaterielDAO materielDAO;
-    
-    @Override
-    public void init() throws ServletException {
+    private FactureDAO factureDAO; // Ajouter factureDAO
+
+    public void init() {
         reservationDAO = new ReservationDAO();
         materielDAO = new MaterielDAO();
+        factureDAO = new FactureDAO(); // Initialiser factureDAO
     }
-    
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        String idMaterielParam = request.getParameter("idMateriel");
-        
-        if (idMaterielParam == null || idMaterielParam.trim().isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID du matériel requis");
-            return;
-        }
-        
-        try {
-            int idMateriel = Integer.parseInt(idMaterielParam);
-            
-            System.out.println("Tentative de récupération du matériel avec l'ID: " + idMateriel);
-            
-            // Récupérer les détails du matériel
-            Materiel materiel = materielDAO.getMaterielById(idMateriel);
-            
-            System.out.println("Matériel récupéré: " + (materiel != null ? materiel.getNom() : "null"));
-            
-            if (materiel == null) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Matériel non trouvé");
-                return;
-            }
-            
-            // Vérifier si l'utilisateur est connecté
-            HttpSession session = request.getSession(false);
-            if (session == null || session.getAttribute("client") == null) {
-                // Rediriger vers la page de connexion
-                response.sendRedirect(request.getContextPath() + "/login?redirect=" + 
-                    request.getRequestURI() + "?" + request.getQueryString());
-                return;
-            }
-            
-            request.setAttribute("materiel", materiel);
-            request.getRequestDispatcher("/pages/reservation/new.jsp")
-                   .forward(request, response);
-                   
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID du matériel invalide");
-        } catch (Exception e) {
-            String errorMsg = "Erreur lors du chargement du formulaire de réservation";
-            System.err.println(errorMsg + ": " + e.getMessage());
-            e.printStackTrace();
-            
-            // Stocker les informations d'erreur pour la vue
-            request.setAttribute("error", errorMsg);
-            request.setAttribute("errorDetails", e.toString() + "\n" + 
-                java.util.stream.Stream.of(e.getStackTrace())
-                    .limit(10)
-                    .map(StackTraceElement::toString)
-                    .collect(java.util.stream.Collectors.joining("\n"))
-            );
-            
-            // Essayer d'afficher la page d'erreur
-            try {
-                request.getRequestDispatcher("/error").forward(request, response);
-            } catch (Exception ex) {
-                // Si l'affichage de la page d'erreur échoue, renvoyer une erreur HTTP
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, errorMsg);
-            }
-        }
-    }
-    
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        // Définir le type de contenu de la réponse
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         
-        // Vérifier la session utilisateur
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("client") == null) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -113,23 +49,33 @@ public class ReservationNewServlet extends HttpServlet {
             return;
         }
         
-        
-        
         Client client = (Client) session.getAttribute("client");
         
         try {
-            // Récupérer les données du formulaire
-            int idMateriel = Integer.parseInt(request.getParameter("idMateriel"));
-            Date dateDebut = Date.valueOf(request.getParameter("dateDebut"));
-            Date dateFin = Date.valueOf(request.getParameter("dateFin"));
+            // Read JSON from request body
+            StringBuilder sb = new StringBuilder();
+            BufferedReader reader = request.getReader();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+            String jsonBody = sb.toString();
             
+            // Parse JSON
+            ObjectMapper mapper = new ObjectMapper();
+            Map<String, String> params = mapper.readValue(jsonBody, new TypeReference<Map<String, String>>() {});
+
+            int idMateriel = Integer.parseInt(params.get("idMateriel"));
+            Date dateDebut = Date.valueOf(params.get("dateDebut"));
+            Date dateFin = Date.valueOf(params.get("dateFin"));
+            double montantTotal = Double.parseDouble(params.get("montantTotal"));
+
             if (idMateriel == 0 || dateDebut == null || dateFin == null) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 response.getWriter().write("{\"success\": false, \"message\": \"Données de réservation incomplètes\"}");
                 return;
             }
             
-            // Récupérer le matériel
             Materiel materiel = materielDAO.getMaterielById(idMateriel);
             
             if (materiel == null) {
@@ -138,24 +84,12 @@ public class ReservationNewServlet extends HttpServlet {
                 return;
             }
             
-            // Vérifier la disponibilité du matériel
-            
             if (dateDebut.after(dateFin)) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 response.getWriter().write("{\"success\": false, \"message\": \"La date de fin doit être postérieure à la date de début\"}");
                 return;
             }
             
-            // Vérifier si le matériel est disponible pour la période demandée
-            // Note: Implémentez cette méthode dans ReservationDAO si nécessaire
-            // Pour l'instant, nous supposons que le matériel est disponible
-            // if (reservationDAO.estMaterielReserve(idMateriel, dateDebut, dateFin)) {
-            //     response.setStatus(HttpServletResponse.SC_CONFLICT);
-            //     response.getWriter().write("{\"success\": false, \"message\": \"Le matériel n'est pas disponible pour la période demandée\"}");
-            //     return;
-            // }
-            
-            // Créer la réservation
             Reservation reservation = new Reservation();
             reservation.setIdClient(client.getIdClient());
             reservation.setIdMateriel(idMateriel);
@@ -163,51 +97,43 @@ public class ReservationNewServlet extends HttpServlet {
             reservation.setDateFin(dateFin);
             reservation.setStatut("EN_ATTENTE");
             
-            // Définir le montant total s'il est fourni, sinon utiliser le prix du matériel
             String montantTotalParam = request.getParameter("montantTotal");
             if (montantTotalParam != null && !montantTotalParam.trim().isEmpty()) {
                 try {
-                    double montantTotal = Double.parseDouble(montantTotalParam);
-                    reservation.setMontantTotal(montantTotal);
+                    montantTotal = Double.parseDouble(montantTotalParam);
                 } catch (NumberFormatException e) {
-                    // En cas d'erreur de format, utiliser le prix du matériel
-                    reservation.setMontantTotal(materiel.getPrix());
+                    montantTotal = materiel.getPrix();
                 }
             } else {
-                // Calculer le montant total en fonction de la durée
                 long diffInMillies = Math.abs(dateFin.getTime() - dateDebut.getTime());
                 long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-                double montantTotal = materiel.getPrix() * (diffInDays + 1);
-                reservation.setMontantTotal(montantTotal);
+                montantTotal = materiel.getPrix() * (diffInDays + 1);
             }
+            reservation.setMontantTotal(montantTotal);
             
-            // Sauvegarder la réservation
-            try {
-                // Utiliser la méthode save existante de ReservationDAO
-                reservation.setReserve(true); // Marquer comme réservé
-                boolean success = reservationDAO.save(reservation);
+            reservation.setReserve(true);
+            if (reservationDAO.save(reservation)) {
+                Facture facture = new Facture();
+                facture.setIdReservation(reservation.getIdReservation());
+                facture.setMontant((float) montantTotal); // La variable est maintenant accessible
+                facture.setDateEmission(new java.sql.Date(new java.util.Date().getTime()));
+                facture.setStatut("en_attente");
                 
-               if (success) {
-    response.sendRedirect(request.getContextPath() + "/reservations");
-    return;
-
- } else {
-                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().write("{\"success\": false, \"message\": \"Erreur lors de la création de la réservation\"}");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+                factureDAO.creerFacture(facture);
+                
+                // Send success JSON response
+                response.setStatus(HttpServletResponse.SC_OK);
+                String redirectUrl = request.getContextPath() + "/reservations";
+                response.getWriter().write("{\"success\": true, \"redirectUrl\": \"" + redirectUrl + "\"}");
+            } else {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                response.getWriter().write(String.format(
-                    "{\"success\": false, \"message\": \"%s\"}", 
-                    e.getMessage().replace("\"", "\\\"")
-                ));
+                response.getWriter().write("{\"success\": false, \"message\": \"Erreur lors de la création de la réservation\"}");
             }
             
         } catch (Exception e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("{\"success\": false, \"message\": \"" + e.getMessage() + "\"}");
+            response.getWriter().write("{\"success\": false, \"message\": \"Une erreur inattendue est survenue.\"}");
         }
     }
 }

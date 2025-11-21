@@ -1851,7 +1851,7 @@ function openMaps() {
                             <li><a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/client/profile.jsp">
                                 <i class="fas fa-user me-2 text-primary"></i>Mon profil
                             </a></li>
-                            <li><a class="dropdown-item rounded" href="${pageContext.request.contextPath}/pages/client/reservations.jsp">
+                            <li><a class="dropdown-item rounded" href="${pageContext.request.contextPath}/reservations">
                                 <i class="fas fa-calendar-check me-2 text-primary"></i>Mes réservations
                             </a></li>
                             <li><hr class="dropdown-divider"></li>

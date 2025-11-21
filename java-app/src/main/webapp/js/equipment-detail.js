@@ -231,7 +231,7 @@ function updateBookingTotal() {
  */
 function handleBooking() {
     if (!currentEquipment) {
-        notificationSystem.error('Aucun équipement sélectionné');
+        alert('Aucun équipement sélectionné');
         return;
     }
     
@@ -239,66 +239,68 @@ function handleBooking() {
     const endDate = document.getElementById('endDate').value;
     
     if (!startDate || !endDate) {
-        notificationSystem.error('Veuillez sélectionner des dates de début et de fin.');
+        alert('Veuillez sélectionner des dates de début et de fin.');
         return;
     }
     
-    // Afficher un indicateur de chargement
     const submitBtn = document.querySelector('#quickBookingForm button[type="submit"]');
     const originalBtnText = submitBtn.innerHTML;
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Traitement...';
 
-    // Préparer les données de la réservation
+    // Nettoyer le montant pour ne garder que les chiffres
+    const montantText = document.getElementById('totalPrice').textContent;
+    const montantTotal = parseFloat(montantText.replace(/[^0-9.]/g, ''));
+
+    // Créer l'objet JSON
     const reservationData = {
-        idMateriel: currentEquipment.idMateriel,
+        idMateriel: parseInt(currentEquipment.idMateriel),
         dateDebut: startDate,
         dateFin: endDate,
-        statut: 'EN_ATTENTE',
-        montantTotal: document.getElementById('totalPrice').textContent.replace(/[^0-9.,]/g, '') // Nettoyer le montant
+        montantTotal: montantTotal.toString()
     };
-    
-    console.log('Envoi de la réservation :', reservationData);
-    
-    // Convertir l'objet en URLSearchParams pour le format x-www-form-urlencoded
-    const formData = new URLSearchParams();
-    for (const key in reservationData) {
-        formData.append(key, reservationData[key]);
-    }
-    
-    // Envoyer la réservation au serveur
-    fetch('/java-app/reservation/new', {
+
+    console.log('=== ENVOI RÉSERVATION ===');
+    console.log('Données:', reservationData);
+    console.log('JSON:', JSON.stringify(reservationData));
+
+    fetch(window.location.origin + '/reservations', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: formData
+        body: JSON.stringify(reservationData)
     })
     .then(response => {
-        if (!response.ok) {
-            return response.text().then(text => {
-                throw new Error(text || 'Erreur lors de la réservation');
-            });
-        }
-        return response.json();
+        console.log('Status HTTP:', response.status);
+        return response.text().then(text => {
+            console.log('Réponse brute:', text);
+            if (!response.ok) {
+                throw new Error(text);
+            }
+            try {
+                return JSON.parse(text);
+            } catch (e) {
+                throw new Error('Réponse invalide: ' + text);
+            }
+        });
     })
     .then(data => {
-        notificationSystem.success('Réservation effectuée avec succès !');
-        // Rediriger vers la page de confirmation après un court délai
-        setTimeout(() => {
-            window.location.href = `/java-app/pages/client/reservations`;
-        }, 1500);
+        console.log('Données parsées:', data);
+        if (data.success) {
+            alert('✅ Réservation effectuée avec succès!');
+            setTimeout(() => {
+                window.location.href = window.location.origin + '/reservations';
+            }, 1000);
+        } else {
+            alert('❌ ' + (data.message || 'Une erreur est survenue.'));
+        }
     })
     .catch(error => {
-        console.error('Erreur lors de la réservation:', error);
-        // Essayer d'extraire le message d'erreur si c'est du JSON
-        try {
-            const errorJson = JSON.parse(error.message);
-            notificationSystem.error(errorJson.message || 'Une erreur est survenue');
-        } catch (e) {
-            // Si ce n'est pas du JSON, afficher le message d'erreur brut
-            notificationSystem.error(error.message || 'Une erreur est survenue lors de la réservation');
-        }
+        console.error('=== ERREUR ===', error);
+        alert('❌ Erreur: ' + error.message);
+    })
+    .finally(() => {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnText;
     });

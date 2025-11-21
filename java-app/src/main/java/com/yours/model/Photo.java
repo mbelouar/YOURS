@@ -1,27 +1,16 @@
-// ============================================
-// 1. Classe Photo.java (Modèle)
-// ============================================
 package com.yours.model;
 
 import java.util.Date;
 
 public class Photo {
     private int idPhoto;
-    private Date datePrise;
-    private String type; // 'avantLocation' ou 'apresLocation'
     private String urlPhoto;
+    private Date datePrise;
+    private String type;
     private int idMateriel;
     
     // Constructeurs
     public Photo() {}
-    
-    public Photo(int idPhoto, Date datePrise, String type, String urlPhoto, int idMateriel) {
-        this.idPhoto = idPhoto;
-        this.datePrise = datePrise;
-        this.type = type;
-        this.urlPhoto = urlPhoto;
-        this.idMateriel = idMateriel;
-    }
     
     // Getters et Setters
     public int getIdPhoto() {
@@ -30,6 +19,14 @@ public class Photo {
     
     public void setIdPhoto(int idPhoto) {
         this.idPhoto = idPhoto;
+    }
+    
+    public String getUrlPhoto() {
+        return urlPhoto;
+    }
+    
+    public void setUrlPhoto(String urlPhoto) {
+        this.urlPhoto = urlPhoto;
     }
     
     public Date getDatePrise() {
@@ -46,14 +43,6 @@ public class Photo {
     
     public void setType(String type) {
         this.type = type;
-    }
-    
-    public String getUrlPhoto() {
-        return urlPhoto;
-    }
-    
-    public void setUrlPhoto(String urlPhoto) {
-        this.urlPhoto = urlPhoto;
     }
     
     public int getIdMateriel() {
