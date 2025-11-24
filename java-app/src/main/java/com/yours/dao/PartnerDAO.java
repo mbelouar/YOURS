@@ -123,6 +123,8 @@ public class PartnerDAO {
 
     /**
      * Authenticate partner with email and password.
+     * Supports both new format (hash:salt) and legacy plain text passwords.
+     * Automatically migrates legacy passwords to new format on successful login.
      *
      * @param email    Partner email
      * @param password Partner password
@@ -131,15 +133,33 @@ public class PartnerDAO {
     public Partenaire authenticate(String email, String password) {
         Partenaire partner = getPartnerByEmail(email);
 
-        if (partner != null) {
-            // Parse stored password (format: hash:salt)
-            String[] storedPasswordData = partner.getMotDepasse().split(":");
+        if (partner != null && partner.getMotDepasse() != null) {
+            String storedPassword = partner.getMotDepasse();
+            
+            // Try new format first (hash:salt)
+            String[] storedPasswordData = storedPassword.split(":");
             if (storedPasswordData.length == 2) {
+                // New format: hash:salt
                 String storedHash = storedPasswordData[0];
                 String storedSalt = storedPasswordData[1];
 
                 if (PasswordUtil.verifyPassword(password, storedHash, storedSalt)) {
                     logger.log(Level.INFO, "Partner authenticated successfully: {0}", email);
+                    return partner;
+                }
+            } else {
+                // Legacy format: plain text password
+                // Check if password matches directly
+                if (storedPassword.equals(password)) {
+                    logger.log(Level.INFO, "Partner authenticated with legacy password: {0}. Migrating to new format...", email);
+                    
+                    // Migrate password to new format
+                    if (updatePartnerPassword(partner.getIdPartenaire(), password)) {
+                        logger.log(Level.INFO, "Password migrated successfully for partner: {0}", email);
+                    } else {
+                        logger.log(Level.WARNING, "Failed to migrate password for partner: {0}", email);
+                    }
+                    
                     return partner;
                 }
             }
@@ -280,6 +300,7 @@ public class PartnerDAO {
 
     /**
      * Verifies if the provided password matches the partner's current password.
+     * Supports both new format (hash:salt) and legacy plain text passwords.
      *
      * @param partnerId The ID of the partner.
      * @param password The password to verify.
@@ -291,14 +312,18 @@ public class PartnerDAO {
             return false;
         }
 
-        // Parse stored password (format: hash:salt)
-        String[] storedPasswordData = partner.getMotDepasse().split(":");
+        String storedPassword = partner.getMotDepasse();
+        
+        // Try new format first (hash:salt)
+        String[] storedPasswordData = storedPassword.split(":");
         if (storedPasswordData.length == 2) {
+            // New format: hash:salt
             String storedHash = storedPasswordData[0];
             String storedSalt = storedPasswordData[1];
             return PasswordUtil.verifyPassword(password, storedHash, storedSalt);
+        } else {
+            // Legacy format: plain text password
+            return storedPassword.equals(password);
         }
-        
-        return false;
     }
 }

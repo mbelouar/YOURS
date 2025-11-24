@@ -13,14 +13,26 @@ SET time_zone = "+00:00";
 
 -- Create additional user for compatibility
 -- This ensures both 'yours_user' and 'your_user' exist for phpMyAdmin access
-DROP USER IF EXISTS 'your_user'@'%';
-CREATE USER 'your_user'@'%' IDENTIFIED BY 'imane2002';
-GRANT ALL PRIVILEGES ON yours_db.* TO 'your_user'@'%';
-FLUSH PRIVILEGES;
+-- Handle existing users gracefully by updating passwords and privileges
 
+-- Drop existing users if they exist (MySQL auto-creation may create them first)
+DROP USER IF EXISTS 'your_user'@'%';
 DROP USER IF EXISTS 'yours_user'@'%';
+DROP USER IF EXISTS 'yours_user'@'localhost';
+
+-- Create 'your_user'@'%' with proper permissions
+CREATE USER 'your_user'@'%' IDENTIFIED BY 'imane2002';
+GRANT ALL PRIVILEGES ON yours_db.* TO 'your_user'@'%' WITH GRANT OPTION;
+
+-- Create 'yours_user'@'%' (for Docker network access - phpMyAdmin, etc.)
 CREATE USER 'yours_user'@'%' IDENTIFIED BY 'imane2002';
-GRANT ALL PRIVILEGES ON yours_db.* TO 'yours_user'@'%';
+GRANT ALL PRIVILEGES ON yours_db.* TO 'yours_user'@'%' WITH GRANT OPTION;
+
+-- Also ensure 'yours_user' can connect from localhost (for internal connections)
+CREATE USER 'yours_user'@'localhost' IDENTIFIED BY 'imane2002';
+GRANT ALL PRIVILEGES ON yours_db.* TO 'yours_user'@'localhost' WITH GRANT OPTION;
+
+-- Refresh privileges to ensure all changes take effect
 FLUSH PRIVILEGES;
 
 

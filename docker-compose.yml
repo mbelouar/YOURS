@@ -1,0 +1,122 @@
+# Main docker-compose file - references docker/ folder for Dockerfiles
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: yours-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - yours-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Java JEE Application (Tomcat)
+  tomcat:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.java
+    container_name: yours-tomcat
+    restart: unless-stopped
+    ports:
+      - "${TOMCAT_PORT:-8080}:8080"
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - AI_SERVICE_URL=http://ai-service:5000
+      - CATALINA_OPTS=-Xmx1024m -Xms512m -Djava.security.egd=file:/dev/./urandom
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - yours-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  # phpMyAdmin - MySQL Web Interface
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: yours-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "${PHPMYADMIN_PORT:-8081}:80"
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+      # Allow manual login instead of auto-login to avoid credential issues
+      # Users can log in with: yours_user / imane2002 or root / [MYSQL_ROOT_PASSWORD]
+      - UPLOAD_LIMIT=64M
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - yours-network
+
+  # Python AI Service (Flask API)
+  ai-service:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.python
+    container_name: yours-ai-service
+    restart: unless-stopped
+    ports:
+      - "${AI_SERVICE_PORT:-5000}:5000"
+    volumes:
+      - ai_models:/app/models
+      - ai_data:/app/data
+      - ai_logs:/app/logs
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - FLASK_ENV=production
+      - PYTHONPATH=/app
+      - PORT=5000
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - yours-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+# Named volumes for data persistence
+volumes:
+  mysql_data:
+    driver: local
+  tomcat_logs:
+    driver: local
+  ai_models:
+    driver: local
+  ai_data:
+    driver: local
+  ai_logs:
+    driver: local
+
+# Custom network for service communication
+networks:
+  yours-network:
+    driver: bridge

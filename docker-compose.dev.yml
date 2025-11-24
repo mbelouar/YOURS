@@ -1,0 +1,43 @@
+# Development docker-compose override
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+version: '3.8'
+
+services:
+  tomcat:
+    volumes:
+      # Mount webapp directory directly for hot-reload
+      - ./java-app/src/main/webapp:/usr/local/tomcat/webapps/ROOT:rw
+      # Keep the WEB-INF from the built WAR
+      - ./target/yours/WEB-INF:/usr/local/tomcat/webapps/ROOT/WEB-INF:ro
+      - tomcat_logs:/usr/local/tomcat/logs
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - AI_SERVICE_URL=http://ai-service:5000
+      # Enable Tomcat development mode
+      - CATALINA_OPTS=-Xmx1024m -Xms512m -Dorg.apache.jasper.runtime.BodyContentImpl.LIMIT_BUFFER=false
+
+  ai-service:
+    volumes:
+      # Mount Python source code for hot-reload
+      - ./ai-service:/app:rw
+      - ai_models:/app/models
+      - ai_data:/app/data
+      - ai_logs:/app/logs
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+      - PYTHONPATH=/app
+      - PORT=5000
+
+volumes:
+  tomcat_logs:
+  ai_models:
+  ai_data:
+  ai_logs:
