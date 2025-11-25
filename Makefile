@@ -39,9 +39,9 @@ start:
 	@echo "🚀 Starting YOURS services..."
 	docker-compose up -d
 	@echo "✅ Services started! Access at:"
-	@echo "   🌐 Main App: http://localhost:8080"
+	@echo "   🌐 Main App: http://localhost:8083"
 	@echo "   📊 Database: http://localhost:8081"
-	@echo "   🤖 AI Service: http://localhost:5001"
+	@echo "   🤖 AI Service: http://localhost:5001/health"
 
 # Stop all services
 stop:
@@ -161,7 +161,7 @@ dev:
 	@echo "   Changes to JSP, CSS, and JS files will be reflected immediately!"
 	@echo ""
 	@echo "🌐 Access points:"
-	@echo "   Main App: http://localhost:8080"
+	@echo "   Main App: http://localhost:8083"
 	@echo "   Database: http://localhost:8081"
 	@echo "   AI Service: http://localhost:5000"
 	@echo ""

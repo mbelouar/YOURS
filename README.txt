@@ -7,7 +7,7 @@ PRÉREQUIS:
 ----------
 - Docker Desktop installé et EN COURS D'EXÉCUTION
 - Maven installé
-- Ports 8083, 8081, 3306 et 5001 disponibles
+- Ports 8080, 8081, 3306 et 5001 disponibles
 
 VÉRIFICATION RAPIDE:
 -------------------
@@ -42,7 +42,7 @@ ACCÈS AUX SERVICES:
 Une fois les services démarrés, accédez à :
 
 1. APPLICATION PRINCIPALE :
-   http://localhost:8083
+   http://localhost:8080
    (Ouvrez dans votre navigateur)
 
 2. phpMyAdmin (Gestion de la base de données) :
